@@ -5,8 +5,294 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YourMom"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Height="650" Width="1152" MinWidth="810" MinHeight="500" Loaded="Window_Loaded"
+        WindowStyle="None" WindowStartupLocation="CenterScreen">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+
+    <DockPanel LastChildFill="True" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
+
+        <!--Thanh tiêu đề-->
+        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="White">
+            <Button Name="BackButton" Width="46" BorderThickness="0" Padding="7" Background="Black" 
+                    Click="BackButton_Click" Visibility="Collapsed" DockPanel.Dock="Left">
+                <Image Source="Images/backButton.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+            </Button>
+            <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Left" Margin="10,0,0,0" 
+                       FontSize="15" VerticalAlignment="Center" Foreground="White">Food Recipe</TextBlock>
+            <Button x:Name="CloseButton" Width="47" Click="CloseButton_Click" BorderThickness="0" 
+                    DockPanel.Dock="Right">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Image Source="Images/close.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
+            </Button>
+
+            <Button x:Name="MaxButton" Width="47" Click="MaximizeButton_Click" BorderThickness="0" 
+                    DockPanel.Dock="Right">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#4CC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Image Source="Images/maximize.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
+            </Button>
+
+            <Button x:Name="MinButton" Width="47" Click="MinimizeButton_Click" BorderThickness="0"
+                    DockPanel.Dock="Right">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#4CC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Image Source="Images/minimize.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="11"></Image>
+            </Button>
+            <TextBlock></TextBlock>
+        </DockPanel>
+
+        <!--Menu Control-->
+        <StackPanel x:Name="ControlStackPanel" DockPanel.Dock="Left">
+
+            <!--Nút menu-->
+            <Button Width="100" Height="70" Name="MenuButton" Click="MenuButton_Click" BorderThickness="0" 
+                    Padding="0,1,1,1">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Left"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <StackPanel VerticalAlignment="Center">
+                    <Image Source="Images/menuImage.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <TextBlock Width="100" Height="0" FontSize="15"></TextBlock>
+                </StackPanel>
+            </Button>
+
+            <!--Nút các giao dịch-->
+            <Button Width="100" Height="70" Name="TransactionsButton" 
+                    Click="TransactionsButton_Click" 
+                    BorderThickness="0" Padding="0,1,1,1">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <StackPanel>
+                    <Image Source="Images/homeImage.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Transactions"></TextBlock>
+                </StackPanel>
+
+            </Button>
+            
+            <!--Nút báo cáo-->
+            <Button Width="100" Height="70" Name="ReportButton" 
+                    Click="ReportButton_Click" 
+                    BorderThickness="0" Padding="0,1,1,1">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <StackPanel>
+                    <Image Source="Images/homeImage.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Report"></TextBlock>
+                </StackPanel>
+
+            </Button>
+
+            <!--Nút ngân sách-->
+            <Button Width="100" Height="70" Name="BudgetButton" 
+                    Click="BudgetButton_Click" 
+                    BorderThickness="0" Padding="0,1,1,1">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <StackPanel>
+                    <Image Source="Images/homeImage.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Budget"></TextBlock>
+                </StackPanel>
+
+            </Button>
+            
+            <!--Nút sổ nợ-->
+            <Button Width="100" Height="70" Name="DebtsButton" 
+                    Click="DebtsButton_Click" 
+                    BorderThickness="0" Padding="0,1,1,1">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <StackPanel>
+                    <Image Source="Images/homeImage.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Debts"></TextBlock>
+                </StackPanel>
+
+            </Button>
+
+            <!--Nút cài đặt-->
+            <Button Width="100" Height="70" Name="SettingButton" 
+                    Click="SettingButton_Click" 
+                    BorderThickness="0" Padding="0,1,1,1">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <StackPanel>
+                    <Image Source="Images/setting.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Setting"></TextBlock>
+                </StackPanel>
+
+            </Button>
+        </StackPanel>
+
+        <!--Thanh để lọc loại thức ăn-->
+        <DockPanel Name="TypeBar" Height="40" Margin="15,0" DockPanel.Dock="Top" LastChildFill="True" Visibility="Visible">
+            <StackPanel Orientation="Horizontal" Width="590" DockPanel.Dock="Left">
+                
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right" Width="269">
+                
+            </StackPanel>
+            <TextBlock></TextBlock>
+        </DockPanel>
+    </DockPanel>
+
 </Window>
