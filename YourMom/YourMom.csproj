@@ -110,7 +110,6 @@
     <Resource Include="Images\minimize.png" />
     <Resource Include="Images\restoreDown.png" />
     <Resource Include="Images\saveImage.png" />
-    <Resource Include="Images\searchText.png" />
     <Resource Include="Images\splash_0.jpg" />
     <Resource Include="Images\splash_1.jpg" />
     <Resource Include="Images\splash_2.jpg" />
@@ -129,6 +128,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\debts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\wallet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\date.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

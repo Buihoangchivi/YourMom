@@ -294,15 +294,62 @@
         </StackPanel>
 
         <!--Thanh để lọc loại thức ăn-->
-        <DockPanel Name="TypeBar" Height="40" Margin="15,0" DockPanel.Dock="Top" LastChildFill="True" Visibility="Visible">
-            <StackPanel Orientation="Horizontal" Width="590" DockPanel.Dock="Left">
-                
+        <DockPanel Name="TypeBar" Height="80" DockPanel.Dock="Top" LastChildFill="True" Visibility="Visible">
+
+            <!--Icon ví tiền-->
+            <Image Source="Images/wallet.png" Margin="30,10,12,20" 
+                   RenderOptions.BitmapScalingMode="HighQuality" 
+                   DockPanel.Dock="Left"></Image>
+            
+            <!--Stack chứa số tiền hiện có trong ví-->
+            <StackPanel VerticalAlignment="Center">
+
+                <TextBlock Margin="0,-5,0,0" FontSize="14">Wallet</TextBlock>
+
+                <TextBlock FontWeight="Bold" FontSize="18">240,000</TextBlock>
+
             </StackPanel>
-            <StackPanel DockPanel.Dock="Right" Width="269">
+
+            <!--Nút thêm giao dịch mới-->
+            <Button Name="AddTransactionButton" Foreground="White" Height="33"
+                        Click="AddTransactionButton_Click" Margin="0,0,10,0"
+                        Background="ForestGreen" BorderThickness="0"
+                        DockPanel.Dock="Right">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="8"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </Button.Resources>
+                <TextBlock VerticalAlignment="Center" FontSize="15" 
+                           FontWeight="Medium" Margin="12,0"
+                           Text="ADD TRANSACTION"/>
+            </Button>
+
+            <!--Nút tìm kiếm giao dịch-->
+            <Button DockPanel.Dock="Right" Background="White"
+                    Width="50" Margin="0,0,30,0" BorderThickness="0">
+
+                <Image Source="Images/search.png" Margin="10"
+                       RenderOptions.BitmapScalingMode="HighQuality"></Image>
                 
-            </StackPanel>
+            </Button>
+            
+            <!--Nút hiển thị lịch-->
+            <Button DockPanel.Dock="Right" Background="White"
+                    Width="50" BorderThickness="0">
+
+                <Image Source="Images/date.png" Margin="10"
+                       RenderOptions.BitmapScalingMode="HighQuality"></Image>
+
+            </Button>
             <TextBlock></TextBlock>
+
         </DockPanel>
+
+        <Grid Background="#E4E4E4">
+            
+        </Grid>
     </DockPanel>
 
 </Window>

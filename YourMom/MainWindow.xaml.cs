@@ -134,5 +134,10 @@ namespace YourMom
 		{
 
 		}
+
+		private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }
