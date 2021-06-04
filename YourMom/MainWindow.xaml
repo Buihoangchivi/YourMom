@@ -15,18 +15,24 @@
     <DockPanel LastChildFill="True" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 
         <!--Thanh tiêu đề-->
-        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="White">
+        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="ForestGreen">
+            
+            <!--Nút quay lại-->
             <Button Name="BackButton" Width="46" BorderThickness="0" Padding="7" Background="Black" 
                     Click="BackButton_Click" Visibility="Collapsed" DockPanel.Dock="Left">
                 <Image Source="Images/backButton.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
             </Button>
+            
+            <!--Tên App-->
             <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Left" Margin="10,0,0,0" 
-                       FontSize="15" VerticalAlignment="Center" Foreground="White">Food Recipe</TextBlock>
-            <Button x:Name="CloseButton" Width="47" Click="CloseButton_Click" BorderThickness="0" 
-                    DockPanel.Dock="Right">
+                       FontSize="15" VerticalAlignment="Center" Foreground="White">Your Mom</TextBlock>
+            
+            <!--Nút đóng cửa sổ-->
+            <Button x:Name="CloseButton" Width="47" Click="CloseButton_Click" 
+                    BorderThickness="0" DockPanel.Dock="Right">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Background" Value="ForestGreen"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -46,11 +52,12 @@
                 <Image Source="Images/close.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
             </Button>
 
+            <!--Nút phóng to/ thu nhỏ cửa sổ-->
             <Button x:Name="MaxButton" Width="47" Click="MaximizeButton_Click" BorderThickness="0" 
                     DockPanel.Dock="Right">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Background" Value="ForestGreen"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -70,11 +77,12 @@
                 <Image Source="Images/maximize.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
             </Button>
 
+            <!--Nút ẩn cửa sổ-->
             <Button x:Name="MinButton" Width="47" Click="MinimizeButton_Click" BorderThickness="0"
                     DockPanel.Dock="Right">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Background" Value="ForestGreen"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -93,6 +101,8 @@
                 </Button.Style>
                 <Image Source="Images/minimize.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="11"></Image>
             </Button>
+            
+            <!--Khoảng trắng ở giữa-->
             <TextBlock></TextBlock>
         </DockPanel>
 
