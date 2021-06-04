@@ -100,7 +100,7 @@
         <StackPanel x:Name="ControlStackPanel" DockPanel.Dock="Left">
 
             <!--Nút menu-->
-            <Button Width="100" Height="70" Name="MenuButton" Click="MenuButton_Click" BorderThickness="0" 
+            <Button Width="100" Height="80" Name="MenuButton" Click="MenuButton_Click" BorderThickness="0" 
                     Padding="0,1,1,1">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -128,7 +128,7 @@
             </Button>
 
             <!--Nút các giao dịch-->
-            <Button Width="100" Height="70" Name="TransactionsButton" 
+            <Button Width="100" Height="80" Name="TransactionsButton" 
                     Click="TransactionsButton_Click" 
                     BorderThickness="0" Padding="0,1,1,1">
                 <Button.Style>
@@ -152,14 +152,14 @@
                 </Button.Style>
 
                 <StackPanel>
-                    <Image Source="Images/homeImage.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <Image Source="Images/transactions.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                     <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Transactions"></TextBlock>
                 </StackPanel>
 
             </Button>
             
             <!--Nút báo cáo-->
-            <Button Width="100" Height="70" Name="ReportButton" 
+            <Button Width="100" Height="80" Name="ReportButton" 
                     Click="ReportButton_Click" 
                     BorderThickness="0" Padding="0,1,1,1">
                 <Button.Style>
@@ -183,14 +183,14 @@
                 </Button.Style>
 
                 <StackPanel>
-                    <Image Source="Images/homeImage.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <Image Source="Images/report.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                     <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Report"></TextBlock>
                 </StackPanel>
 
             </Button>
 
             <!--Nút ngân sách-->
-            <Button Width="100" Height="70" Name="BudgetButton" 
+            <Button Width="100" Height="80" Name="BudgetButton" 
                     Click="BudgetButton_Click" 
                     BorderThickness="0" Padding="0,1,1,1">
                 <Button.Style>
@@ -214,14 +214,14 @@
                 </Button.Style>
 
                 <StackPanel>
-                    <Image Source="Images/homeImage.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <Image Source="Images/budget.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                     <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Budget"></TextBlock>
                 </StackPanel>
 
             </Button>
             
             <!--Nút sổ nợ-->
-            <Button Width="100" Height="70" Name="DebtsButton" 
+            <Button Width="100" Height="80" Name="DebtsButton" 
                     Click="DebtsButton_Click" 
                     BorderThickness="0" Padding="0,1,1,1">
                 <Button.Style>
@@ -245,14 +245,14 @@
                 </Button.Style>
 
                 <StackPanel>
-                    <Image Source="Images/homeImage.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <Image Source="Images/debts.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                     <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Debts"></TextBlock>
                 </StackPanel>
 
             </Button>
 
             <!--Nút cài đặt-->
-            <Button Width="100" Height="70" Name="SettingButton" 
+            <Button Width="100" Height="80" Name="SettingButton" 
                     Click="SettingButton_Click" 
                     BorderThickness="0" Padding="0,1,1,1">
                 <Button.Style>

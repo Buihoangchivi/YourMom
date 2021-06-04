@@ -108,25 +108,27 @@
     <Resource Include="Images\maximize.png" />
     <Resource Include="Images\menuImage.png" />
     <Resource Include="Images\minimize.png" />
-    <Resource Include="Images\playerImage01.jpg" />
-    <Resource Include="Images\playerImage02.jpg" />
-    <Resource Include="Images\playerImage03.jpg" />
-    <Resource Include="Images\playerImage04.jpg" />
-    <Resource Include="Images\playerImage05.jpg" />
-    <Resource Include="Images\playerImage06.jpg" />
-    <Resource Include="Images\playerImage07.jpg" />
-    <Resource Include="Images\playerImage08.jpg" />
-    <Resource Include="Images\playerImage09.jpg" />
-    <Resource Include="Images\playerImage10.jpg" />
     <Resource Include="Images\restoreDown.png" />
     <Resource Include="Images\saveImage.png" />
     <Resource Include="Images\searchText.png" />
-    <Resource Include="Images\setting.png" />
     <Resource Include="Images\splash_0.jpg" />
     <Resource Include="Images\splash_1.jpg" />
     <Resource Include="Images\splash_2.jpg" />
     <Resource Include="Images\splash_3.jpg" />
     <Resource Include="Images\unloved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\transactions.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\budget.png" />
+    <Resource Include="Images\report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\debts.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
