@@ -139,8 +139,7 @@
 
             <!--Nút các giao dịch-->
             <Button Width="100" Height="80" Name="TransactionsButton" 
-                    Click="TransactionsButton_Click" 
-                    BorderThickness="0" Padding="0,1,1,1">
+                    Click="TransactionsButton_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="White"/>
@@ -311,44 +310,104 @@
             </StackPanel>
 
             <!--Nút thêm giao dịch mới-->
-            <Button Name="AddTransactionButton" Foreground="White" Height="33"
-                        Click="AddTransactionButton_Click" Margin="0,0,10,0"
-                        Background="ForestGreen" BorderThickness="0"
-                        DockPanel.Dock="Right">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="8"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+            <Button BorderThickness="0" Height="33" Margin="0,0,10,0"
+                    DockPanel.Dock="Right" Foreground="White"
+                    Click="AddTransactionButton_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="ForestGreen"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="8" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
-                </Button.Resources>
+                </Button.Style>
+
                 <TextBlock VerticalAlignment="Center" FontSize="15" 
                            FontWeight="Medium" Margin="12,0"
                            Text="ADD TRANSACTION"/>
+
             </Button>
 
             <!--Nút tìm kiếm giao dịch-->
-            <Button DockPanel.Dock="Right" Background="White"
-                    Width="50" Margin="0,0,30,0" BorderThickness="0">
+            <Button Width="50" Height="50" DockPanel.Dock="Right"
+                    Click="TransactionsButton_Click" Margin="0,0,30,0">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
 
-                <Image Source="Images/search.png" Margin="10"
-                       RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                
+                <StackPanel>
+                    <Image Source="Images/search.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                </StackPanel>
+
+            </Button>
+
+            <!--Nút hiển thị lịch-->
+            <Button Width="50" Height="50" DockPanel.Dock="Right"
+                    Click="TransactionsButton_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <StackPanel>
+                    <Image Source="Images/date.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                </StackPanel>
+
             </Button>
             
-            <!--Nút hiển thị lịch-->
-            <Button DockPanel.Dock="Right" Background="White"
-                    Width="50" BorderThickness="0">
-
-                <Image Source="Images/date.png" Margin="10"
-                       RenderOptions.BitmapScalingMode="HighQuality"></Image>
-
-            </Button>
             <TextBlock></TextBlock>
 
         </DockPanel>
 
         <Grid Background="#E4E4E4">
-            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="67*"/>
+                <RowDefinition Height="462*"/>
+            </Grid.RowDefinitions>
+
         </Grid>
     </DockPanel>
 
