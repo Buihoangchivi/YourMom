@@ -16,17 +16,17 @@
 
         <!--Thanh tiêu đề-->
         <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="ForestGreen">
-            
+
             <!--Nút quay lại-->
             <Button Name="BackButton" Width="46" BorderThickness="0" Padding="7" Background="Black" 
                     Click="BackButton_Click" Visibility="Collapsed" DockPanel.Dock="Left">
                 <Image Source="Images/backButton.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
             </Button>
-            
+
             <!--Tên App-->
             <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Left" Margin="10,0,0,0" 
                        FontSize="15" VerticalAlignment="Center" Foreground="White">Your Mom</TextBlock>
-            
+
             <!--Nút đóng cửa sổ-->
             <Button x:Name="CloseButton" Width="47" Click="CloseButton_Click" 
                     BorderThickness="0" DockPanel.Dock="Right">
@@ -101,7 +101,7 @@
                 </Button.Style>
                 <Image Source="Images/minimize.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="11"></Image>
             </Button>
-            
+
             <!--Khoảng trắng ở giữa-->
             <TextBlock></TextBlock>
         </DockPanel>
@@ -166,7 +166,7 @@
                 </StackPanel>
 
             </Button>
-            
+
             <!--Nút báo cáo-->
             <Button Width="100" Height="80" Name="ReportButton" 
                     Click="ReportButton_Click" 
@@ -228,7 +228,7 @@
                 </StackPanel>
 
             </Button>
-            
+
             <!--Nút sổ nợ-->
             <Button Width="100" Height="80" Name="DebtsButton" 
                     Click="DebtsButton_Click" 
@@ -292,14 +292,14 @@
             </Button>
         </StackPanel>
 
-        <!--Thanh để lọc loại thức ăn-->
+        <!--Thanh công cụ-->
         <DockPanel Name="TypeBar" Height="80" DockPanel.Dock="Top" LastChildFill="True" Visibility="Visible">
 
             <!--Icon ví tiền-->
             <Image Source="Images/wallet.png" Margin="30,10,12,20" 
                    RenderOptions.BitmapScalingMode="HighQuality" 
                    DockPanel.Dock="Left"></Image>
-            
+
             <!--Stack chứa số tiền hiện có trong ví-->
             <StackPanel VerticalAlignment="Center">
 
@@ -397,18 +397,47 @@
                 </StackPanel>
 
             </Button>
-            
+
             <TextBlock></TextBlock>
 
         </DockPanel>
 
+        <!--Báo cáo chi tiêu-->
         <Grid Background="#E4E4E4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="67*"/>
-                <RowDefinition Height="462*"/>
-            </Grid.RowDefinitions>
+
+            <Grid Margin="0,10,13,10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Khung hiển thị báo cáo chung-->
+                <Grid Name="GeneralReportGrid" Width="600" HorizontalAlignment="Center">
+                    
+                    <Border Background="White" CornerRadius="8">
+                        
+                        
+                        
+                    </Border>
+                    
+                </Grid>
+
+                <!--Khung hiển thị báo cáo chi tiết-->
+                <Grid Name="DetailReportGrid" Grid.Column="1" Width="600" Visibility="Collapsed">
+
+                    <Border Background="White" CornerRadius="8">
+
+                        <Button Width="50" Height="20" Click="Button_Click">Close</Button>
+
+                    </Border>
+
+                </Grid>
+
+            </Grid>
 
         </Grid>
+
     </DockPanel>
 
 </Window>

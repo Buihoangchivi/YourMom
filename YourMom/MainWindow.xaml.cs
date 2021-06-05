@@ -139,5 +139,26 @@ namespace YourMom
 		{
 
 		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+
+			//Ẩn báo cáo chi tiết
+			DetailReportGrid.Visibility = Visibility.Collapsed;
+			//Phóng to báo cáo chung
+			if (WindowState == WindowState.Normal) //Cửa sổ ở trạng thái bình thường
+			{
+
+				GeneralReportGrid.Width = 600;
+
+			}
+			else //Cửa sổ ở trạng thái thu nhỏ
+			{
+
+				GeneralReportGrid.Width = 800;
+
+			}
+
+		}
 	}
 }
