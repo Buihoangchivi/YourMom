@@ -94,5 +94,49 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\addImage.png" />
+    <Resource Include="Images\backButton.png" />
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\deleteRecipe.png" />
+    <Resource Include="Images\deleteText.png" />
+    <Resource Include="Images\editImage.png" />
+    <Resource Include="Images\favorite.png" />
+    <Resource Include="Images\favoriteImage.png" />
+    <Resource Include="Images\homeImage.png" />
+    <Resource Include="Images\ingredientImage.png" />
+    <Resource Include="Images\maximize.png" />
+    <Resource Include="Images\menuImage.png" />
+    <Resource Include="Images\minimize.png" />
+    <Resource Include="Images\restoreDown.png" />
+    <Resource Include="Images\saveImage.png" />
+    <Resource Include="Images\splash_0.jpg" />
+    <Resource Include="Images\splash_1.jpg" />
+    <Resource Include="Images\splash_2.jpg" />
+    <Resource Include="Images\splash_3.jpg" />
+    <Resource Include="Images\unloved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\transactions.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\budget.png" />
+    <Resource Include="Images\report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\debts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\wallet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\date.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
