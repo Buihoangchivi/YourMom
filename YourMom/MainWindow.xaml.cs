@@ -137,7 +137,8 @@ namespace YourMom
 
 		private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			AddTransaction add = new AddTransaction();
+			add.Show();
 		}
 	}
 }
