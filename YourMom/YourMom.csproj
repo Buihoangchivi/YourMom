@@ -145,5 +145,8 @@
   <ItemGroup>
     <Resource Include="Images\date.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_forward.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

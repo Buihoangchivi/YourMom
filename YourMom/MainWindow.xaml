@@ -415,9 +415,9 @@
                 <!--Khung hiển thị báo cáo chung-->
                 <ScrollViewer>
 
-                    <Grid Name="GeneralReportGrid" Width="600" Height="800" HorizontalAlignment="Center">
+                    <Grid Name="GeneralReportGrid" Width="600" HorizontalAlignment="Center">
 
-                        <Border Background="White" CornerRadius="8">
+                        <Border Background="White" CornerRadius="10">
 
                             <Grid>
 
@@ -431,19 +431,14 @@
                                 <Grid.RowDefinitions>
 
                                     <RowDefinition Height="80"/>
-                                    <RowDefinition Height="40*"/>
-                                    <RowDefinition Height="20"/>
-                                    <RowDefinition Height="80"/>
-                                    <RowDefinition Height="40*"/>
-                                    <RowDefinition Height="20"/>
-                                    <RowDefinition Height="10*"/>
-                                    <RowDefinition Height="10*"/>
+                                    <RowDefinition Height="7*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="1.5*"/>
 
                                 </Grid.RowDefinitions>
 
                                 <!--Khung hiển thị biểu đồ hình bánh về thu nhập-->
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
-                                            Grid.ColumnSpan="2">
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
                                     <TextBlock Margin="0,0,0,0" FontSize="16"
                                                HorizontalAlignment="Center" Foreground="#FF757575">Income</TextBlock>
@@ -452,19 +447,14 @@
 
                                 </StackPanel>
 
-                                <lvc:PieChart Grid.Row="1" LegendLocation="None" 
-                                              Name="IncomeReportChart" Grid.ColumnSpan="2"
-                                              IsVisibleChanged="IncomeReportChart_IsVisibleChanged" 
-                                              Hoverable="True">
+                                <lvc:PieChart Grid.Row="1" LegendLocation="None" Width="220"
+                                              Name="IncomeReportChart" Hoverable="True"
+                                              IsVisibleChanged="IncomeReportChart_IsVisibleChanged">
                                 </lvc:PieChart>
-
-                                <!--Đường viền ngăn cách-->
-                                <Border Grid.Row="2" Grid.ColumnSpan="2"
-                                        BorderThickness="0,0,0,0.3" BorderBrush="#FF757575"/>
 
                                 <!--Khung hiển thị biểu đồ hình bánh về chi tiêu-->
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
-                                            Grid.ColumnSpan="2" Grid.Row="3">
+                                            Grid.Column="1">
 
                                     <TextBlock Margin="0,0,0,0" FontSize="16"
                                                HorizontalAlignment="Center" Foreground="#FF757575">Expense</TextBlock>
@@ -473,15 +463,120 @@
 
                                 </StackPanel>
 
-                                <lvc:PieChart Grid.Row="4" LegendLocation="None" 
-                                              Name="ExpenseReportChart" Grid.ColumnSpan="2"
-                                              IsVisibleChanged="ExpenseReportChart_IsVisibleChanged" 
-                                              Hoverable="True">
+                                <lvc:PieChart Grid.Row="1" Grid.Column="1" LegendLocation="None" 
+                                              Name="ExpenseReportChart" Hoverable="True" Width="220"
+                                              IsVisibleChanged="ExpenseReportChart_IsVisibleChanged">
                                 </lvc:PieChart>
 
                                 <!--Đường viền ngăn cách-->
-                                <Border Grid.Row="5" Grid.ColumnSpan="2"
-                                        BorderThickness="0,0,0,0.3" BorderBrush="#FF757575"/>
+                                <Border Grid.Row="2" Grid.ColumnSpan="2"
+                                        BorderThickness="0,0.3,0,0" 
+                                        BorderBrush="#FF757575">
+                                    
+                                    <!--Nút xem chi tiết nợ-->
+                                    <Button Grid.Row="2">
+
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#EFF9F1"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+
+                                        <DockPanel Width="600" LastChildFill="True">
+
+                                            <TextBlock DockPanel.Dock="Left" Text="Debt"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="17" Margin="50,0,0,0"></TextBlock>
+                                            <Image Source="Images/arrow_forward.png" Width="18"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   DockPanel.Dock="Right" Margin="0,0,50,0"></Image>
+                                            <StackPanel DockPanel.Dock="Right" Margin="0,0,15,0">
+
+                                                <TextBlock FontSize="18" HorizontalAlignment="Right"
+                                                           Foreground="#039BE5" Text="105,000"/>
+
+                                                <TextBlock FontSize="18" 
+                                                           Foreground="#FF757575" Text="70,000 left"/>
+
+                                            </StackPanel>
+
+                                            <TextBlock/>
+
+                                        </DockPanel>
+                                        
+                                    </Button>
+
+                                </Border>
+
+                                <!--Đường viền ngăn cách-->
+                                <Border Grid.Row="3" Grid.ColumnSpan="2"
+                                        BorderThickness="0,0.3,0,0" 
+                                        BorderBrush="#FF757575">
+
+                                    <!--Nút xem chi tiết cho vay-->
+                                    <Button>
+
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#EFF9F1"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+
+                                        <DockPanel Width="600" LastChildFill="True">
+
+                                            <TextBlock DockPanel.Dock="Left" Text="Loan"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="17" Margin="50,0,0,0"></TextBlock>
+                                            <Image Source="Images/arrow_forward.png" Width="18"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   DockPanel.Dock="Right" Margin="0,0,50,0"></Image>
+                                            <StackPanel DockPanel.Dock="Right" Margin="0,0,15,0">
+
+                                                <TextBlock FontSize="18" HorizontalAlignment="Right"
+                                                           Foreground="#E51C23" Text="47,000"/>
+
+                                                <TextBlock FontSize="18" 
+                                                           Foreground="#FF757575" Text="22,000 left"/>
+
+                                            </StackPanel>
+
+                                            <TextBlock/>
+
+                                        </DockPanel>
+
+                                    </Button>
+
+                                </Border>
 
                             </Grid>
 
@@ -490,6 +585,7 @@
                     </Grid>
 
                 </ScrollViewer>
+                
                 <!--Khung hiển thị báo cáo chi tiết-->
                 <Grid Name="DetailReportGrid" Grid.Column="1" Width="600" Visibility="Collapsed">
 
