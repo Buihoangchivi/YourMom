@@ -99,6 +99,8 @@ namespace YourMom
 			(MaxButton.Content as Image).Source = img;
 		}
 
+		
+		
 
 		private void BackButton_Click(object sender, RoutedEventArgs e)
 		{
