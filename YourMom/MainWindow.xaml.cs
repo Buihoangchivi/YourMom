@@ -22,14 +22,14 @@ namespace YourMom
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		
+
 		int[] arr = { 2, 5, 6, 7, 9, 10 };
 
 		public MainWindow()
 		{
 
 			InitializeComponent();
-			
+
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -64,46 +64,13 @@ namespace YourMom
 			Application.Current.Shutdown();
 
 		}
-		//Cài đặt nút phóng to/ thu nhỏ cửa sổ
-		private void MaximizeButton_Click(object sender, RoutedEventArgs e)
-		{
-			AdjustWindowSize();
-		}
 
 		//Cài đặt nút ẩn cửa sổ
 		private void MinimizeButton_Click(object sender, RoutedEventArgs e)
 		{
+
 			this.WindowState = WindowState.Minimized;
-		}
 
-		//Thay đổi kích thước cửa sổ
-		//Nếu đang ở trạng thái phóng to thì thu nhỏ và ngược lại
-		private void AdjustWindowSize()
-		{
-			var imgName = "";
-
-			if (WindowState == WindowState.Maximized)
-			{
-				WindowState = WindowState.Normal;
-				imgName = "Images/maximize.png";
-			}
-			else
-			{
-				WindowState = WindowState.Maximized;
-				imgName = "Images/restoreDown.png";
-			}
-
-			//Lấy nguồn ảnh
-			var img = new BitmapImage(new Uri(
-						imgName,
-						UriKind.Relative)
-				);
-
-			//Thiết lập ảnh chất lượng cao
-			RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
-
-			//Thay đổi icon
-			(MaxButton.Content as Image).Source = img;
 		}
 
 
@@ -151,20 +118,20 @@ namespace YourMom
 		{
 
 			//Ẩn báo cáo chi tiết
-			DetailReportGrid.Visibility = Visibility.Collapsed;
-			//Phóng to báo cáo chung
-			if (WindowState == WindowState.Normal) //Cửa sổ ở trạng thái bình thường
-			{
+			IncomeReportGrid.Visibility = Visibility.Collapsed;
 
-				GeneralReportGrid.Width = 600;
+			//Phóng to chiều rộng của khung báo cáo chung
+			GeneralReportGrid.Width = 600;
 
-			}
-			else //Cửa sổ ở trạng thái thu nhỏ
-			{
+			//Phóng to kích thước của 2 biểu đồ hình bánh thể hiện thu chi
+			IncomeReportChart.Width = 250;
+			IncomeReportChart.Height = 300;
+			ExpenseReportChart.Width = 250;
+			ExpenseReportChart.Height = 300;
 
-				GeneralReportGrid.Width = 800;
-
-			}
+			//Phóng to chiều rộng của 2 nút vay nợ
+			DebtDockPanel.Width = 600;
+			LoanDockPanel.Width = 600;
 
 		}
 
@@ -199,8 +166,32 @@ namespace YourMom
 						{
 							Values = new ChartValues<decimal> { member }
 						}
-					); ;
+					);
 			}
+
+		}
+
+		private void IncomeButton_Click(object sender, RoutedEventArgs e)
+		{
+
+			//Hiển thị khung báo cáo chi tiết thu nhập
+			IncomeReportGrid.Visibility = Visibility.Visible;
+
+			//Thu nhỏ chiều rộng của khung báo cáo chung
+			GeneralReportGrid.Width = 410;
+
+			//Phóng to khung báo cáo chi tiết về thu nhập
+			IncomeReportGrid.Width = 600;
+
+			//Thu nhỏ kích thước của 2 biểu đồ hình bánh thể hiện thu chi
+			IncomeReportChart.Width = 200;
+			IncomeReportChart.Height = 200;
+			ExpenseReportChart.Width = 200;
+			ExpenseReportChart.Height = 200;
+
+			//Thu nhỏ chiều rộng của 2 nút vay nợ
+			DebtDockPanel.Width = 410;
+			LoanDockPanel.Width = 410;
 
 		}
 	}
