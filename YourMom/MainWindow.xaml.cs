@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,14 @@ namespace YourMom
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		
+		int[] arr = { 2, 5, 6, 7, 9, 10 };
+
 		public MainWindow()
 		{
+
 			InitializeComponent();
+			
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -137,6 +144,63 @@ namespace YourMom
 
 		private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
 		{
+
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+
+			//Ẩn báo cáo chi tiết
+			DetailReportGrid.Visibility = Visibility.Collapsed;
+			//Phóng to báo cáo chung
+			if (WindowState == WindowState.Normal) //Cửa sổ ở trạng thái bình thường
+			{
+
+				GeneralReportGrid.Width = 600;
+
+			}
+			else //Cửa sổ ở trạng thái thu nhỏ
+			{
+
+				GeneralReportGrid.Width = 800;
+
+			}
+
+		}
+
+		//Biểu đồ hình quạt về thu nhập
+		private void IncomeReportChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+
+			IncomeReportChart.Series = new SeriesCollection();
+			((DefaultTooltip)IncomeReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+			foreach (var member in arr)
+			{
+				IncomeReportChart.Series.Add(
+						new PieSeries()
+						{
+							Values = new ChartValues<decimal> { member }
+						}
+					); ;
+			}
+
+		}
+
+		//Biểu đồ hình quạt về chi tiêu
+		private void ExpenseReportChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+
+			ExpenseReportChart.Series = new SeriesCollection();
+			((DefaultTooltip)ExpenseReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+			foreach (var member in arr)
+			{
+				ExpenseReportChart.Series.Add(
+						new PieSeries()
+						{
+							Values = new ChartValues<decimal> { member }
+						}
+					); ;
+			}
 
 		}
 	}
