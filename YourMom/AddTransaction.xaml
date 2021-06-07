@@ -216,15 +216,15 @@
                 </CheckBox>
                 <StackPanel>
                     <TextBlock TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">Không tính vào báo cáo</TextBlock>
-                    <TextBlock>Không tính giao dịch này trong các báo cáo. Ví dụ như Tổng quan</TextBlock>
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">Not included in the report</TextBlock>
+                    <TextBlock>This transaction is not included in the reports. For example Overview.</TextBlock>
                 </StackPanel>
             </StackPanel>
             <Border Grid.Row="1" Grid.Column="1" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
                 BorderBrush="Gainsboro" BorderThickness="5">
             </Border>
             <StackPanel Grid.Row="1" Grid.Column="1">
-                <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">Nhóm</TextBlock>
+                <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">Category</TextBlock>
                 <ComboBox Width="170" Margin="-10,8,10,0"></ComboBox>
             </StackPanel>
             <Border Grid.Row="1" Grid.Column="3" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
@@ -232,7 +232,7 @@
 
             </Border>
             <StackPanel Grid.Row="1" Grid.Column="3">
-                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Số tiền</TextBlock>
+                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Amount of Money</TextBlock>
                 <TextBox x:Name="Money" PreviewTextInput="Money_PreviewTextInput" DataObject.Pasting="Money_Pasting" Width="170" Height="20" Margin="-10,10,10,0" BorderThickness="0">
                     <TextBox.Style>
                         <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
@@ -263,14 +263,14 @@
 
             </Border>
             <StackPanel Grid.Row="1" Grid.Column="5">
-                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Với</TextBlock>
+                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">With</TextBlock>
                 <TextBox  Width="170" Height="20" Margin="-10,10,10,0" BorderThickness="0">
                     <TextBox.Style>
                         <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                             <Style.Resources>
                                 <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                     <VisualBrush.Visual>
-                                        <Label Content="Với" Foreground="LightGray" />
+                                        <Label Content="With" Foreground="LightGray" />
                                     </VisualBrush.Visual>
                                 </VisualBrush>
                             </Style.Resources>
@@ -294,7 +294,7 @@
 
             </Border>
             <StackPanel Grid.Row="3" Grid.Column="1">
-                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Ngày</TextBlock>
+                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Date</TextBlock>
                 <!--<ComboBox Width="170" Margin="-10,8,10,0"></ComboBox>-->               
                 <DatePicker Height="25"
                HorizontalAlignment="Left"
@@ -311,14 +311,14 @@
 
             </Border>
             <StackPanel Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3">
-                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Ghi Chú</TextBlock>
+                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Note</TextBlock>
                 <TextBox  Width="420" Height="20" Margin="-5,0,10,0" BorderThickness="0">
                     <TextBox.Style>
                         <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                             <Style.Resources>
                                 <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
                                     <VisualBrush.Visual>
-                                        <Label Content="Ghi chú" Foreground="LightGray" />
+                                        <Label Content="Note" Foreground="LightGray" />
                                     </VisualBrush.Visual>
                                 </VisualBrush>
                             </Style.Resources>
@@ -346,7 +346,7 @@
         
         <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
-            THÊM GIAO DỊCH
+            ADD TRANSACTION
         </TextBlock>
         <DockPanel Grid.Row="2" Grid.Column="5">
             <Button DockPanel.Dock="Right" Width="80" Margin="10,0,0,0" 
