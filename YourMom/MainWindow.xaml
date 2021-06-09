@@ -415,7 +415,7 @@
                 <!--Khung hiển thị báo cáo chung-->
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
 
-                    <Grid Name="GeneralReportGrid" Width="600" HorizontalAlignment="Center">
+                    <Grid Name="GeneralReportGrid" Width="410" HorizontalAlignment="Center">
 
                         <Border Background="White" CornerRadius="10">
 
@@ -681,7 +681,7 @@
                 </ScrollViewer>
                 
                 <!--Khung hiển thị báo cáo chi tiết về thu nhập-->
-                <Grid Name="IncomeReportGrid" Grid.Column="1" Width="600" Visibility="Collapsed">
+                <Grid Name="IncomeReportGrid" Grid.Column="1" Width="600" Visibility="Visible">
 
                     <Border Background="White" CornerRadius="8">
 
