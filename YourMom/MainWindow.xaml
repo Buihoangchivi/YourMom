@@ -687,9 +687,9 @@
 
                                 <Grid.RowDefinitions>
 
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="400"/>
                                     <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="7*"/>
-                                    <RowDefinition Height="Auto"/>
 
                                 </Grid.RowDefinitions>
 
@@ -733,7 +733,7 @@
                                     <StackPanel DockPanel.Dock="Right" Margin="0,0,20,0"
                                                 VerticalAlignment="Top">
 
-                                        <Button Width="50" Height="50" DockPanel.Dock="Right"
+                                        <Button Width="60" Height="50" DockPanel.Dock="Right"
                                                 Name="ColumnChartIconButton"
                                                 Click="ColumnChartIconButton_Click">
                                             <Button.Style>
@@ -771,7 +771,7 @@
                                         </Button>
 
                                         <TextBlock Name="ColumnChartIconTextBlock" Visibility="Collapsed"
-                                                   Height="3" Background="ForestGreen"></TextBlock>
+                                                   Height="5" Background="ForestGreen"></TextBlock>
 
                                     </StackPanel>
 
@@ -779,7 +779,7 @@
                                     <StackPanel DockPanel.Dock="Right"
                                                 VerticalAlignment="Top">
 
-                                        <Button Name="PieChartIconButton" Width="50" Height="50"
+                                        <Button Name="PieChartIconButton" Width="60" Height="50"
                                                 Click="PieChartIconButton_Click">
 
                                             <Button.Style>
@@ -811,7 +811,7 @@
                                         </Button>
 
                                         <TextBlock Name="PieChartIconTextBlock" Visibility="Collapsed"
-                                                   Height="3" Background="ForestGreen"></TextBlock>
+                                                   Height="4" Background="ForestGreen"></TextBlock>
 
                                     </StackPanel>
 
@@ -821,12 +821,37 @@
 
                                 <!--Đường viền ngăn cách-->
                                 <Border Grid.Row="1" Grid.ColumnSpan="2"
-                                        BorderThickness="0,0.3,0,0" 
+                                        BorderThickness="0,0.3,0,0.3" 
                                         BorderBrush="#FF757575">
 
-                                    
+                                    <Grid Height="400" VerticalAlignment="Center">
+
+                                        <Grid.ColumnDefinitions>
+
+                                            <ColumnDefinition Width="6*"/>
+                                            <ColumnDefinition Width="4*"/>
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Biểu đồ linh động-->
+                                        <lvc:PieChart LegendLocation="Bottom"
+                                                      Hoverable="True" Margin="20,40"
+                                                      Name="DynamicPieChart"
+                                                      IsVisibleChanged="DynamicPieChart_IsVisibleChanged">
+                                        </lvc:PieChart>
+                                        
+                                        <!--Textblock hiển thị số tiền-->
+                                        <TextBlock Text="5,735,340" FontSize="27"
+                                                   FontWeight="DemiBold" Grid.Column="1" 
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="#E51C23"/>
+
+                                    </Grid>
                                     
                                 </Border>
+
+                                <TextBlock Grid.Row="2" Text="Ahihi"/>
 
                             </Grid>
 

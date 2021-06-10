@@ -475,6 +475,24 @@ namespace YourMom
 
 		}
 
+		//Biểu đồ hình quạt về thu nhập
+		private void DynamicPieChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+
+			DynamicPieChart.Series = new SeriesCollection();
+			((DefaultTooltip)DynamicPieChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+			foreach (var member in arr)
+			{
+				DynamicPieChart.Series.Add(
+						new PieSeries()
+						{
+							Values = new ChartValues<decimal> { member }
+						}
+					); ;
+			}
+
+		}
+
 		private void IncomeButton_Click(object sender, RoutedEventArgs e)
 		{
 
@@ -498,7 +516,7 @@ namespace YourMom
 			LoanDockPanel.Width = 410;
 
 			//Mặc định hiển thị biểu đồ hình bánh
-			PieChartIconButton.Height = 47.5;
+			PieChartIconButton.Height = 46;
 			PieChartIconTextBlock.Visibility = Visibility.Visible;
 
 		}
@@ -507,7 +525,7 @@ namespace YourMom
 		{
 
 			//Hiển thị biểu đồ hình bánh
-			PieChartIconButton.Height = 47.5;
+			PieChartIconButton.Height = 46;
 			PieChartIconTextBlock.Visibility = Visibility.Visible;
 
 			//Ẩn biểu đồ hình cột
@@ -520,7 +538,7 @@ namespace YourMom
 		{
 
 			//Hiển thị biểu đồ hình cột
-			ColumnChartIconButton.Height = 47.5;
+			ColumnChartIconButton.Height = 46;
 			ColumnChartIconTextBlock.Visibility = Visibility.Visible;
 
 			//Ẩn biểu đồ hình cột
