@@ -161,5 +161,8 @@
     <Resource Include="Images\columnChart.png" />
     <Resource Include="Images\pieChart.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_foodndrink.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

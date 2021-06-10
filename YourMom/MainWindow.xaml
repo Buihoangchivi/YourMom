@@ -839,7 +839,7 @@
                                                       Name="DynamicPieChart"
                                                       IsVisibleChanged="DynamicPieChart_IsVisibleChanged">
                                         </lvc:PieChart>
-                                        
+
                                         <!--Textblock hiển thị số tiền-->
                                         <TextBlock Text="5,735,340" FontSize="27"
                                                    FontWeight="DemiBold" Grid.Column="1" 
@@ -848,10 +848,69 @@
                                                    Foreground="#E51C23"/>
 
                                     </Grid>
-                                    
+
                                 </Border>
 
-                                <TextBlock Grid.Row="2" Text="Ahihi"/>
+                                <!--Nút xem chi tiết Category-->
+                                <Button Grid.Row="2" Height="60">
+
+                                    <!--Tạo màu khi đưa chuột vào nút-->
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border BorderThickness="0" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#EFF9F1"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
+                                    <!--Đường viền ngăn cách-->
+                                    <Border BorderThickness="0,0,0,0.3" 
+                                            BorderBrush="#FF757575">
+
+                                        <!--Khung chứa nội dung của nút loại giao dịch-->
+                                        <DockPanel Name="CategoryDockPanel" Height="60"
+                                                   Width="500" LastChildFill="True">
+
+                                            <!--Hình ảnh minh họa loại giao dịch-->
+                                            <Image Source="Images/category_foodndrink.png" Width="45"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Margin="0,0,0,0"></Image>
+
+                                            <!--Tên loại giao dịch-->
+                                            <TextBlock Text="Food and drink" VerticalAlignment="Center"
+                                                   FontSize="17" Margin="30,0,0,0"></TextBlock>
+
+                                            <!--Ảnh nút mũi tên qua phải-->
+                                            <Image Source="Images/arrow_forward.png" Width="18"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               DockPanel.Dock="Right" Margin="0,0,0,0"></Image>
+
+                                            <!--Thông số đã sử dụng bao nhiêu tiền cho loại giao dịch này-->
+                                            <TextBlock FontSize="18" HorizontalAlignment="Right"
+                                                   Foreground="#039BE5" Text="105,000"
+                                                   Margin="0,0,15,0" DockPanel.Dock="Right"
+                                                   VerticalAlignment="Center"/>
+
+                                            <TextBlock/>
+
+                                        </DockPanel>
+
+                                    </Border>
+
+                                </Button>
 
                             </Grid>
 
