@@ -157,5 +157,9 @@
   <ItemGroup>
     <Folder Include="Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\columnChart.png" />
+    <Resource Include="Images\pieChart.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

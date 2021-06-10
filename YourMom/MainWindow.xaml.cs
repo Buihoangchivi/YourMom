@@ -116,7 +116,7 @@ namespace YourMom
 
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void CloseDetailButton_Click(object sender, RoutedEventArgs e)
 		{
 
 			//Ẩn báo cáo chi tiết
@@ -496,6 +496,36 @@ namespace YourMom
 			//Thu nhỏ chiều rộng của 2 nút vay nợ
 			DebtDockPanel.Width = 410;
 			LoanDockPanel.Width = 410;
+
+			//Mặc định hiển thị biểu đồ hình bánh
+			PieChartIconButton.Height = 47.5;
+			PieChartIconTextBlock.Visibility = Visibility.Visible;
+
+		}
+
+		private void PieChartIconButton_Click(object sender, RoutedEventArgs e)
+		{
+
+			//Hiển thị biểu đồ hình bánh
+			PieChartIconButton.Height = 47.5;
+			PieChartIconTextBlock.Visibility = Visibility.Visible;
+
+			//Ẩn biểu đồ hình cột
+			ColumnChartIconButton.Height = 50;
+			ColumnChartIconTextBlock.Visibility = Visibility.Collapsed;
+
+		}
+
+		private void ColumnChartIconButton_Click(object sender, RoutedEventArgs e)
+		{
+
+			//Hiển thị biểu đồ hình cột
+			ColumnChartIconButton.Height = 47.5;
+			ColumnChartIconTextBlock.Visibility = Visibility.Visible;
+
+			//Ẩn biểu đồ hình cột
+			PieChartIconButton.Height = 50;
+			PieChartIconTextBlock.Visibility = Visibility.Collapsed;
 
 		}
 	}

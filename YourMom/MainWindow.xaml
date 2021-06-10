@@ -413,96 +413,156 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Khung hiển thị báo cáo chung-->
-                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                <Grid Name="GeneralReportGrid" Width="410" HorizontalAlignment="Center">
 
-                    <Grid Name="GeneralReportGrid" Width="410" HorizontalAlignment="Center">
+                    <Border Background="White" CornerRadius="10">
 
-                        <Border Background="White" CornerRadius="10">
+                        <Grid>
 
-                            <Grid>
+                            <Grid.ColumnDefinitions>
 
-                                <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
 
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
 
-                                </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
 
-                                <Grid.RowDefinitions>
+                                <RowDefinition Height="6.5*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
 
-                                    <RowDefinition Height="6.5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
 
-                                </Grid.RowDefinitions>
+                            <!--Nút xem chi tiết báo cáo về thu nhập-->
+                            <Button Name="IncomeButton" Click="IncomeButton_Click">
 
-                                <!--Nút xem chi tiết báo cáo về thu nhập-->
-                                <Button Name="IncomeButton" Click="IncomeButton_Click">
+                                <!--Tạo màu khi đưa chuột vào nút và bo tròn góc trên bên trái cho nút-->
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="White"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border CornerRadius="10,0,0,0" BorderThickness="0" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
 
-                                    <!--Tạo màu khi đưa chuột vào nút và bo tròn góc trên bên trái cho nút-->
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-                                            <Setter Property="Background" Value="White"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border CornerRadius="10,0,0,0" BorderThickness="0" Background="{TemplateBinding Background}">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#EFF9F1"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
 
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#EFF9F1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
+                                <Grid>
 
-                                    <Grid>
+                                    <Grid.RowDefinitions>
 
-                                        <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="3*"/>
 
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="3*"/>
+                                    </Grid.RowDefinitions>
 
-                                        </Grid.RowDefinitions>
-
-                                        <!--Khung hiển thị biểu đồ hình bánh về thu nhập-->
-                                        <StackPanel VerticalAlignment="Center"
+                                    <!--Khung hiển thị biểu đồ hình bánh về thu nhập-->
+                                    <StackPanel VerticalAlignment="Center"
                                                     HorizontalAlignment="Center">
 
-                                            <TextBlock FontSize="16" HorizontalAlignment="Center" 
+                                        <TextBlock FontSize="16" HorizontalAlignment="Center" 
                                                        Foreground="#FF757575" Text="Income"></TextBlock>
 
-                                            <TextBlock FontWeight="Medium" FontSize="25" Foreground="#039BE5">+370,000</TextBlock>
+                                        <TextBlock FontWeight="Medium" FontSize="25" Foreground="#039BE5">+370,000</TextBlock>
 
-                                        </StackPanel>
+                                    </StackPanel>
 
-                                        <!--Biểu đồ hình bánh biểu thị thu nhập-->
-                                        <lvc:PieChart Grid.Row="1" LegendLocation="None"
+                                    <!--Biểu đồ hình bánh biểu thị thu nhập-->
+                                    <lvc:PieChart Grid.Row="1" LegendLocation="None"
                                                       Width="250" Name="IncomeReportChart" 
                                                       Hoverable="True" Height="300" 
                                                       IsVisibleChanged="IncomeReportChart_IsVisibleChanged">
-                                        </lvc:PieChart>
+                                    </lvc:PieChart>
 
-                                    </Grid>
+                                </Grid>
 
-                                </Button>
+                            </Button>
 
-                                <!--Nút xem chi tiết báo cáo về chi tiêu-->
-                                <Button Grid.Column="1">
+                            <!--Nút xem chi tiết báo cáo về chi tiêu-->
+                            <Button Grid.Column="1">
 
-                                    <!--Tạo màu khi đưa chuột vào nút và bo tròn góc trên bên phải cho nút-->
+                                <!--Tạo màu khi đưa chuột vào nút và bo tròn góc trên bên phải cho nút-->
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="White"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border CornerRadius="0,10,0,0" BorderThickness="0" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#EFF9F1"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                                <Grid>
+
+                                    <Grid.RowDefinitions>
+
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="3*"/>
+
+                                    </Grid.RowDefinitions>
+
+                                    <!--Khung hiển thị biểu đồ hình bánh về chi tiêu-->
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                                        <TextBlock FontSize="16"
+                                                       HorizontalAlignment="Center" 
+                                                       Foreground="#FF757575">Expense</TextBlock>
+
+                                        <TextBlock FontWeight="Medium" FontSize="25" 
+                                                       Foreground="#E51C23">-247,000</TextBlock>
+
+                                    </StackPanel>
+
+                                    <!--Biểu đồ hình bánh biểu thị chi tiêu-->
+                                    <lvc:PieChart Grid.Row="1" LegendLocation="None"  
+                                                      Name="ExpenseReportChart" Hoverable="True" 
+                                                      Width="250" Height="300"
+                                                      IsVisibleChanged="ExpenseReportChart_IsVisibleChanged">
+                                    </lvc:PieChart>
+
+                                </Grid>
+
+                            </Button>
+
+                            <!--Đường viền ngăn cách-->
+                            <Border Grid.Row="1" Grid.ColumnSpan="2"
+                                        BorderThickness="0,0.3,0,0" 
+                                        BorderBrush="#FF757575">
+
+                                <!--Nút xem chi tiết nợ-->
+                                <Button Grid.Row="2">
+
+                                    <!--Tạo màu khi đưa chuột vào nút-->
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}">
                                             <Setter Property="Background" Value="White"/>
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border CornerRadius="0,10,0,0" BorderThickness="0" Background="{TemplateBinding Background}">
+                                                        <Border BorderThickness="0" Background="{TemplateBinding Background}">
                                                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                         </Border>
 
@@ -517,177 +577,266 @@
                                         </Style>
                                     </Button.Style>
 
-                                    <Grid>
+                                    <!--Khung chứa nội dung của nút nợ-->
+                                    <DockPanel Name="DebtDockPanel"
+                                                   Width="600" LastChildFill="True">
 
-                                        <Grid.RowDefinitions>
+                                        <TextBlock DockPanel.Dock="Left" Text="Debt"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="17" Margin="50,0,0,0"></TextBlock>
+                                        <Image Source="Images/arrow_forward.png" Width="18"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   DockPanel.Dock="Right" Margin="0,0,50,0"></Image>
 
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="3*"/>
+                                        <!--Stack chứa thông tin đã nợ và trả được bao nhiêu-->
+                                        <StackPanel DockPanel.Dock="Right" Margin="0,0,15,0">
 
-                                        </Grid.RowDefinitions>
+                                            <!--Thông số đã mượn bao nhiêu tiền-->
+                                            <TextBlock FontSize="18" HorizontalAlignment="Right"
+                                                           Foreground="#039BE5" Text="105,000"/>
 
-                                        <!--Khung hiển thị biểu đồ hình bánh về chi tiêu-->
-                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-
-                                            <TextBlock FontSize="16"
-                                                       HorizontalAlignment="Center" 
-                                                       Foreground="#FF757575">Expense</TextBlock>
-
-                                            <TextBlock FontWeight="Medium" FontSize="25" 
-                                                       Foreground="#E51C23">-247,000</TextBlock>
+                                            <!--Thông số đã trả được bao nhiêu tiền-->
+                                            <TextBlock FontSize="18" 
+                                                           Foreground="#FF757575" Text="70,000 left"/>
 
                                         </StackPanel>
 
-                                        <!--Biểu đồ hình bánh biểu thị chi tiêu-->
-                                        <lvc:PieChart Grid.Row="1" LegendLocation="None"  
-                                                      Name="ExpenseReportChart" Hoverable="True" 
-                                                      Width="250" Height="300"
-                                                      IsVisibleChanged="ExpenseReportChart_IsVisibleChanged">
-                                        </lvc:PieChart>
+                                        <TextBlock/>
 
-                                    </Grid>
+                                    </DockPanel>
 
                                 </Button>
+
+                            </Border>
+
+                            <!--Đường viền ngăn cách-->
+                            <Border Grid.Row="2" Grid.ColumnSpan="2"
+                                        BorderThickness="0,0.3,0,0" 
+                                        BorderBrush="#FF757575">
+
+                                <!--Nút xem chi tiết cho vay-->
+                                <Button>
+
+                                    <!--Tạo màu khi đưa chuột vào nút và bo tròn 2 góc dưới cho nút-->
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#EFF9F1"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
+                                    <!--Khung chứa nội dung của nút cho vay-->
+                                    <DockPanel Name="LoanDockPanel" Width="600" LastChildFill="True">
+
+                                        <TextBlock DockPanel.Dock="Left" Text="Loan"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="17" Margin="50,0,0,0"></TextBlock>
+                                        <Image Source="Images/arrow_forward.png" Width="18"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   DockPanel.Dock="Right" Margin="0,0,50,0"></Image>
+
+                                        <!--Stack chứa thông tin đã cho vay và thu lại được bao nhiêu-->
+                                        <StackPanel DockPanel.Dock="Right" Margin="0,0,15,0">
+
+                                            <!--Thông số đã cho vay bao nhiêu tiền-->
+                                            <TextBlock FontSize="18" HorizontalAlignment="Right"
+                                                           Foreground="#E51C23" Text="47,000"/>
+
+                                            <!--Thông số đã thu về được bao nhiêu tiền-->
+                                            <TextBlock FontSize="18" 
+                                                           Foreground="#FF757575" Text="22,000 left"/>
+
+                                        </StackPanel>
+
+                                        <TextBlock/>
+
+                                    </DockPanel>
+
+                                </Button>
+
+                            </Border>
+
+                        </Grid>
+
+                    </Border>
+
+                </Grid>
+
+                <!--Khung hiển thị báo cáo chi tiết về thu nhập-->
+                <Grid Name="IncomeReportGrid" Grid.Column="1" Width="600" Visibility="Visible">
+
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+
+                        <Border Background="White" CornerRadius="8">
+
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="7*"/>
+                                    <RowDefinition Height="Auto"/>
+
+                                </Grid.RowDefinitions>
+
+                                <!--Khung hiển thị tên và kiểu biểu đồ muốn xem-->
+                                <DockPanel Name="ViewBar" Height="50" LastChildFill="True">
+
+                                    <Button Width="50" Height="50" Name="CloseDetailButton"
+                                            Click="CloseDetailButton_Click" 
+                                            Margin="20,0,0,0">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#FFC8C4C4"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+
+                                        <StackPanel>
+                                            <Image Source="Images/deleteText.png" Width="15" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                        </StackPanel>
+
+                                    </Button>
+
+                                    <TextBlock Text="Income" FontSize="25" FontWeight="DemiBold"
+                                               VerticalAlignment="Center" Margin="20,0,0,5"/>
+
+                                    <!--Nút hiển thị biểu đồ hình cột-->
+
+                                    <StackPanel DockPanel.Dock="Right" Margin="0,0,20,0"
+                                                VerticalAlignment="Top">
+
+                                        <Button Width="50" Height="50" DockPanel.Dock="Right"
+                                                Name="ColumnChartIconButton"
+                                                Click="ColumnChartIconButton_Click">
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="White"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border Background="{TemplateBinding Background}"
+                                                                        BorderThickness="0,0,0,3">
+                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                </Border>
+                                                                <!--<ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsFocused" Value="True">
+                                                                        <Setter Property="BorderBrush"
+                                                                            TargetName="column_chart_button_border"
+                                                                            Value="ForestGreen"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>-->
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#FFC8C4C4"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+
+                                            <StackPanel>
+                                                <Image Source="Images/columnChart.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                            </StackPanel>
+
+                                        </Button>
+
+                                        <TextBlock Name="ColumnChartIconTextBlock" Visibility="Collapsed"
+                                                   Height="3" Background="ForestGreen"></TextBlock>
+
+                                    </StackPanel>
+
+                                    <!--Nút hiển thị biểu đồ hình quạt-->
+                                    <StackPanel DockPanel.Dock="Right"
+                                                VerticalAlignment="Top">
+
+                                        <Button Name="PieChartIconButton" Width="50" Height="50"
+                                                Click="PieChartIconButton_Click">
+
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="White"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border Background="{TemplateBinding Background}"
+                                                                        BorderThickness="0,0,0,3">
+                                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                                                  VerticalAlignment="Center"/>
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#FFC8C4C4"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+
+                                            <StackPanel>
+                                                <Image Source="Images/pieChart.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                            </StackPanel>
+
+                                        </Button>
+
+                                        <TextBlock Name="PieChartIconTextBlock" Visibility="Collapsed"
+                                                   Height="3" Background="ForestGreen"></TextBlock>
+
+                                    </StackPanel>
+
+                                    <TextBlock></TextBlock>
+
+                                </DockPanel>
 
                                 <!--Đường viền ngăn cách-->
                                 <Border Grid.Row="1" Grid.ColumnSpan="2"
                                         BorderThickness="0,0.3,0,0" 
                                         BorderBrush="#FF757575">
+
                                     
-                                    <!--Nút xem chi tiết nợ-->
-                                    <Button Grid.Row="2">
-
-                                        <!--Tạo màu khi đưa chuột vào nút-->
-                                        <Button.Style>
-                                            <Style TargetType="{x:Type Button}">
-                                                <Setter Property="Background" Value="White"/>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type Button}">
-                                                            <Border BorderThickness="0" Background="{TemplateBinding Background}">
-                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                            </Border>
-
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="#EFF9F1"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
-
-                                        <!--Khung chứa nội dung của nút nợ-->
-                                        <DockPanel Name="DebtDockPanel"
-                                                   Width="600" LastChildFill="True">
-
-                                            <TextBlock DockPanel.Dock="Left" Text="Debt"
-                                                       VerticalAlignment="Center"
-                                                       FontSize="17" Margin="50,0,0,0"></TextBlock>
-                                            <Image Source="Images/arrow_forward.png" Width="18"
-                                                   RenderOptions.BitmapScalingMode="HighQuality"
-                                                   DockPanel.Dock="Right" Margin="0,0,50,0"></Image>
-                                            
-                                            <!--Stack chứa thông tin đã nợ và trả được bao nhiêu-->
-                                            <StackPanel DockPanel.Dock="Right" Margin="0,0,15,0">
-
-                                                <!--Thông số đã mượn bao nhiêu tiền-->
-                                                <TextBlock FontSize="18" HorizontalAlignment="Right"
-                                                           Foreground="#039BE5" Text="105,000"/>
-
-                                                <!--Thông số đã trả được bao nhiêu tiền-->
-                                                <TextBlock FontSize="18" 
-                                                           Foreground="#FF757575" Text="70,000 left"/>
-
-                                            </StackPanel>
-
-                                            <TextBlock/>
-
-                                        </DockPanel>
-                                        
-                                    </Button>
-
-                                </Border>
-
-                                <!--Đường viền ngăn cách-->
-                                <Border Grid.Row="2" Grid.ColumnSpan="2"
-                                        BorderThickness="0,0.3,0,0" 
-                                        BorderBrush="#FF757575">
-
-                                    <!--Nút xem chi tiết cho vay-->
-                                    <Button>
-
-                                        <!--Tạo màu khi đưa chuột vào nút và bo tròn 2 góc dưới cho nút-->
-                                        <Button.Style>
-                                            <Style TargetType="{x:Type Button}">
-                                                <Setter Property="Background" Value="White"/>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type Button}">
-                                                            <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{TemplateBinding Background}">
-                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                            </Border>
-
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="#EFF9F1"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
-
-                                        <!--Khung chứa nội dung của nút cho vay-->
-                                        <DockPanel Name="LoanDockPanel" Width="600" LastChildFill="True">
-
-                                            <TextBlock DockPanel.Dock="Left" Text="Loan"
-                                                       VerticalAlignment="Center"
-                                                       FontSize="17" Margin="50,0,0,0"></TextBlock>
-                                            <Image Source="Images/arrow_forward.png" Width="18"
-                                                   RenderOptions.BitmapScalingMode="HighQuality"
-                                                   DockPanel.Dock="Right" Margin="0,0,50,0"></Image>
-
-                                            <!--Stack chứa thông tin đã cho vay và thu lại được bao nhiêu-->
-                                            <StackPanel DockPanel.Dock="Right" Margin="0,0,15,0">
-
-                                                <!--Thông số đã cho vay bao nhiêu tiền-->
-                                                <TextBlock FontSize="18" HorizontalAlignment="Right"
-                                                           Foreground="#E51C23" Text="47,000"/>
-
-                                                <!--Thông số đã thu về được bao nhiêu tiền-->
-                                                <TextBlock FontSize="18" 
-                                                           Foreground="#FF757575" Text="22,000 left"/>
-
-                                            </StackPanel>
-
-                                            <TextBlock/>
-
-                                        </DockPanel>
-
-                                    </Button>
-
+                                    
                                 </Border>
 
                             </Grid>
 
+
+
+                            <!--<Button Width="50" Height="20" Click="Button_Click">Close</Button>-->
+
                         </Border>
 
-                    </Grid>
-
-                </ScrollViewer>
-                
-                <!--Khung hiển thị báo cáo chi tiết về thu nhập-->
-                <Grid Name="IncomeReportGrid" Grid.Column="1" Width="600" Visibility="Visible">
-
-                    <Border Background="White" CornerRadius="8">
-
-                        <Button Width="50" Height="20" Click="Button_Click">Close</Button>
-
-                    </Border>
+                    </ScrollViewer>
 
                 </Grid>
 
