@@ -25,7 +25,7 @@ namespace YourMom
 	public partial class MainWindow : Window
 	{
 
-		int[] arr = { 2, 5, 6, 7, 9, 10 };
+		int[] arr = { 12, 5, 6, 7, 9, 10 };
 		List<DetailCategory> detailCategoryList = new List<DetailCategory>
 			{
 				new DetailCategory
@@ -109,7 +109,7 @@ namespace YourMom
 				CategoryListView.Height = 5 * 65;
 
 			}
-			
+
 
 		}
 
@@ -549,7 +549,7 @@ namespace YourMom
 
 		}
 
-		//Biểu đồ hình quạt về thu nhập
+		//Biểu đồ hình quạt linh động
 		private void DynamicPieChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 
@@ -562,7 +562,24 @@ namespace YourMom
 						{
 							Values = new ChartValues<decimal> { member }
 						}
-					); ;
+					);
+			}
+
+		}
+
+		//Biểu đồ hình cột linh động
+		private void DynamicColumnChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+
+			DynamicColumnChart.Series = new SeriesCollection();
+			((DefaultTooltip)DynamicColumnChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+			DynamicColumnChart.AxisY = new AxesCollection();
+			foreach (var member in arr)
+			{
+				DynamicColumnChart.Series.Add(new ColumnSeries()
+				{
+					Values = new ChartValues<decimal> { member }
+				});
 			}
 
 		}
@@ -589,9 +606,15 @@ namespace YourMom
 			DebtDockPanel.Width = 410;
 			LoanDockPanel.Width = 410;
 
-			//Mặc định hiển thị biểu đồ hình bánh
+			//Mặc định hiển thị biểu đồ hình tròn
 			PieChartIconButton.Height = 46;
 			PieChartIconTextBlock.Visibility = Visibility.Visible;
+			//Hiển thị biểu đồ hình tròn
+			DynamicPieChart.Visibility = Visibility.Visible;
+			DynamicPieChartTextBlock.Visibility = Visibility.Visible;
+			//Ẩn biểu đồ hình cột
+			DynamicColumnChart.Visibility = Visibility.Collapsed;
+			DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
 
 		}
 
@@ -606,6 +629,13 @@ namespace YourMom
 			ColumnChartIconButton.Height = 50;
 			ColumnChartIconTextBlock.Visibility = Visibility.Collapsed;
 
+			//Hiển thị biểu đồ hình tròn
+			DynamicPieChart.Visibility = Visibility.Visible;
+			DynamicPieChartTextBlock.Visibility = Visibility.Visible;
+			//Ẩn biểu đồ hình cột
+			DynamicColumnChart.Visibility = Visibility.Collapsed;
+			DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
+
 		}
 
 		private void ColumnChartIconButton_Click(object sender, RoutedEventArgs e)
@@ -618,6 +648,13 @@ namespace YourMom
 			//Ẩn biểu đồ hình cột
 			PieChartIconButton.Height = 50;
 			PieChartIconTextBlock.Visibility = Visibility.Collapsed;
+
+			//Hiển thị biểu đồ hình cột
+			DynamicColumnChart.Visibility = Visibility.Visible;
+			DynamicColumnChartTextBlock.Visibility = Visibility.Visible;
+			//Ẩn biểu đồ hình tròn
+			DynamicPieChart.Visibility = Visibility.Collapsed;
+			DynamicPieChartTextBlock.Visibility = Visibility.Collapsed;
 
 		}
 
