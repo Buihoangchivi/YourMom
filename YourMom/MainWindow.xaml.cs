@@ -39,7 +39,8 @@ namespace YourMom
 		{
 			List<Test> items = new List<Test>();
 			items.Add(new Test() { Image = "Images/category_foodndrink.png", Text = "Ăn uống", Text1 = "9.000.000", Text2 = " Còn lại 8.999.000" });
-			
+			items.Add(new Test() { Image = "Images/category_foodndrink.png", Text = "Sex", Text1 = "7.000.000", Text2 = " Còn lại 15.999.000" });
+
 			BudgetList.ItemsSource = items;
 			
 		}
@@ -162,14 +163,17 @@ namespace YourMom
 			IncomeReportGrid.Visibility = Visibility.Visible;
 			Budget.Width = 410;
 			IncomeReportGrid.Width = 600;
+			//BudgetListScrollView.Width = 410;
 			
-        }
+			
+		}
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
 			IncomeReportGrid.Visibility = Visibility.Collapsed;
 			Budget.Width = 600;
-
-        }
+			//BudgetListScrollView.Width = 600;
+			
+		}
     }
 }

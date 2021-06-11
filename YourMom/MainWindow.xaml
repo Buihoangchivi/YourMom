@@ -825,38 +825,23 @@
                             <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="1" 
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
                              />
-                            <!--<Button Grid.Row="2" Grid.Column="0" Margin="5" Width="100" Height="50" Style="{StaticResource GelButton}" Background="{StaticResource GreenGradientBrush}" Foreground="White" Click="Button_Click">Test</Button>-->
-                            <!--<ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
-                                <ProgressBar Minimum="0" Maximum="100" Value="75" />
-                            </ScrollViewer>-->
-                            
                             
 
-                            <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
+
+
+                            <!--Khung xem các loại ngân sách-->
+                            <ScrollViewer x:Name="BudgetListScrollView" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
+
                                 <ItemsControl x:Name="BudgetList">
                                    
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-
-                                            <Button Width="600" Height="80" Background="White"   BorderThickness="0" >
-                                                <!--<DockPanel Width="600" Height="80" LastChildFill="True" >
-                                                    <Image DockPanel.Dock="Left" Source="{Binding Image}" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                                                    
-                                                    <StackPanel DockPanel.Dock="Right">
-                                                        <TextBlock  Text="{Binding Text1}" Width="175" TextAlignment="Right" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60"></TextBlock>
-                                                        <TextBlock  Text="{Binding Text2}" Width="175" TextAlignment="Right" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60"></TextBlock>
-                                                    </StackPanel>
-                                                    
-                                                    <TextBlock DockPanel.Dock="Top" Text="{Binding Text}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60"></TextBlock>
-                                                    <ProgressBar  Minimum="0" Maximum="100" Value="75" />
-                                                    
-                                                </DockPanel>-->
+                                        
+                                            <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch" >
                                                 
 
-                                                <DockPanel Width="600" Height="80" LastChildFill="True" >
+
+                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
                                                     <Image DockPanel.Dock="Left" Source="{Binding Image}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
 
                                                    
@@ -878,51 +863,7 @@
 
                                                 </DockPanel>
 
-                                                <!--<WrapPanel>
-                                                    
-                                                    --><!--<Button Height="24" VerticalAlignment="Top" BorderThickness="0" Background="Black"
-                                             Padding="2.8">
-                                                        <Button.Resources>
-                                                            <Style TargetType="Border">
-                                                                <Setter Property="CornerRadius" Value="14"/>
-                                                            </Style>
-                                                        </Button.Resources>
-                                                        --><!--<Button.Content>
-                                                            <WrapPanel>
-                                                                <Image Source="Images/unloved.png" RenderOptions.BitmapScalingMode="HighQuality">
-                                                                    <Image.Style>
-                                                                        <Style TargetType="Image">
-                                                                            <Setter Property="Visibility" Value="Collapsed" />
-                                                                            <Style.Triggers>
-                                                                                <MultiDataTrigger>
-                                                                                    <MultiDataTrigger.Conditions>
-                                                                                        <Condition Binding="{Binding IsFavorite}" Value="False" />
-                                                                                    </MultiDataTrigger.Conditions>
-                                                                                    <Setter Property="Visibility" Value="Visible" />
-                                                                                </MultiDataTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </Image.Style>
-                                                                </Image>
-                                                                <Image Source="Images/favorite.png" RenderOptions.BitmapScalingMode="HighQuality">
-                                                                    <Image.Style>
-                                                                        <Style TargetType="Image">
-                                                                            <Setter Property="Visibility" Value="Collapsed" />
-                                                                            <Style.Triggers>
-                                                                                <MultiDataTrigger>
-                                                                                    <MultiDataTrigger.Conditions>
-                                                                                        <Condition Binding="{Binding IsFavorite}" Value="True" />
-                                                                                    </MultiDataTrigger.Conditions>
-                                                                                    <Setter Property="Visibility" Value="Visible" />
-                                                                                </MultiDataTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </Image.Style>
-                                                                </Image>
-                                                            </WrapPanel>
-                                                        </Button.Content>--><!--
-                                                    </Button>--><!--
-                                                </WrapPanel>-->
+                                               
                                             </Button>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
