@@ -690,6 +690,7 @@
                                     <RowDefinition Height="50"/>
                                     <RowDefinition Height="400"/>
                                     <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="20"/>
 
                                 </Grid.RowDefinitions>
 
@@ -742,17 +743,12 @@
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="{x:Type Button}">
+                                                                
                                                                 <Border Background="{TemplateBinding Background}"
                                                                         BorderThickness="0,0,0,3">
                                                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                                 </Border>
-                                                                <!--<ControlTemplate.Triggers>
-                                                                    <Trigger Property="IsFocused" Value="True">
-                                                                        <Setter Property="BorderBrush"
-                                                                            TargetName="column_chart_button_border"
-                                                                            Value="ForestGreen"/>
-                                                                    </Trigger>
-                                                                </ControlTemplate.Triggers>-->
+                                                                
                                                             </ControlTemplate>
                                                         </Setter.Value>
                                                     </Setter>
@@ -821,7 +817,7 @@
 
                                 <!--Đường viền ngăn cách-->
                                 <Border Grid.Row="1" Grid.ColumnSpan="2"
-                                        BorderThickness="0,0.3,0,0.3" 
+                                        BorderThickness="0,0.3,0,0" 
                                         BorderBrush="#FF757575">
 
                                     <Grid Height="400" VerticalAlignment="Center">
@@ -850,73 +846,110 @@
                                     </Grid>
 
                                 </Border>
+                                
+                                <!--ListView chứa danh sách các chi tiết loại giao dịch-->
+                                <ListView Name="CategoryListView" BorderThickness="0" 
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          ScrollViewer.CanContentScroll="False" 
+                                          ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                                          Background="White" Grid.Row="2"
+                                          HorizontalContentAlignment="Center"
+                                          Width="500">
 
-                                <!--Nút xem chi tiết Category-->
-                                <Button Grid.Row="2" Height="60">
+                                    <!--Bo tròn góc dưới cho ListView-->
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <Border CornerRadius="0,0,10,10" BorderThickness="0">
+                                                <ScrollViewer>
+                                                    <ItemsPresenter/>
+                                                </ScrollViewer>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </ListView.Template>
 
-                                    <!--Tạo màu khi đưa chuột vào nút-->
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-                                            <Setter Property="Background" Value="White"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border BorderThickness="0" Background="{TemplateBinding Background}">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Border>
+                                    <ListView.ItemTemplate>
 
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#EFF9F1"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
+                                        <DataTemplate>
 
-                                    <!--Đường viền ngăn cách-->
-                                    <Border BorderThickness="0,0,0,0.3" 
-                                            BorderBrush="#FF757575">
+                                            <!--Nút xem chi tiết Category-->
+                                            <Button Height="60">
 
-                                        <!--Khung chứa nội dung của nút loại giao dịch-->
-                                        <DockPanel Name="CategoryDockPanel" Height="60"
-                                                   Width="500" LastChildFill="True">
+                                                <!--Tạo màu khi đưa chuột vào nút-->
+                                                <Button.Style>
+                                                    <Style TargetType="{x:Type Button}">
 
-                                            <!--Hình ảnh minh họa loại giao dịch-->
-                                            <Image Source="Images/category_foodndrink.png" Width="45"
-                                                   RenderOptions.BitmapScalingMode="HighQuality"
-                                                   Margin="0,0,0,0"></Image>
+                                                        <Setter Property="Background" Value="White"/>
 
-                                            <!--Tên loại giao dịch-->
-                                            <TextBlock Text="Food and drink" VerticalAlignment="Center"
-                                                   FontSize="17" Margin="30,0,0,0"></TextBlock>
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
 
-                                            <!--Ảnh nút mũi tên qua phải-->
-                                            <Image Source="Images/arrow_forward.png" Width="18"
-                                               RenderOptions.BitmapScalingMode="HighQuality"
-                                               DockPanel.Dock="Right" Margin="0,0,0,0"></Image>
+                                                                <ControlTemplate TargetType="{x:Type Button}">
 
-                                            <!--Thông số đã sử dụng bao nhiêu tiền cho loại giao dịch này-->
-                                            <TextBlock FontSize="18" HorizontalAlignment="Right"
-                                                   Foreground="#039BE5" Text="105,000"
-                                                   Margin="0,0,15,0" DockPanel.Dock="Right"
-                                                   VerticalAlignment="Center"/>
+                                                                    <Border BorderThickness="0" 
+                                                                            Background="{TemplateBinding Background}">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
 
-                                            <TextBlock/>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
 
-                                        </DockPanel>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#E5F3FB"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
 
-                                    </Border>
+                                                <!--Đường viền ngăn cách-->
+                                                <Border BorderThickness="0,0.3,0,0" 
+                                                        BorderBrush="#FF757575">
 
-                                </Button>
+                                                    <!--Khung chứa nội dung của nút loại giao dịch-->
+                                                    <DockPanel Height="60" Width="500" 
+                                                               LastChildFill="True"
+                                                               Background="{x:Null}">
+
+                                                        <!--Hình ảnh minh họa loại giao dịch-->
+                                                        <Image Source="{Binding ImagePath}" Width="45"
+                                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                                               Margin="0,0,0,0"/>
+
+                                                        <!--Tên loại giao dịch-->
+                                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center"
+                                                                   FontSize="17" Margin="30,0,0,0"/>
+
+                                                        <!--Ảnh nút mũi tên qua phải-->
+                                                        <Image Source="Images/arrow_forward.png" 
+                                                               Width="18" Margin="0,0,10,0"
+                                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                                               DockPanel.Dock="Right"/>
+
+                                                        <!--Thông số đã sử dụng bao nhiêu tiền cho loại giao dịch này-->
+                                                        <TextBlock FontSize="18" 
+                                                                   HorizontalAlignment="Right"
+                                                                   Foreground="#039BE5" 
+                                                                   Text="{Binding Amount}"
+                                                                   Margin="0,0,15,0" 
+                                                                   DockPanel.Dock="Right"
+                                                                   VerticalAlignment="Center"/>
+
+                                                        <TextBlock/>
+
+                                                    </DockPanel>
+
+                                                </Border>
+
+                                            </Button>
+
+                                        </DataTemplate>
+
+                                    </ListView.ItemTemplate>
+
+                                </ListView>
 
                             </Grid>
-
-
-
-                            <!--<Button Width="50" Height="20" Click="Button_Click">Close</Button>-->
 
                         </Border>
 

@@ -164,5 +164,10 @@
   <ItemGroup>
     <Resource Include="Images\category_foodndrink.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_bills.png" />
+    <Resource Include="Images\category_entertainment.png" />
+    <Resource Include="Images\category_shopping.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

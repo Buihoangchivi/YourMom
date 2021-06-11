@@ -26,6 +26,65 @@ namespace YourMom
 	{
 
 		int[] arr = { 2, 5, 6, 7, 9, 10 };
+		List<DetailCategory> detailCategoryList = new List<DetailCategory>
+			{
+				new DetailCategory
+				{
+					ID = "0",
+					Name = "Eating",
+					ImagePath = "Images\\category_foodndrink.png",
+					Amount = 150000
+				},
+				new DetailCategory
+				{
+					ID = "1",
+					Name = "Shopping",
+					ImagePath = "Images\\category_shopping.png",
+					Amount = 300000
+				},
+				new DetailCategory
+				{
+					ID = "2",
+					Name = "Bills",
+					ImagePath = "Images\\category_bills.png",
+					Amount = 760000
+				},
+				new DetailCategory
+				{
+					ID = "3",
+					Name = "Entertainment",
+					ImagePath = "Images\\category_entertainment.png",
+					Amount = 100000
+				},
+				new DetailCategory
+				{
+					ID = "0",
+					Name = "Eating",
+					ImagePath = "Images\\category_foodndrink.png",
+					Amount = 150000
+				},
+				new DetailCategory
+				{
+					ID = "1",
+					Name = "Shopping",
+					ImagePath = "Images\\category_shopping.png",
+					Amount = 300000
+				},
+				new DetailCategory
+				{
+					ID = "2",
+					Name = "Bills",
+					ImagePath = "Images\\category_bills.png",
+					Amount = 760000
+				},
+				new DetailCategory
+				{
+					ID = "3",
+					Name = "Entertainment",
+					ImagePath = "Images\\category_entertainment.png",
+					Amount = 100000
+				}
+			};
 
 		public MainWindow()
 		{
@@ -36,6 +95,21 @@ namespace YourMom
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+
+			CategoryListView.ItemsSource = detailCategoryList;
+			if (detailCategoryList.Count <= 5)
+			{
+
+				CategoryListView.Height = detailCategoryList.Count * 65;
+
+			}
+			else
+			{
+
+				CategoryListView.Height = 5 * 65;
+
+			}
+			
 
 		}
 
@@ -546,5 +620,6 @@ namespace YourMom
 			PieChartIconTextBlock.Visibility = Visibility.Collapsed;
 
 		}
+
 	}
 }
