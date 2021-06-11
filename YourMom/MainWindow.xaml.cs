@@ -160,9 +160,9 @@ namespace YourMom
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-			IncomeReportGrid.Visibility = Visibility.Visible;
+			BudgetReportGrid.Visibility = Visibility.Visible;
 			Budget.Width = 410;
-			IncomeReportGrid.Width = 600;
+			BudgetReportGrid.Width = 600;
 			//BudgetListScrollView.Width = 410;
 			
 			
@@ -170,10 +170,15 @@ namespace YourMom
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-			IncomeReportGrid.Visibility = Visibility.Collapsed;
+			BudgetReportGrid.Visibility = Visibility.Collapsed;
 			Budget.Width = 600;
 			//BudgetListScrollView.Width = 600;
 			
 		}
+
+        private void CloseDetailBudget_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

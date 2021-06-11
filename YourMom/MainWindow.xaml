@@ -813,8 +813,8 @@
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="2*"/>
-                                <RowDefinition Height="2*"/>
-                                <RowDefinition Height="10*"/>
+                                <!--<RowDefinition Height="2*"/>-->
+                                <RowDefinition Height="12*"/>
                             </Grid.RowDefinitions>
                             <Button Grid.Row="0" Grid.Column="0" Margin="5" Width="100" Height="50" Style="{StaticResource GelButton}" Background="{StaticResource GreenGradientBrush}" Foreground="White">Add Budget</Button>
                             <Button Grid.Row="0" Grid.Column="1" Margin="5" Width="100" Height="50" Style="{StaticResource GelButton}" Background="{StaticResource GreenGradientBrush}" Foreground="White">In use</Button>
@@ -836,35 +836,48 @@
                                    
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                        
-                                            <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch" >
-                                                
+                                            <StackPanel>
+                                                <Grid>
+                                                    <StackPanel Grid.Row="1">
+                                                        <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">01/06/2021 - 30/06/2021</TextBlock>
+                                                        <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">Còn 21 ngày</TextBlock>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Row="1" Grid.Column="2">
+                                                        <TextBlock Margin="10,10,10,0" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">≈ 9.000.000</TextBlock>
+                                                        <TextBlock Margin="10,10,10,0" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">Còn lại ≈ 8.999.999</TextBlock>
+                                                    </StackPanel>
+                                                </Grid>
+                                                <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch" >
 
 
-                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                    <Image DockPanel.Dock="Left" Source="{Binding Image}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
 
-                                                   
-                                                    <DockPanel DockPanel.Dock="Top" >
-                                                        <TextBlock DockPanel.Dock="Left" Text="{Binding Text}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                                    <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                        <Image DockPanel.Dock="Left" Source="{Binding Image}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+
+
+                                                        <DockPanel DockPanel.Dock="Top" >
+                                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Text}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
-                                                        <StackPanel DockPanel.Dock="Right">
-                                                        <TextBlock  Text="{Binding Text1}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                            <StackPanel DockPanel.Dock="Right">
+                                                                <TextBlock  Text="{Binding Text1}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
-                                                            <TextBlock  Text="{Binding Text2}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                                <TextBlock  Text="{Binding Text2}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
-                                                        </StackPanel>
+                                                            </StackPanel>
+                                                        </DockPanel>
+
+
+                                                        <ProgressBar Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100" Value="75" />
+
+
+
                                                     </DockPanel>
 
-                                                    
-                                                    <ProgressBar Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100" Value="75" />
-                                                    
-                                                    
 
-                                                </DockPanel>
-
-                                               
-                                            </Button>
+                                                </Button>
+                                            </StackPanel>
+                                        
+                                            
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
@@ -944,27 +957,55 @@
                             </ScrollViewer>-->
 
 
-                            <StackPanel Grid.Row="1">
-                                <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">01/06/2021 - 30/06/2021</TextBlock>
-                                <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">Còn 21 ngày</TextBlock>
-                            </StackPanel>
-                            <StackPanel Grid.Row="1" Grid.Column="2">
-                                <TextBlock Margin="10,10,10,0" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">≈ 9.000.000</TextBlock>
-                                <TextBlock Margin="10,10,10,0" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">Còn lại ≈ 8.999.999</TextBlock>
-                            </StackPanel>
+                            
                         </Grid>
 
                     </Border>
 
 
                 </Grid>
-                <Grid Name="IncomeReportGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  Width="600" Visibility="Collapsed">
+                <!--Màn hình chi tiết của ngân sách-->
+                <Grid Name="BudgetReportGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  Width="600" Visibility="Collapsed">
 
-                    <Border Background="Blue" CornerRadius="8">
+                    <!--<Border Background="Blue" CornerRadius="8">
 
                         <Button Width="50" Height="20" Click="Button1_Click">Close</Button>
 
-                    </Border>
+                    </Border>-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel>
+                            <Button x:Name="CloseDetailBudget" Width="47" Click="CloseDetailBudget_Click" 
+                    BorderThickness="0" DockPanel.Dock="Right">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Image Source="Images/deleteText.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    
 
                 </Grid>
             </Grid>
