@@ -18,6 +18,16 @@ namespace YourMom
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
+	/// 
+	public class Test
+	{
+		public string Image { get; set; }
+		public string Text { get; set; }
+		public string Text1 { get; set; }
+		public string Text2 { get; set; }
+	}
+
+
 	public partial class MainWindow : Window
 	{
 		public MainWindow()
@@ -27,7 +37,11 @@ namespace YourMom
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-
+			List<Test> items = new List<Test>();
+			items.Add(new Test() { Image = "Images/category_foodndrink.png", Text = "Ăn uống", Text1 = "9.000.000", Text2 = " Còn lại 8.999.000" });
+			
+			BudgetList.ItemsSource = items;
+			
 		}
 
 		//---------------------------------------- Các hàm xử lý sự kiện --------------------------------------------//
@@ -142,5 +156,20 @@ namespace YourMom
 			AddTransaction add = new AddTransaction();
 			add.Show();
 		}
-	}
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+			IncomeReportGrid.Visibility = Visibility.Visible;
+			Budget.Width = 410;
+			IncomeReportGrid.Width = 600;
+			
+        }
+
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+			IncomeReportGrid.Visibility = Visibility.Collapsed;
+			Budget.Width = 600;
+
+        }
+    }
 }
