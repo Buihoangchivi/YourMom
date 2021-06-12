@@ -696,7 +696,7 @@
             <!--Nút thêm giao dịch mới-->
             <Button BorderThickness="0" Height="33" Margin="0,0,10,0"
                     DockPanel.Dock="Right" Foreground="White"
-                    Click="AddTransactionButton_Click">
+                    Click="AddTransactionButton_Click" Visibility="Collapsed">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="ForestGreen"/>
@@ -721,6 +721,37 @@
                 <TextBlock VerticalAlignment="Center" FontSize="15" 
                            FontWeight="Medium" Margin="12,0"
                            Text="ADD TRANSACTION"/>
+
+            </Button>
+
+            <!--Nút thêm ngân sách mới-->
+            <Button BorderThickness="0" Height="33" Margin="0,0,10,0"
+                    DockPanel.Dock="Right" Foreground="White"
+                    Click="AddBudgetButton_Click" Visibility="Visible">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="ForestGreen"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="8" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <TextBlock VerticalAlignment="Center" FontSize="15" 
+                           FontWeight="Medium" Margin="12,0"
+                           Text="Add Budget"/>
 
             </Button>
 
@@ -804,7 +835,7 @@
                         <ColumnDefinition Width="1.5*" />
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>-->
-                    <Border Grid.Row="0" Grid.Column="1" Background="Beige">
+                    <Border Grid.Row="0" Grid.Column="1" Background="Beige" CornerRadius="10">
                         <Grid >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -813,18 +844,67 @@
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="2*"/>
-                                <!--<RowDefinition Height="2*"/>-->
                                 <RowDefinition Height="12*"/>
                             </Grid.RowDefinitions>
-                            <Button Grid.Row="0" Grid.Column="0" Margin="5" Width="100" Height="50" Style="{StaticResource GelButton}" Background="{StaticResource GreenGradientBrush}" Foreground="White">Add Budget</Button>
-                            <Button Grid.Row="0" Grid.Column="1" Margin="5" Width="100" Height="50" Style="{StaticResource GelButton}" Background="{StaticResource GreenGradientBrush}" Foreground="White">In use</Button>
-                            <Button Grid.Row="0" Grid.Column="2" Margin="5" Width="100" Height="50" Style="{StaticResource GelButton}" Background="{StaticResource GreenGradientBrush}" Foreground="White">Finished</Button>
-                            <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="1" 
-                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
+                           
+                            
+
+                            <Button Name="RunningButton" Grid.Row="0" Grid.Column="0" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="RunningButton_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+
+                                <TextBlock Name="RunningTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                    Running
+                                </TextBlock>
+                            </Button>
+                            <Button Name="FinishedButton" Grid.Row="0" Grid.Column="1" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="FinishedButton_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <TextBlock Name="FinishedTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                    Finished
+                                </TextBlock>
+                            </Button>
+                            <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" Margin="0,-15,0,0"
                              />
-                            <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="1" 
-                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
-                             />
+                           
                             
 
 
@@ -839,12 +919,12 @@
                                             <StackPanel>
                                                 <Grid>
                                                     <StackPanel Grid.Row="1">
-                                                        <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">01/06/2021 - 30/06/2021</TextBlock>
-                                                        <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">Còn 21 ngày</TextBlock>
+                                                        <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">01/06/2021 - 30/06/2021</TextBlock>
+                                                        <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">Còn 21 ngày</TextBlock>
                                                     </StackPanel>
                                                     <StackPanel Grid.Row="1" Grid.Column="2">
-                                                        <TextBlock Margin="10,10,10,0" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">≈ 9.000.000</TextBlock>
-                                                        <TextBlock Margin="10,10,10,0" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">Còn lại ≈ 8.999.999</TextBlock>
+                                                        <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">≈ 9.000.000</TextBlock>
+                                                        <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">Còn lại ≈ 8.999.999</TextBlock>
                                                     </StackPanel>
                                                 </Grid>
                                                 <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch" >
@@ -964,6 +1044,9 @@
 
 
                 </Grid>
+                
+                
+                
                 <!--Màn hình chi tiết của ngân sách-->
                 <Grid Name="BudgetReportGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  Width="600" Visibility="Collapsed">
 
@@ -972,39 +1055,98 @@
                         <Button Width="50" Height="20" Click="Button1_Click">Close</Button>
 
                     </Border>-->
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="4*"/>
-                            <RowDefinition Height="5*"/>
-                            <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel>
-                            <Button x:Name="CloseDetailBudget" Width="47" Click="CloseDetailBudget_Click" 
+                    <Border Background="Beige" CornerRadius="10">
+                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                    <Button x:Name="CloseDetailBudget" Width="47" Click="CloseDetailBudget_Click" 
                     BorderThickness="0" DockPanel.Dock="Right">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="Red"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <Image Source="Images/deleteText.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
-                            </Button>
-                        </StackPanel>
-                    </Grid>
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Image Source="Images/deleteText.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
+                                    </Button>
+                                    <TextBlock TextWrapping="Wrap" FontSize="20" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Chi tiết</TextBlock>
+                                </StackPanel>
+                                <GridSplitter Grid.Row="0"  Width="Auto" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
+                             />
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                                    <Image  Source="Images/category_foodndrink.png" VerticalAlignment="Top" Height="45" Width="45" Margin="50,0,20,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock TextWrapping="Wrap" FontSize="20" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left"> Ăn uống</TextBlock>
+                                        <TextBlock TextWrapping="Wrap" FontSize="15" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left">Còn 19 ngày</TextBlock>
+                                        <GridSplitter  Width="Auto" Height="0.5" Margin="0,10,0,0"
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
+                             />
+                                        <TextBlock TextWrapping="Wrap" FontSize="15" Margin="0,10,10,0"
+                           VerticalAlignment="Center" HorizontalAlignment="Left">Còn lại</TextBlock>
+
+                                        <TextBlock Margin="0,0,10,10" FontSize="20" FontFamily="Segoe UI Semibold" HorizontalAlignment="Left">8.999.999</TextBlock>
+
+                                        <Grid Height="100">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Row="0" Grid.Column="0">
+                                                <TextBlock>Đã chi</TextBlock>
+                                                <TextBlock>1.000</TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                                <TextBlock>Dự kiến chi tiêu</TextBlock>
+                                                <TextBlock>2.000</TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="1" Grid.Column="0">
+                                                <TextBlock>Nên chi tiêu hằng ngày</TextBlock>
+                                                <TextBlock>473.631</TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="1" Grid.Column="1">
+                                                <TextBlock>Thực tế chi tiêu hàng ngày</TextBlock>
+                                                <TextBlock>60</TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </ScrollViewer>
+                    </Border>
+                    
                     
 
                 </Grid>

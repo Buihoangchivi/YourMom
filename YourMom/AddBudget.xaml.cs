@@ -11,22 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Text.RegularExpressions;
-
 
 namespace YourMom
 {
     /// <summary>
-    /// Interaction logic for AddTransaction.xaml
+    /// Interaction logic for AddBudget.xaml
     /// </summary>
-    public partial class AddTransaction : Window
+    public partial class AddBudget : Window
     {
-        public AddTransaction()
+        public AddBudget()
         {
             InitializeComponent();
         }
-        
-        
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -46,43 +43,26 @@ namespace YourMom
             {
                 // Do nothing
             }
-            
         }
 
         private void Money_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
 
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
 
-       
-
-        private static readonly Regex _regex = new Regex("[^0-9]+"); //regex that matches disallowed text
-        private static bool IsTextAllowed(string text)
-        {
-            return !_regex.IsMatch(text);
-        }
         private void Money_Pasting(object sender, DataObjectPastingEventArgs e)
         {
-            if (e.DataObject.GetDataPresent(typeof(String)))
-            {
-                String text = (String)e.DataObject.GetData(typeof(String));
-                if (!IsTextAllowed(text))
-                {
-                    e.CancelCommand();
-                }
-            }
-            else
-            {
-                e.CancelCommand();
-            }
+
         }
 
-        private void TimeButton_Click(object sender, RoutedEventArgs e)
+        private void TimeButton1_Click(object sender, RoutedEventArgs e)
         {
-            DateTime? datepicker = DatePicker1.SelectedDate;
-            MessageBox.Show(datepicker.Value.ToString());
+
+        }
+
+        private void TimeButton2_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

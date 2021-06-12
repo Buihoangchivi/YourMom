@@ -158,27 +158,54 @@ namespace YourMom
 			add.Show();
 		}
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+		private void AddBudgetButton_Click(object sender, RoutedEventArgs e)
+		{
+			AddBudget add = new AddBudget();
+			add.Show();
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
         {
 			BudgetReportGrid.Visibility = Visibility.Visible;
 			Budget.Width = 410;
 			BudgetReportGrid.Width = 600;
-			//BudgetListScrollView.Width = 410;
+			
 			
 			
 		}
 
-        private void Button1_Click(object sender, RoutedEventArgs e)
-        {
-			BudgetReportGrid.Visibility = Visibility.Collapsed;
-			Budget.Width = 600;
-			//BudgetListScrollView.Width = 600;
-			
-		}
 
         private void CloseDetailBudget_Click(object sender, RoutedEventArgs e)
         {
+			BudgetReportGrid.Visibility = Visibility.Collapsed;
+			Budget.Width = 600;
+		}
 
-        }
+        private void RunningButton_Click(object sender, RoutedEventArgs e)
+        {
+			RunningTextblock.Foreground = Brushes.Green;
+			RunningTextblock.FontSize = 20;
+			RunningButton.BorderThickness = new Thickness(0, 0, 0, 1);
+			RunningButton.BorderBrush = Brushes.Green;
+
+			FinishedTextblock.Foreground = Brushes.Black;
+			FinishedButton.BorderThickness = new Thickness(0, 0, 0, 0);
+			FinishedTextblock.FontSize = 15;
+
+		}
+
+        private void FinishedButton_Click(object sender, RoutedEventArgs e)
+        {
+			FinishedTextblock.Foreground = Brushes.Green;
+			FinishedTextblock.FontSize = 20;
+			FinishedButton.BorderThickness = new Thickness(0, 0, 0, 1);
+			FinishedButton.BorderBrush = Brushes.Green;
+
+			RunningTextblock.Foreground = Brushes.Black;
+			RunningButton.BorderThickness = new Thickness(0, 0, 0, 0);
+			RunningTextblock.FontSize = 15;
+		}
+
+        
     }
 }
