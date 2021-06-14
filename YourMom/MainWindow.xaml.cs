@@ -119,6 +119,94 @@ namespace YourMom
 				}
 			};
 
+		List<DetailCategory> detailCategoryList2 = new List<DetailCategory>
+			{
+				new DetailCategory
+				{
+					ID = "10",
+					Name = "January",
+					ImagePath = "Images\\january.png",
+					Amount = 12442
+				},
+				new DetailCategory
+				{
+					ID = "11",
+					Name = "February",
+					ImagePath = "Images\\february.png",
+					Amount = 25343
+				},
+				new DetailCategory
+				{
+					ID = "12",
+					Name = "March",
+					ImagePath = "Images\\march.png",
+					Amount = 45536
+				},
+				new DetailCategory
+				{
+					ID = "13",
+					Name = "April",
+					ImagePath = "Images\\april.png",
+					Amount = 23123
+				},
+				new DetailCategory
+				{
+					ID = "10",
+					Name = "May",
+					ImagePath = "Images\\may.png",
+					Amount = 11472
+				},
+				new DetailCategory
+				{
+					ID = "11",
+					Name = "June",
+					ImagePath = "Images\\june.png",
+					Amount = 45443
+				},
+				new DetailCategory
+				{
+					ID = "12",
+					Name = "July",
+					ImagePath = "Images\\july.png",
+					Amount = 34535
+				},
+				new DetailCategory
+				{
+					ID = "13",
+					Name = "August",
+					ImagePath = "Images\\august.png",
+					Amount = 23284
+				},
+				new DetailCategory
+				{
+					ID = "10",
+					Name = "September",
+					ImagePath = "Images\\september.png",
+					Amount = 24024
+				},
+				new DetailCategory
+				{
+					ID = "11",
+					Name = "October",
+					ImagePath = "Images\\october.png",
+					Amount = 27257
+				},
+				new DetailCategory
+				{
+					ID = "12",
+					Name = "November",
+					ImagePath = "Images\\november.png",
+					Amount = 57567
+				},
+				new DetailCategory
+				{
+					ID = "13",
+					Name = "December",
+					ImagePath = "Images\\december.png",
+					Amount = 45682
+				}
+			};
+
 		public MainWindow()
 		{
 
@@ -564,9 +652,7 @@ namespace YourMom
 		//Biểu đồ hình quạt linh động
 		private void DynamicPieChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-
-			DynamicPieChart.Series = new SeriesCollection();
-			((DefaultTooltip)DynamicPieChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+			
 			var sum = AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
 			DynamicPieChartTextBlock.Text = $"{sum}";
 
@@ -576,9 +662,6 @@ namespace YourMom
 		private void DynamicColumnChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 
-			DynamicColumnChart.Series = new SeriesCollection();
-			((DefaultTooltip)DynamicColumnChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			DynamicColumnChart.AxisY = new AxesCollection();
 			var sum = AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
 			DynamicColumnChartTextBlock.Text = $"{sum}";
 
@@ -588,6 +671,8 @@ namespace YourMom
 		private double AddDataIntoReportPieChart(PieChart pieChart, DetailInfomationClass detail)
 		{
 
+			pieChart.Series = new SeriesCollection();
+			((DefaultTooltip)pieChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
 			//Tinh tổng số tiền của các thành phần
 			var sum = 0.0;
 			foreach (var component in detail.Components)
@@ -611,6 +696,9 @@ namespace YourMom
 		private double AddDataIntoReportColumnChart(CartesianChart columnChart, DetailInfomationClass detail)
 		{
 
+			columnChart.Series = new SeriesCollection();
+			((DefaultTooltip)columnChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+			columnChart.AxisY = new AxesCollection();
 			//Tinh tổng số tiền của các thành phần
 			var sum = 0.0;
 			foreach (var component in detail.Components)
@@ -726,16 +814,35 @@ namespace YourMom
 		private void DetailButton_Click(object sender, RoutedEventArgs e)
 		{
 
-			var temp = sender as Button;
+			var detailCategory = (sender as Button).DataContext as DetailCategory;
 
 			//Đổi tên tiêu đề khung báo cáo chi tiết
-			if (temp.DataContext.GetType().Name == "DetailCategory")
+			if (DetailReportTextBlock.Text == "Income")
 			{
 
-				var detailCategory = temp.DataContext as DetailCategory;
-				//Hiển thị tiêu đề của khung chi tiết thu nhập
 				detailInfomation.Title = detailCategory.Name;
+				detailInfomation.Components = detailCategoryList1;
 				CategoryListView.ItemsSource = detailCategoryList1;
+
+				var sum = AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
+				AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
+
+				DynamicPieChartTextBlock.Text = $"{sum}";
+				DynamicColumnChartTextBlock.Text = $"{sum}";
+				
+			}
+			else
+			{
+				
+				detailInfomation.Title = detailCategory.Name;
+				detailInfomation.Components = detailCategoryList2;
+				CategoryListView.ItemsSource = detailCategoryList2;
+
+				var sum = AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
+				AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
+
+				DynamicPieChartTextBlock.Text = $"{sum}";
+				DynamicColumnChartTextBlock.Text = $"{sum}";
 
 			}
 			

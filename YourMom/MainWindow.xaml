@@ -733,7 +733,8 @@
                                     </Button>
 
                                     <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="DemiBold"
-                                               VerticalAlignment="Center" Margin="20,0,0,5"/>
+                                               VerticalAlignment="Center" Margin="20,0,0,5"
+                                               Name="DetailReportTextBlock"/>
 
                                     <!--Nút hiển thị biểu đồ hình cột-->
 
