@@ -25,7 +25,8 @@ namespace YourMom
 	public partial class MainWindow : Window
 	{
 
-		int[] arr = { 12, 5, 6, 7, 9, 10 };
+		DetailInfomationClass detailInfomation = new DetailInfomationClass();
+
 		List<DetailCategory> detailCategoryList = new List<DetailCategory>
 			{
 				new DetailCategory
@@ -33,55 +34,87 @@ namespace YourMom
 					ID = "0",
 					Name = "Eating",
 					ImagePath = "Images\\category_foodndrink.png",
-					Amount = 150000
+					Amount = 150320
 				},
 				new DetailCategory
 				{
 					ID = "1",
 					Name = "Shopping",
 					ImagePath = "Images\\category_shopping.png",
-					Amount = 300000
+					Amount = 342420
 				},
 				new DetailCategory
 				{
 					ID = "2",
 					Name = "Bills",
 					ImagePath = "Images\\category_bills.png",
-					Amount = 760000
+					Amount = 60230
 				},
 				new DetailCategory
 				{
 					ID = "3",
 					Name = "Entertainment",
 					ImagePath = "Images\\category_entertainment.png",
-					Amount = 100000
+					Amount = 24232
 				},
 				new DetailCategory
 				{
 					ID = "0",
 					Name = "Eating",
 					ImagePath = "Images\\category_foodndrink.png",
-					Amount = 150000
+					Amount = 5430
 				},
 				new DetailCategory
 				{
 					ID = "1",
 					Name = "Shopping",
 					ImagePath = "Images\\category_shopping.png",
-					Amount = 300000
+					Amount = 345325
 				},
 				new DetailCategory
 				{
 					ID = "2",
 					Name = "Bills",
 					ImagePath = "Images\\category_bills.png",
-					Amount = 760000
+					Amount = 454243
 				},
 				new DetailCategory
 				{
 					ID = "3",
 					Name = "Entertainment",
 					ImagePath = "Images\\category_entertainment.png",
+					Amount = 324523
+				}
+			};
+
+		List<DetailCategory> detailCategoryList1 = new List<DetailCategory>
+			{
+				new DetailCategory
+				{
+					ID = "10",
+					Name = "Clothes",
+					ImagePath = "Images\\category_clothes.png",
+					Amount = 150000
+				},
+				new DetailCategory
+				{
+					ID = "11",
+					Name = "Shoes",
+					ImagePath = "Images\\category_shoes.png",
+					Amount = 300000
+				},
+				new DetailCategory
+				{
+					ID = "12",
+					Name = "Accessories",
+					ImagePath = "Images\\category_accessories.png",
+					Amount = 760000
+				},
+				new DetailCategory
+				{
+					ID = "13",
+					Name = "Electronic Device",
+					ImagePath = "Images\\category_electronic_device.png",
 					Amount = 100000
 				}
 			};
@@ -91,25 +124,18 @@ namespace YourMom
 
 			InitializeComponent();
 
+			detailInfomation.Components = detailCategoryList;
+
+			DetailReportGrid.DataContext = detailInfomation;
+			CategoryListView.ItemsSource = detailCategoryList;
+
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 
-			CategoryListView.ItemsSource = detailCategoryList;
-			if (detailCategoryList.Count <= 5)
-			{
-
-				CategoryListView.Height = detailCategoryList.Count * 65;
-
-			}
-			else
-			{
-
-				CategoryListView.Height = 5 * 65;
-
-			}
-
+			
+			//
 
 		}
 
@@ -194,7 +220,7 @@ namespace YourMom
 		{
 
 			//Ẩn báo cáo chi tiết
-			IncomeReportGrid.Visibility = Visibility.Collapsed;
+			DetailReportGrid.Visibility = Visibility.Collapsed;
 
 			//Phóng to chiều rộng của khung báo cáo chung
 			GeneralReportGrid.Width = 600;
@@ -519,15 +545,8 @@ namespace YourMom
 
 			IncomeReportChart.Series = new SeriesCollection();
 			((DefaultTooltip)IncomeReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			foreach (var member in arr)
-			{
-				IncomeReportChart.Series.Add(
-						new PieSeries()
-						{
-							Values = new ChartValues<decimal> { member }
-						}
-					); ;
-			}
+			var sum = AddDataIntoReportPieChart(IncomeReportChart, detailInfomation);
+			IncomeAmountTextBlock.Text = $"+{sum}";
 
 		}
 
@@ -537,15 +556,8 @@ namespace YourMom
 
 			ExpenseReportChart.Series = new SeriesCollection();
 			((DefaultTooltip)ExpenseReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			foreach (var member in arr)
-			{
-				ExpenseReportChart.Series.Add(
-						new PieSeries()
-						{
-							Values = new ChartValues<decimal> { member }
-						}
-					);
-			}
+			var sum = AddDataIntoReportPieChart(ExpenseReportChart, detailInfomation);
+			ExpenseAmountTextBlock.Text = $"+{sum}";
 
 		}
 
@@ -555,15 +567,8 @@ namespace YourMom
 
 			DynamicPieChart.Series = new SeriesCollection();
 			((DefaultTooltip)DynamicPieChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			foreach (var member in arr)
-			{
-				DynamicPieChart.Series.Add(
-						new PieSeries()
-						{
-							Values = new ChartValues<decimal> { member }
-						}
-					);
-			}
+			var sum = AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
+			DynamicPieChartTextBlock.Text = $"{sum}";
 
 		}
 
@@ -574,13 +579,52 @@ namespace YourMom
 			DynamicColumnChart.Series = new SeriesCollection();
 			((DefaultTooltip)DynamicColumnChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
 			DynamicColumnChart.AxisY = new AxesCollection();
-			foreach (var member in arr)
+			var sum = AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
+			DynamicColumnChartTextBlock.Text = $"{sum}";
+
+		}
+
+		//Hàm thêm dữ liệu vào biểu đồ hình tròn
+		private double AddDataIntoReportPieChart(PieChart pieChart, DetailInfomationClass detail)
+		{
+
+			//Tinh tổng số tiền của các thành phần
+			var sum = 0.0;
+			foreach (var component in detail.Components)
 			{
-				DynamicColumnChart.Series.Add(new ColumnSeries()
-				{
-					Values = new ChartValues<decimal> { member }
-				});
+
+				pieChart.Series.Add(
+					new PieSeries()
+					{
+						Values = new ChartValues<double> { component.Amount },
+						Title = component.Name
+					}
+				);
+				sum += component.Amount;
+
 			}
+			return sum;
+
+		}
+
+		//Hàm thêm dữ liệu vào biểu đồ hình cột
+		private double AddDataIntoReportColumnChart(CartesianChart columnChart, DetailInfomationClass detail)
+		{
+
+			//Tinh tổng số tiền của các thành phần
+			var sum = 0.0;
+			foreach (var component in detail.Components)
+			{
+
+				columnChart.Series.Add(new ColumnSeries()
+				{
+					Values = new ChartValues<double> { component.Amount },
+					Title = component.Name
+				});
+				sum += component.Amount;
+
+			}
+			return sum;
 
 		}
 
@@ -588,13 +632,13 @@ namespace YourMom
 		{
 
 			//Hiển thị khung báo cáo chi tiết thu nhập
-			IncomeReportGrid.Visibility = Visibility.Visible;
+			DetailReportGrid.Visibility = Visibility.Visible;
 
 			//Thu nhỏ chiều rộng của khung báo cáo chung
 			GeneralReportGrid.Width = 410;
 
 			//Phóng to khung báo cáo chi tiết về thu nhập
-			IncomeReportGrid.Width = 600;
+			DetailReportGrid.Width = 600;
 
 			//Thu nhỏ kích thước của 2 biểu đồ hình bánh thể hiện thu chi
 			IncomeReportChart.Width = 200;
@@ -607,6 +651,7 @@ namespace YourMom
 			LoanDockPanel.Width = 410;
 
 			//Mặc định hiển thị biểu đồ hình tròn
+			detailInfomation.TypeOfChart = false;
 			PieChartIconButton.Height = 46;
 			PieChartIconTextBlock.Visibility = Visibility.Visible;
 			//Hiển thị biểu đồ hình tròn
@@ -615,6 +660,26 @@ namespace YourMom
 			//Ẩn biểu đồ hình cột
 			DynamicColumnChart.Visibility = Visibility.Collapsed;
 			DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
+
+			//Hiển thị tiêu đề của khung chi tiết thu nhập
+			detailInfomation.Title = "Income";
+
+			//Nạp dữ liệu cho khung báo báo thu nhập chi tiết
+			detailInfomation.Components = detailCategoryList;
+			
+			if (detailCategoryList.Count <= 5)
+			{
+
+				CategoryListView.Height = detailCategoryList.Count * 65;
+
+			}
+			else
+			{
+
+				CategoryListView.Height = 5 * 65;
+
+			}
+			DetailScrollViewer.ScrollToTop();
 
 		}
 
@@ -658,5 +723,36 @@ namespace YourMom
 
 		}
 
+		private void DetailButton_Click(object sender, RoutedEventArgs e)
+		{
+
+			var temp = sender as Button;
+
+			//Đổi tên tiêu đề khung báo cáo chi tiết
+			if (temp.DataContext.GetType().Name == "DetailCategory")
+			{
+
+				var detailCategory = temp.DataContext as DetailCategory;
+				//Hiển thị tiêu đề của khung chi tiết thu nhập
+				detailInfomation.Title = detailCategory.Name;
+				CategoryListView.ItemsSource = detailCategoryList1;
+
+			}
+			
+			if (detailCategoryList1.Count <= 5)
+			{
+
+				CategoryListView.Height = detailCategoryList1.Count * 65;
+
+			}
+			else
+			{
+
+				CategoryListView.Height = 5 * 65;
+
+			}
+			DetailScrollViewer.ScrollToTop();
+
+		}
 	}
 }

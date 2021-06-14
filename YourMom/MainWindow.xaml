@@ -413,7 +413,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Khung hiển thị báo cáo chung-->
-                <Grid Name="GeneralReportGrid" Width="410" HorizontalAlignment="Center">
+                <Grid Name="GeneralReportGrid" Width="600" HorizontalAlignment="Center">
 
                     <Border Background="White" CornerRadius="10">
 
@@ -475,7 +475,10 @@
                                         <TextBlock FontSize="16" HorizontalAlignment="Center" 
                                                        Foreground="#FF757575" Text="Income"></TextBlock>
 
-                                        <TextBlock FontWeight="Medium" FontSize="25" Foreground="#039BE5">+370,000</TextBlock>
+                                        <TextBlock Name="IncomeAmountTextBlock"
+                                                   FontWeight="Medium" 
+                                                   FontSize="25" 
+                                                   Foreground="#039BE5"/>
 
                                     </StackPanel>
 
@@ -531,8 +534,10 @@
                                                        HorizontalAlignment="Center" 
                                                        Foreground="#FF757575">Expense</TextBlock>
 
-                                        <TextBlock FontWeight="Medium" FontSize="25" 
-                                                       Foreground="#E51C23">-247,000</TextBlock>
+                                        <TextBlock Name="ExpenseAmountTextBlock"
+                                                   FontWeight="Medium" 
+                                                   FontSize="25"     
+                                                   Foreground="#E51C23"/>
 
                                     </StackPanel>
 
@@ -677,9 +682,10 @@
                 </Grid>
 
                 <!--Khung hiển thị báo cáo chi tiết về thu nhập-->
-                <Grid Name="IncomeReportGrid" Grid.Column="1" Width="600" Visibility="Visible">
+                <Grid Name="DetailReportGrid" Grid.Column="1" Width="600" Visibility="Collapsed">
 
-                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ScrollViewer Name="DetailScrollViewer"
+                                  VerticalScrollBarVisibility="Hidden">
 
                         <Border Background="White" CornerRadius="8">
 
@@ -726,7 +732,7 @@
 
                                     </Button>
 
-                                    <TextBlock Text="Income" FontSize="25" FontWeight="DemiBold"
+                                    <TextBlock Text="{Binding Title}" FontSize="25" FontWeight="DemiBold"
                                                VerticalAlignment="Center" Margin="20,0,0,5"/>
 
                                     <!--Nút hiển thị biểu đồ hình cột-->
@@ -846,7 +852,7 @@
 
                                         <!--Textblock hiển thị số tiền-->
                                         <TextBlock Name="DynamicPieChartTextBlock"
-                                                   Text="5,735,340" FontSize="27"
+                                                   FontSize="27"
                                                    FontWeight="DemiBold" Grid.Column="1"
                                                    Grid.RowSpan="2"
                                                    HorizontalAlignment="Center"
@@ -871,7 +877,7 @@
 
                                         <!--Textblock hiển thị số tiền-->
                                         <TextBlock Name="DynamicColumnChartTextBlock"
-                                                   Text="5,735,340" FontSize="27"
+                                                   FontSize="27"
                                                    FontWeight="DemiBold"
                                                    Grid.ColumnSpan="2"
                                                    HorizontalAlignment="Center"
@@ -882,7 +888,7 @@
                                     </Grid>
 
                                 </Border>
-                                
+
                                 <!--ListView chứa danh sách các chi tiết loại giao dịch-->
                                 <ListView Name="CategoryListView" BorderThickness="0" 
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -908,7 +914,8 @@
                                         <DataTemplate>
 
                                             <!--Nút xem chi tiết Category-->
-                                            <Button Height="60">
+                                            <Button Name="DetailButton" Height="60"
+                                                    Click="DetailButton_Click">
 
                                                 <!--Tạo màu khi đưa chuột vào nút-->
                                                 <Button.Style>
