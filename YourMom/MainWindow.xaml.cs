@@ -206,6 +206,9 @@ namespace YourMom
 			RunningTextblock.FontSize = 15;
 		}
 
-        
+        private void ViewTransactionListButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
