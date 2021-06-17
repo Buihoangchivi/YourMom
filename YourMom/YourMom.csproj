@@ -75,6 +75,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modal\Budget.cs" />
+    <Compile Include="Modal\Category.cs" />
+    <Compile Include="Modal\DebitBook.cs" />
+    <Compile Include="Modal\DetailCategory.cs" />
+    <Compile Include="Modal\DetailInfomation.cs" />
+    <Compile Include="Modal\Report.cs" />
+    <Compile Include="Modal\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -147,6 +154,41 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\arrow_forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\columnChart.png" />
+    <Resource Include="Images\pieChart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_foodndrink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_bills.png" />
+    <Resource Include="Images\category_entertainment.png" />
+    <Resource Include="Images\category_shopping.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_accessories.png" />
+    <Resource Include="Images\category_clothes.png" />
+    <Resource Include="Images\category_electronic_device.png" />
+    <Resource Include="Images\category_shoes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\april.png" />
+    <Resource Include="Images\august.png" />
+    <Resource Include="Images\december.png" />
+    <Resource Include="Images\february.png" />
+    <Resource Include="Images\january.png" />
+    <Resource Include="Images\july.png" />
+    <Resource Include="Images\june.png" />
+    <Resource Include="Images\march.png" />
+    <Resource Include="Images\may.png" />
+    <Resource Include="Images\november.png" />
+    <Resource Include="Images\october.png" />
+    <Resource Include="Images\september.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
