@@ -3,14 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:YourMom" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:YourMom.Modal" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Height="650" Width="1152" MinWidth="810" MinHeight="500" Loaded="Window_Loaded"
         WindowStyle="None" WindowStartupLocation="CenterScreen">
 
     <WindowChrome.WindowChrome>
+        
         <WindowChrome CaptionHeight="0"/>
+        
     </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+
+        <local:MoneyConverter x:Key="moneyConverter"/>
+
+    </Window.Resources>
 
     <DockPanel LastChildFill="True" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 
@@ -435,7 +443,7 @@
                             </Grid.RowDefinitions>
 
                             <!--Nút xem chi tiết báo cáo về thu nhập-->
-                            <Button Name="IncomeButton" Click="IncomeButton_Click">
+                            <Button Name="IncomeButton" Click="CommonChartButton_Click">
 
                                 <!--Tạo màu khi đưa chuột vào nút và bo tròn góc trên bên trái cho nút-->
                                 <Button.Style>
@@ -475,7 +483,7 @@
                                         <TextBlock FontSize="16" HorizontalAlignment="Center" 
                                                        Foreground="#FF757575" Text="Income"></TextBlock>
 
-                                        <TextBlock Name="IncomeAmountTextBlock"
+                                        <TextBlock Text="{Binding TotalMoney, Converter={StaticResource moneyConverter}}"
                                                    FontWeight="Medium" 
                                                    FontSize="25" 
                                                    Foreground="#039BE5"/>
@@ -494,7 +502,9 @@
                             </Button>
 
                             <!--Nút xem chi tiết báo cáo về chi tiêu-->
-                            <Button Grid.Column="1">
+                            <Button Grid.Column="1"
+                                    Name="ExpenseButton" 
+                                    Click="CommonChartButton_Click">
 
                                 <!--Tạo màu khi đưa chuột vào nút và bo tròn góc trên bên phải cho nút-->
                                 <Button.Style>
@@ -534,7 +544,7 @@
                                                        HorizontalAlignment="Center" 
                                                        Foreground="#FF757575">Expense</TextBlock>
 
-                                        <TextBlock Name="ExpenseAmountTextBlock"
+                                        <TextBlock Text="{Binding TotalMoney, Converter={StaticResource moneyConverter}}"
                                                    FontWeight="Medium" 
                                                    FontSize="25"     
                                                    Foreground="#E51C23"/>
@@ -853,6 +863,7 @@
 
                                         <!--Textblock hiển thị số tiền-->
                                         <TextBlock Name="DynamicPieChartTextBlock"
+                                                   Text="{Binding TotalMoney, Converter={StaticResource moneyConverter}}"
                                                    FontSize="27"
                                                    FontWeight="DemiBold" Grid.Column="1"
                                                    Grid.RowSpan="2"
@@ -878,6 +889,7 @@
 
                                         <!--Textblock hiển thị số tiền-->
                                         <TextBlock Name="DynamicColumnChartTextBlock"
+                                                   Text="{Binding TotalMoney, Converter={StaticResource moneyConverter}}"
                                                    FontSize="27"
                                                    FontWeight="DemiBold"
                                                    Grid.ColumnSpan="2"
@@ -891,13 +903,16 @@
                                 </Border>
 
                                 <!--ListView chứa danh sách các chi tiết loại giao dịch-->
-                                <ListView Name="CategoryListView" BorderThickness="0" 
+                                <ListView Name="CategoryListView" 
+                                          BorderThickness="0" 
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                           ScrollViewer.CanContentScroll="False" 
                                           ScrollViewer.VerticalScrollBarVisibility="Hidden" 
-                                          Background="White" Grid.Row="2"
+                                          Background="White" 
+                                          Grid.Row="2"
                                           HorizontalContentAlignment="Center"
-                                          Width="500">
+                                          Width="500" 
+                                          ItemsSource="{Binding Components}">
 
                                     <!--Bo tròn góc dưới cho ListView-->
                                     <ListView.Template>
@@ -974,7 +989,7 @@
                                                         <TextBlock FontSize="18" 
                                                                    HorizontalAlignment="Right"
                                                                    Foreground="#039BE5" 
-                                                                   Text="{Binding Amount}"
+                                                                   Text="{Binding Amount, Converter={StaticResource moneyConverter}}"
                                                                    Margin="0,0,15,0" 
                                                                    DockPanel.Dock="Right"
                                                                    VerticalAlignment="Center"/>

@@ -12,6 +12,7 @@ public class DetailInfomationClass : INotifyPropertyChanged
 	//1 là biểu đồ hình cột
 	protected bool typeOfChart;
 	protected List<DetailCategory> components;
+	protected double totalMoney;
 
 	public string Title
 	{
@@ -49,6 +50,19 @@ public class DetailInfomationClass : INotifyPropertyChanged
 		{
 			components = value;
 			OnPropertyChanged("Components");
+		}
+	}
+
+	public double TotalMoney
+	{
+		get
+		{
+			return totalMoney;
+		}
+		set
+		{
+			totalMoney = value;
+			OnPropertyChanged("TotalMoney");
 		}
 	}
 

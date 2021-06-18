@@ -126,7 +126,7 @@ namespace YourMom
 					ID = "10",
 					Name = "January",
 					ImagePath = "Images\\january.png",
-					Amount = 12442
+					Amount = -1227.239723
 				},
 				new DetailCategory
 				{
@@ -214,16 +214,26 @@ namespace YourMom
 
 			detailInfomation.Components = detailCategoryList;
 
+			//Binding dữ liệu cho khung báo cáo chi tiết
 			DetailReportGrid.DataContext = detailInfomation;
-			CategoryListView.ItemsSource = detailCategoryList;
+			IncomeButton.DataContext = detailInfomation;
+			ExpenseButton.DataContext = detailInfomation;
 
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 
-			
+
 			//
+
+		}
+
+		//Hàm chuyển tiền sang dạng chuỗi có dấu phẩy ngăn cách
+		private string ConvertMoneyToStringFormat(double money)
+		{
+
+			return "";
 
 		}
 
@@ -633,8 +643,7 @@ namespace YourMom
 
 			IncomeReportChart.Series = new SeriesCollection();
 			((DefaultTooltip)IncomeReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			var sum = AddDataIntoReportPieChart(IncomeReportChart, detailInfomation);
-			IncomeAmountTextBlock.Text = $"+{sum}";
+			AddDataIntoReportPieChart(IncomeReportChart, detailInfomation);
 
 		}
 
@@ -644,17 +653,15 @@ namespace YourMom
 
 			ExpenseReportChart.Series = new SeriesCollection();
 			((DefaultTooltip)ExpenseReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			var sum = AddDataIntoReportPieChart(ExpenseReportChart, detailInfomation);
-			ExpenseAmountTextBlock.Text = $"+{sum}";
+			AddDataIntoReportPieChart(ExpenseReportChart, detailInfomation);
 
 		}
 
 		//Biểu đồ hình quạt linh động
 		private void DynamicPieChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			
-			var sum = AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
-			DynamicPieChartTextBlock.Text = $"{sum}";
+
+			AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
 
 		}
 
@@ -662,13 +669,12 @@ namespace YourMom
 		private void DynamicColumnChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
 
-			var sum = AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
-			DynamicColumnChartTextBlock.Text = $"{sum}";
+			AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
 
 		}
 
 		//Hàm thêm dữ liệu vào biểu đồ hình tròn
-		private double AddDataIntoReportPieChart(PieChart pieChart, DetailInfomationClass detail)
+		private void AddDataIntoReportPieChart(PieChart pieChart, DetailInfomationClass detail)
 		{
 
 			pieChart.Series = new SeriesCollection();
@@ -688,12 +694,13 @@ namespace YourMom
 				sum += component.Amount;
 
 			}
-			return sum;
+
+			detail.TotalMoney = sum;
 
 		}
 
 		//Hàm thêm dữ liệu vào biểu đồ hình cột
-		private double AddDataIntoReportColumnChart(CartesianChart columnChart, DetailInfomationClass detail)
+		private void AddDataIntoReportColumnChart(CartesianChart columnChart, DetailInfomationClass detail)
 		{
 
 			columnChart.Series = new SeriesCollection();
@@ -712,11 +719,12 @@ namespace YourMom
 				sum += component.Amount;
 
 			}
-			return sum;
+
+			detail.TotalMoney = sum;
 
 		}
 
-		private void IncomeButton_Click(object sender, RoutedEventArgs e)
+		private void CommonChartButton_Click(object sender, RoutedEventArgs e)
 		{
 
 			//Hiển thị khung báo cáo chi tiết thu nhập
@@ -749,12 +757,24 @@ namespace YourMom
 			DynamicColumnChart.Visibility = Visibility.Collapsed;
 			DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
 
-			//Hiển thị tiêu đề của khung chi tiết thu nhập
-			detailInfomation.Title = "Income";
+			//Hiển thị tiêu đề của khung báo cáo chi tiết
+			var button = sender as Button;
+			if (button.Name == "IncomeButton")
+			{
+
+				detailInfomation.Title = "Income";
+
+			}
+			else
+			{
+
+				detailInfomation.Title = "Expense";
+
+			}			
 
 			//Nạp dữ liệu cho khung báo báo thu nhập chi tiết
 			detailInfomation.Components = detailCategoryList;
-			
+
 			if (detailCategoryList.Count <= 5)
 			{
 
@@ -820,32 +840,21 @@ namespace YourMom
 			if (DetailReportTextBlock.Text == "Income")
 			{
 
-				detailInfomation.Title = detailCategory.Name;
 				detailInfomation.Components = detailCategoryList1;
-				CategoryListView.ItemsSource = detailCategoryList1;
 
-				var sum = AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
-				AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
-
-				DynamicPieChartTextBlock.Text = $"{sum}";
-				DynamicColumnChartTextBlock.Text = $"{sum}";
-				
 			}
 			else
 			{
-				
-				detailInfomation.Title = detailCategory.Name;
+
 				detailInfomation.Components = detailCategoryList2;
-				CategoryListView.ItemsSource = detailCategoryList2;
 
-				var sum = AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
-				AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
+			}	
 
-				DynamicPieChartTextBlock.Text = $"{sum}";
-				DynamicColumnChartTextBlock.Text = $"{sum}";
+			detailInfomation.Title = detailCategory.Name;
 
-			}
-			
+			AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
+			AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
+
 			if (detailCategoryList1.Count <= 5)
 			{
 
