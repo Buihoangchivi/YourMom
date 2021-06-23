@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -210,5 +212,28 @@ namespace YourMom
         {
 
         }
+
+        private void BudgetLineChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+			BudgetLineChart.Series.Clear();
+			BudgetLineChart.Series.Add(new LineSeries()
+			{
+				Values = new ChartValues<double> { 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90 },
+				LineSmoothness = 0,
+				PointGeometry = null,
+				PointGeometrySize = 0,
+				Title = "Max"
+			});
+			BudgetLineChart.Series.Add(new LineSeries()
+			{
+				Values = new ChartValues<double> { 0, 0, 0, 3, 30, 30, 30, 30, 30 },
+				LineSmoothness = 0,
+				PointGeometry = null,
+				PointGeometrySize = 0,
+				Title = "Current"
+			});
+		}
+
+        
     }
 }
