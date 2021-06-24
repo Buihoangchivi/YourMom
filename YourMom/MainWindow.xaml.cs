@@ -210,8 +210,9 @@ namespace YourMom
 
         private void ViewTransactionListButton_Click(object sender, RoutedEventArgs e)
         {
-
-        }
+			BudgetDetail win = new BudgetDetail();
+			win.Show();
+		}
 
         private void BudgetLineChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
