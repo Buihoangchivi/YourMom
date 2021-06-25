@@ -235,6 +235,60 @@ namespace YourMom
 			});
 		}
 
-        
+		// Nút chuyển sang tháng trước trong giao diện giao dịch
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        {
+			PreviousTextblock.Foreground = Brushes.Green;
+			PreviousTextblock.FontSize = 20;
+			PreviousButton.BorderThickness = new Thickness(0, 0, 0, 1);
+			PreviousButton.BorderBrush = Brushes.Green;
+
+			CurrentTextblock.Foreground = Brushes.Black;
+			CurrentButton.BorderThickness = new Thickness(0, 0, 0, 0);
+			CurrentTextblock.FontSize = 15;
+
+			NextTextblock.Foreground = Brushes.Black;
+			NextButton.BorderThickness = new Thickness(0, 0, 0, 0);
+			NextTextblock.FontSize = 15;
+		}
+
+		// Nút tháng hiện tại, có thể dùng để chuyển sang tháng tiếp theo với tháng trước 
+        private void CurrentButton_Click(object sender, RoutedEventArgs e)
+        {
+			CurrentTextblock.Foreground = Brushes.Green;
+			CurrentTextblock.FontSize = 20;
+			CurrentButton.BorderThickness = new Thickness(0, 0, 0, 1);
+			CurrentButton.BorderBrush = Brushes.Green;
+
+			PreviousTextblock.Foreground = Brushes.Black;
+			PreviousButton.BorderThickness = new Thickness(0, 0, 0, 0);
+			PreviousTextblock.FontSize = 15;
+
+			NextTextblock.Foreground = Brushes.Black;
+			NextButton.BorderThickness = new Thickness(0, 0, 0, 0);
+			NextTextblock.FontSize = 15;
+		}
+
+		// Nút chuyển sang tháng tiếp theo của Nút tháng hiện tại
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+			NextTextblock.Foreground = Brushes.Green;
+			NextTextblock.FontSize = 20;
+			NextButton.BorderThickness = new Thickness(0, 0, 0, 1);
+			NextButton.BorderBrush = Brushes.Green;
+
+			CurrentTextblock.Foreground = Brushes.Black;
+			CurrentButton.BorderThickness = new Thickness(0, 0, 0, 0);
+			CurrentTextblock.FontSize = 15;
+
+			PreviousTextblock.Foreground = Brushes.Black;
+			PreviousButton.BorderThickness = new Thickness(0, 0, 0, 0);
+			PreviousTextblock.FontSize = 15;
+		}
+
+        private void ViewReportButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

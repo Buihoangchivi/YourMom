@@ -15,7 +15,7 @@
 
 
         <Style TargetType="{x:Type ProgressBar}">
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>  
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Height" Value="15"/>
             <Setter Property="Background" Value="#6fae5f"/>
@@ -824,7 +824,7 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid x:Name="Budget" Grid.Row="1" Width="600" Visibility="Visible" Grid.Column="0" >
+                <Grid x:Name="Budget" Grid.Row="1" Width="600" Visibility="Collapsed" Grid.Column="0" >
                     <!--<Grid.RowDefinitions>
                         --><!--<RowDefinition Height="15"/>--><!--
                         <RowDefinition />
@@ -965,77 +965,7 @@
 
                             </ScrollViewer>
 
-                            <!--<ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
-                                <Grid Margin="15,6,0,0">
-                                    <ItemsControl Grid.Row="1" Name="foodButtonIt   emsControl" Visibility="Visible">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        --><!--<ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Button Width="204" Background="White" Margin="0,0,8,10"  BorderThickness="0" >
-                                                    <Button.Resources>
-                                                        <Style TargetType="Border">
-                                                            <Setter Property="CornerRadius" Value="10"/>
-                                                        </Style>
-                                                    </Button.Resources>
-                                                    <WrapPanel>
-                                                        <Rectangle RadiusX="10" RadiusY="10" Width="202" Height="145">
-                                                           
-                                                        </Rectangle>
-                                                        <TextBlock Text="{Binding Name}" Width="175" TextAlignment="Left" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60"></TextBlock>
-                                                        <Button Height="24" VerticalAlignment="Top" BorderThickness="0" Background="White"
-                                             Padding="2.8">
-                                                            <Button.Resources>
-                                                                <Style TargetType="Border">
-                                                                    <Setter Property="CornerRadius" Value="14"/>
-                                                                </Style>
-                                                            </Button.Resources>
-                                                            <Button.Content>
-                                                                <WrapPanel>
-                                                                    <Image Source="Images/unloved.png" RenderOptions.BitmapScalingMode="HighQuality">
-                                                                        <Image.Style>
-                                                                            <Style TargetType="Image">
-                                                                                <Setter Property="Visibility" Value="Collapsed" />
-                                                                                <Style.Triggers>
-                                                                                    <MultiDataTrigger>
-                                                                                        <MultiDataTrigger.Conditions>
-                                                                                            <Condition Binding="{Binding IsFavorite}" Value="False" />
-                                                                                        </MultiDataTrigger.Conditions>
-                                                                                        <Setter Property="Visibility" Value="Visible" />
-                                                                                    </MultiDataTrigger>
-                                                                                </Style.Triggers>
-                                                                            </Style>
-                                                                        </Image.Style>
-                                                                    </Image>
-                                                                    <Image Source="Images/favorite.png" RenderOptions.BitmapScalingMode="HighQuality">
-                                                                        <Image.Style>
-                                                                            <Style TargetType="Image">
-                                                                                <Setter Property="Visibility" Value="Collapsed" />
-                                                                                <Style.Triggers>
-                                                                                    <MultiDataTrigger>
-                                                                                        <MultiDataTrigger.Conditions>
-                                                                                            <Condition Binding="{Binding IsFavorite}" Value="True" />
-                                                                                        </MultiDataTrigger.Conditions>
-                                                                                        <Setter Property="Visibility" Value="Visible" />
-                                                                                    </MultiDataTrigger>
-                                                                                </Style.Triggers>
-                                                                            </Style>
-                                                                        </Image.Style>
-                                                                    </Image>
-                                                                </WrapPanel>
-                                                            </Button.Content>
-                                                        </Button>
-                                                    </WrapPanel>
-                                                </Button>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>--><!--
-                                    </ItemsControl>
-                                </Grid>
-                            </ScrollViewer>-->
+                            
 
 
                             
@@ -1222,19 +1152,13 @@
                     
 
                 </Grid>
-            </Grid>
-            <!--<Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="15*"/>
-            </Grid.RowDefinitions>-->
-            
-            
-            <!--Grid chi tiết-->
-            
 
-            <!--<Grid x:Name="Transaction" Grid.Row="1" Visibility="Collapsed" >
-                <Grid.RowDefinitions>
-                    --><!--<RowDefinition Height="15"/>--><!--
+
+
+                <!--Màn hình danh sách các giao dịch-->
+                <Grid x:Name="Transaction" Grid.Row="1" Grid.Column="0" Width="600" Visibility="Visible" >
+                    <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="15"/>
                     <RowDefinition />
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
@@ -1245,8 +1169,333 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Row="0" Grid.Column="1" Background="Beige">
                     
-                </Border>
-            </Grid>-->
+                </Border>-->
+
+                    <Border Grid.Row="0" Grid.Column="1" Background="Beige" CornerRadius="10">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="10*"/>
+                            </Grid.RowDefinitions>
+
+
+
+                            <Button Name="PreviousButton" Grid.Row="0" Grid.Column="0" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="PreviousButton_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+
+                                <TextBlock Name="PreviousTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                    THÁNG TRƯỚC
+                                </TextBlock>
+                            </Button>
+
+                            <Button Name="CurrentButton" Grid.Row="0" Grid.Column="1" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="CurrentButton_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <TextBlock Name="CurrentTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                   THÁNG NÀY
+                                </TextBlock>
+                            </Button>
+
+
+                            <Button Name="NextButton" Grid.Row="0" Grid.Column="2" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="NextButton_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <TextBlock Name="NextTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                   TƯƠNG LAI
+                                </TextBlock>
+                            </Button>
+
+
+                            <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" Margin="0,-15,0,0"
+                             />
+
+
+                            <StackPanel Orientation="Vertical" Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="3">
+                                <DockPanel Width="500"  LastChildFill="False">
+                                    <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            Tiền vào
+                                    </TextBlock>
+                                    <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Blue">
+                                            0
+                                    </TextBlock>
+                                </DockPanel>
+
+                                <DockPanel Width="500" LastChildFill="False">
+                                    <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                            Tiền ra
+                                    </TextBlock>
+                                    <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red">
+                                            -4,091,000
+                                    </TextBlock>
+                                </DockPanel>
+
+                                <DockPanel Width="500" LastChildFill="False" Margin="0,5,0,0">
+                                    <GridSplitter DockPanel.Dock="Right" Grid.ColumnSpan="5" Width="100" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" 
+                             />
+                                </DockPanel>
+
+                                <DockPanel Width="500" LastChildFill="False" Margin="0,2,0,0" >
+                                    <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                            -4,091,000
+                                    </TextBlock>
+                                </DockPanel>
+
+
+                                <Button Name="ViewReportButton" Margin="0,5,0,0" Grid.Row="2" Grid.Column="0" Width="600" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="ViewReportButton_Click">
+                                    <!--<Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>-->
+
+                                    <TextBlock Name="ViewReportTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Green" >
+                                    XEM BÁO CÁO CHO GIAI ĐOẠN NÀY
+                                    </TextBlock>
+                                </Button>
+
+                                <Border Width="600" Height="50" Background="Gainsboro">
+
+                                </Border>
+
+                            </StackPanel>
+
+
+
+
+
+
+
+                            <!--Khung xem các loại ngân sách-->
+                            <ScrollViewer x:Name="TransactionListScrollView" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
+
+                                <!--<ItemsControl x:Name="TransactionList">
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Grid>
+                                                <StackPanel Grid.Row="1">
+                                                    <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">01/06/2021 - 30/06/2021</TextBlock>
+                                                    <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">Còn 21 ngày</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Grid.Row="1" Grid.Column="2">
+                                                    <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">≈ 9.000.000</TextBlock>
+                                                    <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">Còn lại ≈ 8.999.999</TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                            <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch" >
+
+
+
+                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                    <Image DockPanel.Dock="Left" Source="{Binding Image}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+
+
+                                                    <DockPanel DockPanel.Dock="Top" >
+                                                        <TextBlock DockPanel.Dock="Left" Text="{Binding Text}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
+                                                        <StackPanel DockPanel.Dock="Right">
+                                                            <TextBlock  Text="{Binding Text1}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
+                                                            <TextBlock  Text="{Binding Text2}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
+                                                        </StackPanel>
+                                                    </DockPanel>
+
+
+                                                    <ProgressBar Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100" Value="75" />
+
+
+
+                                                </DockPanel>
+
+
+                                            </Button>
+                                        </StackPanel>
+
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>-->
+
+                            </ScrollViewer>
+
+                            <!--<ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
+                                <Grid Margin="15,6,0,0">
+                                    <ItemsControl Grid.Row="1" Name="foodButtonIt   emsControl" Visibility="Visible">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        -->
+                            <!--<ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Width="204" Background="White" Margin="0,0,8,10"  BorderThickness="0" >
+                                                    <Button.Resources>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="CornerRadius" Value="10"/>
+                                                        </Style>
+                                                    </Button.Resources>
+                                                    <WrapPanel>
+                                                        <Rectangle RadiusX="10" RadiusY="10" Width="202" Height="145">
+                                                           
+                                                        </Rectangle>
+                                                        <TextBlock Text="{Binding Name}" Width="175" TextAlignment="Left" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60"></TextBlock>
+                                                        <Button Height="24" VerticalAlignment="Top" BorderThickness="0" Background="White"
+                                             Padding="2.8">
+                                                            <Button.Resources>
+                                                                <Style TargetType="Border">
+                                                                    <Setter Property="CornerRadius" Value="14"/>
+                                                                </Style>
+                                                            </Button.Resources>
+                                                            <Button.Content>
+                                                                <WrapPanel>
+                                                                    <Image Source="Images/unloved.png" RenderOptions.BitmapScalingMode="HighQuality">
+                                                                        <Image.Style>
+                                                                            <Style TargetType="Image">
+                                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                                <Style.Triggers>
+                                                                                    <MultiDataTrigger>
+                                                                                        <MultiDataTrigger.Conditions>
+                                                                                            <Condition Binding="{Binding IsFavorite}" Value="False" />
+                                                                                        </MultiDataTrigger.Conditions>
+                                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                                    </MultiDataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Image.Style>
+                                                                    </Image>
+                                                                    <Image Source="Images/favorite.png" RenderOptions.BitmapScalingMode="HighQuality">
+                                                                        <Image.Style>
+                                                                            <Style TargetType="Image">
+                                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                                <Style.Triggers>
+                                                                                    <MultiDataTrigger>
+                                                                                        <MultiDataTrigger.Conditions>
+                                                                                            <Condition Binding="{Binding IsFavorite}" Value="True" />
+                                                                                        </MultiDataTrigger.Conditions>
+                                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                                    </MultiDataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Image.Style>
+                                                                    </Image>
+                                                                </WrapPanel>
+                                                            </Button.Content>
+                                                        </Button>
+                                                    </WrapPanel>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>-->
+                            <!--
+                                    </ItemsControl>
+                                </Grid>
+                            </ScrollViewer>-->
+
+
+
+                        </Grid>
+
+                    </Border>
+                </Grid>
+
+            </Grid>
+           
+            
+            
+            
+
+
+            
+            
+            
+            
             
             
             
