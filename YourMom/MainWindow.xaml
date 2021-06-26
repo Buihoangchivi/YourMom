@@ -846,62 +846,73 @@
                                 <RowDefinition Height="2*"/>
                                 <RowDefinition Height="12*"/>
                             </Grid.RowDefinitions>
-                           
-                            
-
-                            <Button Name="RunningButton" Grid.Row="0" Grid.Column="0" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="RunningButton_Click">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
-                                        
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="Transparent"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
 
 
-                                <TextBlock Name="RunningTextblock" TextWrapping="Wrap" FontSize="20" Foreground="Green" 
+                            <StackPanel Grid.Row="0" Grid.Column="0" >
+                                <Button Name="RunningButton" Margin="5" Width="120" Height="60" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="RunningButton_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
+
+                                    <TextBlock Name="RunningTextblock" TextWrapping="Wrap" FontSize="20" Foreground="Green" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
                                     Running
-                                </TextBlock>
-                            </Button>
-                            
-                            <Button Name="FinishedButton" Grid.Row="0" Grid.Column="1" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="FinishedButton_Click">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
+                                    </TextBlock>
+                                </Button>
+                                <TextBlock Name="RunningUnderlineTextBlock" Visibility="Visible"
+                                                   Height="4" Background="Green"></TextBlock>
+                            </StackPanel>
 
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="{TemplateBinding Background}">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="Transparent"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <TextBlock Name="FinishedTextblock" TextWrapping="Wrap" FontSize="15" 
+
+                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                <Button Name="FinishedButton"  Margin="5" Width="120" Height="60" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="FinishedButton_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <TextBlock Name="FinishedTextblock" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
                                     Finished
-                                </TextBlock>
-                            </Button>
+                                    </TextBlock>
+                                </Button>
+                                <TextBlock Name="FinishedUnderlineTextBlock" Visibility="Collapsed"
+                                                   Height="4" Background="Green"></TextBlock>
+                            </StackPanel>
+                            
+                            
+                            
                             <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" Margin="0,-15,0,0"
                              />
@@ -920,12 +931,24 @@
                                             <StackPanel>
                                                 <Grid>
                                                     <StackPanel Grid.Row="1">
-                                                        <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">01/06/2021 - 30/06/2021</TextBlock>
-                                                        <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">Còn 21 ngày</TextBlock>
+                                                        
+                                                        <!--Thời gian cho ngân sách-->
+                                                        <TextBlock  Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">
+                                                            <TextBlock.Text>
+                                                                <MultiBinding StringFormat="{}{0} - {1}">
+                                                                    <Binding Path="StartingDate" />
+                                                                    <Binding Path="EndDate" />
+                                                                </MultiBinding>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                        
+                                                        
+                                                        <!--Thời gian còn lại của ngân sách-->
+                                                        <TextBlock Text="{Binding DaysLeft, StringFormat=Còn {0} ngày}" Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold"></TextBlock>
                                                     </StackPanel>
                                                     <StackPanel Grid.Row="1" Grid.Column="2">
-                                                        <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">≈ 9.000.000</TextBlock>
-                                                        <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">Còn lại ≈ 8.999.999</TextBlock>
+                                                        <TextBlock Text="{Binding MoneyFund, StringFormat=≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
+                                                        <TextBlock Text="{Binding Balance, StringFormat=Còn lại ≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
                                                     </StackPanel>
                                                 </Grid>
                                                 <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch" >
@@ -933,22 +956,22 @@
 
 
                                                     <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                        <Image DockPanel.Dock="Left" Source="{Binding Image}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                                        <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
 
 
                                                         <DockPanel DockPanel.Dock="Top" >
-                                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Text}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
                                                             <StackPanel DockPanel.Dock="Right">
-                                                                <TextBlock  Text="{Binding Text1}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                                <TextBlock  Text="{Binding MoneyFund}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
-                                                                <TextBlock  Text="{Binding Text2}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                                <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
                                                             </StackPanel>
                                                         </DockPanel>
 
 
-                                                        <ProgressBar Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100" Value="75" />
+                                                        <ProgressBar Value="{Binding Progress}" Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100"  />
 
 
 

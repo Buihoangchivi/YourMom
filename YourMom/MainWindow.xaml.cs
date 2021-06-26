@@ -21,29 +21,72 @@ namespace YourMom
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	/// 
-	public class Test
-	{
-		public string Image { get; set; }
-		public string Text { get; set; }
-		public string Text1 { get; set; }
-		public string Text2 { get; set; }
-	}
+	
 
 
 	public partial class MainWindow : Window
-	{
+	{		
+		
+
+		List<Budget> budgetList = new List<Budget>
+		{
+			new Budget
+			{
+				ImagePath = "Images/category_foodndrink.png",
+				Name = "Ăn uống",
+				MoneyFund = 9000000,
+				Balance = 5000000,
+				StartingDate = "06/06/2021",
+				EndDate = "06/30/2021"
+			},
+
+			new Budget
+			{
+				ImagePath = "Images/category_foodndrink.png",
+				Name = "Mua sắm",
+				MoneyFund = 5000000,
+				Balance = 3000000,
+				StartingDate = "06/01/2021",
+				EndDate = "06/30/2021"
+			}
+		};
+
+
+
+
+
 		public MainWindow()
 		{
 			InitializeComponent();
+			double temp;
+			DateTime convert;
+			foreach (var budget in budgetList)
+            {
+				// lấy tiến độ hiện tại, làm tròn 2 số sau dấu phẩy
+                temp = Math.Round((double)(budget.MoneyFund - budget.Balance) / budget.MoneyFund * 100,2);
+                budget.Progress = temp;
+
+				// lấy số ngày còn lại trong ngân sách			
+				DateTime startingdate = Convert.ToDateTime(budget.StartingDate);				
+				DateTime enddate = Convert.ToDateTime(budget.EndDate);
+                TimeSpan time = enddate - startingdate;
+                budget.DaysLeft = time.Days;
+
+				// định dạng lại ngày
+				convert = DateTime.Parse(budget.StartingDate);
+				budget.StartingDate = convert.ToString("dd-MM-yyyy");
+				convert = DateTime.Parse(budget.EndDate);
+				budget.EndDate = convert.ToString("dd-MM-yyyy");
+
+
+			}
+			BudgetList.ItemsSource = budgetList;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			List<Test> items = new List<Test>();
-			items.Add(new Test() { Image = "Images/category_foodndrink.png", Text = "Ăn uống", Text1 = "9.000.000", Text2 = " Còn lại 8.999.000" });
-			items.Add(new Test() { Image = "Images/category_foodndrink.png", Text = "Sex", Text1 = "7.000.000", Text2 = " Còn lại 15.999.000" });
-
-			BudgetList.ItemsSource = items;
+			
+			
 			
 		}
 
@@ -189,10 +232,12 @@ namespace YourMom
 			RunningTextblock.FontSize = 20;
 			RunningButton.BorderThickness = new Thickness(0, 0, 0, 1);
 			RunningButton.BorderBrush = Brushes.Green;
+			RunningUnderlineTextBlock.Visibility = Visibility.Visible;
 
 			FinishedTextblock.Foreground = Brushes.Black;
 			FinishedButton.BorderThickness = new Thickness(0, 0, 0, 0);
 			FinishedTextblock.FontSize = 15;
+			FinishedUnderlineTextBlock.Visibility = Visibility.Collapsed;
 
 		}
 
@@ -202,10 +247,13 @@ namespace YourMom
 			FinishedTextblock.FontSize = 20;
 			FinishedButton.BorderThickness = new Thickness(0, 0, 0, 1);
 			FinishedButton.BorderBrush = Brushes.Green;
+			FinishedUnderlineTextBlock.Visibility = Visibility.Visible;
 
 			RunningTextblock.Foreground = Brushes.Black;
 			RunningButton.BorderThickness = new Thickness(0, 0, 0, 0);
 			RunningTextblock.FontSize = 15;
+			RunningUnderlineTextBlock.Visibility = Visibility.Collapsed;
+			
 		}
 
         private void ViewTransactionListButton_Click(object sender, RoutedEventArgs e)
