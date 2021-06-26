@@ -824,7 +824,7 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid x:Name="Budget" Grid.Row="1" Width="600" Visibility="Collapsed" Grid.Column="0" >
+                <Grid x:Name="Budget" Grid.Row="1" Width="600" Visibility="Visible" Grid.Column="0" >
                     <!--<Grid.RowDefinitions>
                         --><!--<RowDefinition Height="15"/>--><!--
                         <RowDefinition />
@@ -871,7 +871,7 @@
                                 </Button.Style>
 
 
-                                <TextBlock Name="RunningTextblock" TextWrapping="Wrap" FontSize="15" 
+                                <TextBlock Name="RunningTextblock" TextWrapping="Wrap" FontSize="20" Foreground="Green" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
                                     Running
                                 </TextBlock>
@@ -1156,7 +1156,7 @@
 
 
                 <!--Màn hình danh sách các giao dịch-->
-                <Grid x:Name="Transaction" Grid.Row="1" Grid.Column="0" Width="600" Visibility="Visible" >
+                <Grid x:Name="Transaction" Grid.Row="1" Grid.Column="0" Width="600" Visibility="Collapsed" >
                     <!--<Grid.RowDefinitions>
                     <RowDefinition Height="15"/>
                     <RowDefinition />
