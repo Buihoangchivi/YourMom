@@ -951,7 +951,7 @@
                                                         <TextBlock Text="{Binding Balance, StringFormat=Còn lại ≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
                                                     </StackPanel>
                                                 </Grid>
-                                                <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch" >
+                                                <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="BudgetListButton_Click" HorizontalContentAlignment="Stretch" >
 
 
 
@@ -1010,7 +1010,7 @@
 
                     </Border>-->
                     <Border Background="Beige" CornerRadius="10">
-                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ScrollViewer x:Name="BudgetReportScrollViewer" VerticalScrollBarVisibility="Hidden">
                             <Grid>
                                 <!--<Grid.RowDefinitions>
                                     <RowDefinition Height="1*"/>
@@ -1049,20 +1049,24 @@
                                     <GridSplitter Grid.Row="0"  Width="Auto" Height="0.5" 
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
                              />
-                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" >
                                         <Image  Source="Images/category_foodndrink.png" VerticalAlignment="Top" Height="45" Width="45" Margin="50,0,20,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock TextWrapping="Wrap" FontSize="20" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left"> Ăn uống</TextBlock>
-                                            <TextBlock TextWrapping="Wrap" FontSize="15" 
-                           VerticalAlignment="Center" HorizontalAlignment="Left">Còn 19 ngày</TextBlock>
+                                        <StackPanel Orientation="Vertical" Name="BudgetInfo">
+                                            <!--Tên của ngân sách-->
+                                            <TextBlock Text="{Binding Name}" TextWrapping="Wrap" FontSize="20" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left"> </TextBlock>
+                                            
+                                            <!--Thời hạn còn lại của giao dịch-->
+                                            <TextBlock Text="{Binding DaysLeft, StringFormat=Còn {0} ngày}"  TextWrapping="Wrap" FontSize="15" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                                             <GridSplitter  Width="Auto" Height="0.5" Margin="0,10,0,0"
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
                              />
+                                            
                                             <TextBlock TextWrapping="Wrap" FontSize="15" Margin="0,10,10,0"
                            VerticalAlignment="Center" HorizontalAlignment="Left">Còn lại</TextBlock>
 
-                                            <TextBlock Margin="0,0,10,10" FontSize="20" FontFamily="Segoe UI Semibold" HorizontalAlignment="Left">8.999.999</TextBlock>
+                                            <TextBlock Text="{Binding Balance}" Margin="0,0,10,10" FontSize="20" FontFamily="Segoe UI Semibold" HorizontalAlignment="Left"></TextBlock>
 
                                             <Grid Height="100" Width="400">
                                                 <Grid.RowDefinitions>
@@ -1077,22 +1081,22 @@
 
                                                 <StackPanel Grid.Row="0" Grid.Column="0">
                                                     <TextBlock>Đã chi</TextBlock>
-                                                    <TextBlock>1.000</TextBlock>
+                                                    <TextBlock Name="SpentMoneyTextblock" Text="{Binding SpentMoney}" ></TextBlock>
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="0" Grid.Column="1">
                                                     <TextBlock>Dự kiến chi tiêu</TextBlock>
-                                                    <TextBlock>2.000</TextBlock>
+                                                    <TextBlock Text="{Binding ExpectedSpendingMoney}"></TextBlock>
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="1" Grid.Column="0">
                                                     <TextBlock>Nên chi tiêu hằng ngày</TextBlock>
-                                                    <TextBlock>473.631</TextBlock>
+                                                    <TextBlock Text="{Binding ShouldSpending_DayMoney}"></TextBlock>
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Row="1" Grid.Column="1">
                                                     <TextBlock>Thực tế chi tiêu hàng ngày</TextBlock>
-                                                    <TextBlock>60</TextBlock>
+                                                    <TextBlock Text="{Binding RealitySpending_DayMoney}"></TextBlock>
                                                 </StackPanel>
                                             </Grid>
 
@@ -1102,7 +1106,7 @@
                                         
                                     </StackPanel>
 
-                                    <GridSplitter  Width="Auto" Height="0.5" Margin="0,10,0,0"
+                                    <GridSplitter  Width="Auto" Height="0.5" Margin="0,10,0,10"
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"></GridSplitter>
 
 

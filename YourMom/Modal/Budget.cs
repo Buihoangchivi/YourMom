@@ -12,6 +12,10 @@ public class Budget : Category
 	protected int daysLeft;
 	protected double moneyFund;
 	protected double balance;
+	protected double spentMoney;
+	protected double expectedSpendingMoney;
+	protected double shouldSpending_DayMoney;
+	protected double realitySpending_DayMoney;
 	protected double progress;
 	protected string note;
 
@@ -77,6 +81,58 @@ public class Budget : Category
 		{
 			balance = value;
 			OnPropertyChanged("Balance");
+		}
+	}
+
+	public double SpentMoney
+	{
+		get
+		{
+			return spentMoney;
+		}
+		set
+		{
+			spentMoney = value;
+			OnPropertyChanged("SpentMoney");
+		}
+	}
+
+	public double ExpectedSpendingMoney
+	{
+		get
+		{
+			return expectedSpendingMoney;
+		}
+		set
+		{
+			expectedSpendingMoney = value;
+			OnPropertyChanged("ExpectedSpendingMoney");
+		}
+	}
+
+	public double ShouldSpending_DayMoney
+	{
+		get
+		{
+			return shouldSpending_DayMoney;
+		}
+		set
+		{
+			shouldSpending_DayMoney = value;
+			OnPropertyChanged("ShouldSpending_DayMoney");
+		}
+	}
+
+	public double RealitySpending_DayMoney
+	{
+		get
+		{
+			return realitySpending_DayMoney;
+		}
+		set
+		{
+			realitySpending_DayMoney = value;
+			OnPropertyChanged("RealitySpending_DayMoney");
 		}
 	}
 

@@ -25,31 +25,49 @@ namespace YourMom
 
 
 	public partial class MainWindow : Window
-	{		
-		
+	{
+
 
 		List<Budget> budgetList = new List<Budget>
 		{
 			new Budget
 			{
+				ID = "1",
 				ImagePath = "Images/category_foodndrink.png",
 				Name = "Ăn uống",
 				MoneyFund = 9000000,
-				Balance = 5000000,
+				SpentMoney = 4000000,
 				StartingDate = "06/06/2021",
 				EndDate = "06/30/2021"
 			},
 
 			new Budget
 			{
+				ID = "2",
 				ImagePath = "Images/category_foodndrink.png",
 				Name = "Mua sắm",
 				MoneyFund = 5000000,
-				Balance = 3000000,
+				SpentMoney = 2000000,
 				StartingDate = "06/01/2021",
 				EndDate = "06/30/2021"
+			},
+
+			new Budget
+			{
+				ID = "3",
+				ImagePath = "Images/category_foodndrink.png",
+				Name = "Đi chơi",
+				MoneyFund = 5000000,
+				SpentMoney = 2000000,
+				StartingDate = "06/01/2021",
+				EndDate = "06/27/2021"
 			}
 		};
+
+		// Danh sách ngân sách đang sử dụng
+		List<Budget> runningBudgetList = new List<Budget> { };
+		// Danh sách ngân sách đã quá hạn
+		List<Budget> finishedBudgetList = new List<Budget> { };
 
 
 
@@ -60,27 +78,61 @@ namespace YourMom
 			InitializeComponent();
 			double temp;
 			DateTime convert;
-			foreach (var budget in budgetList)
-            {
-				// lấy tiến độ hiện tại, làm tròn 2 số sau dấu phẩy
-                temp = Math.Round((double)(budget.MoneyFund - budget.Balance) / budget.MoneyFund * 100,2);
-                budget.Progress = temp;
+			for (int i = 0; i < budgetList.Count;i++)
+			{
 
 				// lấy số ngày còn lại trong ngân sách			
-				DateTime startingdate = Convert.ToDateTime(budget.StartingDate);				
-				DateTime enddate = Convert.ToDateTime(budget.EndDate);
-                TimeSpan time = enddate - startingdate;
-                budget.DaysLeft = time.Days;
+
+				DateTime currentdate = DateTime.Now;
+				DateTime enddate = Convert.ToDateTime(budgetList[i].EndDate);
+				TimeSpan time = enddate - currentdate;
+
+				budgetList[i].DaysLeft =  time.Days < 0 ? 0 : time.Days;
+				//budgetList[i].DaysLeft = time.Days;
+
+
+				// số tiền dư còn lại cho ngân sách
+				budgetList[i].Balance = budgetList[i].MoneyFund - budgetList[i].SpentMoney;
+
+
+
+				// lấy tiến độ hiện tại, làm tròn 2 số sau dấu phẩy
+				temp = Math.Round((double)(budgetList[i].MoneyFund - budgetList[i].Balance) / budgetList[i].MoneyFund * 100, 2);
+				budgetList[i].Progress = temp;
+
+
 
 				// định dạng lại ngày
-				convert = DateTime.Parse(budget.StartingDate);
-				budget.StartingDate = convert.ToString("dd-MM-yyyy");
-				convert = DateTime.Parse(budget.EndDate);
-				budget.EndDate = convert.ToString("dd-MM-yyyy");
+				convert = DateTime.Parse(budgetList[i].StartingDate);
+				budgetList[i].StartingDate = convert.ToString("dd-MM-yyyy");
+				convert = DateTime.Parse(budgetList[i].EndDate);
+				budgetList[i].EndDate = convert.ToString("dd-MM-yyyy");
 
+				// số tiền nên chi hàng ngày
+				budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ? Math.Round(budgetList[i].Balance / budgetList[i].DaysLeft, 2) : 0 ;
 
+				// số tiền thực tế chi hàng ngày
+				DateTime startingdate = Convert.ToDateTime(budgetList[i].StartingDate);
+				TimeSpan budgettime = enddate - startingdate;
+				budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney / ((currentdate - startingdate).Days + 1), 2);
+
+				// số tiền dự kiến chi tiêu
+				budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney + budgetList[i].RealitySpending_DayMoney * budgetList[i].DaysLeft;
+
+				if (time.Days < 0)
+				{
+					finishedBudgetList.Add(budgetList[i]);
+
+				}
+				else
+				{
+					runningBudgetList.Add(budgetList[i]);
+
+				}
 			}
-			BudgetList.ItemsSource = budgetList;
+			
+
+			BudgetList.ItemsSource = runningBudgetList;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -209,15 +261,7 @@ namespace YourMom
 			add.Show();
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
-        {
-			BudgetReportGrid.Visibility = Visibility.Visible;
-			Budget.Width = 410;
-			BudgetReportGrid.Width = 600;
-			
-			
-			
-		}
+		
 
 
         private void CloseDetailBudget_Click(object sender, RoutedEventArgs e)
@@ -228,31 +272,41 @@ namespace YourMom
 
         private void RunningButton_Click(object sender, RoutedEventArgs e)
         {
+			// Chỉnh lại định dạng nút cho nổi bật
 			RunningTextblock.Foreground = Brushes.Green;
 			RunningTextblock.FontSize = 20;
 			RunningButton.BorderThickness = new Thickness(0, 0, 0, 1);
 			RunningButton.BorderBrush = Brushes.Green;
 			RunningUnderlineTextBlock.Visibility = Visibility.Visible;
 
+			// Chỉnh lại định dạng nút còn lại thành bình thường
 			FinishedTextblock.Foreground = Brushes.Black;
 			FinishedButton.BorderThickness = new Thickness(0, 0, 0, 0);
 			FinishedTextblock.FontSize = 15;
 			FinishedUnderlineTextBlock.Visibility = Visibility.Collapsed;
 
+			// Cập nhật danh sách những ngân sách đã quá hạn
+			BudgetList.ItemsSource = runningBudgetList;
+
 		}
 
         private void FinishedButton_Click(object sender, RoutedEventArgs e)
         {
+			// Chỉnh lại định dạng nút cho nổi bật
 			FinishedTextblock.Foreground = Brushes.Green;
 			FinishedTextblock.FontSize = 20;
 			FinishedButton.BorderThickness = new Thickness(0, 0, 0, 1);
 			FinishedButton.BorderBrush = Brushes.Green;
 			FinishedUnderlineTextBlock.Visibility = Visibility.Visible;
 
+			// Chỉnh lại định dạng nút còn lại thành bình thường
 			RunningTextblock.Foreground = Brushes.Black;
 			RunningButton.BorderThickness = new Thickness(0, 0, 0, 0);
 			RunningTextblock.FontSize = 15;
 			RunningUnderlineTextBlock.Visibility = Visibility.Collapsed;
+
+			// Cập nhật danh sách những ngân sách đã quá hạn
+			BudgetList.ItemsSource = finishedBudgetList;
 			
 		}
 
@@ -338,5 +392,37 @@ namespace YourMom
         {
 
         }
+
+        private void BudgetListButton_Click(object sender, RoutedEventArgs e)
+        {
+			
+
+
+			BudgetReportGrid.Visibility = Visibility.Visible;
+            Budget.Width = 410;
+            BudgetReportGrid.Width = 600;
+            var temp = sender as Button;
+
+			var budgetInfo = temp.DataContext as Budget;
+			int lol = 0;
+			foreach(var budget in budgetList)
+            {
+				if (budget.ID == budgetInfo.ID)
+                {
+					break;
+                }
+				lol++;
+            }
+
+			BudgetInfo.DataContext = budgetList[lol];
+
+            
+
+			
+
+			
+			
+
+		}
     }
 }
