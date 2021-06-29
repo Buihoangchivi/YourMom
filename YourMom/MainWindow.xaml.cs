@@ -162,13 +162,16 @@ namespace YourMom
 							{
 								ID = "1",					
 								Amount = 10000,
+								Date = "01/01/2021",
 							},
 							new Transaction
 							{
 								ID = "2",					
 								Amount = 20000,
+								Date = "02/01/2021",
 							},
 						},
+						
 						NumberOfTransactions = 2,
 						TotalMoney = 10000000,
 						ImagePath = "Images/category_foodndrink.png",
@@ -183,13 +186,15 @@ namespace YourMom
 							{
 								ID = "1",					
 								Amount = 40000,
+								Date = "03/01/2021",
 							},
 							new Transaction
 							{
 								ID = "2",								
 								Amount = 50000,
+								Date = "04/01/2021",
 							},
-						},
+						},						
 						NumberOfTransactions = 2,
 						TotalMoney = 10000000,
 						ImagePath = "Images/category_foodndrink.png",

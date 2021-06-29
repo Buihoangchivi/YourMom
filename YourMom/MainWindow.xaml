@@ -12,6 +12,7 @@
         <WindowChrome CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
     <Window.Resources>
+        <local:DelimiterConverter x:Key="Convert" />
 
 
         <Style TargetType="{x:Type ProgressBar}">
@@ -1388,6 +1389,7 @@
                                             <StackPanel>
                                                 <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
                                                     <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                                    
 
 
                                                     <DockPanel DockPanel.Dock="Top" >
@@ -1408,8 +1410,11 @@
 
 
                                                 </DockPanel>
+                                                <GridSplitter  Width="600" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" 
+                             />
 
-                                                <ListView Name="TransactionListDetail" ItemsSource="{Binding Transactions}"  PreviewMouseWheel="HandlePreviewMouseWheel">
+                                                <ListView Name="TransactionListDetail" ItemsSource="{Binding Transactions}"  PreviewMouseWheel="HandlePreviewMouseWheel" BorderThickness="0">
                                                     
                                                     <ListView.ItemContainerStyle>
                                                         <Style TargetType="ListViewItem">
@@ -1418,52 +1423,37 @@
                                                     </ListView.ItemContainerStyle>
                                                     <ListView.ItemTemplate>
                                                         <DataTemplate>
-                                                           
-                                                            <Grid  >
-
-                                                                <Button Grid.Row="0" x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch"  >
+                                                            <Button Grid.Row="0" x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch"  >
 
 
 
-                                                                    <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                                        <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                                                                        
-                                                                        
-                                                                        <TextBlock DockPanel.Dock="Right"  Text="{Binding Amount}"  Width="160" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" 
+                                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                                    <Border BorderBrush="{x:Null}" Width="50" Height="50" >
+                                                                        <TextBlock DockPanel.Dock="Left" Text="{Binding Date, Converter={StaticResource Convert},ConverterParameter=0}" TextAlignment="Center" TextWrapping="Wrap" 
+                                               FontSize="28"   FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Center"  ></TextBlock>
+                                                                    </Border>
+
+
+                                                                    <TextBlock DockPanel.Dock="Right"  Text="{Binding Amount}"  Width="160" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
 
 
-                                                                        <DockPanel DockPanel.Dock="Top" Background="Black" >
-                                                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Width="160" TextAlignment="Justify" TextWrapping="Wrap" 
+                                                                    <DockPanel DockPanel.Dock="Top" Background="Black" >
+                                                                        <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Width="160" TextAlignment="Justify" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
-                                                                            <StackPanel DockPanel.Dock="Right">
-                                                                                <TextBlock  Text="{Binding MoneyFund}" Width="160" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                                        <StackPanel DockPanel.Dock="Right">
+                                                                            <TextBlock  Text="{Binding MoneyFund}" Width="160" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
-                                                                                <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                                            <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
-                                                                            </StackPanel>
-                                                                        </DockPanel>
-
-                                                                        
-
-
-
-
-
-
+                                                                        </StackPanel>
                                                                     </DockPanel>
 
 
-                                                                </Button>
-                                                            </Grid>
+                                                                </DockPanel>
 
 
-                                                            
-
-
-
-
-
+                                                            </Button>
                                                         </DataTemplate>
                                                     </ListView.ItemTemplate>
                                                 </ListView>
