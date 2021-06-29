@@ -9,10 +9,13 @@ public class Transaction : INotifyPropertyChanged
 {
 	protected string id;
 	protected string date;
-	protected string transactionType;
+	
 	protected double amount;
 	protected string note;
 	protected string stakeholder;
+	
+
+	
 
 	public string ID
 	{
@@ -27,6 +30,8 @@ public class Transaction : INotifyPropertyChanged
 		}
 	}
 
+	
+
 	public string Date
 	{
 		get
@@ -40,18 +45,7 @@ public class Transaction : INotifyPropertyChanged
 		}
 	}
 
-	public string TransactionType
-	{
-		get
-		{
-			return transactionType;
-		}
-		set
-		{
-			transactionType = value;
-			OnPropertyChanged("TransactionType");
-		}
-	}
+	
 
 	public double Amount
 	{
@@ -95,7 +89,7 @@ public class Transaction : INotifyPropertyChanged
 	#region INotifyPropertyChanged Members  
 
 	public event PropertyChangedEventHandler PropertyChanged;
-	private void OnPropertyChanged(string propertyName)
+	protected void OnPropertyChanged(string propertyName)
 	{
 		if (PropertyChanged != null)
 		{

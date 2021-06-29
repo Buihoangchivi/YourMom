@@ -103,6 +103,7 @@
     <Compile Include="Modal\DetailInfomation.cs" />
     <Compile Include="Modal\Report.cs" />
     <Compile Include="Modal\Transaction.cs" />
+    <Compile Include="Modal\TransactionList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

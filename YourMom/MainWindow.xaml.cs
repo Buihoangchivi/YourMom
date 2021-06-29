@@ -14,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace YourMom
 {
@@ -28,7 +31,12 @@ namespace YourMom
 	{
 
 
-		List<Budget> budgetList = new List<Budget>
+		
+
+		
+
+
+	List<Budget> budgetList = new List<Budget>
 		{
 			new Budget
 			{
@@ -69,12 +77,12 @@ namespace YourMom
 		// Danh sách ngân sách đã quá hạn
 		List<Budget> finishedBudgetList = new List<Budget> { };
 
-
-
+		
 
 
 		public MainWindow()
 		{
+			
 			InitializeComponent();
 			double temp;
 			DateTime convert;
@@ -133,13 +141,82 @@ namespace YourMom
 			
 
 			BudgetList.ItemsSource = runningBudgetList;
+			//List<Transaction> transactionList = new List<Transaction>
+			//{
+			//    new Transaction
+			//    {
+			//        ID = "1",
+			//        ImagePath = "Images/category_foodndrink.png",
+			//        Amount = 10000,
+
+			//    }
+			//};
+
+			ObservableCollection<TransactionList> gg = new ObservableCollection<TransactionList>
+			{
+					new TransactionList()
+					{
+						Transactions = new ObservableCollection<Transaction>()
+						{
+							new Transaction
+							{
+								ID = "1",					
+								Amount = 10000,
+							},
+							new Transaction
+							{
+								ID = "2",					
+								Amount = 20000,
+							},
+						},
+						NumberOfTransactions = 2,
+						TotalMoney = 10000000,
+						ImagePath = "Images/category_foodndrink.png",
+						TransactionType = "Ăn uống"
+
+					},
+					new TransactionList()
+					{
+						Transactions = new ObservableCollection<Transaction>()
+						{
+							new Transaction
+							{
+								ID = "1",					
+								Amount = 40000,
+							},
+							new Transaction
+							{
+								ID = "2",								
+								Amount = 50000,
+							},
+						},
+						NumberOfTransactions = 2,
+						TotalMoney = 10000000,
+						ImagePath = "Images/category_foodndrink.png",
+						TransactionType = "Ăn uống"
+					}
+			};
+
+            TransactionList.ItemsSource = gg;
+			
+			
+
+
+
+
+
 		}
+
+		
+
+
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+
 			
-			
-			
+
+
 		}
 
 		//---------------------------------------- Các hàm xử lý sự kiện --------------------------------------------//
@@ -416,13 +493,24 @@ namespace YourMom
 
 			BudgetInfo.DataContext = budgetList[lol];
 
-            
+		}
 
-			
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
-			
-			
+        }
 
+        private void HandlePreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+			if (!e.Handled)
+			{
+				e.Handled = true;
+				var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
+				eventArg.RoutedEvent = UIElement.MouseWheelEvent;
+				eventArg.Source = sender;
+				var parent = ((Control)sender).Parent as UIElement;
+				parent.RaiseEvent(eventArg);
+			}
 		}
     }
 }
