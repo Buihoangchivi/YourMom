@@ -25,7 +25,13 @@ namespace YourMom
     public partial class MainWindow : Window
     {
 
+        private List<Transaction> transactionList;
+        private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
 
+        List<DetailCategory> incomeList = new List<DetailCategory>();
+        List<DetailCategory> expenseList = new List<DetailCategory>();
+        List<DetailCategory> debtList = new List<DetailCategory>();
+        List<DetailCategory> loanList = new List<DetailCategory>();
 
         List<DetailCategory> detailCategoryList = new List<DetailCategory>
             {
@@ -214,12 +220,147 @@ namespace YourMom
 
             InitializeComponent();
 
+            //Đọc dữ liệu
+            ReadData();
+
+            //Khởi tạo dữ liệu
+            InitializeData();
+
+        }
+
+        private void InitializeData()
+        {
+
+            var incomePairs = new Dictionary<string, double>();
+            var expensePairs = new Dictionary<string, double>();
+            var debtPairs = new Dictionary<string, double>();
+            var loanPairs = new Dictionary<string, double>();
+
+            foreach (Transaction transaction in transactionList)
+            {
+
+                var str = transaction.TransactionType;
+                switch (str[0] - '0')
+                {
+
+                    case 0: //Thu nhập
+                        AddDataIntoDictionary(incomePairs, str, transaction.Amount);
+                        break;
+                    case 1: //Chi tiêu
+                        AddDataIntoDictionary(expensePairs, str, transaction.Amount);
+                        break;
+                    case 2: //Đi vay
+                        AddDataIntoDictionary(debtPairs, str, transaction.Amount);
+                        break;
+                    case 3: //Cho vay
+                        AddDataIntoDictionary(loanPairs, str, transaction.Amount);
+                        break;
+
+                }
+
+            }
+
+            AddDataIntoList(incomePairs, incomeList);
+            AddDataIntoList(expensePairs, expenseList);
+            AddDataIntoList(debtPairs, debtList);
+            AddDataIntoList(loanPairs, loanList);
+
+        }
+
+        private void AddDataIntoDictionary(Dictionary<string, double> valuePairs, string str, double amount)
+        {
+
+            if (valuePairs.ContainsKey(str) == true)
+            {
+
+                valuePairs[str] += amount;
+
+            }
+            else
+            {
+
+                valuePairs.Add(str, amount);
+
+            }
+
+        }
+
+        private void AddDataIntoList(Dictionary<string, double> valuePairs, List<DetailCategory> list)
+        {
+
+            foreach (var income in valuePairs)
+            {
+
+                var key = income.Key;
+                list.Add(new DetailCategory
+                {
+                    Amount = income.Value,
+                    ID = key,
+                    ImagePath = categoryList[key].ImagePath,
+                    Name = categoryList[key].Name
+                });
+
+            }
+
+        }
+
+        private void ReadData()
+        {
+
+            // Đọc dữ liệu các giao dịch từ data
+            XmlSerializer xs = new XmlSerializer(typeof(List<Transaction>));
+            try
+            {
+                using (var reader = new StreamReader(@"Data\Transaction.xml"))
+                {
+                    transactionList = (List<Transaction>)xs.Deserialize(reader);
+                }
+            }
+            catch
+            {
+                transactionList = new List<Transaction>();
+            }
+
+            // Đọc dữ liệu các loại giao dịch từ data
+            List<Category> categories;
+            xs = new XmlSerializer(typeof(List<Category>));
+            try
+            {
+                using (var reader = new StreamReader(@"Data\Category.xml"))
+                {
+                    categories = (List<Category>)xs.Deserialize(reader);
+                }
+            }
+            catch
+            {
+                categories = new List<Category>();
+            }
+
+            foreach (var category in categories)
+            {
+
+                categoryList.Add(category.ID, category);
+
+            }
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+            
 
+        }
+
+        //Tách chuỗi id thành mảng các id thành phần
+        private string[] GetTransactionType(string id)
+        {
+
+            char[] separator = { '_' };
+
+            string[] strlist = id.Split(separator);
+
+            return strlist;
 
         }
 
@@ -352,7 +493,7 @@ namespace YourMom
 
             }
 
-            
+
 
             /*List<Category> categoryList = new List<Category>
 			{
@@ -664,11 +805,11 @@ namespace YourMom
 
             IncomeReportChart.Series = new SeriesCollection();
             ((DefaultTooltip)IncomeReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-            AddDataIntoReportPieChart(IncomeReportChart, detailCategoryList);
-            double sum = SumComponent(detailCategoryList);
+            AddDataIntoReportPieChart(IncomeReportChart, incomeList);
+            double sum = SumComponent(incomeList);
             Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
             IncomeTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
-            
+
         }
 
         //Biểu đồ hình quạt về chi tiêu
@@ -677,8 +818,8 @@ namespace YourMom
 
             ExpenseReportChart.Series = new SeriesCollection();
             ((DefaultTooltip)ExpenseReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-            AddDataIntoReportPieChart(ExpenseReportChart, detailCategoryList);
-            double sum = SumComponent(detailCategoryList);
+            AddDataIntoReportPieChart(ExpenseReportChart, expenseList);
+            double sum = SumComponent(expenseList);
             Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
             ExpenseTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
 
