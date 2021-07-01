@@ -5,12 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-public class DetailInfomationClass : INotifyPropertyChanged
+public class DetailInfomation : INotifyPropertyChanged
 {
 	protected string title;
-	//0 là biểu đồ hình tròn
-	//1 là biểu đồ hình cột
-	protected bool typeOfChart;
 	protected List<DetailCategory> components;
 	protected double totalMoney;
 
@@ -24,19 +21,6 @@ public class DetailInfomationClass : INotifyPropertyChanged
 		{
 			title = value;
 			OnPropertyChanged("Title");
-		}
-	}
-
-	public bool TypeOfChart
-	{
-		get
-		{
-			return typeOfChart;
-		}
-		set
-		{
-			typeOfChart = value;
-			OnPropertyChanged("TypeOfChart");
 		}
 	}
 

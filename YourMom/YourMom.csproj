@@ -114,7 +114,6 @@
     <Resource Include="Images\backButton.png" />
     <Resource Include="Images\close.png" />
     <Resource Include="Images\deleteRecipe.png" />
-    <Resource Include="Images\deleteText.png" />
     <Resource Include="Images\editImage.png" />
     <Resource Include="Images\favorite.png" />
     <Resource Include="Images\favoriteImage.png" />
@@ -190,6 +189,12 @@
     <Resource Include="Images\november.png" />
     <Resource Include="Images\october.png" />
     <Resource Include="Images\september.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\left_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\black_close.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -483,7 +483,7 @@
                                         <TextBlock FontSize="16" HorizontalAlignment="Center" 
                                                        Foreground="#FF757575" Text="Income"></TextBlock>
 
-                                        <TextBlock Text="{Binding TotalMoney, Converter={StaticResource moneyConverter}}"
+                                        <TextBlock Name="IncomeTextBlock"
                                                    FontWeight="Medium" 
                                                    FontSize="25" 
                                                    Foreground="#039BE5"/>
@@ -544,7 +544,7 @@
                                                        HorizontalAlignment="Center" 
                                                        Foreground="#FF757575">Expense</TextBlock>
 
-                                        <TextBlock Text="{Binding TotalMoney, Converter={StaticResource moneyConverter}}"
+                                        <TextBlock Name="ExpenseTextBlock"
                                                    FontWeight="Medium" 
                                                    FontSize="25"     
                                                    Foreground="#E51C23"/>
@@ -737,7 +737,9 @@
                                         </Button.Style>
 
                                         <StackPanel>
-                                            <Image Source="Images/deleteText.png" Width="15" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                            <Image Source="Images/black_close.png" Width="17" 
+                                                   Name="CloseFrameImage"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"/>
                                         </StackPanel>
 
                                     </Button>

@@ -19,321 +19,342 @@ using System.Xml.Serialization;
 
 namespace YourMom
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
-	{
-
-		DetailInfomationClass detailInfomation = new DetailInfomationClass();
-
-		List<DetailCategory> detailCategoryList = new List<DetailCategory>
-			{
-				new DetailCategory
-				{
-					ID = "0",
-					Name = "Eating",
-					ImagePath = "Images\\category_foodndrink.png",
-					Amount = 150320
-				},
-				new DetailCategory
-				{
-					ID = "1",
-					Name = "Shopping",
-					ImagePath = "Images\\category_shopping.png",
-					Amount = 342420
-				},
-				new DetailCategory
-				{
-					ID = "2",
-					Name = "Bills",
-					ImagePath = "Images\\category_bills.png",
-					Amount = 60230
-				},
-				new DetailCategory
-				{
-					ID = "3",
-					Name = "Entertainment",
-					ImagePath = "Images\\category_entertainment.png",
-					Amount = 24232
-				},
-				new DetailCategory
-				{
-					ID = "0",
-					Name = "Eating",
-					ImagePath = "Images\\category_foodndrink.png",
-					Amount = 5430
-				},
-				new DetailCategory
-				{
-					ID = "1",
-					Name = "Shopping",
-					ImagePath = "Images\\category_shopping.png",
-					Amount = 345325
-				},
-				new DetailCategory
-				{
-					ID = "2",
-					Name = "Bills",
-					ImagePath = "Images\\category_bills.png",
-					Amount = 454243
-				},
-				new DetailCategory
-				{
-					ID = "3",
-					Name = "Entertainment",
-					ImagePath = "Images\\category_entertainment.png",
-					Amount = 324523
-				}
-			};
-
-		List<DetailCategory> detailCategoryList1 = new List<DetailCategory>
-			{
-				new DetailCategory
-				{
-					ID = "10",
-					Name = "Clothes",
-					ImagePath = "Images\\category_clothes.png",
-					Amount = 150000
-				},
-				new DetailCategory
-				{
-					ID = "11",
-					Name = "Shoes",
-					ImagePath = "Images\\category_shoes.png",
-					Amount = 300000
-				},
-				new DetailCategory
-				{
-					ID = "12",
-					Name = "Accessories",
-					ImagePath = "Images\\category_accessories.png",
-					Amount = 760000
-				},
-				new DetailCategory
-				{
-					ID = "13",
-					Name = "Electronic Device",
-					ImagePath = "Images\\category_electronic_device.png",
-					Amount = 100000
-				}
-			};
-
-		List<DetailCategory> detailCategoryList2 = new List<DetailCategory>
-			{
-				new DetailCategory
-				{
-					ID = "10",
-					Name = "January",
-					ImagePath = "Images\\january.png",
-					Amount = -1227.239723
-				},
-				new DetailCategory
-				{
-					ID = "11",
-					Name = "February",
-					ImagePath = "Images\\february.png",
-					Amount = 25343
-				},
-				new DetailCategory
-				{
-					ID = "12",
-					Name = "March",
-					ImagePath = "Images\\march.png",
-					Amount = 45536
-				},
-				new DetailCategory
-				{
-					ID = "13",
-					Name = "April",
-					ImagePath = "Images\\april.png",
-					Amount = 23123
-				},
-				new DetailCategory
-				{
-					ID = "10",
-					Name = "May",
-					ImagePath = "Images\\may.png",
-					Amount = 11472
-				},
-				new DetailCategory
-				{
-					ID = "11",
-					Name = "June",
-					ImagePath = "Images\\june.png",
-					Amount = 45443
-				},
-				new DetailCategory
-				{
-					ID = "12",
-					Name = "July",
-					ImagePath = "Images\\july.png",
-					Amount = 34535
-				},
-				new DetailCategory
-				{
-					ID = "13",
-					Name = "August",
-					ImagePath = "Images\\august.png",
-					Amount = 23284
-				},
-				new DetailCategory
-				{
-					ID = "10",
-					Name = "September",
-					ImagePath = "Images\\september.png",
-					Amount = 24024
-				},
-				new DetailCategory
-				{
-					ID = "11",
-					Name = "October",
-					ImagePath = "Images\\october.png",
-					Amount = 27257
-				},
-				new DetailCategory
-				{
-					ID = "12",
-					Name = "November",
-					ImagePath = "Images\\november.png",
-					Amount = 57567
-				},
-				new DetailCategory
-				{
-					ID = "13",
-					Name = "December",
-					ImagePath = "Images\\december.png",
-					Amount = 45682
-				}
-			};
-
-		public MainWindow()
-		{
-
-			InitializeComponent();
-
-			detailInfomation.Components = detailCategoryList;
-
-			//Binding dữ liệu cho khung báo cáo chi tiết
-			DetailReportGrid.DataContext = detailInfomation;
-			IncomeButton.DataContext = detailInfomation;
-			ExpenseButton.DataContext = detailInfomation;
-
-		}
-
-		private void Window_Loaded(object sender, RoutedEventArgs e)
-		{
-
-
-			//
-
-		}
-
-		//Hàm chuyển tiền sang dạng chuỗi có dấu phẩy ngăn cách
-		private string ConvertMoneyToStringFormat(double money)
-		{
-
-			return "";
-
-		}
-
-		//---------------------------------------- Các hàm xử lý sự kiện --------------------------------------------//
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
 
 
 
-		//Cài đặt để có thể di chuyển cửa sổ khi nhấn giữ chuột và kéo Title Bar
-		private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-		{
-			var move = sender as System.Windows.Controls.DockPanel;
-			var win = Window.GetWindow(move);
-			win.DragMove();
-		}
+        List<DetailCategory> detailCategoryList = new List<DetailCategory>
+            {
+                new DetailCategory
+                {
+                    ID = "0",
+                    Name = "Eating",
+                    ImagePath = "Images\\category_foodndrink.png",
+                    Amount = 150320
+                },
+                new DetailCategory
+                {
+                    ID = "1",
+                    Name = "Shopping",
+                    ImagePath = "Images\\category_shopping.png",
+                    Amount = 342420
+                },
+                new DetailCategory
+                {
+                    ID = "2",
+                    Name = "Bills",
+                    ImagePath = "Images\\category_bills.png",
+                    Amount = 60230
+                },
+                new DetailCategory
+                {
+                    ID = "3",
+                    Name = "Entertainment",
+                    ImagePath = "Images\\category_entertainment.png",
+                    Amount = 24232
+                },
+                new DetailCategory
+                {
+                    ID = "0",
+                    Name = "Eating",
+                    ImagePath = "Images\\category_foodndrink.png",
+                    Amount = 5430
+                },
+                new DetailCategory
+                {
+                    ID = "1",
+                    Name = "Shopping",
+                    ImagePath = "Images\\category_shopping.png",
+                    Amount = 345325
+                },
+                new DetailCategory
+                {
+                    ID = "2",
+                    Name = "Bills",
+                    ImagePath = "Images\\category_bills.png",
+                    Amount = 454243
+                },
+                new DetailCategory
+                {
+                    ID = "3",
+                    Name = "Entertainment",
+                    ImagePath = "Images\\category_entertainment.png",
+                    Amount = 324523
+                }
+            };
+
+        List<DetailCategory> detailCategoryList1 = new List<DetailCategory>
+            {
+                new DetailCategory
+                {
+                    ID = "10",
+                    Name = "Clothes",
+                    ImagePath = "Images\\category_clothes.png",
+                    Amount = 150000
+                },
+                new DetailCategory
+                {
+                    ID = "11",
+                    Name = "Shoes",
+                    ImagePath = "Images\\category_shoes.png",
+                    Amount = 300000
+                },
+                new DetailCategory
+                {
+                    ID = "12",
+                    Name = "Accessories",
+                    ImagePath = "Images\\category_accessories.png",
+                    Amount = 760000
+                },
+                new DetailCategory
+                {
+                    ID = "13",
+                    Name = "Electronic Device",
+                    ImagePath = "Images\\category_electronic_device.png",
+                    Amount = 100000
+                }
+            };
+
+        List<DetailCategory> detailCategoryList2 = new List<DetailCategory>
+            {
+                new DetailCategory
+                {
+                    ID = "10",
+                    Name = "January",
+                    ImagePath = "Images\\january.png",
+                    Amount = -1227.239723
+                },
+                new DetailCategory
+                {
+                    ID = "11",
+                    Name = "February",
+                    ImagePath = "Images\\february.png",
+                    Amount = 25343
+                },
+                new DetailCategory
+                {
+                    ID = "12",
+                    Name = "March",
+                    ImagePath = "Images\\march.png",
+                    Amount = 45536
+                },
+                new DetailCategory
+                {
+                    ID = "13",
+                    Name = "April",
+                    ImagePath = "Images\\april.png",
+                    Amount = 23123
+                },
+                new DetailCategory
+                {
+                    ID = "10",
+                    Name = "May",
+                    ImagePath = "Images\\may.png",
+                    Amount = 11472
+                },
+                new DetailCategory
+                {
+                    ID = "11",
+                    Name = "June",
+                    ImagePath = "Images\\june.png",
+                    Amount = 45443
+                },
+                new DetailCategory
+                {
+                    ID = "12",
+                    Name = "July",
+                    ImagePath = "Images\\july.png",
+                    Amount = 34535
+                },
+                new DetailCategory
+                {
+                    ID = "13",
+                    Name = "August",
+                    ImagePath = "Images\\august.png",
+                    Amount = 23284
+                },
+                new DetailCategory
+                {
+                    ID = "10",
+                    Name = "September",
+                    ImagePath = "Images\\september.png",
+                    Amount = 24024
+                },
+                new DetailCategory
+                {
+                    ID = "11",
+                    Name = "October",
+                    ImagePath = "Images\\october.png",
+                    Amount = 27257
+                },
+                new DetailCategory
+                {
+                    ID = "12",
+                    Name = "November",
+                    ImagePath = "Images\\november.png",
+                    Amount = 57567
+                },
+                new DetailCategory
+                {
+                    ID = "13",
+                    Name = "December",
+                    ImagePath = "Images\\december.png",
+                    Amount = 45682
+                }
+            };
+
+        Stack<DetailInfomation> detailStack = new Stack<DetailInfomation>();
+
+        public MainWindow()
+        {
+
+            InitializeComponent();
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
 
 
-		//---------------------------------------- Xử lý cửa sổ --------------------------------------------//
 
-		//Cài đặt nút đóng cửa sổ
-		private void CloseButton_Click(object sender, RoutedEventArgs e)
-		{
-			/*SaveListFood();
+        }
+
+        //---------------------------------------- Các hàm xử lý sự kiện --------------------------------------------//
+
+
+
+        //Cài đặt để có thể di chuyển cửa sổ khi nhấn giữ chuột và kéo Title Bar
+        private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var move = sender as System.Windows.Controls.DockPanel;
+            var win = Window.GetWindow(move);
+            win.DragMove();
+        }
+
+
+        //---------------------------------------- Xử lý cửa sổ --------------------------------------------//
+
+        //Cài đặt nút đóng cửa sổ
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            /*SaveListFood();
 			SaveListDish();
 			var config = ConfigurationManager.OpenExeConfiguration(
 				ConfigurationUserLevel.None);
 			config.AppSettings.Settings["ColorScheme"].Value = ColorScheme;
 			config.Save(ConfigurationSaveMode.Minimal);*/
-			Application.Current.Shutdown();
+            Application.Current.Shutdown();
 
-		}
+        }
 
-		//Cài đặt nút ẩn cửa sổ
-		private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-		{
+        //Cài đặt nút ẩn cửa sổ
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
 
-			this.WindowState = WindowState.Minimized;
+            this.WindowState = WindowState.Minimized;
 
-		}
+        }
 
 
-		private void BackButton_Click(object sender, RoutedEventArgs e)
-		{
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
 
-		}
+        }
 
-		private void MenuButton_Click(object sender, RoutedEventArgs e)
-		{
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
 
-		}
+        }
 
-		private void TransactionsButton_Click(object sender, RoutedEventArgs e)
-		{
+        private void TransactionsButton_Click(object sender, RoutedEventArgs e)
+        {
 
-		}
+        }
 
-		private void ReportButton_Click(object sender, RoutedEventArgs e)
-		{
+        private void ReportButton_Click(object sender, RoutedEventArgs e)
+        {
 
-		}
+        }
 
-		private void BudgetButton_Click(object sender, RoutedEventArgs e)
-		{
+        private void BudgetButton_Click(object sender, RoutedEventArgs e)
+        {
 
-		}
+        }
 
-		private void DebtsButton_Click(object sender, RoutedEventArgs e)
-		{
+        private void DebtsButton_Click(object sender, RoutedEventArgs e)
+        {
 
-		}
+        }
 
-		private void SettingButton_Click(object sender, RoutedEventArgs e)
-		{
+        private void SettingButton_Click(object sender, RoutedEventArgs e)
+        {
 
-		}
+        }
 
-		private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
-		{
+        private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
 
-		}
+        }
 
-		private void CloseDetailButton_Click(object sender, RoutedEventArgs e)
-		{
+        private void CloseDetailButton_Click(object sender, RoutedEventArgs e)
+        {
 
-			//Ẩn báo cáo chi tiết
-			DetailReportGrid.Visibility = Visibility.Collapsed;
+            //Lấy thông tin khung hình chi tiết hiện tại ra khỏi stack
+            detailStack.Pop();
 
-			//Phóng to chiều rộng của khung báo cáo chung
-			GeneralReportGrid.Width = 600;
+            //Nếu stack rỗng thì quay về màn hình báo cáo chung
+            if (detailStack.Count == 0)
+            {
 
-			//Phóng to kích thước của 2 biểu đồ hình bánh thể hiện thu chi
-			IncomeReportChart.Width = 250;
-			IncomeReportChart.Height = 300;
-			ExpenseReportChart.Width = 250;
-			ExpenseReportChart.Height = 300;
+                //Ẩn báo cáo chi tiết
+                DetailReportGrid.Visibility = Visibility.Collapsed;
 
-			//Phóng to chiều rộng của 2 nút vay nợ
-			DebtDockPanel.Width = 600;
-			LoanDockPanel.Width = 600;
+                //Phóng to chiều rộng của khung báo cáo chung
+                GeneralReportGrid.Width = 600;
 
-			/*List<Category> categoryList = new List<Category>
+                //Phóng to kích thước của 2 biểu đồ hình bánh thể hiện thu chi
+                IncomeReportChart.Width = 250;
+                IncomeReportChart.Height = 300;
+                ExpenseReportChart.Width = 250;
+                ExpenseReportChart.Height = 300;
+
+                //Phóng to chiều rộng của 2 nút vay nợ
+                DebtDockPanel.Width = 600;
+                LoanDockPanel.Width = 600;
+
+            }
+            else //Còn màn hình trong stack
+            {
+
+                //Nạp dữ liệu màn hình tiếp theo
+                DetailInfomation detailInfomation = detailStack.Peek();
+                DetailReportGrid.DataContext = detailInfomation;
+
+                //Thay đổi dữ liệu biểu đồ
+                AddDataIntoReportPieChart(DynamicPieChart, detailInfomation.Components);
+                AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation.Components);
+
+                //Chỉnh số hàng
+                ModifyRowNumber(detailInfomation.Components);
+
+                //Nếu đây là màn hình cuối cùng thì đổi dấu lùi thành dấu đóng khung
+                if (detailStack.Count == 1)
+                {
+
+                    var imgName = "Images/black_close.png";
+                    ChangeImage(imgName, CloseFrameImage);
+
+                }
+
+            }
+
+            
+
+            /*List<Category> categoryList = new List<Category>
 			{
 				new Category
 				{
@@ -361,7 +382,7 @@ namespace YourMom
 				},
 			};*/
 
-			/*List<DetailCategory> detailCategoryList = new List<DetailCategory>
+            /*List<DetailCategory> detailCategoryList = new List<DetailCategory>
 			{
 				new DetailCategory
 				{
@@ -393,7 +414,7 @@ namespace YourMom
 				}
 			};*/
 
-			/*List<Budget> budgetList = new List<Budget>
+            /*List<Budget> budgetList = new List<Budget>
 			{
 				new Budget
 				{
@@ -437,7 +458,7 @@ namespace YourMom
 				}
 			};*/
 
-			/*List<DebitBook> debitBookList = new List<DebitBook>
+            /*List<DebitBook> debitBookList = new List<DebitBook>
 			{
 				new DebitBook
 				{
@@ -484,7 +505,7 @@ namespace YourMom
 				}
 			};*/
 
-			/*List<Transaction> transactionList = new List<Transaction>
+            /*List<Transaction> transactionList = new List<Transaction>
 			{
 				new Transaction
 				{
@@ -524,7 +545,7 @@ namespace YourMom
 				}
 			};*/
 
-			/*List<Report> reports = new List<Report>
+            /*List<Report> reports = new List<Report>
 			{
 				new Report
 				{
@@ -635,240 +656,293 @@ namespace YourMom
 			xs.Serialize(writer, reports);
 			writer.Close();*/
 
-		}
+        }
 
-		//Biểu đồ hình quạt về thu nhập
-		private void IncomeReportChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
+        //Biểu đồ hình quạt về thu nhập
+        private void IncomeReportChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
 
-			IncomeReportChart.Series = new SeriesCollection();
-			((DefaultTooltip)IncomeReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			AddDataIntoReportPieChart(IncomeReportChart, detailInfomation);
+            IncomeReportChart.Series = new SeriesCollection();
+            ((DefaultTooltip)IncomeReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+            AddDataIntoReportPieChart(IncomeReportChart, detailCategoryList);
+            double sum = SumComponent(detailCategoryList);
+            Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
+            IncomeTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
+            
+        }
 
-		}
+        //Biểu đồ hình quạt về chi tiêu
+        private void ExpenseReportChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+            ExpenseReportChart.Series = new SeriesCollection();
+            ((DefaultTooltip)ExpenseReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+            AddDataIntoReportPieChart(ExpenseReportChart, detailCategoryList);
+            double sum = SumComponent(detailCategoryList);
+            Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
+            ExpenseTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
+
+        }
+
+        //Biểu đồ hình quạt linh động
+        private void DynamicPieChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
 
-		//Biểu đồ hình quạt về chi tiêu
-		private void ExpenseReportChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
+            AddDataIntoReportPieChart(DynamicPieChart, detailCategoryList);
 
-			ExpenseReportChart.Series = new SeriesCollection();
-			((DefaultTooltip)ExpenseReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			AddDataIntoReportPieChart(ExpenseReportChart, detailInfomation);
+        }
 
-		}
+        //Biểu đồ hình cột linh động
+        private void DynamicColumnChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
 
-		//Biểu đồ hình quạt linh động
-		private void DynamicPieChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
+            AddDataIntoReportColumnChart(DynamicColumnChart, detailCategoryList);
 
-			AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
+        }
 
-		}
+        //Hàm thêm dữ liệu vào biểu đồ hình tròn
+        private void AddDataIntoReportPieChart(PieChart pieChart, List<DetailCategory> list)
+        {
 
-		//Biểu đồ hình cột linh động
-		private void DynamicColumnChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
+            pieChart.Series = new SeriesCollection();
+            ((DefaultTooltip)pieChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+            //Thêm các thành phần vào biểu đồ
+            foreach (var component in list)
+            {
 
-			AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
+                pieChart.Series.Add(
+                    new PieSeries()
+                    {
+                        Values = new ChartValues<double> { component.Amount },
+                        Title = component.Name
+                    }
+                );
 
-		}
+            }
 
-		//Hàm thêm dữ liệu vào biểu đồ hình tròn
-		private void AddDataIntoReportPieChart(PieChart pieChart, DetailInfomationClass detail)
-		{
+        }
 
-			pieChart.Series = new SeriesCollection();
-			((DefaultTooltip)pieChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			//Tinh tổng số tiền của các thành phần
-			var sum = 0.0;
-			foreach (var component in detail.Components)
-			{
+        //Hàm thêm dữ liệu vào biểu đồ hình cột
+        private void AddDataIntoReportColumnChart(CartesianChart columnChart, List<DetailCategory> list)
+        {
+
+            columnChart.Series = new SeriesCollection();
+            ((DefaultTooltip)columnChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+            columnChart.AxisY = new AxesCollection();
 
-				pieChart.Series.Add(
-					new PieSeries()
-					{
-						Values = new ChartValues<double> { component.Amount },
-						Title = component.Name
-					}
-				);
-				sum += component.Amount;
+            //Thêm các thành phần vào biểu đồ
+            foreach (var component in list)
+            {
 
-			}
+                columnChart.Series.Add(new ColumnSeries()
+                {
+                    Values = new ChartValues<double> { component.Amount },
+                    Title = component.Name
+                });
 
-			detail.TotalMoney = sum;
+            }
 
-		}
+        }
 
-		//Hàm thêm dữ liệu vào biểu đồ hình cột
-		private void AddDataIntoReportColumnChart(CartesianChart columnChart, DetailInfomationClass detail)
-		{
+        private void CommonChartButton_Click(object sender, RoutedEventArgs e)
+        {
 
-			columnChart.Series = new SeriesCollection();
-			((DefaultTooltip)columnChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
-			columnChart.AxisY = new AxesCollection();
-			//Tinh tổng số tiền của các thành phần
-			var sum = 0.0;
-			foreach (var component in detail.Components)
-			{
+            //Hiển thị khung báo cáo chi tiết thu nhập
+            DetailReportGrid.Visibility = Visibility.Visible;
 
-				columnChart.Series.Add(new ColumnSeries()
-				{
-					Values = new ChartValues<double> { component.Amount },
-					Title = component.Name
-				});
-				sum += component.Amount;
+            //Thu nhỏ chiều rộng của khung báo cáo chung
+            GeneralReportGrid.Width = 410;
 
-			}
+            //Phóng to khung báo cáo chi tiết về thu nhập
+            DetailReportGrid.Width = 600;
 
-			detail.TotalMoney = sum;
+            //Thu nhỏ kích thước của 2 biểu đồ hình bánh thể hiện thu chi
+            IncomeReportChart.Width = 200;
+            IncomeReportChart.Height = 200;
+            ExpenseReportChart.Width = 200;
+            ExpenseReportChart.Height = 200;
 
-		}
+            //Thu nhỏ chiều rộng của 2 nút vay nợ
+            DebtDockPanel.Width = 410;
+            LoanDockPanel.Width = 410;
 
-		private void CommonChartButton_Click(object sender, RoutedEventArgs e)
-		{
+            PieChartIconButton.Height = 46;
+            PieChartIconTextBlock.Visibility = Visibility.Visible;
+            //Hiển thị biểu đồ hình tròn
+            DynamicPieChart.Visibility = Visibility.Visible;
+            DynamicPieChartTextBlock.Visibility = Visibility.Visible;
+            //Ẩn biểu đồ hình cột
+            DynamicColumnChart.Visibility = Visibility.Collapsed;
+            DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
 
-			//Hiển thị khung báo cáo chi tiết thu nhập
-			DetailReportGrid.Visibility = Visibility.Visible;
+            //Hiển thị tiêu đề của khung báo cáo chi tiết
+            var button = sender as Button;
+            const string str = "Button";
 
-			//Thu nhỏ chiều rộng của khung báo cáo chung
-			GeneralReportGrid.Width = 410;
+            DetailReportGrid.DataContext = AddDataIntoDetailReport(
+                button.Name.Substring(0, button.Name.Length - str.Length),
+                detailCategoryList
+            );
 
-			//Phóng to khung báo cáo chi tiết về thu nhập
-			DetailReportGrid.Width = 600;
 
-			//Thu nhỏ kích thước của 2 biểu đồ hình bánh thể hiện thu chi
-			IncomeReportChart.Width = 200;
-			IncomeReportChart.Height = 200;
-			ExpenseReportChart.Width = 200;
-			ExpenseReportChart.Height = 200;
+        }
 
-			//Thu nhỏ chiều rộng của 2 nút vay nợ
-			DebtDockPanel.Width = 410;
-			LoanDockPanel.Width = 410;
+        //Hàm hiển thị biểu đồ hình tròn trong khung chi tiết báo cáo
+        private void PieChartIconButton_Click(object sender, RoutedEventArgs e)
+        {
 
-			//Mặc định hiển thị biểu đồ hình tròn
-			detailInfomation.TypeOfChart = false;
-			PieChartIconButton.Height = 46;
-			PieChartIconTextBlock.Visibility = Visibility.Visible;
-			//Hiển thị biểu đồ hình tròn
-			DynamicPieChart.Visibility = Visibility.Visible;
-			DynamicPieChartTextBlock.Visibility = Visibility.Visible;
-			//Ẩn biểu đồ hình cột
-			DynamicColumnChart.Visibility = Visibility.Collapsed;
-			DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
+            //Hiển thị biểu đồ hình bánh
+            PieChartIconButton.Height = 46;
+            PieChartIconTextBlock.Visibility = Visibility.Visible;
 
-			//Hiển thị tiêu đề của khung báo cáo chi tiết
-			var button = sender as Button;
-			if (button.Name == "IncomeButton")
-			{
+            //Ẩn biểu đồ hình cột
+            ColumnChartIconButton.Height = 50;
+            ColumnChartIconTextBlock.Visibility = Visibility.Collapsed;
 
-				detailInfomation.Title = "Income";
+            //Hiển thị biểu đồ hình tròn
+            DynamicPieChart.Visibility = Visibility.Visible;
+            DynamicPieChartTextBlock.Visibility = Visibility.Visible;
+            //Ẩn biểu đồ hình cột
+            DynamicColumnChart.Visibility = Visibility.Collapsed;
+            DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
 
-			}
-			else
-			{
+        }
 
-				detailInfomation.Title = "Expense";
+        //Hàm hiển thị biểu đồ hình cột trong khung chi tiết báo cáo
+        private void ColumnChartIconButton_Click(object sender, RoutedEventArgs e)
+        {
 
-			}			
+            //Hiển thị biểu đồ hình cột
+            ColumnChartIconButton.Height = 46;
+            ColumnChartIconTextBlock.Visibility = Visibility.Visible;
 
-			//Nạp dữ liệu cho khung báo báo thu nhập chi tiết
-			detailInfomation.Components = detailCategoryList;
+            //Ẩn biểu đồ hình cột
+            PieChartIconButton.Height = 50;
+            PieChartIconTextBlock.Visibility = Visibility.Collapsed;
 
-			if (detailCategoryList.Count <= 5)
-			{
+            //Hiển thị biểu đồ hình cột
+            DynamicColumnChart.Visibility = Visibility.Visible;
+            DynamicColumnChartTextBlock.Visibility = Visibility.Visible;
+            //Ẩn biểu đồ hình tròn
+            DynamicPieChart.Visibility = Visibility.Collapsed;
+            DynamicPieChartTextBlock.Visibility = Visibility.Collapsed;
 
-				CategoryListView.Height = detailCategoryList.Count * 65;
+        }
 
-			}
-			else
-			{
+        //Hàm xử lý nút xem chi tiết danh sách loại
+        private void DetailButton_Click(object sender, RoutedEventArgs e)
+        {
 
-				CategoryListView.Height = 5 * 65;
+            var detailCategory = (sender as Button).DataContext as DetailCategory;
 
-			}
-			DetailScrollViewer.ScrollToTop();
+            //Đổi tên tiêu đề khung báo cáo chi tiết
+            if (detailStack.Count == 1) //test
+            {
 
-		}
+                DetailReportGrid.DataContext = AddDataIntoDetailReport(detailCategory.Name, detailCategoryList1);
 
-		private void PieChartIconButton_Click(object sender, RoutedEventArgs e)
-		{
+            }
+            else
+            {
 
-			//Hiển thị biểu đồ hình bánh
-			PieChartIconButton.Height = 46;
-			PieChartIconTextBlock.Visibility = Visibility.Visible;
+                DetailReportGrid.DataContext = AddDataIntoDetailReport(detailCategory.Name, detailCategoryList2);
 
-			//Ẩn biểu đồ hình cột
-			ColumnChartIconButton.Height = 50;
-			ColumnChartIconTextBlock.Visibility = Visibility.Collapsed;
+            }
 
-			//Hiển thị biểu đồ hình tròn
-			DynamicPieChart.Visibility = Visibility.Visible;
-			DynamicPieChartTextBlock.Visibility = Visibility.Visible;
-			//Ẩn biểu đồ hình cột
-			DynamicColumnChart.Visibility = Visibility.Collapsed;
-			DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
+            //Nếu là khung chi tiết loại thứ 2 trở đi thì đổi dấu đóng thành dấu quay lại
+            if (detailStack.Count == 2)
+            {
 
-		}
+                var imgName = "Images/left_arrow.png";
+                ChangeImage(imgName, CloseFrameImage);
 
-		private void ColumnChartIconButton_Click(object sender, RoutedEventArgs e)
-		{
+            }
 
-			//Hiển thị biểu đồ hình cột
-			ColumnChartIconButton.Height = 46;
-			ColumnChartIconTextBlock.Visibility = Visibility.Visible;
+            //Cuộn lên trên đầu của khung chi tiết báo cáo
+            DetailScrollViewer.ScrollToTop();
 
-			//Ẩn biểu đồ hình cột
-			PieChartIconButton.Height = 50;
-			PieChartIconTextBlock.Visibility = Visibility.Collapsed;
+        }
 
-			//Hiển thị biểu đồ hình cột
-			DynamicColumnChart.Visibility = Visibility.Visible;
-			DynamicColumnChartTextBlock.Visibility = Visibility.Visible;
-			//Ẩn biểu đồ hình tròn
-			DynamicPieChart.Visibility = Visibility.Collapsed;
-			DynamicPieChartTextBlock.Visibility = Visibility.Collapsed;
+        //Hàm nạp dữ liệu cho khung báo cáo chi tiết
+        private DetailInfomation AddDataIntoDetailReport(string title, List<DetailCategory> list)
+        {
 
-		}
+            DetailInfomation detailInfomation = new DetailInfomation
+            {
 
-		private void DetailButton_Click(object sender, RoutedEventArgs e)
-		{
+                Components = list,
+                Title = title,
+                TotalMoney = SumComponent(list)
 
-			var detailCategory = (sender as Button).DataContext as DetailCategory;
+            };
 
-			//Đổi tên tiêu đề khung báo cáo chi tiết
-			if (DetailReportTextBlock.Text == "Income")
-			{
+            AddDataIntoReportPieChart(DynamicPieChart, list);
+            AddDataIntoReportColumnChart(DynamicColumnChart, list);
 
-				detailInfomation.Components = detailCategoryList1;
+            //Đưa thông tin chi tiết báo cáo hiện tại vào Stack
+            detailStack.Push(detailInfomation);
 
-			}
-			else
-			{
+            //Chỉnh số hàng
+            ModifyRowNumber(list);
 
-				detailInfomation.Components = detailCategoryList2;
+            return detailInfomation;
 
-			}	
+        }
 
-			detailInfomation.Title = detailCategory.Name;
+        //Hàm điểu chỉnh số hàng của khung danh sách loại
+        private void ModifyRowNumber(List<DetailCategory> list)
+        {
 
-			AddDataIntoReportPieChart(DynamicPieChart, detailInfomation);
-			AddDataIntoReportColumnChart(DynamicColumnChart, detailInfomation);
+            //Chỉnh chiều cao cho danh sách loại với số hàng tối đa là 5
+            if (list.Count <= 5)
+            {
 
-			if (detailCategoryList1.Count <= 5)
-			{
+                CategoryListView.Height = list.Count * 65;
 
-				CategoryListView.Height = detailCategoryList1.Count * 65;
+            }
+            else
+            {
 
-			}
-			else
-			{
+                CategoryListView.Height = 5 * 65;
 
-				CategoryListView.Height = 5 * 65;
+            }
 
-			}
-			DetailScrollViewer.ScrollToTop();
+        }
 
-		}
-	}
+        //Tính tổng số tiền của danh sách
+        private double SumComponent(List<DetailCategory> list)
+        {
+
+            var sum = 0.0;
+
+            foreach (DetailCategory component in list)
+            {
+
+                sum += component.Amount;
+
+            }
+
+            return sum;
+
+        }
+
+        //Thay đổi hình ảnh
+        private void ChangeImage(string path, Image image)
+        {
+
+            //Lấy nguồn ảnh
+            var img = new BitmapImage(new Uri(
+                        path,
+                        UriKind.Relative)
+                );
+
+            //Thiết lập ảnh chất lượng cao
+            RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
+
+            //Thay đổi icon
+            image.Source = img;
+
+        }
+
+    }
 }
