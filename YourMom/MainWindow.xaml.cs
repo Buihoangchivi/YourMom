@@ -240,21 +240,21 @@ namespace YourMom
             foreach (Transaction transaction in transactionList)
             {
 
-                var str = transaction.TransactionType;
-                switch (str[0] - '0')
+                var type = transaction.TransactionType;
+                switch (type[0] - '0')
                 {
 
                     case 0: //Thu nhập
-                        AddDataIntoDictionary(incomePairs, str, transaction.Amount);
+                        AddDataIntoDictionary(incomePairs, type, transaction.Amount, true);
                         break;
                     case 1: //Chi tiêu
-                        AddDataIntoDictionary(expensePairs, str, transaction.Amount);
+                        AddDataIntoDictionary(expensePairs, type, transaction.Amount, true);
                         break;
                     case 2: //Đi vay
-                        AddDataIntoDictionary(debtPairs, str, transaction.Amount);
+                        AddDataIntoDictionary(debtPairs, type, transaction.Amount, true);
                         break;
                     case 3: //Cho vay
-                        AddDataIntoDictionary(loanPairs, str, transaction.Amount);
+                        AddDataIntoDictionary(loanPairs, type, transaction.Amount, true);
                         break;
 
                 }
@@ -269,22 +269,32 @@ namespace YourMom
 
         }
 
-
         //Hàm thêm dữ liệu vào từ điển
-        private void AddDataIntoDictionary(Dictionary<string, double> valuePairs, string str, double amount)
+        private void AddDataIntoDictionary(Dictionary<string, double> valuePairs, string str, double amount, bool getOnlyParent)
         {
 
-            //Nếu đã tồn tại khóa thì tăng lượng tiền của khóa
-            if (valuePairs.ContainsKey(str) == true)
+            string[] componentArray = GetTransactionType(str);
+            string key = str;
+
+            //Loại giao dịch con được cộng gộp vào loại giao dịch cha
+            if (componentArray.Length == 3 && getOnlyParent == true)
             {
 
-                valuePairs[str] += amount;
+                key = $"{componentArray[0]}_{componentArray[1]}";
+
+            }
+
+            //Nếu đã tồn tại khóa thì tăng lượng tiền của khóa
+            if (valuePairs.ContainsKey(key))
+            {
+
+                valuePairs[key] += amount;
 
             }
             else //khởi tạo khóa mới với lượng tiền đầu vào
             {
 
-                valuePairs.Add(str, amount);
+                valuePairs.Add(key, amount);
 
             }
 
@@ -294,14 +304,15 @@ namespace YourMom
         private void AddDataIntoList(Dictionary<string, double> valuePairs, List<DetailCategory> list)
         {
 
-            foreach (var income in valuePairs)
+            foreach (var pair in valuePairs)
             {
 
-                var key = income.Key;
+                var key = pair.Key;
+
                 //Khởi tạo và thêm dữ liệu vào danh sách
                 list.Add(new DetailCategory
                 {
-                    Amount = income.Value,
+                    Amount = pair.Value,
                     ID = key,
                     ImagePath = categoryList[key].ImagePath,
                     Name = categoryList[key].Name
@@ -356,7 +367,7 @@ namespace YourMom
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            
+
 
         }
 
@@ -847,24 +858,6 @@ namespace YourMom
 
         }
 
-        //Biểu đồ hình quạt linh động
-        //private void DynamicPieChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-
-        //    //Truyền dữ liệu vào biểu đồ hình tròn
-        //    AddDataIntoReportPieChart(DynamicPieChart, detailCategoryList);
-
-        //}
-
-        //Biểu đồ hình cột linh động
-        //private void DynamicColumnChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-
-        //    //Truyền dữ liệu vào biểu đồ hình cột
-        //    AddDataIntoReportColumnChart(DynamicColumnChart, detailCategoryList);
-
-        //}
-
         //Hàm thêm dữ liệu vào biểu đồ hình tròn
         private void AddDataIntoReportPieChart(PieChart pieChart, List<DetailCategory> list)
         {
@@ -940,12 +933,12 @@ namespace YourMom
             DynamicColumnChart.Visibility = Visibility.Collapsed;
             DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
 
-            
+
             var button = sender as Button;
             var buttonName = button.Name;
             string title = buttonName.Replace("Button", "");
             List<DetailCategory> list = new List<DetailCategory>();
-            
+
             if (buttonName == "IncomeButton")
             {
 
@@ -1013,38 +1006,6 @@ namespace YourMom
         }
 
         //Hàm xử lý nút xem chi tiết danh sách loại
-        private void DetailButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            var detailCategory = (sender as Button).DataContext as DetailCategory;
-
-            //Đổi tên tiêu đề khung báo cáo chi tiết
-            if (detailStack.Count == 1) //test
-            {
-
-                DetailReportGrid.DataContext = AddDataIntoDetailReport(detailCategory.Name, detailCategoryList1);
-
-            }
-            else
-            {
-
-                DetailReportGrid.DataContext = AddDataIntoDetailReport(detailCategory.Name, detailCategoryList2);
-
-            }
-
-            //Nếu là khung chi tiết loại thứ 2 trở đi thì đổi dấu đóng thành dấu quay lại
-            if (detailStack.Count == 2)
-            {
-
-                var imgName = "Images/left_arrow.png";
-                ChangeImage(imgName, CloseFrameImage);
-
-            }
-
-            //Cuộn lên trên đầu của khung chi tiết báo cáo
-            DetailScrollViewer.ScrollToTop();
-
-        }
 
         //Hàm nạp dữ liệu cho khung báo cáo chi tiết
         private DetailInfomation AddDataIntoDetailReport(string title, List<DetailCategory> list)
@@ -1127,5 +1088,143 @@ namespace YourMom
 
         }
 
+        //Hàm bắt sự kiện nhấn chuột trái vào khung chi tiết loại
+        private void CategoryListView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+            //Chi tiết loại được nhấn vào
+            var detailCategory = CategoryListView.SelectedItem as DetailCategory;
+
+            //Trường hợp khung chi tiết loại nhóm cha
+            if (detailStack.Count == 1)
+            {
+
+                var valuePairs = new Dictionary<string, double>();
+
+                //Đọc qua tất cả các giao dịch để tìm các chi tiết loại nhóm con
+                foreach (Transaction transaction in transactionList)
+                {
+
+                    var type = transaction.TransactionType;
+                    var index = type.IndexOf(detailCategory.ID);
+
+                    if (index == 0) //Nhóm con thì thêm dữ liệu vào từ điển
+                    {
+
+                        AddDataIntoDictionary(valuePairs, type, transaction.Amount, false);
+
+                    }
+
+                }
+
+                //Nếu có từ 2 nhóm con trở lên thì hiển thị khung chi tiết loại nhóm con
+                if (valuePairs.Count > 1)
+                {
+
+                    List<DetailCategory> detailList = new List<DetailCategory>();
+
+                    //Chuyển dữ liệu 4 nhóm giao dịch vào danh sách
+                    AddDataIntoList(valuePairs, detailList);
+
+                    //Đổi tên tiêu đề khung báo cáo chi tiết
+                    DetailReportGrid.DataContext = AddDataIntoDetailReport(detailCategory.Name, detailList);
+
+                }
+                else //Nếu chỉ có 1 nhóm con thì hiển thị biểu đồ theo tháng
+                {
+
+                    AddDataIntoMonthChart(detailCategory);
+
+                }
+
+            }
+            else
+            {
+
+                //Nếu là nhóm con thì hiển thị biểu đồ theo tháng
+                AddDataIntoMonthChart(detailCategory);
+
+            }
+
+            //Nếu là khung chi tiết loại thứ 2 trở đi thì đổi dấu đóng thành dấu quay lại
+            var imgName = "Images/left_arrow.png";
+            ChangeImage(imgName, CloseFrameImage);
+
+            //Cuộn lên trên đầu của khung chi tiết báo cáo
+            DetailScrollViewer.ScrollToTop();
+
+        }
+
+        //Thêm dữ liệu vào biểu đồ giao dịch theo tháng
+        private void AddDataIntoMonthChart(DetailCategory detailCategory)
+        {
+
+            //Danh sách các giao dịch được lọc
+            List<DetailCategory> detailList = new List<DetailCategory>();
+
+            //Danh sách chứa tên và đường dẫn ảnh của tháng
+            var monthList = new List<(string Name, string ImagePath)>
+            {
+
+                ("January", "Images\\january.png"),
+                ("February", "Images\\february.png"),
+                ("March", "Images\\march.png"),
+                ("April", "Images\\april.png"),
+                ("May", "Images\\may.png"),
+                ("June", "Images\\june.png"),
+                ("July", "Images\\July.png"),
+                ("August", "Images\\august.png"),
+                ("September", "Images\\september.png"),
+                ("October", "Images\\october.png"),
+                ("November", "Images\\november.png"),
+                ("December", "Images\\december.png")
+
+            };
+
+            //Mảng lưu trữ số tiền của 12 tháng
+            var amountPerMonth = new double[12];
+
+            //Duyệt qua tất cả các giao dịch để tìm giao dịch phù hợp
+            foreach (Transaction transaction in transactionList)
+            {
+
+                //Giao dịch phải thỏa điều kiện cùng ID với ID của tham số đầu vào
+                if (transaction.TransactionType == detailCategory.ID)
+                {
+
+                    //Lấy thông tin ngày tháng
+                    var date = DateTime.Parse(transaction.Date);
+
+                    //Cộng dồn số tiền giao dịch trong tháng
+                    amountPerMonth[date.Month - 1] += transaction.Amount;
+
+                }
+
+            }
+
+            //Duyệt qua 12 tháng trong năm
+            for (int month = 0; month < 12; month++)
+            {
+
+                if (amountPerMonth[month] > 0) //Chỉ xử lý những tháng nào có giao dịch
+                {
+
+                    //Khởi tạo và thêm dữ liệu vào danh sách
+                    detailList.Add(new DetailCategory
+                    {
+                        Amount = amountPerMonth[month],
+                        ID = $"{month}",
+                        ImagePath = monthList[month].ImagePath,
+                        Name = monthList[month].Name
+                    });
+
+                }
+
+            }
+
+            //Đổi tên tiêu đề khung báo cáo chi tiết
+            DetailReportGrid.DataContext = AddDataIntoDetailReport(detailCategory.Name, detailList);
+
+        }
     }
 }
