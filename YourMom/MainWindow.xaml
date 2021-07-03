@@ -3,14 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:YourMom" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:YourMom.Modal" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Height="650" Width="1152" MinWidth="810" MinHeight="500" Loaded="Window_Loaded"
         WindowStyle="None" WindowStartupLocation="CenterScreen">
 
     <WindowChrome.WindowChrome>
+        
         <WindowChrome CaptionHeight="0"/>
+        
     </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+
+        <local:MoneyConverter x:Key="moneyConverter"/>
+
+    </Window.Resources>
 
     <DockPanel LastChildFill="True" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 
@@ -435,7 +443,7 @@
                             </Grid.RowDefinitions>
 
                             <!--Nút xem chi tiết báo cáo về thu nhập-->
-                            <Button Name="IncomeButton" Click="IncomeButton_Click">
+                            <Button Name="IncomeButton" Click="CommonChartButton_Click">
 
                                 <!--Tạo màu khi đưa chuột vào nút và bo tròn góc trên bên trái cho nút-->
                                 <Button.Style>
@@ -475,7 +483,7 @@
                                         <TextBlock FontSize="16" HorizontalAlignment="Center" 
                                                        Foreground="#FF757575" Text="Income"></TextBlock>
 
-                                        <TextBlock Name="IncomeAmountTextBlock"
+                                        <TextBlock Name="IncomeTextBlock"
                                                    FontWeight="Medium" 
                                                    FontSize="25" 
                                                    Foreground="#039BE5"/>
@@ -494,7 +502,9 @@
                             </Button>
 
                             <!--Nút xem chi tiết báo cáo về chi tiêu-->
-                            <Button Grid.Column="1">
+                            <Button Grid.Column="1"
+                                    Name="ExpenseButton" 
+                                    Click="CommonChartButton_Click">
 
                                 <!--Tạo màu khi đưa chuột vào nút và bo tròn góc trên bên phải cho nút-->
                                 <Button.Style>
@@ -534,7 +544,7 @@
                                                        HorizontalAlignment="Center" 
                                                        Foreground="#FF757575">Expense</TextBlock>
 
-                                        <TextBlock Name="ExpenseAmountTextBlock"
+                                        <TextBlock Name="ExpenseTextBlock"
                                                    FontWeight="Medium" 
                                                    FontSize="25"     
                                                    Foreground="#E51C23"/>
@@ -727,7 +737,9 @@
                                         </Button.Style>
 
                                         <StackPanel>
-                                            <Image Source="Images/deleteText.png" Width="15" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                            <Image Source="Images/black_close.png" Width="17" 
+                                                   Name="CloseFrameImage"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"/>
                                         </StackPanel>
 
                                     </Button>
@@ -847,12 +859,12 @@
                                         <lvc:PieChart LegendLocation="Bottom"
                                                       Hoverable="True" Margin="20,40"
                                                       Name="DynamicPieChart"
-                                                      Grid.RowSpan="2"
-                                                      IsVisibleChanged="DynamicPieChart_IsVisibleChanged">
-                                        </lvc:PieChart>
+                                                      Grid.RowSpan="2"/>
+
 
                                         <!--Textblock hiển thị số tiền-->
                                         <TextBlock Name="DynamicPieChartTextBlock"
+                                                   Text="{Binding TotalMoney, Converter={StaticResource moneyConverter}}"
                                                    FontSize="27"
                                                    FontWeight="DemiBold" Grid.Column="1"
                                                    Grid.RowSpan="2"
@@ -864,7 +876,6 @@
                                         <lvc:CartesianChart LegendLocation="Bottom"
                                                             Grid.Row="1" Grid.ColumnSpan="2"
                                                             Name="DynamicColumnChart"
-                                                            IsVisibleChanged="DynamicColumnChart_IsVisibleChanged"
                                                             Margin="50,0,50,30"
                                                             Visibility="Collapsed">
                                             <lvc:CartesianChart.AxisY>
@@ -878,6 +889,7 @@
 
                                         <!--Textblock hiển thị số tiền-->
                                         <TextBlock Name="DynamicColumnChartTextBlock"
+                                                   Text="{Binding TotalMoney, Converter={StaticResource moneyConverter}}"
                                                    FontSize="27"
                                                    FontWeight="DemiBold"
                                                    Grid.ColumnSpan="2"
@@ -891,13 +903,17 @@
                                 </Border>
 
                                 <!--ListView chứa danh sách các chi tiết loại giao dịch-->
-                                <ListView Name="CategoryListView" BorderThickness="0" 
+                                <ListView Name="CategoryListView" 
+                                          BorderThickness="0" 
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                           ScrollViewer.CanContentScroll="False" 
                                           ScrollViewer.VerticalScrollBarVisibility="Hidden" 
-                                          Background="White" Grid.Row="2"
+                                          Background="White" 
+                                          Grid.Row="2"
                                           HorizontalContentAlignment="Center"
-                                          Width="500">
+                                          Width="500" 
+                                          MouseLeftButtonUp="CategoryListView_MouseLeftButtonUp"
+                                          ItemsSource="{Binding Components}">
 
                                     <!--Bo tròn góc dưới cho ListView-->
                                     <ListView.Template>
@@ -914,78 +930,46 @@
 
                                         <DataTemplate>
 
-                                            <!--Nút xem chi tiết Category-->
-                                            <Button Name="DetailButton" Height="60"
-                                                    Click="DetailButton_Click">
+                                            
 
-                                                <!--Tạo màu khi đưa chuột vào nút-->
-                                                <Button.Style>
-                                                    <Style TargetType="{x:Type Button}">
-
-                                                        <Setter Property="Background" Value="White"/>
-
-                                                        <Setter Property="Template">
-                                                            <Setter.Value>
-
-                                                                <ControlTemplate TargetType="{x:Type Button}">
-
-                                                                    <Border BorderThickness="0" 
-                                                                            Background="{TemplateBinding Background}">
-                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                    </Border>
-
-                                                                </ControlTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="#E5F3FB"/>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Button.Style>
-
-                                                <!--Đường viền ngăn cách-->
-                                                <Border BorderThickness="0,0.3,0,0" 
+                                            <!--Đường viền ngăn cách-->
+                                            <Border BorderThickness="0,0.3,0,0" 
                                                         BorderBrush="#FF757575">
 
-                                                    <!--Khung chứa nội dung của nút loại giao dịch-->
-                                                    <DockPanel Height="60" Width="500" 
+                                                <!--Khung chứa nội dung của nút loại giao dịch-->
+                                                <DockPanel Height="60" Width="500" 
                                                                LastChildFill="True"
                                                                Background="{x:Null}">
 
-                                                        <!--Hình ảnh minh họa loại giao dịch-->
-                                                        <Image Source="{Binding ImagePath}" Width="45"
+                                                    <!--Hình ảnh minh họa loại giao dịch-->
+                                                    <Image Source="{Binding ImagePath}" Width="45"
                                                                RenderOptions.BitmapScalingMode="HighQuality"
                                                                Margin="0,0,0,0"/>
 
-                                                        <!--Tên loại giao dịch-->
-                                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center"
+                                                    <!--Tên loại giao dịch-->
+                                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center"
                                                                    FontSize="17" Margin="30,0,0,0"/>
 
-                                                        <!--Ảnh nút mũi tên qua phải-->
-                                                        <Image Source="Images/arrow_forward.png" 
+                                                    <!--Ảnh nút mũi tên qua phải-->
+                                                    <Image Source="Images/arrow_forward.png" 
                                                                Width="18" Margin="0,0,10,0"
                                                                RenderOptions.BitmapScalingMode="HighQuality"
                                                                DockPanel.Dock="Right"/>
 
-                                                        <!--Thông số đã sử dụng bao nhiêu tiền cho loại giao dịch này-->
-                                                        <TextBlock FontSize="18" 
+                                                    <!--Thông số đã sử dụng bao nhiêu tiền cho loại giao dịch này-->
+                                                    <TextBlock FontSize="18" 
                                                                    HorizontalAlignment="Right"
                                                                    Foreground="#039BE5" 
-                                                                   Text="{Binding Amount}"
+                                                                   Text="{Binding Amount, Converter={StaticResource moneyConverter}}"
                                                                    Margin="0,0,15,0" 
                                                                    DockPanel.Dock="Right"
                                                                    VerticalAlignment="Center"/>
 
-                                                        <TextBlock/>
+                                                    <TextBlock/>
 
-                                                    </DockPanel>
+                                                </DockPanel>
 
-                                                </Border>
-
-                                            </Button>
+                                            </Border>
 
                                         </DataTemplate>
 
