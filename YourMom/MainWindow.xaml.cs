@@ -199,6 +199,50 @@ namespace YourMom
 						TotalMoney = 10000000,
 						ImagePath = "Images/category_foodndrink.png",
 						TransactionType = "Ăn uống"
+					},
+					new TransactionList()
+					{
+						Transactions = new ObservableCollection<Transaction>()
+						{
+							new Transaction
+							{
+								ID = "1",
+								Amount = 40000,
+								Date = "03/01/2021",
+							},
+							new Transaction
+							{
+								ID = "2",
+								Amount = 50000,
+								Date = "04/01/2021",
+							},
+						},
+						NumberOfTransactions = 2,
+						TotalMoney = 10000000,
+						ImagePath = "Images/category_foodndrink.png",
+						TransactionType = "Ăn uống"
+					},
+					new TransactionList()
+					{
+						Transactions = new ObservableCollection<Transaction>()
+						{
+							new Transaction
+							{
+								ID = "1",
+								Amount = 40000,
+								Date = "03/01/2021",
+							},
+							new Transaction
+							{
+								ID = "2",
+								Amount = 50000,
+								Date = "04/01/2021",
+							},
+						},
+						NumberOfTransactions = 2,
+						TotalMoney = 10000000,
+						ImagePath = "Images/category_foodndrink.png",
+						TransactionType = "Ăn uống"
 					}
 			};
 
@@ -517,5 +561,17 @@ namespace YourMom
 				parent.RaiseEvent(eventArg);
 			}
 		}
+
+
+		// Hàm chặn khi auto scrolling lúc nhấn vào vị trí bất kì trol scrollviewer
+        private void ScrollViewer_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+			e.Handled = true;
+		}
+
+        //private void TransactionListScrollView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        //{
+
+        //}
     }
 }
