@@ -236,6 +236,7 @@ namespace YourMom
             var debtPairs = new Dictionary<string, double>();
             var loanPairs = new Dictionary<string, double>();
 
+            //Tính tổng 4 nhóm giao dịch
             foreach (Transaction transaction in transactionList)
             {
 
@@ -260,6 +261,7 @@ namespace YourMom
 
             }
 
+            //Chuyển dữ liệu 4 nhóm giao dịch vào danh sách
             AddDataIntoList(incomePairs, incomeList);
             AddDataIntoList(expensePairs, expenseList);
             AddDataIntoList(debtPairs, debtList);
@@ -267,16 +269,19 @@ namespace YourMom
 
         }
 
+
+        //Hàm thêm dữ liệu vào từ điển
         private void AddDataIntoDictionary(Dictionary<string, double> valuePairs, string str, double amount)
         {
 
+            //Nếu đã tồn tại khóa thì tăng lượng tiền của khóa
             if (valuePairs.ContainsKey(str) == true)
             {
 
                 valuePairs[str] += amount;
 
             }
-            else
+            else //khởi tạo khóa mới với lượng tiền đầu vào
             {
 
                 valuePairs.Add(str, amount);
@@ -285,6 +290,7 @@ namespace YourMom
 
         }
 
+        //Hàm chuyển dữ liệu từ từ điển sang danh sách các loại giao dịch chung nhóm
         private void AddDataIntoList(Dictionary<string, double> valuePairs, List<DetailCategory> list)
         {
 
@@ -292,6 +298,7 @@ namespace YourMom
             {
 
                 var key = income.Key;
+                //Khởi tạo và thêm dữ liệu vào danh sách
                 list.Add(new DetailCategory
                 {
                     Amount = income.Value,
@@ -304,6 +311,7 @@ namespace YourMom
 
         }
 
+        //Đọc dữ liệu từ file xml
         private void ReadData()
         {
 
@@ -803,10 +811,17 @@ namespace YourMom
         private void IncomeReportChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
+            //Khởi tạo biểu đồ
             IncomeReportChart.Series = new SeriesCollection();
             ((DefaultTooltip)IncomeReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+
+            //Truyền dữ liệu vào biểu đồ
             AddDataIntoReportPieChart(IncomeReportChart, incomeList);
+
+            //Tính tổng số tiền
             double sum = SumComponent(incomeList);
+
+            //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
             Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
             IncomeTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
 
@@ -816,30 +831,39 @@ namespace YourMom
         private void ExpenseReportChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
+            //Khởi tạo biểu đồ
             ExpenseReportChart.Series = new SeriesCollection();
             ((DefaultTooltip)ExpenseReportChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
+
+            //Truyền dữ liệu vào biểu đồ
             AddDataIntoReportPieChart(ExpenseReportChart, expenseList);
+
+            //Tính tổng số tiền
             double sum = SumComponent(expenseList);
+
+            //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
             Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
             ExpenseTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
 
         }
 
         //Biểu đồ hình quạt linh động
-        private void DynamicPieChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
+        //private void DynamicPieChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //{
 
-            AddDataIntoReportPieChart(DynamicPieChart, detailCategoryList);
+        //    //Truyền dữ liệu vào biểu đồ hình tròn
+        //    AddDataIntoReportPieChart(DynamicPieChart, detailCategoryList);
 
-        }
+        //}
 
         //Biểu đồ hình cột linh động
-        private void DynamicColumnChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
+        //private void DynamicColumnChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //{
 
-            AddDataIntoReportColumnChart(DynamicColumnChart, detailCategoryList);
+        //    //Truyền dữ liệu vào biểu đồ hình cột
+        //    AddDataIntoReportColumnChart(DynamicColumnChart, detailCategoryList);
 
-        }
+        //}
 
         //Hàm thêm dữ liệu vào biểu đồ hình tròn
         private void AddDataIntoReportPieChart(PieChart pieChart, List<DetailCategory> list)
@@ -848,7 +872,7 @@ namespace YourMom
             pieChart.Series = new SeriesCollection();
             ((DefaultTooltip)pieChart.DataTooltip).SelectionMode = TooltipSelectionMode.OnlySender;
             //Thêm các thành phần vào biểu đồ
-            foreach (var component in list)
+            foreach (DetailCategory component in list)
             {
 
                 pieChart.Series.Add(
@@ -916,14 +940,32 @@ namespace YourMom
             DynamicColumnChart.Visibility = Visibility.Collapsed;
             DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
 
-            //Hiển thị tiêu đề của khung báo cáo chi tiết
+            
             var button = sender as Button;
-            const string str = "Button";
+            var buttonName = button.Name;
+            string title = buttonName.Replace("Button", "");
+            List<DetailCategory> list = new List<DetailCategory>();
+            
+            if (buttonName == "IncomeButton")
+            {
 
-            DetailReportGrid.DataContext = AddDataIntoDetailReport(
-                button.Name.Substring(0, button.Name.Length - str.Length),
-                detailCategoryList
-            );
+                list = incomeList;
+
+            }
+            else if (buttonName == "ExpenseButton")
+            {
+
+                list = expenseList;
+
+            }
+            else
+            {
+                list = buttonName == "DebtButton" ? debtList : loanList;
+
+            }
+
+            //Hiển thị tiêu đề của khung báo cáo chi tiết
+            DetailReportGrid.DataContext = AddDataIntoDetailReport(title, list);
 
 
         }
