@@ -820,34 +820,25 @@
 
         <Grid Background="#E4E4E4">
             <Grid Margin="0,10,13,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="12*"></RowDefinition>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid x:Name="Budget" Grid.Row="1" Width="600" Visibility="Collapsed" Grid.Column="0" >
-                    <!--<Grid.RowDefinitions>
-                        --><!--<RowDefinition Height="15"/>--><!--
-                        <RowDefinition />
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1.5*" />
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>-->
-                    <Border Grid.Row="0" Grid.Column="1" Background="Beige" CornerRadius="10">
-                        <Grid >
+                <!--Màn hình danh sách các ngân sách-->
+                <!--Header của danh sách các ngân sách-->
+                <Grid Name= "BudgetListHeader" Visibility="Collapsed">
+                    <Border x:Name="BudgetListBorder" Background="Beige" CornerRadius="10,10,0,0" Width="600" >
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*"/>
-                                <RowDefinition Height="12*"/>
-                            </Grid.RowDefinitions>
-
 
                             <StackPanel Grid.Row="0" Grid.Column="0" >
                                 <Button Name="RunningButton" Margin="5" Width="120" Height="60" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="RunningButton_Click">
@@ -911,97 +902,135 @@
                                 <TextBlock Name="FinishedUnderlineTextBlock" Visibility="Collapsed"
                                                    Height="4" Background="Green"></TextBlock>
                             </StackPanel>
-                            
-                            
-                            
-                            <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
+                            <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" Margin="0,-15,0,0"
                              />
-                           
-                            
 
-
-
-                            <!--Khung xem các loại ngân sách-->
-                            <ScrollViewer x:Name="BudgetListScrollView" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
-
-                                <ItemsControl x:Name="BudgetList">
-                                   
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel>
-                                                <Grid>
-                                                    <StackPanel Grid.Row="1">
-                                                        
-                                                        <!--Thời gian cho ngân sách-->
-                                                        <TextBlock  Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">
-                                                            <TextBlock.Text>
-                                                                <MultiBinding StringFormat="{}{0} - {1}">
-                                                                    <Binding Path="StartingDate" />
-                                                                    <Binding Path="EndDate" />
-                                                                </MultiBinding>
-                                                            </TextBlock.Text>
-                                                        </TextBlock>
-                                                        
-                                                        
-                                                        <!--Thời gian còn lại của ngân sách-->
-                                                        <TextBlock Text="{Binding DaysLeft, StringFormat=Còn {0} ngày}" Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold"></TextBlock>
-                                                    </StackPanel>
-                                                    <StackPanel Grid.Row="1" Grid.Column="2">
-                                                        <TextBlock Text="{Binding MoneyFund, StringFormat=≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
-                                                        <TextBlock Text="{Binding Balance, StringFormat=Còn lại ≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
-                                                    </StackPanel>
-                                                </Grid>
-                                                <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="BudgetListButton_Click" HorizontalContentAlignment="Stretch" >
-
-
-
-                                                    <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                        <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-
-
-                                                        <DockPanel DockPanel.Dock="Top" >
-                                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
-                                                            <StackPanel DockPanel.Dock="Right">
-                                                                <TextBlock  Text="{Binding MoneyFund}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
-                                                                <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
-                                                            </StackPanel>
-                                                        </DockPanel>
-
-
-                                                        <ProgressBar Value="{Binding Progress}" Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100"  />
-
-
-
-                                                    </DockPanel>
-
-
-                                                </Button>
-                                            </StackPanel>
-                                        
-                                            
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-
-                            </ScrollViewer>
-
-                            
-
-
-                            
                         </Grid>
 
                     </Border>
-
-
                 </Grid>
-                
-                
-                
+
+                <!--Danh sách các ngân sách-->
+                <ScrollViewer Name="BudgetListScrollviewer" Grid.Row="1" Visibility="Collapsed" VerticalScrollBarVisibility="Hidden">
+                    <!--Màn hình danh sách các ngân sách-->
+                    <Grid x:Name="Budget"  Grid.RowSpan="2" Width="600"  Grid.Column="0" >
+                        <!--<Grid.RowDefinitions>
+                        -->
+                        <!--<RowDefinition Height="15"/>-->
+                        <!--
+                        <RowDefinition />
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>-->
+                        <Border Grid.Row="0" Grid.Column="1" Background="Beige" CornerRadius="0,0,10,10">
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <!--<Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="12*"/>
+                                </Grid.RowDefinitions>-->
+
+
+
+
+
+
+
+
+                               
+
+
+
+
+
+                                <!--Khung xem các loại ngân sách-->
+                                <ScrollViewer x:Name="BudgetListScrollView" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="HandlePreviewMouseWheel">
+
+                                    <ItemsControl x:Name="BudgetList">
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <Grid>
+                                                        <StackPanel Grid.Row="1">
+
+                                                            <!--Thời gian cho ngân sách-->
+                                                            <TextBlock  Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}{0:dd/MM/yyyy} - {1:dd/MM/yyyy}">
+                                                                        <Binding Path="StartingDate" />
+                                                                        <Binding Path="EndDate" />
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+
+
+                                                            <!--Thời gian còn lại của ngân sách-->
+                                                            <TextBlock Text="{Binding DaysLeft, StringFormat=Còn {0} ngày}" Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold"></TextBlock>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Row="1" Grid.Column="2">
+                                                            <TextBlock Text="{Binding MoneyFund, StringFormat=≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
+                                                            <TextBlock Text="{Binding Balance, StringFormat=Còn lại ≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="BudgetListButton_Click" HorizontalContentAlignment="Stretch" >
+
+
+
+                                                        <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                            <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+
+
+                                                            <DockPanel DockPanel.Dock="Top" >
+                                                                <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
+                                                                <StackPanel DockPanel.Dock="Right">
+                                                                    <TextBlock  Text="{Binding MoneyFund}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
+                                                                    <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
+                                                                </StackPanel>
+                                                            </DockPanel>
+
+
+                                                            <ProgressBar Value="{Binding Progress}" Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100"  />
+
+
+
+                                                        </DockPanel>
+
+
+                                                    </Button>
+                                                </StackPanel>
+
+
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </ScrollViewer>
+
+
+
+
+
+                            </Grid>
+
+                        </Border>
+
+
+                    </Grid>
+                </ScrollViewer>
+
                 <!--Màn hình chi tiết của ngân sách-->
                 <Grid Name="BudgetReportGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  Width="600" Visibility="Collapsed">
 
@@ -1183,38 +1212,17 @@
 
 
 
-                <!--Màn hình danh sách các giao dịch-->
-                <Grid x:Name="Transaction" Grid.Row="1" Grid.Column="0" Width="600" Visibility="Visible" >
-                    <!--<Grid.RowDefinitions>
-                    <RowDefinition Height="15"/>
-                    <RowDefinition />
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1.5*" />
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Border Grid.Row="0" Grid.Column="1" Background="Beige">
-                    
-                </Border>-->
-
-                    <Border Grid.Row="0" Grid.Column="1" Background="Beige" CornerRadius="10">
-                        <Grid >
+                
+                <!--Màn hình danh sách các giao dịch-->             
+                <!--Header của danh sách các giao dịch-->
+                <Grid Name="TransactionListHeader" Visibility="Visible">
+                    <Border Background="Beige" CornerRadius="10,10,0,0" Width="600" >
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*"/>
-                                <RowDefinition Height="17*"/>
-                            </Grid.RowDefinitions>
-
-                            
-
-
-
                             <Button Name="PreviousButton" Grid.Row="0" Grid.Column="0" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="PreviousButton_Click">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
@@ -1296,67 +1304,98 @@
                                 </TextBlock>
                             </Button>
 
+                        </Grid>
 
-                            <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
+                    </Border>
+                </Grid>
+
+
+                <!--Danh sách các giao dịch-->
+                <ScrollViewer x:Name="TransactionListScrollviewer" VerticalScrollBarVisibility="Hidden" Grid.Row="2" Visibility="Visible">
+                    <!--Màn hình danh sách các giao dịch-->
+                    <Grid x:Name="Transaction" Grid.Row="1" Grid.Column="0" Width="600"  >
+                        <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition />
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="0" Grid.Column="1" Background="Beige">
+                    
+                </Border>-->
+
+                        <Border Grid.Row="0" Grid.Column="1" Background="Beige" CornerRadius="0,0, 10,10">
+                            <Grid >
+                                
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="17*"/>
+                                </Grid.RowDefinitions>
+
+
+
+
+
+                                
+
+                                <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" Margin="0,-15,0,0"
                              />
 
-
-                            
-                            
-                            
-                            
-                            
-                           <!--Test-->
-                            <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3"   VerticalScrollBarVisibility="Hidden" RequestBringIntoView="ScrollViewer_RequestBringIntoView">
-                                <Grid>
-                                    <!--<Grid.RowDefinitions>
+                             
+                                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3"   VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="HandlePreviewMouseWheel" RequestBringIntoView="ScrollViewer_RequestBringIntoView">
+                                    <Grid>
+                                        <!--<Grid.RowDefinitions>
                                         <RowDefinition Height="5*"/>
                                         <RowDefinition Height="2*"/>
                                         <RowDefinition Height="10*"/>
                                     </Grid.RowDefinitions>-->
-                                    <StackPanel>
                                         <StackPanel>
+                                            <StackPanel>
 
-                                            <StackPanel Orientation="Vertical" Margin="0,10,0,0"  >
-                                                <DockPanel Width="500"  LastChildFill="False">
-                                                    <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                                                <StackPanel Orientation="Vertical" Margin="0,10,0,0"  >
+                                                    <DockPanel Width="500"  LastChildFill="False">
+                                                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
                                             Tiền vào
-                                                    </TextBlock>
-                                                    <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                                                        </TextBlock>
+                                                        <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Blue">
                                             0
-                                                    </TextBlock>
-                                                </DockPanel>
+                                                        </TextBlock>
+                                                    </DockPanel>
 
-                                                <DockPanel Width="500" LastChildFill="False">
-                                                    <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                                                    <DockPanel Width="500" LastChildFill="False">
+                                                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
                                             Tiền ra
-                                                    </TextBlock>
-                                                    <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                                                        </TextBlock>
+                                                        <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red">
                                             -4,091,000
-                                                    </TextBlock>
-                                                </DockPanel>
+                                                        </TextBlock>
+                                                    </DockPanel>
 
-                                                <DockPanel Width="500" LastChildFill="False" Margin="0,5,0,0">
-                                                    <GridSplitter DockPanel.Dock="Right" Grid.ColumnSpan="5" Width="100" Height="0.5" 
+                                                    <DockPanel Width="500" LastChildFill="False" Margin="0,5,0,0">
+                                                        <GridSplitter DockPanel.Dock="Right" Grid.ColumnSpan="5" Width="100" Height="0.5" 
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" 
                              />
-                                                </DockPanel>
+                                                    </DockPanel>
 
-                                                <DockPanel Width="500" LastChildFill="False" Margin="0,2,0,0" >
-                                                    <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                                                    <DockPanel Width="500" LastChildFill="False" Margin="0,2,0,0" >
+                                                        <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
                                             -4,091,000
-                                                    </TextBlock>
-                                                </DockPanel>
+                                                        </TextBlock>
+                                                    </DockPanel>
 
 
-                                                <Button Name="ViewReportButton" Margin="0,5,0,0"  Width="600" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="ViewReportButton_Click">
-                                                    <!--<Button.Style>
+                                                    <Button Name="ViewReportButton" Margin="0,5,0,0"  Width="600" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="ViewReportButton_Click">
+                                                        <!--<Button.Style>
                                             <Style TargetType="{x:Type Button}">
 
                                                 <Setter Property="Template">
@@ -1376,103 +1415,111 @@
                                             </Style>
                                         </Button.Style>-->
 
-                                                    <TextBlock Name="ViewReportTextblock" TextWrapping="Wrap" FontSize="15" 
+                                                        <TextBlock Name="ViewReportTextblock" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Green" >
                                     XEM BÁO CÁO CHO GIAI ĐOẠN NÀY
-                                                    </TextBlock>
-                                                </Button>
+                                                        </TextBlock>
+                                                    </Button>
+
+                                                </StackPanel>
+
+
 
                                             </StackPanel>
 
+                                            <TextBlock Width="600" Height="50" Background="Gainsboro"></TextBlock>
 
+                                            <!--Khung xem các loại giao dịch-->
 
-                                        </StackPanel>
-
-                                        <TextBlock Width="600" Height="50" Background="Gainsboro"></TextBlock>
-
-                                        <!--Khung xem các loại giao dịch-->
-
-                                        <ScrollViewer x:Name="TransactionListScrollView"  Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="HandlePreviewMouseWheel" RequestBringIntoView="ScrollViewer_RequestBringIntoView">
-                                            <ItemsControl x:Name="TransactionList">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <StackPanel>
-                                                            <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                                <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                            <ScrollViewer x:Name="TransactionListScrollView"  Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="HandlePreviewMouseWheel" RequestBringIntoView="ScrollViewer_RequestBringIntoView">
+                                                <ItemsControl x:Name="TransactionList">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel>
+                                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                                    <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
 
 
 
-                                                                <DockPanel DockPanel.Dock="Top" >
-                                                                    <StackPanel DockPanel.Dock="Left"  >
-                                                                        <TextBlock Text="{Binding TransactionType}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                                                    <DockPanel DockPanel.Dock="Top" >
+                                                                        <StackPanel DockPanel.Dock="Left"  >
+                                                                            <TextBlock Text="{Binding TransactionType}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
-                                                                        <TextBlock Text="{Binding TransactionType}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                                                            <TextBlock Text="{Binding NumberOfTransactions, StringFormat={}0 Transactions}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,0,8" ></TextBlock>
-                                                                    </StackPanel>
-                                                                    <TextBlock DockPanel.Dock="Right"  Text="{Binding TotalMoney}" Width="175" TextAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                                        </StackPanel>
+                                                                        <TextBlock DockPanel.Dock="Right"  Text="{Binding TotalMoney}" Width="175" TextAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
 
+                                                                    </DockPanel>
+
+
+
+
+
+
                                                                 </DockPanel>
-
-
-
-
-
-
-                                                            </DockPanel>
-                                                            <GridSplitter  Width="600" Height="0.5" 
+                                                                <GridSplitter  Width="600" Height="0.5" 
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" 
                              />
 
-                                                            <ListView Name="TransactionListDetail" ItemsSource="{Binding Transactions}"  PreviewMouseWheel="HandlePreviewMouseWheel" BorderThickness="0" >
+                                                                <ListView Name="TransactionListDetail" ItemsSource="{Binding Transactions}"  PreviewMouseWheel="HandlePreviewMouseWheel" BorderThickness="0" >
 
-                                                                <ListView.ItemContainerStyle>
-                                                                    <Style TargetType="ListViewItem">
-                                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                                                    </Style>
-                                                                </ListView.ItemContainerStyle>
-                                                                <ListView.ItemTemplate>
-                                                                    <DataTemplate>
-                                                                        <Button Grid.Row="0" x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch"  >
+                                                                    <ListView.ItemContainerStyle>
+                                                                        <Style TargetType="ListViewItem">
+                                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                                        </Style>
+                                                                    </ListView.ItemContainerStyle>
+                                                                    <ListView.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Button Grid.Row="0" x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch"  >
 
 
 
-                                                                            <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                                                <Border BorderBrush="{x:Null}" Width="50" Height="50" >
-                                                                                    <TextBlock DockPanel.Dock="Left" Text="{Binding Date, Converter={StaticResource Convert},ConverterParameter=0}" TextAlignment="Center" TextWrapping="Wrap" 
+                                                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                                                    <Border BorderBrush="{x:Null}" Width="50" Height="50" >
+                                                                                        <TextBlock DockPanel.Dock="Left" Text="{Binding Date, StringFormat={}{0: dd}}" TextAlignment="Center" TextWrapping="Wrap" 
                                                FontSize="28"   FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Center"  ></TextBlock>
-                                                                                </Border>
+                                                                                    </Border>
 
 
-                                                                                <TextBlock DockPanel.Dock="Right"  Text="{Binding Amount}"  Width="160" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" 
+                                                                                    <TextBlock  DockPanel.Dock="Right"  Text="{Binding Amount}"  Width="160" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
 
 
-                                                                                <DockPanel DockPanel.Dock="Top" Background="Black" >
-                                                                                    <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Width="160" TextAlignment="Justify" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
-                                                                                    <StackPanel DockPanel.Dock="Right">
-                                                                                        <TextBlock  Text="{Binding MoneyFund}" Width="160" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                                                    <DockPanel DockPanel.Dock="Top">
+                                                                                        <TextBlock DockPanel.Dock="Left"  Width="160" TextAlignment="Justify" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0">
+                                                                                            <TextBlock.Text>
+                                                                                                <MultiBinding StringFormat="{}{0:dddd}, {1:MM} {2:yyyy}">
+                                                                                                    <Binding Path="Date"></Binding>
+                                                                                                    <Binding Path="Date"></Binding>
+                                                                                                    <Binding Path="Date"></Binding>
+                                                                                                </MultiBinding>
+                                                                                            </TextBlock.Text>
+                                                                                        </TextBlock>
+                                                                                        <StackPanel DockPanel.Dock="Right">
+                                                                                            <TextBlock  Text="{Binding MoneyFund}" Width="160" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
-                                                                                        <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                                                            <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
-                                                                                    </StackPanel>
+                                                                                        </StackPanel>
+                                                                                    </DockPanel>
+
+
                                                                                 </DockPanel>
 
 
-                                                                            </DockPanel>
+                                                                            </Button>
+                                                                        </DataTemplate>
+                                                                    </ListView.ItemTemplate>
+                                                                </ListView>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
 
-
-                                                                        </Button>
-                                                                    </DataTemplate>
-                                                                </ListView.ItemTemplate>
-                                                            </ListView>
-                                                        </StackPanel>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-
-                                            <!--<ItemsControl x:Name="TransactionList">
+                                                <!--<ItemsControl x:Name="TransactionList">
 
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -1522,28 +1569,28 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>-->
 
-                                        </ScrollViewer>
-                                    </StackPanel>
-                                   
-                                    
-                                    
-                                    
-                                    
-
-                                </Grid>
-                                
-                                
-                            </ScrollViewer>
+                                            </ScrollViewer>
+                                        </StackPanel>
 
 
 
 
-        
 
 
-                           
+                                    </Grid>
 
-                            <!--<ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
+
+                                </ScrollViewer>
+
+
+
+
+
+
+
+
+
+                                <!--<ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
                                 <Grid Margin="15,6,0,0">
                                     <ItemsControl Grid.Row="1" Name="foodButtonIt   emsControl" Visibility="Visible">
                                         <ItemsControl.ItemsPanel>
@@ -1552,7 +1599,7 @@
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
                                         -->
-                            <!--<ItemsControl.ItemTemplate>
+                                <!--<ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Button Width="204" Background="White" Margin="0,0,8,10"  BorderThickness="0" >
                                                     <Button.Resources>
@@ -1612,17 +1659,20 @@
                                                 </Button>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>-->
-                            <!--
+                                <!--
                                     </ItemsControl>
                                 </Grid>
                             </ScrollViewer>-->
 
 
 
-                        </Grid>
+                            </Grid>
 
-                    </Border>
-                </Grid>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+
+                
 
             </Grid>
            

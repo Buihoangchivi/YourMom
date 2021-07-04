@@ -30,12 +30,6 @@ namespace YourMom
 	public partial class MainWindow : Window
 	{
 
-
-		
-
-		
-
-
 	List<Budget> budgetList = new List<Budget>
 		{
 			new Budget
@@ -45,8 +39,8 @@ namespace YourMom
 				Name = "Ăn uống",
 				MoneyFund = 9000000,
 				SpentMoney = 4000000,
-				StartingDate = "06/06/2021",
-				EndDate = "06/30/2021"
+				StartingDate = new DateTime(2021,6,1),
+				EndDate = new DateTime(2021,6,30)
 			},
 
 			new Budget
@@ -56,8 +50,8 @@ namespace YourMom
 				Name = "Mua sắm",
 				MoneyFund = 5000000,
 				SpentMoney = 2000000,
-				StartingDate = "06/01/2021",
-				EndDate = "06/30/2021"
+				StartingDate = new DateTime(2021,6,1),
+				EndDate = new DateTime(2021,6,30)
 			},
 
 			new Budget
@@ -67,8 +61,18 @@ namespace YourMom
 				Name = "Đi chơi",
 				MoneyFund = 5000000,
 				SpentMoney = 2000000,
-				StartingDate = "06/01/2021",
-				EndDate = "06/27/2021"
+				StartingDate = new DateTime(2021,6,1),
+				EndDate = new DateTime(2021,6,27)
+			},
+			new Budget
+			{
+				ID = "4",
+				ImagePath = "Images/category_foodndrink.png",
+				Name = "Đi chơi",
+				MoneyFund = 5000000,
+				SpentMoney = 2000000,
+				StartingDate = new DateTime(2021,6,1),
+				EndDate =new DateTime(2021,7,27)
 			}
 		};
 
@@ -91,9 +95,8 @@ namespace YourMom
 
 				// lấy số ngày còn lại trong ngân sách			
 
-				DateTime currentdate = DateTime.Now;
-				DateTime enddate = Convert.ToDateTime(budgetList[i].EndDate);
-				TimeSpan time = enddate - currentdate;
+				DateTime currentdate = DateTime.Now;				
+				TimeSpan time = budgetList[i].EndDate - currentdate;
 
 				budgetList[i].DaysLeft =  time.Days < 0 ? 0 : time.Days;
 				//budgetList[i].DaysLeft = time.Days;
@@ -111,18 +114,18 @@ namespace YourMom
 
 
 				// định dạng lại ngày
-				convert = DateTime.Parse(budgetList[i].StartingDate);
-				budgetList[i].StartingDate = convert.ToString("dd-MM-yyyy");
-				convert = DateTime.Parse(budgetList[i].EndDate);
-				budgetList[i].EndDate = convert.ToString("dd-MM-yyyy");
+				//convert = DateTime.Parse(budgetList[i].StartingDate);
+				//budgetList[i].StartingDate = convert.ToString("dd-MM-yyyy");
+				//convert = DateTime.Parse(budgetList[i].EndDate);
+				//budgetList[i].EndDate = convert.ToString("dd-MM-yyyy");
 
 				// số tiền nên chi hàng ngày
 				budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ? Math.Round(budgetList[i].Balance / budgetList[i].DaysLeft, 2) : 0 ;
 
 				// số tiền thực tế chi hàng ngày
-				DateTime startingdate = Convert.ToDateTime(budgetList[i].StartingDate);
-				TimeSpan budgettime = enddate - startingdate;
-				budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney / ((currentdate - startingdate).Days + 1), 2);
+				//DateTime startingdate = Convert.ToDateTime(budgetList[i].StartingDate);
+				
+				budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney / ((currentdate - budgetList[i].StartingDate).Days + 1), 2);
 
 				// số tiền dự kiến chi tiêu
 				budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney + budgetList[i].RealitySpending_DayMoney * budgetList[i].DaysLeft;
@@ -137,6 +140,8 @@ namespace YourMom
 					runningBudgetList.Add(budgetList[i]);
 
 				}
+				
+				
 			}
 			
 
@@ -162,13 +167,13 @@ namespace YourMom
 							{
 								ID = "1",					
 								Amount = 10000,
-								Date = "01/01/2021",
+								Date = new DateTime(2021, 1, 1),
 							},
 							new Transaction
 							{
 								ID = "2",					
 								Amount = 20000,
-								Date = "02/01/2021",
+								Date = new DateTime(2021, 1, 2),
 							},
 						},
 						
@@ -186,13 +191,13 @@ namespace YourMom
 							{
 								ID = "1",					
 								Amount = 40000,
-								Date = "03/01/2021",
+								Date = new DateTime(2021, 1, 3),
 							},
 							new Transaction
 							{
 								ID = "2",								
 								Amount = 50000,
-								Date = "04/01/2021",
+								Date = new DateTime(2021, 1, 4),
 							},
 						},						
 						NumberOfTransactions = 2,
@@ -208,13 +213,13 @@ namespace YourMom
 							{
 								ID = "1",
 								Amount = 40000,
-								Date = "03/01/2021",
+								Date =new DateTime(2021, 1, 3),
 							},
 							new Transaction
 							{
 								ID = "2",
 								Amount = 50000,
-								Date = "04/01/2021",
+								Date = new DateTime(2021, 1, 4),
 							},
 						},
 						NumberOfTransactions = 2,
@@ -230,16 +235,16 @@ namespace YourMom
 							{
 								ID = "1",
 								Amount = 40000,
-								Date = "03/01/2021",
+								Date = new DateTime(2021, 1, 3),
 							},
 							new Transaction
 							{
 								ID = "2",
 								Amount = 50000,
-								Date = "04/01/2021",
+								Date = new DateTime(2021, 1, 4),
 							},
 						},
-						NumberOfTransactions = 2,
+						NumberOfTransactions = 2 ,
 						TotalMoney = 10000000,
 						ImagePath = "Images/category_foodndrink.png",
 						TransactionType = "Ăn uống"
@@ -394,6 +399,7 @@ namespace YourMom
         {
 			BudgetReportGrid.Visibility = Visibility.Collapsed;
 			Budget.Width = 600;
+			BudgetListBorder.Width = 600;
 		}
 
         private void RunningButton_Click(object sender, RoutedEventArgs e)
@@ -526,7 +532,8 @@ namespace YourMom
 
 			BudgetReportGrid.Visibility = Visibility.Visible;
             Budget.Width = 410;
-            BudgetReportGrid.Width = 600;
+			BudgetListBorder.Width = 410;
+			BudgetReportGrid.Width = 600;
             var temp = sender as Button;
 
 			var budgetInfo = temp.DataContext as Budget;
@@ -569,9 +576,6 @@ namespace YourMom
 			e.Handled = true;
 		}
 
-        //private void TransactionListScrollView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
-        //{
-
-        //}
+        
     }
 }

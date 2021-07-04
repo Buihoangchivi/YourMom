@@ -8,7 +8,7 @@ using System.ComponentModel;
 public class Transaction : INotifyPropertyChanged
 {
 	protected string id;
-	protected string date;
+	protected DateTime date;
 	
 	protected double amount;
 	protected string note;
@@ -32,7 +32,7 @@ public class Transaction : INotifyPropertyChanged
 
 	
 
-	public string Date
+	public DateTime Date
 	{
 		get
 		{

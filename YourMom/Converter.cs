@@ -15,7 +15,7 @@ namespace YourMom
     {
         public object Convert(Object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string[] values = ((string)value).Split('/');
+            string[] values = ((string)value).Split(',');
             int index = int.Parse((string)parameter);
             return values[index];
         }
