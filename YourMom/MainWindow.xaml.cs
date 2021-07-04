@@ -366,8 +366,20 @@ namespace YourMom
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
+            double sum;
+            //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
+            Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
 
+            //Tính tổng số tiền nợ người khác
+            sum = SumComponent(debtList);
+            //Hiển thị số tiền đó vào khung tiền nợ
+            DebtTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
 
+            //Tính tổng số tiền cho người khác vay
+            sum = SumComponent(loanList);
+            //Hiển thị số tiền đó vào khung tiền nợ
+            LoanTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
 
         }
 
@@ -933,7 +945,6 @@ namespace YourMom
             DynamicColumnChart.Visibility = Visibility.Collapsed;
             DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
 
-
             var button = sender as Button;
             var buttonName = button.Name;
             string title = buttonName.Replace("Button", "");
@@ -957,9 +968,13 @@ namespace YourMom
 
             }
 
+            //Xóa toàn bộ dữ liệu các màn hình
+            detailStack.Clear();
+            var imgName = "Images/black_close.png";
+            ChangeImage(imgName, CloseFrameImage);
+
             //Hiển thị tiêu đề của khung báo cáo chi tiết
             DetailReportGrid.DataContext = AddDataIntoDetailReport(title, list);
-
 
         }
 
