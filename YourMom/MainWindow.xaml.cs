@@ -30,7 +30,103 @@ namespace YourMom
 	public partial class MainWindow : Window
 	{
 
-	List<Budget> budgetList = new List<Budget>
+		ObservableCollection<TransactionList> transactionLists = new ObservableCollection<TransactionList>
+			{
+					new TransactionList()
+					{
+						Transactions = new ObservableCollection<Transaction>()
+						{
+							new Transaction
+							{
+								ID = "gd1",
+								Amount = 10000,
+								Date = new DateTime(2021, 1, 1),
+							},
+							new Transaction
+							{
+								ID = "gd2",
+								Amount = 20000,
+								Date = new DateTime(2021, 1, 2),
+							},
+						},
+
+						
+						ImagePath = "Images/category_foodndrink.png",
+						TransactionType = "Ăn uống"
+
+					},
+					new TransactionList()
+					{
+						Transactions = new ObservableCollection<Transaction>()
+						{
+							new Transaction
+							{
+								ID = "gd3",
+								Amount = 40000,
+								Date = new DateTime(2021, 1, 3),
+							},
+							new Transaction
+							{
+								ID = "gd4",
+								Amount = 50000,
+								Date = new DateTime(2021, 1, 4),
+							},
+						},
+						
+						ImagePath = "Images/category_foodndrink.png",
+						TransactionType = "Ăn uống"
+					},
+					new TransactionList()
+					{
+						Transactions = new ObservableCollection<Transaction>()
+						{
+							new Transaction
+							{
+								ID = "gd5",
+								Amount = 40000,
+								Date =new DateTime(2021, 1, 3),
+							},
+							new Transaction
+							{
+								ID = "gd6",
+								Amount = 50000,
+								Date = new DateTime(2021, 1, 4),
+							},
+						},
+						
+						ImagePath = "Images/category_foodndrink.png",
+						TransactionType = "Ăn uống"
+					},
+					new TransactionList()
+					{
+						Transactions = new ObservableCollection<Transaction>()
+						{
+							new Transaction
+							{
+								ID = "gd7",
+								Amount = 40000,
+								Date = new DateTime(2021, 1, 3),
+							},
+							new Transaction
+							{
+								ID = "gd8",
+								Amount = 50000,
+								Date = new DateTime(2021, 1, 4),
+							},
+							new Transaction
+							{
+								ID = "gd9",
+								Amount = 50000,
+								Date = new DateTime(2021, 1, 4),
+							},
+						},
+						
+						ImagePath = "Images/category_foodndrink.png",
+						TransactionType = "Ăn uống"
+					}
+			};
+
+		List<Budget> budgetList = new List<Budget>
 		{
 			new Budget
 			{
@@ -90,6 +186,7 @@ namespace YourMom
 			InitializeComponent();
 			double temp;
 			DateTime convert;
+			// Hàm xử lý ngân sách
 			for (int i = 0; i < budgetList.Count;i++)
 			{
 
@@ -143,115 +240,22 @@ namespace YourMom
 				
 				
 			}
+			BudgetList.ItemsSource = runningBudgetList;
+
+			// Hàm xử lý giao dịch
+			for (int i = 0; i< transactionLists.Count; i++)
+            {
+				transactionLists[i].NumberOfTransactions = transactionLists[i].Transactions.Count;
+				for (int j = 0; j < transactionLists[i].Transactions.Count;j++)
+                {
+					transactionLists[i].TotalMoney += transactionLists[i].Transactions[j].Amount;
+                }
+            }
 			
 
-			BudgetList.ItemsSource = runningBudgetList;
-			//List<Transaction> transactionList = new List<Transaction>
-			//{
-			//    new Transaction
-			//    {
-			//        ID = "1",
-			//        ImagePath = "Images/category_foodndrink.png",
-			//        Amount = 10000,
+			
 
-			//    }
-			//};
-
-			ObservableCollection<TransactionList> gg = new ObservableCollection<TransactionList>
-			{
-					new TransactionList()
-					{
-						Transactions = new ObservableCollection<Transaction>()
-						{
-							new Transaction
-							{
-								ID = "1",					
-								Amount = 10000,
-								Date = new DateTime(2021, 1, 1),
-							},
-							new Transaction
-							{
-								ID = "2",					
-								Amount = 20000,
-								Date = new DateTime(2021, 1, 2),
-							},
-						},
-						
-						NumberOfTransactions = 2,
-						TotalMoney = 10000000,
-						ImagePath = "Images/category_foodndrink.png",
-						TransactionType = "Ăn uống"
-
-					},
-					new TransactionList()
-					{
-						Transactions = new ObservableCollection<Transaction>()
-						{
-							new Transaction
-							{
-								ID = "1",					
-								Amount = 40000,
-								Date = new DateTime(2021, 1, 3),
-							},
-							new Transaction
-							{
-								ID = "2",								
-								Amount = 50000,
-								Date = new DateTime(2021, 1, 4),
-							},
-						},						
-						NumberOfTransactions = 2,
-						TotalMoney = 10000000,
-						ImagePath = "Images/category_foodndrink.png",
-						TransactionType = "Ăn uống"
-					},
-					new TransactionList()
-					{
-						Transactions = new ObservableCollection<Transaction>()
-						{
-							new Transaction
-							{
-								ID = "1",
-								Amount = 40000,
-								Date =new DateTime(2021, 1, 3),
-							},
-							new Transaction
-							{
-								ID = "2",
-								Amount = 50000,
-								Date = new DateTime(2021, 1, 4),
-							},
-						},
-						NumberOfTransactions = 2,
-						TotalMoney = 10000000,
-						ImagePath = "Images/category_foodndrink.png",
-						TransactionType = "Ăn uống"
-					},
-					new TransactionList()
-					{
-						Transactions = new ObservableCollection<Transaction>()
-						{
-							new Transaction
-							{
-								ID = "1",
-								Amount = 40000,
-								Date = new DateTime(2021, 1, 3),
-							},
-							new Transaction
-							{
-								ID = "2",
-								Amount = 50000,
-								Date = new DateTime(2021, 1, 4),
-							},
-						},
-						NumberOfTransactions = 2 ,
-						TotalMoney = 10000000,
-						ImagePath = "Images/category_foodndrink.png",
-						TransactionType = "Ăn uống"
-					}
-			};
-
-            TransactionList.ItemsSource = gg;
+            TransactionList.ItemsSource = transactionLists;
 			
 			
 
