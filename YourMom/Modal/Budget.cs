@@ -7,8 +7,8 @@ using System.ComponentModel;
 
 public class Budget : Category
 {
-	protected DateTime startingDate;
-	protected DateTime endDate;
+	protected string startingDate;
+	protected string endDate;
 	protected int daysLeft;
 	protected double moneyFund;
 	protected double balance;
@@ -19,7 +19,7 @@ public class Budget : Category
 	protected double progress;
 	protected string note;
 
-	public DateTime StartingDate
+	public string StartingDate
 	{
 		get
 		{
@@ -32,7 +32,7 @@ public class Budget : Category
 		}
 	}
 
-	public DateTime EndDate
+	public string EndDate
 	{
 		get
 		{

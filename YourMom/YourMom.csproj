@@ -102,6 +102,7 @@
     <Compile Include="Modal\DebitBook.cs" />
     <Compile Include="Modal\DetailCategory.cs" />
     <Compile Include="Modal\DetailInfomation.cs" />
+    <Compile Include="Modal\MoneyConverter.cs" />
     <Compile Include="Modal\Report.cs" />
     <Compile Include="Modal\Transaction.cs" />
     <Compile Include="Modal\TransactionList.cs" />
@@ -132,93 +133,101 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\addImage.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\backButton.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\budget.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\category_foodndrink.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\close.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\date.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\debts.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\deleteRecipe.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\deleteText.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\editImage.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\favorite.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\favoriteImage.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\homeImage.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\ingredientImage.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\maximize.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\menuImage.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\minimize.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\report.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\restoreDown.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\saveImage.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\search.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\setting.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\splash_0.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\splash_1.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\splash_2.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\splash_3.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\transactions.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\unloved.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\wallet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\addImage.png" />
+    <Resource Include="Images\backButton.png" />
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\deleteRecipe.png" />
+    <Resource Include="Images\editImage.png" />
+    <Resource Include="Images\favorite.png" />
+    <Resource Include="Images\favoriteImage.png" />
+    <Resource Include="Images\homeImage.png" />
+    <Resource Include="Images\ingredientImage.png" />
+    <Resource Include="Images\maximize.png" />
+    <Resource Include="Images\menuImage.png" />
+    <Resource Include="Images\minimize.png" />
+    <Resource Include="Images\restoreDown.png" />
+    <Resource Include="Images\saveImage.png" />
+    <Resource Include="Images\splash_0.jpg" />
+    <Resource Include="Images\splash_1.jpg" />
+    <Resource Include="Images\splash_2.jpg" />
+    <Resource Include="Images\splash_3.jpg" />
+    <Resource Include="Images\unloved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\transactions.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\budget.png" />
+    <Resource Include="Images\report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\debts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\wallet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\date.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\columnChart.png" />
+    <Resource Include="Images\pieChart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_foodndrink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_bills.png" />
+    <Resource Include="Images\category_entertainment.png" />
+    <Resource Include="Images\category_shopping.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_accessories.png" />
+    <Resource Include="Images\category_clothes.png" />
+    <Resource Include="Images\category_electronic_device.png" />
+    <Resource Include="Images\category_shoes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\april.png" />
+    <Resource Include="Images\august.png" />
+    <Resource Include="Images\december.png" />
+    <Resource Include="Images\february.png" />
+    <Resource Include="Images\january.png" />
+    <Resource Include="Images\july.png" />
+    <Resource Include="Images\june.png" />
+    <Resource Include="Images\march.png" />
+    <Resource Include="Images\may.png" />
+    <Resource Include="Images\november.png" />
+    <Resource Include="Images\october.png" />
+    <Resource Include="Images\september.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\left_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\black_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_salary.png" />
+    <Resource Include="Images\category_selling.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_debt.png" />
+    <Resource Include="Images\category_debt_collection.png" />
+    <Resource Include="Images\category_loan.png" />
+    <Resource Include="Images\category_pay.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

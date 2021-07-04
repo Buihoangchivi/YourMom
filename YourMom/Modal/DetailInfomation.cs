@@ -5,13 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-public class DetailInfomationClass : INotifyPropertyChanged
+public class DetailInfomation : INotifyPropertyChanged
 {
 	protected string title;
-	//0 là biểu đồ hình tròn
-	//1 là biểu đồ hình cột
-	protected bool typeOfChart;
 	protected List<DetailCategory> components;
+	protected double totalMoney;
 
 	public string Title
 	{
@@ -26,19 +24,6 @@ public class DetailInfomationClass : INotifyPropertyChanged
 		}
 	}
 
-	public bool TypeOfChart
-	{
-		get
-		{
-			return typeOfChart;
-		}
-		set
-		{
-			typeOfChart = value;
-			OnPropertyChanged("TypeOfChart");
-		}
-	}
-
 	public List<DetailCategory> Components
 	{
 		get
@@ -49,6 +34,19 @@ public class DetailInfomationClass : INotifyPropertyChanged
 		{
 			components = value;
 			OnPropertyChanged("Components");
+		}
+	}
+
+	public double TotalMoney
+	{
+		get
+		{
+			return totalMoney;
+		}
+		set
+		{
+			totalMoney = value;
+			OnPropertyChanged("TotalMoney");
 		}
 	}
 
