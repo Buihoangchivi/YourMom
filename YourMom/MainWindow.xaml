@@ -615,8 +615,9 @@
                                                        Foreground="#039BE5"/>
 
                                             <!--Thông số đã trả được bao nhiêu tiền-->
-                                            <TextBlock FontSize="18" 
-                                                           Foreground="#FF757575" Text="70,000 left"/>
+                                            <TextBlock Name="DebtLeftTextBlock" 
+                                                       FontSize="18" 
+                                                       Foreground="#FF757575"/>
 
                                         </StackPanel>
 
@@ -679,8 +680,9 @@
                                                        Foreground="#E51C23"/>
 
                                             <!--Thông số đã thu về được bao nhiêu tiền-->
-                                            <TextBlock FontSize="18" 
-                                                           Foreground="#FF757575" Text="22,000 left"/>
+                                            <TextBlock Name="LoanLeftTextBlock" 
+                                                       FontSize="18" 
+                                                       Foreground="#FF757575"/>
 
                                         </StackPanel>
 
