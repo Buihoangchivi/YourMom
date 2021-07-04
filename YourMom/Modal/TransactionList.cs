@@ -11,27 +11,10 @@ using System.Collections.Specialized;
 public class TransactionList : Transaction
 {
 
-	//protected ObservableCollection<Transaction> transactions;
-
-	//public ObservableCollection<Transaction> Transactions
-	//{
-	//	get
-	//	{
-	//		return transactions;
-	//	}
-	//	set
-	//	{
-
-	//		transactions = value;
-	//		OnPropertyChanged("Transactions");
-	//	}
-	//}
-
 	protected ObservableCollection<Transaction> transactions;
 	protected int numberOfTransactions;
 	protected double totalMoney;
 	protected string imagePath;
-	protected string transactionType;
 
 	public ObservableCollection<Transaction> Transactions
     {
@@ -85,20 +68,6 @@ public class TransactionList : Transaction
 			OnPropertyChanged("ImagePath");
 		}
 	}
-
-	public string TransactionType
-	{
-		get
-		{
-			return transactionType;
-		}
-		set
-		{
-			transactionType = value;
-			OnPropertyChanged("TransactionType");
-		}
-	}
-
 
 }
 

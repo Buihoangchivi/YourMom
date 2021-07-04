@@ -8,8 +8,10 @@ using System.Windows.Data;
 
 namespace YourMom.Modal
 {
+
 	class MoneyConverter : IValueConverter
 	{
+
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			
@@ -53,7 +55,11 @@ namespace YourMom.Modal
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
+
 			throw new NotImplementedException();
+
 		}
+
 	}
+
 }
