@@ -1412,8 +1412,8 @@
 
             </Grid>
 
-            <!--Danh sách giao dịch-->
-            <Grid Background="#E4E4E4" Visibility="Visible">
+            <!--Màn hình danh sách các ngân sách-->
+            <Grid Background="#E4E4E4" Visibility="Collapsed">
                 <Grid Margin="0,10,13,10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*"></RowDefinition>
@@ -1423,10 +1423,9 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-
-                    <!--Màn hình danh sách các ngân sách-->
+                    
                     <!--Header của danh sách các ngân sách-->
-                    <Grid Name= "BudgetListHeader" Visibility="Collapsed">
+                    <Grid Name= "BudgetListHeader" Visibility="Visible">
                         <Border x:Name="BudgetListBorder" Background="Beige" CornerRadius="10,10,0,0" Width="600" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -1507,7 +1506,10 @@
                     </Grid>
 
                     <!--Danh sách các ngân sách-->
-                    <ScrollViewer Name="BudgetListScrollviewer" Grid.Row="1" Visibility="Collapsed" VerticalScrollBarVisibility="Hidden">
+                    <ScrollViewer Name="BudgetListScrollviewer" 
+                                  Grid.Row="1" 
+                                  Visibility="Visible" 
+                                  VerticalScrollBarVisibility="Hidden">
                         <!--Màn hình danh sách các ngân sách-->
                         <Grid x:Name="Budget"  Grid.RowSpan="2" Width="600"  Grid.Column="0" >
                             <!--<Grid.RowDefinitions>
@@ -1627,7 +1629,11 @@
                     </ScrollViewer>
 
                     <!--Màn hình chi tiết của ngân sách-->
-                    <Grid Name="BudgetReportGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  Width="600" Visibility="Collapsed">
+                    <Grid Name="BudgetReportGrid" 
+                          Grid.Row="0" Grid.RowSpan="2" 
+                          Grid.Column="1"  
+                          Width="600" 
+                          Visibility="Collapsed">
 
                         <!--<Border Background="Blue" CornerRadius="8">
 
@@ -1808,12 +1814,27 @@
 
                     </Grid>
 
+                </Grid>
 
+            </Grid>
 
+            <!--Màn hình danh sách các giao dịch-->
+            <Grid Background="#E4E4E4" Visibility="Visible">
+                
+                <Grid Margin="0,10,13,10">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="12*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
 
-                    <!--Màn hình danh sách các giao dịch-->
                     <!--Header của danh sách các giao dịch-->
-                    <Grid Name="TransactionListHeader" Visibility="Visible">
+                    <Grid Name="TransactionListHeader" 
+                          Visibility="Visible">
                         <Border Background="Beige" CornerRadius="10,10,0,0" Width="600" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -1907,9 +1928,11 @@
                         </Border>
                     </Grid>
 
-
                     <!--Danh sách các giao dịch-->
-                    <ScrollViewer x:Name="TransactionListScrollviewer" VerticalScrollBarVisibility="Hidden" Grid.Row="2" Visibility="Visible">
+                    <ScrollViewer x:Name="TransactionListScrollviewer" 
+                                  VerticalScrollBarVisibility="Hidden" 
+                                  Grid.Row="2"
+                                  Visibility="Visible">
                         <!--Màn hình danh sách các giao dịch-->
                         <Grid x:Name="Transaction" Grid.Row="1" Grid.Column="0" Width="600"  >
                             <!--<Grid.RowDefinitions>
@@ -2029,7 +2052,12 @@
 
                                                 <!--Khung xem các loại giao dịch-->
 
-                                                <ScrollViewer x:Name="TransactionListScrollView"  Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="HandlePreviewMouseWheel" RequestBringIntoView="ScrollViewer_RequestBringIntoView">
+                                                <ScrollViewer x:Name="TransactionListScrollView"  
+                                                              Grid.Column="0" 
+                                                              Grid.ColumnSpan="3" 
+                                                              VerticalScrollBarVisibility="Hidden"  
+                                                              PreviewMouseWheel="HandlePreviewMouseWheel"
+                                                              RequestBringIntoView="ScrollViewer_RequestBringIntoView">
                                                     <ItemsControl x:Name="TransactionList">
                                                         <ItemsControl.ItemTemplate>
                                                             <DataTemplate>
@@ -2076,8 +2104,8 @@
 
                                                                                     <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
                                                                                         <Border BorderBrush="{x:Null}" Width="50" Height="50" >
-                                                                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Date, StringFormat={}{0: dd}}" TextAlignment="Center" TextWrapping="Wrap" 
-                                               FontSize="28"   FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Center"  ></TextBlock>
+                                                                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Date, StringFormat={}{0:dd}}" TextAlignment="Center" TextWrapping="Wrap" 
+                                               FontSize="28"   FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                                                                                         </Border>
 
 

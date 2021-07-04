@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfDebitBook xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DebitBook>
+    <ID>14</ID>
+    <Name>Lending</Name>
+    <ImagePath>Images\Lending.jpg</ImagePath>
+    <StartingDate>6/7/2021 11:14:17 AM</StartingDate>
+    <EndDate>7/20/2021 12:17:00 AM</EndDate>
+    <Amount>500000</Amount>
+    <Note>Tiền mượn đi ăn sáng</Note>
+    <Stakeholder>Phạm Tấn</Stakeholder>
+  </DebitBook>
+  <DebitBook>
+    <ID>15</ID>
+    <Name>Paying</Name>
+    <ImagePath>Images\Paying.jpg</ImagePath>
+    <StartingDate>5/7/2021 4:00:00 AM</StartingDate>
+    <EndDate>6/7/2021 12:00:00 AM</EndDate>
+    <Amount>250000</Amount>
+    <Note>Trả tiền mượn đi ăn sáng</Note>
+    <Stakeholder>Phạm Tấn</Stakeholder>
+  </DebitBook>
+  <DebitBook>
+    <ID>16</ID>
+    <Name>Borrowing</Name>
+    <ImagePath>Images\Borrowing.jpg</ImagePath>
+    <StartingDate>3/10/2021 10:14:17 AM</StartingDate>
+    <EndDate>3/12/2021 10:17:00 AM</EndDate>
+    <Amount>60000</Amount>
+    <Note>Cho mượn tiền đi đổ xăng</Note>
+    <Stakeholder>Bùi Văn Vĩ</Stakeholder>
+  </DebitBook>
+  <DebitBook>
+    <ID>17</ID>
+    <Name>DebtCollection</Name>
+    <ImagePath>Images\DebtCollection.jpg</ImagePath>
+    <StartingDate>2/22/2020 16:00:00 AM</StartingDate>
+    <Amount>24000</Amount>
+    <Note>Thu nợ tiền đi đổ xăng</Note>
+    <Stakeholder>Bùi Văn Vĩ</Stakeholder>
+  </DebitBook>
+</ArrayOfDebitBook>

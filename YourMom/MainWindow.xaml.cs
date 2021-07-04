@@ -51,13 +51,13 @@ namespace YourMom
                     {
                         ID = "gd1",
                         Amount = 10000,
-                        Date = new DateTime(2021, 1, 1).ToLongDateString()
+                        Date = new DateTime(2021, 1, 1)
                     },
                     new Transaction
                     {
                         ID = "gd2",
                         Amount = 20000,
-                        Date = new DateTime(2021, 1, 2).ToLongDateString()
+                        Date = new DateTime(2021, 1, 2)
                     },
                 },
 
@@ -74,13 +74,13 @@ namespace YourMom
                     {
                         ID = "gd3",
                         Amount = 40000,
-                        Date = new DateTime(2021, 1, 3).ToLongDateString(),
+                        Date = new DateTime(2021, 1, 3)
                     },
                     new Transaction
                     {
                         ID = "gd4",
                         Amount = 50000,
-                        Date = new DateTime(2021, 1, 4).ToLongDateString(),
+                        Date = new DateTime(2021, 1, 4)
                     },
                 },
 
@@ -95,13 +95,13 @@ namespace YourMom
                     {
                         ID = "gd5",
                         Amount = 40000,
-                        Date =new DateTime(2021, 1, 3).ToLongDateString(),
+                        Date = new DateTime(2021, 1, 3)
                     },
                     new Transaction
                     {
                         ID = "gd6",
                         Amount = 50000,
-                        Date = new DateTime(2021, 1, 4).ToLongDateString(),
+                        Date = new DateTime(2021, 1, 4)
                     },
                 },
 
@@ -116,19 +116,19 @@ namespace YourMom
                     {
                         ID = "gd7",
                         Amount = 40000,
-                        Date = new DateTime(2021, 1, 3).ToLongDateString(),
+                        Date = new DateTime(2021, 1, 3)
                     },
                     new Transaction
                     {
                         ID = "gd8",
                         Amount = 50000,
-                        Date = new DateTime(2021, 1, 4).ToLongDateString(),
+                        Date = new DateTime(2021, 1, 4)
                     },
                     new Transaction
                     {
                         ID = "gd9",
                         Amount = 50000,
-                        Date = new DateTime(2021, 1, 4).ToLongDateString(),
+                        Date = new DateTime(2021, 1, 4)
                     },
                 },
 
@@ -200,7 +200,6 @@ namespace YourMom
             InitializeData();
 
             double temp;
-            //DateTime convert;
             // Hàm xử lý ngân sách
             for (int i = 0; i < budgetList.Count; i++)
             {
@@ -274,16 +273,7 @@ namespace YourMom
                 }
             }
 
-
-
-
             TransactionList.ItemsSource = transactionLists;
-
-
-
-
-
-
 
         }
 
@@ -566,19 +556,37 @@ namespace YourMom
         //Đọc dữ liệu từ file xml
         private void ReadData()
         {
-
+            List<TempTransaction> tempTransactionList;
             // Đọc dữ liệu các giao dịch từ data
-            XmlSerializer xs = new XmlSerializer(typeof(List<Transaction>));
+            XmlSerializer xs = new XmlSerializer(typeof(List<TempTransaction>));
             try
             {
                 using (var reader = new StreamReader(@"Data\Transaction.xml"))
                 {
-                    transactionList = (List<Transaction>)xs.Deserialize(reader);
+                    tempTransactionList = (List<TempTransaction>)xs.Deserialize(reader);
                 }
             }
             catch
             {
-                transactionList = new List<Transaction>();
+                tempTransactionList = new List<TempTransaction>();
+            }
+            
+            //Sao chép dữ liệu sang danh sách giao dịch sử dụng kiểu Datetime
+            transactionList = new List<Transaction>();
+
+            foreach (var transaction in tempTransactionList)
+            {
+
+                transactionList.Add(new Transaction
+                {
+                    Amount = transaction.Amount,
+                    Date = DateTime.Parse(transaction.Date),
+                    ID = transaction.ID,
+                    Note = transaction.Note,
+                    Stakeholder = transaction.Stakeholder,
+                    TransactionType = transaction.TransactionType
+                });
+
             }
 
             // Đọc dữ liệu các loại giao dịch từ data
@@ -1493,11 +1501,8 @@ namespace YourMom
                 if (transaction.TransactionType == detailCategory.ID)
                 {
 
-                    //Lấy thông tin ngày tháng
-                    var date = DateTime.Parse(transaction.Date);
-
                     //Cộng dồn số tiền giao dịch trong tháng
-                    amountPerMonth[date.Month - 1] += transaction.Amount;
+                    amountPerMonth[transaction.Date.Month - 1] += transaction.Amount;
 
                 }
 

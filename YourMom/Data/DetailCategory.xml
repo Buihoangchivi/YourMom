@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfDetailCategory xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DetailCategory>
+    <ID>0</ID>
+    <Name>Eating</Name>
+    <ImagePath>Images\Eating.jpg</ImagePath>
+    <Amount>1500000</Amount>
+  </DetailCategory>
+  <DetailCategory>
+    <ID>1</ID>
+    <Name>Shopping</Name>
+    <ImagePath>Images\Shopping.jpg</ImagePath>
+    <Amount>300000</Amount>
+  </DetailCategory>
+  <DetailCategory>
+    <ID>2</ID>
+    <Name>Bills</Name>
+    <ImagePath>Images\Bills.jpg</ImagePath>
+    <Amount>760000</Amount>
+  </DetailCategory>
+  <DetailCategory>
+    <ID>3</ID>
+    <Name>Entertainment</Name>
+    <ImagePath>Images\Entertainment.jpg</ImagePath>
+    <Amount>100000</Amount>
+  </DetailCategory>
+</ArrayOfDetailCategory>
