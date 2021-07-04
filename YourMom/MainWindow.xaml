@@ -568,7 +568,9 @@
                                         BorderBrush="#FF757575">
 
                                 <!--Nút xem chi tiết nợ-->
-                                <Button Grid.Row="2">
+                                <Button Name="DebtButton"
+                                        Grid.Row="2"
+                                        Click="CommonChartButton_Click">
 
                                     <!--Tạo màu khi đưa chuột vào nút-->
                                     <Button.Style>
@@ -607,12 +609,15 @@
                                         <StackPanel DockPanel.Dock="Right" Margin="0,0,15,0">
 
                                             <!--Thông số đã mượn bao nhiêu tiền-->
-                                            <TextBlock FontSize="18" HorizontalAlignment="Right"
-                                                           Foreground="#039BE5" Text="105,000"/>
+                                            <TextBlock Name="DebtTextBlock"
+                                                       FontSize="18" 
+                                                       HorizontalAlignment="Right"
+                                                       Foreground="#039BE5"/>
 
                                             <!--Thông số đã trả được bao nhiêu tiền-->
-                                            <TextBlock FontSize="18" 
-                                                           Foreground="#FF757575" Text="70,000 left"/>
+                                            <TextBlock Name="DebtLeftTextBlock" 
+                                                       FontSize="18" 
+                                                       Foreground="#FF757575"/>
 
                                         </StackPanel>
 
@@ -630,7 +635,8 @@
                                         BorderBrush="#FF757575">
 
                                 <!--Nút xem chi tiết cho vay-->
-                                <Button>
+                                <Button Name="LoanButton"
+                                        Click="CommonChartButton_Click">
 
                                     <!--Tạo màu khi đưa chuột vào nút và bo tròn 2 góc dưới cho nút-->
                                     <Button.Style>
@@ -668,12 +674,15 @@
                                         <StackPanel DockPanel.Dock="Right" Margin="0,0,15,0">
 
                                             <!--Thông số đã cho vay bao nhiêu tiền-->
-                                            <TextBlock FontSize="18" HorizontalAlignment="Right"
-                                                           Foreground="#E51C23" Text="47,000"/>
+                                            <TextBlock Name="LoanTextBlock"
+                                                       FontSize="18" 
+                                                       HorizontalAlignment="Right"
+                                                       Foreground="#E51C23"/>
 
                                             <!--Thông số đã thu về được bao nhiêu tiền-->
-                                            <TextBlock FontSize="18" 
-                                                           Foreground="#FF757575" Text="22,000 left"/>
+                                            <TextBlock Name="LoanLeftTextBlock" 
+                                                       FontSize="18" 
+                                                       Foreground="#FF757575"/>
 
                                         </StackPanel>
 

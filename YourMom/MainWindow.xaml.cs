@@ -366,8 +366,70 @@ namespace YourMom
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
+            //Tổng tiền và số dư
+            double sum, left;
+            //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
+            Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
 
+            //Tính tổng số tiền nợ người khác
+            sum = SumComponent(debtList);
+            //Hiển thị số tiền đó vào khung tiền nợ
+            DebtTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
 
+            //Tính toán số dư
+            if (debtList.Count == 0)
+            {
+
+                left = 0;
+
+            }
+            else
+            {
+
+                left = debtList[0].Amount;
+
+                if (debtList.Count == 2)
+                {
+
+                    left -= debtList[1].Amount;
+
+                }
+
+            }
+
+            //Hiển thị số tiền đó vào khung tiền nợ
+            var money = (string)moneyConverter.Convert(left, null, null, null);
+            DebtLeftTextBlock.Text = $"{money} left";
+
+            //Tính tổng số tiền cho người khác vay
+            sum = SumComponent(loanList);
+            //Hiển thị số tiền đó vào khung tiền nợ
+            LoanTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
+
+            //Tính toán số dư
+            if (loanList.Count == 0)
+            {
+
+                left = 0;
+
+            }
+            else
+            {
+                left = loanList[0].Amount;
+
+                if (loanList.Count == 2)
+                {
+
+                    left -= loanList[1].Amount;
+
+                }
+
+            }
+
+            //Hiển thị số tiền đó vào khung tiền nợ
+            money = (string)moneyConverter.Convert(left, null, null, null);
+            LoanLeftTextBlock.Text = $"{money} left";
 
         }
 
@@ -933,7 +995,6 @@ namespace YourMom
             DynamicColumnChart.Visibility = Visibility.Collapsed;
             DynamicColumnChartTextBlock.Visibility = Visibility.Collapsed;
 
-
             var button = sender as Button;
             var buttonName = button.Name;
             string title = buttonName.Replace("Button", "");
@@ -957,9 +1018,13 @@ namespace YourMom
 
             }
 
+            //Xóa toàn bộ dữ liệu các màn hình
+            detailStack.Clear();
+            var imgName = "Images/black_close.png";
+            ChangeImage(imgName, CloseFrameImage);
+
             //Hiển thị tiêu đề của khung báo cáo chi tiết
             DetailReportGrid.DataContext = AddDataIntoDetailReport(title, list);
-
 
         }
 
