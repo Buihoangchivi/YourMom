@@ -1,0 +1,99 @@
+﻿<Window x:Class="YourMom.BudgetDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YourMom" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="BudgetDetail" Height="600" Width="500" Loaded="Window_Loaded"  WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="BudgetDetailGrid" >
+        <Border Background="Beige" CornerRadius="10">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                <Grid>
+                    
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" >
+                            <Button x:Name="CloseListDetailBudget" Width="47" Click="CloseListDetailBudget_Click" 
+                    BorderThickness="0" DockPanel.Dock="Right">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Image Source="Images/deleteText.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
+                            </Button>
+                            <TextBlock TextWrapping="Wrap" FontSize="20" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Ăn uống</TextBlock>
+                        </StackPanel>
+                        
+                        <GridSplitter Grid.Row="0"  Width="Auto" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
+                             />
+                        
+                        <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                            <DockPanel Width="450"  LastChildFill="False">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            Tiền vào
+                                </TextBlock>
+                                <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Blue">
+                                            0
+                                </TextBlock>
+                            </DockPanel>
+
+                            <DockPanel Width="450" LastChildFill="False">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                            Tiền ra
+                                </TextBlock>
+                                <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red">
+                                            -4,091,000
+                                </TextBlock>
+                            </DockPanel>
+
+                            
+
+
+
+
+                        </StackPanel>
+                        
+
+                        <GridSplitter  Width="Auto" Height="0.5" Margin="0,10,0,0"
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"></GridSplitter>
+
+                        <Border Width="500" Height="50" Background="Gainsboro">
+                            
+                        </Border>
+
+
+                        
+
+
+
+
+                        
+                    </StackPanel>
+
+                </Grid>
+            </ScrollViewer>
+        </Border>
+        
+    </Grid>
+</Window>

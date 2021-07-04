@@ -13,6 +13,391 @@
         <WindowChrome CaptionHeight="0"/>
         
     </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <local:DelimiterConverter x:Key="Convert" />
+
+
+        <Style TargetType="{x:Type ProgressBar}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>  
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Background" Value="#6fae5f"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Padding" Value="5,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid Background="#00000000">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Determinate"/>
+                                    <VisualState x:Name="Indeterminate">
+                                        <Storyboard RepeatBehavior="Forever">
+                                            <PointAnimationUsingKeyFrames Storyboard.TargetName="Animation" Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)">
+                                                <EasingPointKeyFrame KeyTime="0:0:0" Value="0.5,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:1.5" Value="1.95,0.5"/>
+                                                <EasingPointKeyFrame KeyTime="0:0:3" Value="0.5,0.5"/>
+                                            </PointAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid Height="{TemplateBinding Height}">
+                                <Border Background="#000000" CornerRadius="7.5" Opacity="0.05"/>
+                                <Border BorderBrush="#000000" BorderThickness="1" CornerRadius="7.5" Opacity="0.1"/>
+                                <Grid Margin="{TemplateBinding BorderThickness}">
+                                    <Border x:Name="PART_Track"/>
+                                    <Grid x:Name="PART_Indicator" ClipToBounds="True" HorizontalAlignment="Left" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition x:Name="width1"/>
+                                            <ColumnDefinition x:Name="width2" Width="0"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid x:Name="Animation" RenderTransformOrigin="0.5,0.5">
+                                            <Grid.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform ScaleY="-1" ScaleX="1"/>
+                                                    <SkewTransform AngleY="0" AngleX="0"/>
+                                                    <RotateTransform Angle="180"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </Grid.RenderTransform>
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="7.5">
+                                                <Viewbox HorizontalAlignment="Left" StretchDirection="DownOnly" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                                                    <TextBlock Foreground="#ffffff" SnapsToDevicePixels="True" FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center" Text="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Value,StringFormat={}{0}%}" RenderTransformOrigin="0.5,0.5">
+                                                        <TextBlock.RenderTransform>
+                                                            <TransformGroup>
+                                                                <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                                                                <SkewTransform AngleY="0" AngleX="0"/>
+                                                                <RotateTransform Angle="0"/>
+                                                                <TranslateTransform/>
+                                                            </TransformGroup>
+                                                        </TextBlock.RenderTransform>
+                                                    </TextBlock>
+                                                </Viewbox>
+                                            </Border>
+                                            <Border BorderBrush="#000000" BorderThickness="1" CornerRadius="7.5" Opacity="0.1"/>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#c5c5c5"/>
+                            </Trigger>
+                            <Trigger Property="IsIndeterminate" Value="true">
+                                <Setter TargetName="width1" Property="Width" Value="0.25*"/>
+                                <Setter TargetName="width2" Property="Width" Value="0.725*"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style 
+                TargetType="Button" x:Key="NewGameButtonStyle">
+            <Setter Property="FontFamily" Value="Resources/teen bd.ttf#Teen" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border BorderThickness="2" 
+                                    CornerRadius="4"
+                                    Padding="3"
+                                    x:Name="ButtonBorder"
+                                    Background="AliceBlue"
+                                >
+                                <Border.BorderBrush>
+                                    <SolidColorBrush x:Name="ButtonBorderBrush" Color="Black"/>
+                                </Border.BorderBrush>
+                                <ContentPresenter VerticalAlignment="Center"
+                                      Margin="4,2" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#C0C0C0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MyFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Control}">
+                        <Grid Margin="3 2">
+                            <Rectangle Name="r1" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 2"/>
+                            <Border Name="border" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}"  CornerRadius="2" BorderThickness="1" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ShadowStyle">
+            <Setter Property="Control.Foreground" Value="LightGray" />
+        </Style>
+
+        <Style x:Key="OrangeButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="11px"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" />
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                        <GradientStop Color="#FFFFD190" Offset="0.2"/>
+                        <GradientStop Color="Orange" Offset="0.85"/>
+                        <GradientStop Color="#FFFFD190" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+        				BorderThickness="1"
+        				Padding="4,2" 
+        				BorderBrush="DarkGray" 
+        				CornerRadius="3" 
+        				Background="{TemplateBinding Background}">
+                            <Grid >
+                                <ContentPresenter HorizontalAlignment="Center" 
+        	                           VerticalAlignment="Center" Name="contentShadow" 
+        					Style="{StaticResource ShadowStyle}">
+                                    <ContentPresenter.RenderTransform>
+                                        <TranslateTransform X="1.0" Y="1.0" />
+                                    </ContentPresenter.RenderTransform>
+                                </ContentPresenter>
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" Name="content"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                                <Setter Property="Foreground" Value="#FF4788c8" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                            <GradientStop Color="#FFFFD190" Offset="0.35"/>
+                                            <GradientStop Color="Orange" Offset="0.95"/>
+                                            <GradientStop Color="#FFFFD190" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="content" Property="RenderTransform" >
+                                    <Setter.Value>
+                                        <TranslateTransform Y="1.0" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                                <Setter Property="Foreground" Value="Gray" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="MyFocusVisual2">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Control}">
+                        <Grid Margin="8">
+                            <Ellipse
+                    Name="r1"
+                    Stroke="Black"
+                    StrokeDashArray="2 2"
+                    StrokeThickness="1"/>
+                            <Border
+                    Name="border"
+                    Width="{TemplateBinding ActualWidth}"
+                    Height="{TemplateBinding ActualHeight}"
+                    BorderThickness="1"
+                    CornerRadius="2"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CircleButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual2}"/>
+            <Setter Property="Background" Value="#FF6DB4EF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="{TemplateBinding Background}"/>
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Offset="0" Color="#00000000"/>
+                                        <GradientStop Offset="0.88" Color="#00000000"/>
+                                        <GradientStop Offset="1" Color="#80000000"/>
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <Ellipse Margin="10" x:Name="highlightCircle" >
+                                <Ellipse.Fill >
+                                    <LinearGradientBrush >
+                                        <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                        <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                    </LinearGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="highlightCircle" Property="Fill">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.7,1">
+                                            <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                            <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                            <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="content" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <TranslateTransform Y="0.5" X="0.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <LinearGradientBrush x:Key="GreenGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#006700"/>
+            <GradientStop Offset="1" Color="#00ef00"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="RedGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#774040"/>
+            <GradientStop Offset="1" Color="#ef4040"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#404077"/>
+            <GradientStop Offset="1" Color="#4040ef"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="CyanGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#007777"/>
+            <GradientStop Offset="1" Color="#00efef"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="YellowGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#777740"/>
+            <GradientStop Offset="1" Color="Yellow"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="MagentaGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#770077"/>
+            <GradientStop Offset="1" Color="#ef00ef"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="OrangeGradientBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="DarkOrange"/>
+            <GradientStop Offset="1" Color="Orange"/>
+        </LinearGradientBrush>
+
+        <Style TargetType="Button" x:Key="GelButton">
+            <Setter Property="Background" Value="{StaticResource GreenGradientBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootElement">
+                            <!-- drop shadow - needs to be blurred for correct effect -->
+                            <Rectangle Fill="#40000000" Margin="1,1,0,0" RadiusX="6" RadiusY="6">
+                                <Rectangle.BitmapEffect>
+                                    <BlurBitmapEffect Radius="3" />
+                                </Rectangle.BitmapEffect>
+                            </Rectangle>
+                            <Grid x:Name="mainButton"
+                                Margin="0,0,1,1"
+                                RenderTransformOrigin="0.5,0.5">
+                                <Grid.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform X="0.0" Y="0.0"/>
+                                        <ScaleTransform ScaleX="1.0" ScaleY="1.0" />
+                                    </TransformGroup>
+                                </Grid.RenderTransform>
+                                <Rectangle x:Name="mainRect" Fill="{TemplateBinding Background}" RadiusX="6" RadiusY="6">
+                                </Rectangle>
+
+                                <!-- transparent rect -->
+                                <Rectangle x:Name="glowRect" Margin="1,1,1,1" RadiusX="5" RadiusY="5">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0" Color="#EFFFFFFF"/>
+                                            <GradientStop Offset="1" Color="#00FFFFFF"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+
+                                <ContentPresenter HorizontalAlignment="Center"
+                             Margin="4,0,4,0"
+                             Content="{TemplateBinding Content}"
+                             VerticalAlignment="Center" />
+
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="mainButton" Property="RenderTransform" >
+                                    <Setter.Value>
+                                        <TransformGroup>
+                                            <TranslateTransform X="0.0" Y="0.0"/>
+                                            <ScaleTransform ScaleX="1.03" ScaleY="1.03" />
+                                        </TransformGroup>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" Value="#FF4788c8" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="mainButton" Property="RenderTransform" >
+                                    <Setter.Value>
+                                        <TransformGroup>
+                                            <TranslateTransform X="1" Y="1"/>
+                                            <ScaleTransform ScaleX="1.03" ScaleY="1.03" />
+                                        </TransformGroup>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <Window.Resources>
 
@@ -320,7 +705,7 @@
             <!--Nút thêm giao dịch mới-->
             <Button BorderThickness="0" Height="33" Margin="0,0,10,0"
                     DockPanel.Dock="Right" Foreground="White"
-                    Click="AddTransactionButton_Click">
+                    Click="AddTransactionButton_Click" Visibility="Collapsed">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="ForestGreen"/>
@@ -345,6 +730,37 @@
                 <TextBlock VerticalAlignment="Center" FontSize="15" 
                            FontWeight="Medium" Margin="12,0"
                            Text="ADD TRANSACTION"/>
+
+            </Button>
+
+            <!--Nút thêm ngân sách mới-->
+            <Button BorderThickness="0" Height="33" Margin="0,0,10,0"
+                    DockPanel.Dock="Right" Foreground="White"
+                    Click="AddBudgetButton_Click" Visibility="Visible">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="ForestGreen"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="8" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <TextBlock VerticalAlignment="Center" FontSize="15" 
+                           FontWeight="Medium" Margin="12,0"
+                           Text="Add Budget"/>
 
             </Button>
 
@@ -582,7 +998,6 @@
                                                         <Border BorderThickness="0" Background="{TemplateBinding Background}">
                                                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                         </Border>
-
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
@@ -648,18 +1063,19 @@
                                                         <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{TemplateBinding Background}">
                                                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                         </Border>
-
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
+                                                  
                                                     <Setter Property="Background" Value="#EFF9F1"/>
+
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-
+                                        
                                     <!--Khung chứa nội dung của nút cho vay-->
                                     <DockPanel Name="LoanDockPanel" Width="600" LastChildFill="True">
 
@@ -699,7 +1115,7 @@
                     </Border>
 
                 </Grid>
-
+                
                 <!--Khung hiển thị báo cáo chi tiết về thu nhập-->
                 <Grid Name="DetailReportGrid" Grid.Column="1" Width="600" Visibility="Collapsed">
 
@@ -993,11 +1409,873 @@
                     </ScrollViewer>
 
                 </Grid>
+              
+            </Grid>
+                        
+          </Grid>
+      
+      </Grid>
+
+      <Grid Background="#E4E4E4" Visibility="Collapsed">
+            <Grid Margin="0,10,13,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="12*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Màn hình danh sách các ngân sách-->
+                <!--Header của danh sách các ngân sách-->
+                <Grid Name= "BudgetListHeader" Visibility="Collapsed">
+                    <Border x:Name="BudgetListBorder" Background="Beige" CornerRadius="10,10,0,0" Width="600" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" >
+                                <Button Name="RunningButton" Margin="5" Width="120" Height="60" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="RunningButton_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+
+
+                                    <TextBlock Name="RunningTextblock" TextWrapping="Wrap" FontSize="20" Foreground="Green" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                    Running
+                                    </TextBlock>
+                                </Button>
+                                <TextBlock Name="RunningUnderlineTextBlock" Visibility="Visible"
+                                                   Height="4" Background="Green"></TextBlock>
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                <Button Name="FinishedButton"  Margin="5" Width="120" Height="60" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="FinishedButton_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <TextBlock Name="FinishedTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                    Finished
+                                    </TextBlock>
+                                </Button>
+                                <TextBlock Name="FinishedUnderlineTextBlock" Visibility="Collapsed"
+                                                   Height="4" Background="Green"></TextBlock>
+                            </StackPanel>
+                            <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" Margin="0,-15,0,0"
+                             />
+
+                        </Grid>
+
+                    </Border>
+                </Grid>
+
+                <!--Danh sách các ngân sách-->
+                <ScrollViewer Name="BudgetListScrollviewer" Grid.Row="1" Visibility="Collapsed" VerticalScrollBarVisibility="Hidden">
+                    <!--Màn hình danh sách các ngân sách-->
+                    <Grid x:Name="Budget"  Grid.RowSpan="2" Width="600"  Grid.Column="0" >
+                        <!--<Grid.RowDefinitions>
+                        -->
+                        <!--<RowDefinition Height="15"/>-->
+                        <!--
+                        <RowDefinition />
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>-->
+                        <Border Grid.Row="0" Grid.Column="1" Background="Beige" CornerRadius="0,0,10,10">
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <!--<Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="12*"/>
+                                </Grid.RowDefinitions>-->
+
+
+
+
+
+
+
+
+                               
+
+
+
+
+
+                                <!--Khung xem các loại ngân sách-->
+                                <ScrollViewer x:Name="BudgetListScrollView" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden" PreviewMouseWheel="HandlePreviewMouseWheel">
+
+                                    <ItemsControl x:Name="BudgetList">
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <Grid>
+                                                        <StackPanel Grid.Row="1">
+
+                                                            <!--Thời gian cho ngân sách-->
+                                                            <TextBlock  Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}{0:dd/MM/yyyy} - {1:dd/MM/yyyy}">
+                                                                        <Binding Path="StartingDate" />
+                                                                        <Binding Path="EndDate" />
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+
+
+                                                            <!--Thời gian còn lại của ngân sách-->
+                                                            <TextBlock Text="{Binding DaysLeft, StringFormat=Còn {0} ngày}" Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold"></TextBlock>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Row="1" Grid.Column="2">
+                                                            <TextBlock Text="{Binding MoneyFund, StringFormat=≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
+                                                            <TextBlock Text="{Binding Balance, StringFormat=Còn lại ≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="BudgetListButton_Click" HorizontalContentAlignment="Stretch" >
+
+
+
+                                                        <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                            <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+
+
+                                                            <DockPanel DockPanel.Dock="Top" >
+                                                                <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
+                                                                <StackPanel DockPanel.Dock="Right">
+                                                                    <TextBlock  Text="{Binding MoneyFund}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
+                                                                    <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
+                                                                </StackPanel>
+                                                            </DockPanel>
+
+
+                                                            <ProgressBar Value="{Binding Progress}" Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100"  />
+
+
+
+                                                        </DockPanel>
+
+
+                                                    </Button>
+                                                </StackPanel>
+
+
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </ScrollViewer>
+
+
+
+
+
+                            </Grid>
+
+                        </Border>
+
+
+                    </Grid>
+                </ScrollViewer>
+
+                <!--Màn hình chi tiết của ngân sách-->
+                <Grid Name="BudgetReportGrid" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"  Width="600" Visibility="Collapsed">
+
+                    <!--<Border Background="Blue" CornerRadius="8">
+
+                        <Button Width="50" Height="20" Click="Button1_Click">Close</Button>
+
+                    </Border>-->
+                    <Border Background="Beige" CornerRadius="10">
+                        <ScrollViewer x:Name="BudgetReportScrollViewer" VerticalScrollBarVisibility="Hidden">
+                            <Grid>
+                                <!--<Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>-->
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <Button x:Name="CloseDetailBudget" Width="47" Click="CloseDetailBudget_Click" 
+                    BorderThickness="0" DockPanel.Dock="Right">
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="Red"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Image Source="Images/deleteText.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
+                                        </Button>
+                                        <TextBlock TextWrapping="Wrap" FontSize="20" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Chi tiết</TextBlock>
+                                    </StackPanel>
+                                    <GridSplitter Grid.Row="0"  Width="Auto" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
+                             />
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" >
+                                        <Image  Source="Images/category_foodndrink.png" VerticalAlignment="Top" Height="45" Width="45" Margin="50,0,20,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                        <StackPanel Orientation="Vertical" Name="BudgetInfo">
+                                            <!--Tên của ngân sách-->
+                                            <TextBlock Text="{Binding Name}" TextWrapping="Wrap" FontSize="20" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left"> </TextBlock>
+                                            
+                                            <!--Thời hạn còn lại của giao dịch-->
+                                            <TextBlock Text="{Binding DaysLeft, StringFormat=Còn {0} ngày}"  TextWrapping="Wrap" FontSize="15" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                                            <GridSplitter  Width="Auto" Height="0.5" Margin="0,10,0,0"
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
+                             />
+                                            
+                                            <TextBlock TextWrapping="Wrap" FontSize="15" Margin="0,10,10,0"
+                           VerticalAlignment="Center" HorizontalAlignment="Left">Còn lại</TextBlock>
+
+                                            <TextBlock Text="{Binding Balance}" Margin="0,0,10,10" FontSize="20" FontFamily="Segoe UI Semibold" HorizontalAlignment="Left"></TextBlock>
+
+                                            <Grid Height="100" Width="400">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Row="0" Grid.Column="0">
+                                                    <TextBlock>Đã chi</TextBlock>
+                                                    <TextBlock Name="SpentMoneyTextblock" Text="{Binding SpentMoney}" ></TextBlock>
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Row="0" Grid.Column="1">
+                                                    <TextBlock>Dự kiến chi tiêu</TextBlock>
+                                                    <TextBlock Text="{Binding ExpectedSpendingMoney}"></TextBlock>
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Row="1" Grid.Column="0">
+                                                    <TextBlock>Nên chi tiêu hằng ngày</TextBlock>
+                                                    <TextBlock Text="{Binding ShouldSpending_DayMoney}"></TextBlock>
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Row="1" Grid.Column="1">
+                                                    <TextBlock>Thực tế chi tiêu hàng ngày</TextBlock>
+                                                    <TextBlock Text="{Binding RealitySpending_DayMoney}"></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+
+                                            
+
+                                        </StackPanel>
+                                        
+                                    </StackPanel>
+
+                                    <GridSplitter  Width="Auto" Height="0.5" Margin="0,10,0,10"
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"></GridSplitter>
+
+
+                                    <lvc:CartesianChart LegendLocation="Bottom"  Height="400"
+                                                            Grid.Row="1" Grid.ColumnSpan="2"
+                                                            Name="BudgetLineChart"
+                                                            IsVisibleChanged="BudgetLineChart_IsVisibleChanged"
+                                                            Margin="50,0,50,10" 
+                                                            Visibility="Visible">
+                                        <lvc:CartesianChart.AxisY>
+                                            <lvc:Axis MinValue="0">
+                                                <lvc:Axis.Separator>
+                                                    <lvc:Separator IsEnabled="False" ></lvc:Separator>
+                                                </lvc:Axis.Separator>
+                                            </lvc:Axis>
+                                        </lvc:CartesianChart.AxisY>
+                                    </lvc:CartesianChart>
+
+                                    <DockPanel Width="480" Margin="20,0,0,0" LastChildFill="False">
+                                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            01/06/2021
+                                        </TextBlock>
+                                        <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            30/06/2021
+                                        </TextBlock>
+                                    </DockPanel>
+
+
+
+                                    <Button Name="ViewTransactionListButton" Grid.Row="0" Grid.Column="0" Margin="5" Width="600" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="ViewTransactionListButton_Click">
+                                        <!--<Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>-->
+                                        
+                                        
+                                        
+                                        
+                                        
+
+
+                                        <TextBlock Name="ViewTransactionListTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Green" >
+                                    XEM DANH SÁCH GIAO DỊCH
+                                        </TextBlock>
+                                    </Button>
+                                </StackPanel>
+                                
+                            </Grid>
+                        </ScrollViewer>
+                    </Border>
+                    
+                    
+
+                </Grid>
+
+
+
+                
+                <!--Màn hình danh sách các giao dịch-->             
+                <!--Header của danh sách các giao dịch-->
+                <Grid Name="TransactionListHeader" Visibility="Visible">
+                    <Border Background="Beige" CornerRadius="10,10,0,0" Width="600" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Name="PreviousButton" Grid.Row="0" Grid.Column="0" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="PreviousButton_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+
+                                <TextBlock Name="PreviousTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                    THÁNG TRƯỚC
+                                </TextBlock>
+                            </Button>
+
+                            <Button Name="CurrentButton" Grid.Row="0" Grid.Column="1" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="CurrentButton_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <TextBlock Name="CurrentTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                   THÁNG NÀY
+                                </TextBlock>
+                            </Button>
+
+
+                            <Button Name="NextButton" Grid.Row="0" Grid.Column="2" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="NextButton_Click">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <TextBlock Name="NextTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                   TƯƠNG LAI
+                                </TextBlock>
+                            </Button>
+
+                        </Grid>
+
+                    </Border>
+                </Grid>
+
+
+                <!--Danh sách các giao dịch-->
+                <ScrollViewer x:Name="TransactionListScrollviewer" VerticalScrollBarVisibility="Hidden" Grid.Row="2" Visibility="Visible">
+                    <!--Màn hình danh sách các giao dịch-->
+                    <Grid x:Name="Transaction" Grid.Row="1" Grid.Column="0" Width="600"  >
+                        <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition />
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="0" Grid.Column="1" Background="Beige">
+                    
+                </Border>-->
+
+                        <Border Grid.Row="0" Grid.Column="1" Background="Beige" CornerRadius="0,0, 10,10">
+                            <Grid >
+                                
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="17*"/>
+                                </Grid.RowDefinitions>
+
+
+
+
+
+                                
+
+                                <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" Margin="0,-15,0,0"
+                             />
+
+                             
+                                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3"   VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="HandlePreviewMouseWheel" RequestBringIntoView="ScrollViewer_RequestBringIntoView">
+                                    <Grid>
+                                        <!--<Grid.RowDefinitions>
+                                        <RowDefinition Height="5*"/>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="10*"/>
+                                    </Grid.RowDefinitions>-->
+                                        <StackPanel>
+                                            <StackPanel>
+
+                                                <StackPanel Orientation="Vertical" Margin="0,10,0,0"  >
+                                                    <DockPanel Width="500"  LastChildFill="False">
+                                                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            Tiền vào
+                                                        </TextBlock>
+                                                        <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Blue">
+                                            0
+                                                        </TextBlock>
+                                                    </DockPanel>
+
+                                                    <DockPanel Width="500" LastChildFill="False">
+                                                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                            Tiền ra
+                                                        </TextBlock>
+                                                        <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red">
+                                            -4,091,000
+                                                        </TextBlock>
+                                                    </DockPanel>
+
+                                                    <DockPanel Width="500" LastChildFill="False" Margin="0,5,0,0">
+                                                        <GridSplitter DockPanel.Dock="Right" Grid.ColumnSpan="5" Width="100" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" 
+                             />
+                                                    </DockPanel>
+
+                                                    <DockPanel Width="500" LastChildFill="False" Margin="0,2,0,0" >
+                                                        <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                            -4,091,000
+                                                        </TextBlock>
+                                                    </DockPanel>
+
+
+                                                    <Button Name="ViewReportButton" Margin="0,5,0,0"  Width="600" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="ViewReportButton_Click">
+                                                        <!--<Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>-->
+
+                                                        <TextBlock Name="ViewReportTextblock" TextWrapping="Wrap" FontSize="15" 
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Green" >
+                                    XEM BÁO CÁO CHO GIAI ĐOẠN NÀY
+                                                        </TextBlock>
+                                                    </Button>
+
+                                                </StackPanel>
+
+
+
+                                            </StackPanel>
+
+                                            <TextBlock Width="600" Height="50" Background="Gainsboro"></TextBlock>
+
+                                            <!--Khung xem các loại giao dịch-->
+
+                                            <ScrollViewer x:Name="TransactionListScrollView"  Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="HandlePreviewMouseWheel" RequestBringIntoView="ScrollViewer_RequestBringIntoView">
+                                                <ItemsControl x:Name="TransactionList">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel>
+                                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                                    <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+
+
+
+                                                                    <DockPanel DockPanel.Dock="Top" >
+                                                                        <StackPanel DockPanel.Dock="Left"  >
+                                                                            <TextBlock Text="{Binding TransactionType}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
+                                                                            <TextBlock Text="{Binding NumberOfTransactions, StringFormat={}0 Transactions}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,0,8" ></TextBlock>
+                                                                        </StackPanel>
+                                                                        <TextBlock DockPanel.Dock="Right"  Text="{Binding TotalMoney}" Width="175" TextAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
+
+                                                                    </DockPanel>
+
+
+
+
+
+
+                                                                </DockPanel>
+                                                                <GridSplitter  Width="600" Height="0.5" 
+                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" 
+                             />
+
+                                                                <ListView Name="TransactionListDetail" ItemsSource="{Binding Transactions}"  PreviewMouseWheel="HandlePreviewMouseWheel" BorderThickness="0" >
+
+                                                                    <ListView.ItemContainerStyle>
+                                                                        <Style TargetType="ListViewItem">
+                                                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                                        </Style>
+                                                                    </ListView.ItemContainerStyle>
+                                                                    <ListView.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Button Grid.Row="0" x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch"  >
+
+
+
+                                                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                                                    <Border BorderBrush="{x:Null}" Width="50" Height="50" >
+                                                                                        <TextBlock DockPanel.Dock="Left" Text="{Binding Date, StringFormat={}{0: dd}}" TextAlignment="Center" TextWrapping="Wrap" 
+                                               FontSize="28"   FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Center"  ></TextBlock>
+                                                                                    </Border>
+
+
+                                                                                    <TextBlock  DockPanel.Dock="Right"  Text="{Binding Amount}"  Width="160" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
+
+
+                                                                                    <DockPanel DockPanel.Dock="Top">
+                                                                                        <TextBlock DockPanel.Dock="Left"  Width="160" TextAlignment="Justify" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0">
+                                                                                            <TextBlock.Text>
+                                                                                                <MultiBinding StringFormat="{}{0:dddd}, {1:MM} {2:yyyy}">
+                                                                                                    <Binding Path="Date"></Binding>
+                                                                                                    <Binding Path="Date"></Binding>
+                                                                                                    <Binding Path="Date"></Binding>
+                                                                                                </MultiBinding>
+                                                                                            </TextBlock.Text>
+                                                                                        </TextBlock>
+                                                                                        <StackPanel DockPanel.Dock="Right">
+                                                                                            <TextBlock  Text="{Binding MoneyFund}" Width="160" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
+                                                                                            <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
+                                                                                        </StackPanel>
+                                                                                    </DockPanel>
+
+
+                                                                                </DockPanel>
+
+
+                                                                            </Button>
+                                                                        </DataTemplate>
+                                                                    </ListView.ItemTemplate>
+                                                                </ListView>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+                                                <!--<ItemsControl x:Name="TransactionList">
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Grid>
+                                                <StackPanel Grid.Row="1">
+                                                    <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">01/06/2021 - 30/06/2021</TextBlock>
+                                                    <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">Còn 21 ngày</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Grid.Row="1" Grid.Column="2">
+                                                    <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">≈ 9.000.000</TextBlock>
+                                                    <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">Còn lại ≈ 8.999.999</TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                            <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch" >
+
+
+
+                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
+                                                    <Image DockPanel.Dock="Left" Source="{Binding Image}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+
+
+                                                    <DockPanel DockPanel.Dock="Top" >
+                                                        <TextBlock DockPanel.Dock="Left" Text="{Binding Text}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
+                                                        <StackPanel DockPanel.Dock="Right">
+                                                            <TextBlock  Text="{Binding Text1}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
+                                                            <TextBlock  Text="{Binding Text2}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
+                                                        </StackPanel>
+                                                    </DockPanel>
+
+
+                                                    <ProgressBar Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100" Value="75" />
+
+
+
+                                                </DockPanel>
+
+
+                                            </Button>
+                                        </StackPanel>
+
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>-->
+
+                                            </ScrollViewer>
+                                        </StackPanel>
+
+
+
+
+
+
+                                    </Grid>
+
+
+                                </ScrollViewer>
+
+
+
+
+
+
+
+
+
+                                <!--<ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
+                                <Grid Margin="15,6,0,0">
+                                    <ItemsControl Grid.Row="1" Name="foodButtonIt   emsControl" Visibility="Visible">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        -->
+                                <!--<ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Width="204" Background="White" Margin="0,0,8,10"  BorderThickness="0" >
+                                                    <Button.Resources>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="CornerRadius" Value="10"/>
+                                                        </Style>
+                                                    </Button.Resources>
+                                                    <WrapPanel>
+                                                        <Rectangle RadiusX="10" RadiusY="10" Width="202" Height="145">
+                                                           
+                                                        </Rectangle>
+                                                        <TextBlock Text="{Binding Name}" Width="175" TextAlignment="Left" TextWrapping="Wrap" 
+                                               FontSize="14" Padding="3,1" MaxHeight="60"></TextBlock>
+                                                        <Button Height="24" VerticalAlignment="Top" BorderThickness="0" Background="White"
+                                             Padding="2.8">
+                                                            <Button.Resources>
+                                                                <Style TargetType="Border">
+                                                                    <Setter Property="CornerRadius" Value="14"/>
+                                                                </Style>
+                                                            </Button.Resources>
+                                                            <Button.Content>
+                                                                <WrapPanel>
+                                                                    <Image Source="Images/unloved.png" RenderOptions.BitmapScalingMode="HighQuality">
+                                                                        <Image.Style>
+                                                                            <Style TargetType="Image">
+                                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                                <Style.Triggers>
+                                                                                    <MultiDataTrigger>
+                                                                                        <MultiDataTrigger.Conditions>
+                                                                                            <Condition Binding="{Binding IsFavorite}" Value="False" />
+                                                                                        </MultiDataTrigger.Conditions>
+                                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                                    </MultiDataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Image.Style>
+                                                                    </Image>
+                                                                    <Image Source="Images/favorite.png" RenderOptions.BitmapScalingMode="HighQuality">
+                                                                        <Image.Style>
+                                                                            <Style TargetType="Image">
+                                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                                <Style.Triggers>
+                                                                                    <MultiDataTrigger>
+                                                                                        <MultiDataTrigger.Conditions>
+                                                                                            <Condition Binding="{Binding IsFavorite}" Value="True" />
+                                                                                        </MultiDataTrigger.Conditions>
+                                                                                        <Setter Property="Visibility" Value="Visible" />
+                                                                                    </MultiDataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Image.Style>
+                                                                    </Image>
+                                                                </WrapPanel>
+                                                            </Button.Content>
+                                                        </Button>
+                                                    </WrapPanel>
+                                                </Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>-->
+                                <!--
+                                    </ItemsControl>
+                                </Grid>
+                            </ScrollViewer>-->
+
+
+
+                            </Grid>
+
+                        </Border>
+                      
+                    </Grid>
+                  
+                </ScrollViewer>
 
             </Grid>
-
+           
         </Grid>
-
+      
     </DockPanel>
 
 </Window>
