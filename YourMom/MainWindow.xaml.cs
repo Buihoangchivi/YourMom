@@ -41,242 +41,6 @@ namespace YourMom
         List<DetailCategory> debtList = new List<DetailCategory>();
         List<DetailCategory> loanList = new List<DetailCategory>();
 
-        ObservableCollection<TransactionList> transactionLists = new ObservableCollection<TransactionList>
-        {
-            new TransactionList()
-            {
-                Transactions = new ObservableCollection<Transaction>()
-                {
-                    new Transaction
-                    {
-                        ID = "gd1",
-                        Amount = 10000,
-                        Date = new DateTime(2021, 1, 1)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd2",
-                        Amount = 20000,
-                        Date = new DateTime(2021, 1, 2)
-                    },
-                },
-
-
-                ImagePath = "Images/category_foodndrink.png",
-                TransactionType = "Ăn uống"
-
-            },
-            new TransactionList()
-            {
-                Transactions = new ObservableCollection<Transaction>()
-                {
-                    new Transaction
-                    {
-                        ID = "gd3",
-                        Amount = 40000,
-                        Date = new DateTime(2021, 1, 3)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd4",
-                        Amount = 50000,
-                        Date = new DateTime(2021, 1, 4)
-                    },
-                },
-
-                ImagePath = "Images/category_foodndrink.png",
-                TransactionType = "Ăn uống"
-            },
-            new TransactionList()
-            {
-                Transactions = new ObservableCollection<Transaction>()
-                {
-                    new Transaction
-                    {
-                        ID = "gd5",
-                        Amount = 40000,
-                        Date = new DateTime(2021, 1, 3)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd6",
-                        Amount = 50000,
-                        Date = new DateTime(2021, 1, 4)
-                    },
-                },
-
-                ImagePath = "Images/category_foodndrink.png",
-                TransactionType = "Ăn uống"
-            },
-            new TransactionList()
-            {
-                Transactions = new ObservableCollection<Transaction>()
-                {
-                    new Transaction
-                    {
-                        ID = "gd7",
-                        Amount = 40000,
-                        Date = new DateTime(2021, 1, 3)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd8",
-                        Amount = 50000,
-                        Date = new DateTime(2021, 1, 4)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd9",
-                        Amount = 50000,
-                        Date = new DateTime(2021, 1, 4)
-                    },
-                },
-
-                ImagePath = "Images/category_foodndrink.png",
-                TransactionType = "Ăn uống"
-            }
-            };
-
-        List<Budget> budgetList = new List<Budget>
-        {
-            new Budget
-            {
-                ID = "1",
-                ImagePath = "Images/category_foodndrink.png",
-                Name = "Ăn uống",
-                MoneyFund = 9000000,
-                SpentMoney = 4000000,
-                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
-                EndDate = new DateTime(2021,6,30).ToLongDateString()
-            },
-
-            new Budget
-            {
-                ID = "2",
-                ImagePath = "Images/category_foodndrink.png",
-                Name = "Mua sắm",
-                MoneyFund = 5000000,
-                SpentMoney = 2000000,
-                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
-                EndDate = new DateTime(2021,6,30).ToLongDateString()
-            },
-
-            new Budget
-            {
-                ID = "3",
-                ImagePath = "Images/category_foodndrink.png",
-                Name = "Đi chơi",
-                MoneyFund = 5000000,
-                SpentMoney = 2000000,
-                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
-                EndDate = new DateTime(2021,6,27).ToLongDateString()
-            },
-            new Budget
-            {
-                ID = "4",
-                ImagePath = "Images/category_foodndrink.png",
-                Name = "Đi chơi",
-                MoneyFund = 5000000,
-                SpentMoney = 2000000,
-                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
-                EndDate =new DateTime(2021,7,27).ToLongDateString()
-            }
-        };
-
-        // Danh sách ngân sách đang sử dụng
-        List<Budget> runningBudgetList = new List<Budget> { };
-        // Danh sách ngân sách đã quá hạn
-        List<Budget> finishedBudgetList = new List<Budget> { };
-
-        public MainWindow()
-        {
-
-            InitializeComponent();
-
-            //Đọc dữ liệu
-            ReadData();
-
-            //Khởi tạo dữ liệu
-            InitializeData();
-
-            double temp;
-            // Hàm xử lý ngân sách
-            for (int i = 0; i < budgetList.Count; i++)
-            {
-
-                // lấy số ngày còn lại trong ngân sách			
-
-                DateTime currentdate = DateTime.Now;
-
-                //Lấy thông tin ngày tháng kết thúc
-                var endDate = DateTime.Parse(budgetList[i].EndDate);
-
-                TimeSpan time = endDate - currentdate;
-
-                budgetList[i].DaysLeft = time.Days < 0 ? 0 : time.Days;
-                //budgetList[i].DaysLeft = time.Days;
-
-
-                // số tiền dư còn lại cho ngân sách
-                budgetList[i].Balance = budgetList[i].MoneyFund - budgetList[i].SpentMoney;
-
-
-
-                // lấy tiến độ hiện tại, làm tròn 2 số sau dấu phẩy
-                temp = Math.Round((double)(budgetList[i].MoneyFund - budgetList[i].Balance) / budgetList[i].MoneyFund * 100, 2);
-                budgetList[i].Progress = temp;
-
-
-
-                // định dạng lại ngày
-                //convert = DateTime.Parse(budgetList[i].StartingDate);
-                //budgetList[i].StartingDate = convert.ToString("dd-MM-yyyy");
-                //convert = DateTime.Parse(budgetList[i].EndDate);
-                //budgetList[i].EndDate = convert.ToString("dd-MM-yyyy");
-
-                // số tiền nên chi hàng ngày
-                budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ? Math.Round(budgetList[i].Balance / budgetList[i].DaysLeft, 2) : 0;
-
-                // số tiền thực tế chi hàng ngày
-                //DateTime startingdate = Convert.ToDateTime(budgetList[i].StartingDate);
-
-                //Lấy thông tin ngày tháng kết thúc
-                var startingDate = DateTime.Parse(budgetList[i].StartingDate);
-
-                budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney / ((currentdate - startingDate).Days + 1), 2);
-
-                // số tiền dự kiến chi tiêu
-                budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney + budgetList[i].RealitySpending_DayMoney * budgetList[i].DaysLeft;
-
-                if (time.Days < 0)
-                {
-                    finishedBudgetList.Add(budgetList[i]);
-
-                }
-                else
-                {
-                    runningBudgetList.Add(budgetList[i]);
-
-                }
-
-
-            }
-            BudgetList.ItemsSource = runningBudgetList;
-
-            // Hàm xử lý giao dịch
-            for (int i = 0; i < transactionLists.Count; i++)
-            {
-                transactionLists[i].NumberOfTransactions = transactionLists[i].Transactions.Count;
-                for (int j = 0; j < transactionLists[i].Transactions.Count; j++)
-                {
-                    transactionLists[i].TotalMoney += transactionLists[i].Transactions[j].Amount;
-                }
-            }
-
-            TransactionList.ItemsSource = transactionLists;
-
-        }
-
         List<DetailCategory> detailCategoryList = new List<DetailCategory>
             {
                 new DetailCategory
@@ -459,6 +223,242 @@ namespace YourMom
 
         Stack<DetailInfomation> detailStack = new Stack<DetailInfomation>();
 
+        //ObservableCollection<TransactionList> transactionLists = new ObservableCollection<TransactionList>
+        //{
+        //    new TransactionList()
+        //    {
+        //        Transactions = new ObservableCollection<Transaction>()
+        //        {
+        //            new Transaction
+        //            {
+        //                ID = "gd1",
+        //                Amount = 10000,
+        //                Date = new DateTime(2021, 1, 1)
+        //            },
+        //            new Transaction
+        //            {
+        //                ID = "gd2",
+        //                Amount = 20000,
+        //                Date = new DateTime(2021, 1, 2)
+        //            },
+        //        },
+
+
+        //        ImagePath = "Images/category_foodndrink.png",
+        //        TransactionType = "Ăn uống"
+
+        //    },
+        //    new TransactionList()
+        //    {
+        //        Transactions = new ObservableCollection<Transaction>()
+        //        {
+        //            new Transaction
+        //            {
+        //                ID = "gd3",
+        //                Amount = 40000,
+        //                Date = new DateTime(2021, 1, 3)
+        //            },
+        //            new Transaction
+        //            {
+        //                ID = "gd4",
+        //                Amount = 50000,
+        //                Date = new DateTime(2021, 1, 4)
+        //            },
+        //        },
+
+        //        ImagePath = "Images/category_foodndrink.png",
+        //        TransactionType = "Ăn uống"
+        //    },
+        //    new TransactionList()
+        //    {
+        //        Transactions = new ObservableCollection<Transaction>()
+        //        {
+        //            new Transaction
+        //            {
+        //                ID = "gd5",
+        //                Amount = 40000,
+        //                Date = new DateTime(2021, 1, 3)
+        //            },
+        //            new Transaction
+        //            {
+        //                ID = "gd6",
+        //                Amount = 50000,
+        //                Date = new DateTime(2021, 1, 4)
+        //            },
+        //        },
+
+        //        ImagePath = "Images/category_foodndrink.png",
+        //        TransactionType = "Ăn uống"
+        //    },
+        //    new TransactionList()
+        //    {
+        //        Transactions = new ObservableCollection<Transaction>()
+        //        {
+        //            new Transaction
+        //            {
+        //                ID = "gd7",
+        //                Amount = 40000,
+        //                Date = new DateTime(2021, 1, 3)
+        //            },
+        //            new Transaction
+        //            {
+        //                ID = "gd8",
+        //                Amount = 50000,
+        //                Date = new DateTime(2021, 1, 4)
+        //            },
+        //            new Transaction
+        //            {
+        //                ID = "gd9",
+        //                Amount = 50000,
+        //                Date = new DateTime(2021, 1, 4)
+        //            },
+        //        },
+
+        //        ImagePath = "Images/category_foodndrink.png",
+        //        TransactionType = "Ăn uống"
+        //    }
+        //    };
+
+        List<Budget> budgetList = new List<Budget>
+        {
+            new Budget
+            {
+                ID = "1",
+                ImagePath = "Images/category_foodndrink.png",
+                Name = "Ăn uống",
+                MoneyFund = 9000000,
+                SpentMoney = 4000000,
+                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
+                EndDate = new DateTime(2021,6,30).ToLongDateString()
+            },
+
+            new Budget
+            {
+                ID = "2",
+                ImagePath = "Images/category_foodndrink.png",
+                Name = "Mua sắm",
+                MoneyFund = 5000000,
+                SpentMoney = 2000000,
+                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
+                EndDate = new DateTime(2021,6,30).ToLongDateString()
+            },
+
+            new Budget
+            {
+                ID = "3",
+                ImagePath = "Images/category_foodndrink.png",
+                Name = "Đi chơi",
+                MoneyFund = 5000000,
+                SpentMoney = 2000000,
+                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
+                EndDate = new DateTime(2021,6,27).ToLongDateString()
+            },
+            new Budget
+            {
+                ID = "4",
+                ImagePath = "Images/category_foodndrink.png",
+                Name = "Đi chơi",
+                MoneyFund = 5000000,
+                SpentMoney = 2000000,
+                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
+                EndDate =new DateTime(2021,7,27).ToLongDateString()
+            }
+        };
+
+        // Danh sách ngân sách đang sử dụng
+        List<Budget> runningBudgetList = new List<Budget> { };
+        // Danh sách ngân sách đã quá hạn
+        List<Budget> finishedBudgetList = new List<Budget> { };
+
+        public MainWindow()
+        {
+
+            InitializeComponent();
+
+            //Đọc dữ liệu
+            ReadData();
+
+            //Khởi tạo dữ liệu
+            InitializeData();
+
+            double temp;
+            // Hàm xử lý ngân sách
+            for (int i = 0; i < budgetList.Count; i++)
+            {
+
+                // lấy số ngày còn lại trong ngân sách			
+
+                DateTime currentdate = DateTime.Now;
+
+                //Lấy thông tin ngày tháng kết thúc
+                var endDate = DateTime.Parse(budgetList[i].EndDate);
+
+                TimeSpan time = endDate - currentdate;
+
+                budgetList[i].DaysLeft = time.Days < 0 ? 0 : time.Days;
+                //budgetList[i].DaysLeft = time.Days;
+
+
+                // số tiền dư còn lại cho ngân sách
+                budgetList[i].Balance = budgetList[i].MoneyFund - budgetList[i].SpentMoney;
+
+
+
+                // lấy tiến độ hiện tại, làm tròn 2 số sau dấu phẩy
+                temp = Math.Round((double)(budgetList[i].MoneyFund - budgetList[i].Balance) / budgetList[i].MoneyFund * 100, 2);
+                budgetList[i].Progress = temp;
+
+
+
+                // định dạng lại ngày
+                //convert = DateTime.Parse(budgetList[i].StartingDate);
+                //budgetList[i].StartingDate = convert.ToString("dd-MM-yyyy");
+                //convert = DateTime.Parse(budgetList[i].EndDate);
+                //budgetList[i].EndDate = convert.ToString("dd-MM-yyyy");
+
+                // số tiền nên chi hàng ngày
+                budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ? Math.Round(budgetList[i].Balance / budgetList[i].DaysLeft, 2) : 0;
+
+                // số tiền thực tế chi hàng ngày
+                //DateTime startingdate = Convert.ToDateTime(budgetList[i].StartingDate);
+
+                //Lấy thông tin ngày tháng kết thúc
+                var startingDate = DateTime.Parse(budgetList[i].StartingDate);
+
+                budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney / ((currentdate - startingDate).Days + 1), 2);
+
+                // số tiền dự kiến chi tiêu
+                budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney + budgetList[i].RealitySpending_DayMoney * budgetList[i].DaysLeft;
+
+                if (time.Days < 0)
+                {
+                    finishedBudgetList.Add(budgetList[i]);
+
+                }
+                else
+                {
+                    runningBudgetList.Add(budgetList[i]);
+
+                }
+
+
+            }
+            BudgetList.ItemsSource = runningBudgetList;
+
+            // Hàm xử lý giao dịch
+            //for (int i = 0; i < transactionLists.Count; i++)
+            //{
+            //    transactionLists[i].NumberOfTransactions = transactionLists[i].Transactions.Count;
+            //    for (int j = 0; j < transactionLists[i].Transactions.Count; j++)
+            //    {
+            //        transactionLists[i].TotalMoney += transactionLists[i].Transactions[j].Amount;
+            //    }
+            //}
+
+
+
+        }
+
         private void InitializeData()
         {
 
@@ -497,6 +497,53 @@ namespace YourMom
             AddDataIntoList(expensePairs, expenseList);
             AddDataIntoList(debtPairs, debtList);
             AddDataIntoList(loanPairs, loanList);
+
+            var transactionLists = new ObservableCollection<TransactionList>();
+
+            AddDataIntoObservableCollection(transactionLists);
+
+            TransactionList.ItemsSource = transactionLists;
+
+        }
+
+        private void AddDataIntoObservableCollection(ObservableCollection<TransactionList> transactionCollection)
+        {
+
+            Dictionary<string, int> positionDict = new Dictionary<string, int>();
+
+            foreach (var transaction in transactionList)
+            {
+
+                var type = transaction.TransactionType;
+
+                if (positionDict.ContainsKey(type))
+                {
+
+                    var pos = positionDict[type];
+                    var list = transactionCollection[pos];
+                    list.Transactions.Add(transaction);
+                    list.NumberOfTransactions++;
+                    list.TotalMoney += transaction.Amount;
+
+                }
+                else
+                {
+
+                    positionDict.Add(type, transactionCollection.Count);
+                    transactionCollection.Add(new TransactionList
+                    {
+
+                        ImagePath = categoryList[type].ImagePath,
+                        NumberOfTransactions = 1,
+                        Name = categoryList[type].Name,
+                        TotalMoney = transaction.Amount,
+                        Transactions = new ObservableCollection<Transaction>() { transaction },
+
+                    });
+
+                }
+
+            }
 
         }
 
@@ -570,7 +617,7 @@ namespace YourMom
             {
                 tempTransactionList = new List<TempTransaction>();
             }
-            
+
             //Sao chép dữ liệu sang danh sách giao dịch sử dụng kiểu Datetime
             transactionList = new List<Transaction>();
 

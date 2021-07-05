@@ -2069,10 +2069,23 @@
 
                                                                         <DockPanel DockPanel.Dock="Top" >
                                                                             <StackPanel DockPanel.Dock="Left"  >
-                                                                                <TextBlock Text="{Binding TransactionType}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
-                                                                                <TextBlock Text="{Binding NumberOfTransactions, StringFormat={}0 Transactions}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,0,8" ></TextBlock>
+                                                                                <TextBlock Text="{Binding Name}" 
+                                                                                           Width="175" 
+                                                                                           TextAlignment="Justify" 
+                                                                                           TextWrapping="Wrap" 
+                                                                                           FontSize="14" 
+                                                                                           Padding="3,1" 
+                                                                                           MaxHeight="60" 
+                                                                                           FontFamily="Segoe UI Semibold" 
+                                                                                           Margin="0,10,0,0"/>
+                                                                                <TextBlock Text="{Binding NumberOfTransactions, StringFormat={}0 Transactions}"
+                                                                                           Width="175" 
+                                                                                           TextAlignment="Justify" 
+                                                                                           TextWrapping="Wrap" 
+                                                                                           FontSize="14" 
+                                                                                           Padding="3,1" 
+                                                                                           MaxHeight="60" 
+                                                                                           Margin="0,0,0,8"/>
                                                                             </StackPanel>
                                                                             <TextBlock DockPanel.Dock="Right"  Text="{Binding TotalMoney}" Width="175" TextAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
@@ -2104,18 +2117,37 @@
 
                                                                                     <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
                                                                                         <Border BorderBrush="{x:Null}" Width="50" Height="50" >
-                                                                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Date, StringFormat={}{0:dd}}" TextAlignment="Center" TextWrapping="Wrap" 
-                                               FontSize="28"   FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                                                                            <TextBlock DockPanel.Dock="Left" 
+                                                                                                       Text="{Binding Date, StringFormat={}{0:dd}}" 
+                                                                                                       TextAlignment="Center" 
+                                                                                                       TextWrapping="Wrap" 
+                                                                                                       FontSize="28"   
+                                                                                                       FontFamily="Segoe UI Semibold" 
+                                                                                                       VerticalAlignment="Center" 
+                                                                                                       HorizontalAlignment="Center"></TextBlock>
                                                                                         </Border>
 
 
-                                                                                        <TextBlock  DockPanel.Dock="Right"  Text="{Binding Amount}"  Width="160" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
+                                                                                        <TextBlock DockPanel.Dock="Right"  
+                                                                                                   Text="{Binding Amount}"  
+                                                                                                   Width="160" 
+                                                                                                   TextAlignment="Right" 
+                                                                                                   HorizontalAlignment="Right" 
+                                                                                                   VerticalAlignment="Center"
+                                                                                                   TextWrapping="Wrap" 
+                                                                                                   FontSize="14"
+                                                                                                   MaxHeight="60"
+                                                                                                   FontFamily="Segoe UI Semibold"></TextBlock>
 
 
                                                                                         <DockPanel DockPanel.Dock="Top">
-                                                                                            <TextBlock DockPanel.Dock="Left"  Width="160" TextAlignment="Justify" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0">
+                                                                                            <TextBlock DockPanel.Dock="Left" 
+                                                                                                       Width="160" 
+                                                                                                       TextWrapping="Wrap" 
+                                                                                                       FontSize="14" 
+                                                                                                       MaxHeight="60" 
+                                                                                                       FontFamily="Segoe UI Semibold"
+                                                                                                       VerticalAlignment="Center">
                                                                                                 <TextBlock.Text>
                                                                                                     <MultiBinding StringFormat="{}{0:dddd}, {1:MM} {2:yyyy}">
                                                                                                         <Binding Path="Date"></Binding>

@@ -8,13 +8,14 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
-public class TransactionList : Transaction
+public class TransactionList : INotifyPropertyChanged
 {
 
 	protected ObservableCollection<Transaction> transactions;
 	protected int numberOfTransactions;
 	protected double totalMoney;
 	protected string imagePath;
+	protected string name;
 
 	public ObservableCollection<Transaction> Transactions
     {
@@ -68,6 +69,32 @@ public class TransactionList : Transaction
 			OnPropertyChanged("ImagePath");
 		}
 	}
+
+	public string Name
+	{
+		get
+		{
+			return name;
+		}
+		set
+		{
+			name = value;
+			OnPropertyChanged("Name");
+		}
+	}
+
+	#region INotifyPropertyChanged Members  
+
+	public event PropertyChangedEventHandler PropertyChanged;
+	protected void OnPropertyChanged(string propertyName)
+	{
+		if (PropertyChanged != null)
+		{
+			PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+
+	#endregion
 
 }
 
