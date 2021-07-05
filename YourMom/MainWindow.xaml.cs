@@ -392,8 +392,6 @@ namespace YourMom
             AddDataIntoList(debtPairs, debtList);
             AddDataIntoList(loanPairs, loanList);
 
-
-
             //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch
             InitDataIntoObservableCollection(transactionCollection);
 
@@ -408,14 +406,18 @@ namespace YourMom
             //Từ điển lưu chỉ số của ID loại giao dịch
             Dictionary<string, int> positionDict = new Dictionary<string, int>();
 
+            //Mảng lưu số tiền thu vào và số tiền chi ra
+            double[] amountArray = { 0.0, 0.0 };
+
             //Đọc qua tất cả các giao dịch
             foreach (var transaction in transactionList)
             {
 
                 //ID của loại giao dịch
                 var type = transaction.TransactionType;
+                var firstID = type[0] - '0';
                 //Biến kiểm tra ID có xuất phát là số 0 hoặc số 1 không
-                var isTransaction = (type[0] - '0') < 2;
+                var isTransaction = firstID < 2;
 
                 //Kiểm tra có phải trường hợp danh sách giao dịch không
                 if ((isTransaction && collection == transactionCollection) ||
@@ -463,9 +465,29 @@ namespace YourMom
 
                     }
 
-                }                
+                    //Cộng dồn số tiền tương ứng
+                    //firstID: 0 hoặc 2 (thu nhập hoặc đi vay) được tính vào khoản tiền vào
+                    //firstID: 1 hoặc 3 (chi tiêu hoặc cho vay) được tính vào khoản tiền ra
+                    amountArray[firstID % 2] += transaction.Amount;
+
+                }
 
             }
+
+            //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
+            Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
+
+            //Hiển thị số tiền chi ra
+            var money = (string)moneyConverter.Convert(amountArray[0], null, null, null);
+            InflowTextBlock.Text = money;
+
+            //Hiển thị số tiền thu vào
+            money = (string)moneyConverter.Convert(-amountArray[1], null, null, null);
+            OutflowTextBlock.Text = money;
+
+            //Hiển thị số tiền còn lại
+            money = (string)moneyConverter.Convert(amountArray[0] - amountArray[1], null, null, null);
+            LeftTextBlock.Text = money;
 
         }
 

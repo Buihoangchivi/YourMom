@@ -2048,14 +2048,14 @@
                                                                        HorizontalAlignment="Left"
                                                                        Text="Inflow"/>
 
-                                                            <TextBlock DockPanel.Dock="Right" 
+                                                            <TextBlock Name="InflowTextBlock"
+                                                                       DockPanel.Dock="Right" 
                                                                        TextWrapping="Wrap" 
                                                                        FontSize="15" 
-                                                                       FontFamily="Segoe UI Semibold" 
+                                                                       FontFamily="Segoe UI Historic" 
                                                                        VerticalAlignment="Center" 
                                                                        HorizontalAlignment="Left" 
-                                                                       Foreground="#039BE5"
-                                                                       Text="0"/>
+                                                                       Foreground="#039BE5"/>
 
                                                         </DockPanel>
 
@@ -2072,14 +2072,14 @@
                                                                        HorizontalAlignment="Left"
                                                                        Text="Outflow"/>
 
-                                                            <TextBlock DockPanel.Dock="Right" 
+                                                            <TextBlock Name="OutflowTextBlock"
+                                                                       DockPanel.Dock="Right" 
                                                                        TextWrapping="Wrap" 
                                                                        FontSize="15" 
-                                                                       FontFamily="Segoe UI Semibold" 
+                                                                       FontFamily="Segoe UI Historic" 
                                                                        VerticalAlignment="Center"
                                                                        HorizontalAlignment="Left" 
-                                                                       Foreground="#E51C23"
-                                                                       Text="-4,091,000"/>
+                                                                       Foreground="#E51C23"/>
 
                                                         </DockPanel>
 
@@ -2097,13 +2097,13 @@
                                                         <DockPanel Width="500"
                                                                    LastChildFill="False">
 
-                                                            <TextBlock DockPanel.Dock="Right" 
+                                                            <TextBlock Name="LeftTextBlock"
+                                                                       DockPanel.Dock="Right" 
                                                                        TextWrapping="Wrap" 
-                                                                       FontSize="15" 
+                                                                       FontSize="17" 
                                                                        FontFamily="Segoe UI Semibold"
                                                                        VerticalAlignment="Center" 
-                                                                       HorizontalAlignment="Left" 
-                                                                       Text="-4,091,000"/>
+                                                                       HorizontalAlignment="Left"/>
 
                                                         </DockPanel>
 
@@ -2178,7 +2178,7 @@
                                                                                            Width="175" 
                                                                                            TextAlignment="Justify" 
                                                                                            TextWrapping="Wrap" 
-                                                                                           FontSize="14" 
+                                                                                           FontSize="15" 
                                                                                            Padding="3,1" 
                                                                                            MaxHeight="60" 
                                                                                            FontFamily="Segoe UI Semibold" 
@@ -2207,9 +2207,11 @@
 
                                                                     </DockPanel>
 
-                                                                    <GridSplitter  Width="600" Height="0.5" 
-                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" 
-                             />
+                                                                    <GridSplitter  Width="600" 
+                                                                                   Height="0.5" 
+                                                                                   VerticalAlignment="Bottom" 
+                                                                                   HorizontalAlignment="Stretch"
+                                                                                   Background="Black"/>
 
                                                                     <ListView Name="TransactionListDetail" ItemsSource="{Binding Transactions}"  PreviewMouseWheel="HandlePreviewMouseWheel" BorderThickness="0" >
 
@@ -2231,7 +2233,7 @@
                                                                                                        TextAlignment="Center" 
                                                                                                        TextWrapping="Wrap" 
                                                                                                        FontSize="28"   
-                                                                                                       FontFamily="Segoe UI Semibold" 
+                                                                                                       FontFamily="Segoe UI Historic" 
                                                                                                        VerticalAlignment="Center" 
                                                                                                        HorizontalAlignment="Center"></TextBlock>
                                                                                         </Border>
@@ -2244,9 +2246,9 @@
                                                                                                    HorizontalAlignment="Right" 
                                                                                                    VerticalAlignment="Center"
                                                                                                    TextWrapping="Wrap" 
-                                                                                                   FontSize="14"
+                                                                                                   FontSize="15"
                                                                                                    MaxHeight="60"
-                                                                                                   FontFamily="Segoe UI Semibold"></TextBlock>
+                                                                                                   FontFamily="Segoe UI Historic"></TextBlock>
 
 
                                                                                         <DockPanel DockPanel.Dock="Top">
@@ -2255,7 +2257,7 @@
                                                                                                        TextWrapping="Wrap" 
                                                                                                        FontSize="14" 
                                                                                                        MaxHeight="60" 
-                                                                                                       FontFamily="Segoe UI Semibold"
+                                                                                                       FontFamily="Segoe UI Historic"
                                                                                                        VerticalAlignment="Center">
                                                                                                 <TextBlock.Text>
                                                                                                     <MultiBinding StringFormat="{}{0:dddd}, {1:MM} {2:yyyy}">
