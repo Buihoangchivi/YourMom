@@ -101,6 +101,7 @@
     <Compile Include="Modal\DebitBook.cs" />
     <Compile Include="Modal\DetailCategory.cs" />
     <Compile Include="Modal\DetailInfomation.cs" />
+    <Compile Include="Modal\ForegroundColorConverter.cs" />
     <Compile Include="Modal\MoneyConverter.cs" />
     <Compile Include="Modal\Report.cs" />
     <Compile Include="Modal\Transaction.cs" />

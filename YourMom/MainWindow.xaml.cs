@@ -431,12 +431,19 @@ namespace YourMom
 
                         //Chỉ số của vị trí lưu loại giao dịch trong list
                         var pos = positionDict[type];
+
                         //Lấy danh sách giao dịch cần tìm ra
                         var list = transactionCollection[pos];
+
+                        //Tìm vị trí để chèn giao dịch vào danh sách
+                        var index = IndexOfTransactionBinarySearch(list.Transactions, transaction.Date);
+
                         //Thêm giao dịch vào danh sách
-                        list.Transactions.Add(transaction);
+                        list.Transactions.Insert(index, transaction);
+
                         //Tăng số lượng giao dịch lên
                         list.NumberOfTransactions++;
+
                         //Cộng dồn số tiền của danh sách giao dịch lên
                         list.TotalMoney += transaction.Amount;
 
@@ -488,6 +495,35 @@ namespace YourMom
             //Hiển thị số tiền còn lại
             money = (string)moneyConverter.Convert(amountArray[0] - amountArray[1], null, null, null);
             LeftTextBlock.Text = money;
+
+        }
+
+        //Hàm tìm kiếm nhị phân vị trí để chèn giao dịch vào danh sách tăng dần theo ngày tháng
+        private int IndexOfTransactionBinarySearch(ObservableCollection<Transaction> list, DateTime dateTime)
+        {
+
+            int low = 0, high = list.Count;
+            int mid;
+            while (low < high)
+            {
+
+                mid = (low + high) / 2;
+                if (list[mid].Date <= dateTime)
+                {
+
+                    low = mid + 1;
+
+                }
+                else
+                {
+
+                    high = mid;
+
+                }
+
+            }
+
+            return low;
 
         }
 
@@ -644,7 +680,7 @@ namespace YourMom
 
             //Tính tổng số tiền cho người khác vay
             sum = SumComponent(loanList);
-            //Hiển thị số tiền đó vào khung tiền nợ
+            //Hiển thị số tiền đó vào khung tiền cho vay
             LoanTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
 
             //Tính toán số dư
@@ -667,7 +703,7 @@ namespace YourMom
 
             }
 
-            //Hiển thị số tiền đó vào khung tiền nợ
+            //Hiển thị số tiền đó vào khung tiền cho vay
             money = (string)moneyConverter.Convert(left, null, null, null);
             LoanLeftTextBlock.Text = $"{money} left";
 
@@ -1664,7 +1700,7 @@ namespace YourMom
             else //Trường hợp nút không được chọn
             {
 
-                var color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF757575");
+                var color = (SolidColorBrush)new BrushConverter().ConvertFromString("#757575");
                 textBlock.Foreground = color;
                 textBlock.FontSize = 15;
                 dash.Background = Brushes.White;
