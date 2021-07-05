@@ -10,11 +10,11 @@
         WindowStyle="None" WindowStartupLocation="CenterScreen">
 
     <WindowChrome.WindowChrome>
-        
+
         <WindowChrome CaptionHeight="0"/>
-        
+
     </WindowChrome.WindowChrome>
-    
+
     <Window.Resources>
 
         <Style TargetType="{x:Type ProgressBar}">
@@ -1423,7 +1423,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <!--Header của danh sách các ngân sách-->
                     <Grid Name= "BudgetListHeader" Visibility="Visible">
                         <Border x:Name="BudgetListBorder" Background="Beige" CornerRadius="10,10,0,0" Width="600" >
@@ -1820,12 +1820,12 @@
 
             <!--Màn hình danh sách các giao dịch-->
             <Grid Background="#E4E4E4" Visibility="Visible">
-                
+
                 <Grid Margin="0,10,13,10">
-                    
+
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"></RowDefinition>
-                        <RowDefinition Height="12*"></RowDefinition>
+                        <RowDefinition Height="1.3*"></RowDefinition>
+                        <RowDefinition Height="8*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -1835,93 +1835,147 @@
                     <!--Header của danh sách các giao dịch-->
                     <Grid Name="TransactionListHeader" 
                           Visibility="Visible">
-                        <Border Background="White" CornerRadius="10,10,0,0" Width="600" >
+                        <Border Background="White" 
+                                CornerRadius="10,10,0,0"
+                                Width="600" Height="71">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Button Name="PreviousButton" Grid.Row="0" Grid.Column="0" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="PreviousButton_Click">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
 
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border Background="{TemplateBinding Background}">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="Transparent"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
+                                <StackPanel>
 
+                                    <Button Height="68.5"
+                                        VerticalAlignment="Center" 
+                                        Background="Transparent"  
+                                        Cursor="Hand"
+                                        Click="PreviousButton_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
 
-                                    <TextBlock Name="PreviousTextblock" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                    THÁNG TRƯỚC
-                                    </TextBlock>
-                                </Button>
-
-                                <Button Name="CurrentButton" Grid.Row="0" Grid.Column="1" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="CurrentButton_Click">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border Background="{TemplateBinding Background}">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="Transparent"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                    <TextBlock Name="CurrentTextblock" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                   THÁNG NÀY
-                                    </TextBlock>
-                                </Button>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
 
 
-                                <Button Name="NextButton" Grid.Row="0" Grid.Column="2" Margin="5" Width="120" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="NextButton_Click">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
+                                        <TextBlock Name="PreviousTextBlock" 
+                                                   TextWrapping="Wrap" 
+                                                   FontSize="15"
+                                                   Foreground="#FF757575"
+                                                   FontFamily="Segoe UI Semibold" 
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Left" 
+                                                   Text="LAST MONTH"/>
+                                    </Button>
 
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border Background="{TemplateBinding Background}">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="Transparent"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                    <TextBlock Name="NextTextblock" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                   TƯƠNG LAI
-                                    </TextBlock>
-                                </Button>
+                                    <TextBlock Name="PreviousDash"
+                                               Height="2" 
+                                               Background="White"/>
+
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" >
+
+                                    <Button Height="68.5"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"  
+                                        Cursor="Hand" 
+                                        Click="CurrentButton_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <TextBlock Name="CurrentTextBlock" 
+                                                   TextWrapping="Wrap"
+                                                   FontSize="20"
+                                                   Foreground="ForestGreen"
+                                                   FontFamily="Segoe UI Semibold"
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Left"
+                                                   Text="THIS MONTH"/>
+
+                                    </Button>
+
+                                    <TextBlock Name="CurrentDash"
+                                               Height="2" 
+                                               Background="ForestGreen"/>
+
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+
+                                    <Button Height="68.5"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"  
+                                        Cursor="Hand"
+                                        Click="NextButton_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        
+                                        <TextBlock Name="NextTextBlock"
+                                                   TextWrapping="Wrap" 
+                                                   FontSize="15" 
+                                                   Foreground="#FF757575"
+                                                   FontFamily="Segoe UI Semibold"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left" 
+                                                   Text="FUTURE"/>
+
+                                    </Button>
+
+                                    <TextBlock Name="NextDash"
+                                               Visibility="Visible"
+                                               Height="2" 
+                                               Background="White"/>
+
+                                </StackPanel>
 
                             </Grid>
 
@@ -1976,54 +2030,82 @@
                                         <RowDefinition Height="10*"/>
                                     </Grid.RowDefinitions>-->
                                             <StackPanel>
+                                                
                                                 <StackPanel>
 
-                                                    <StackPanel Orientation="Vertical" Margin="0,10,0,0"  >
-                                                        <DockPanel Width="500"  LastChildFill="False">
-                                                            <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                            Tiền vào
-                                                            </TextBlock>
+                                                    <StackPanel Orientation="Vertical">
+                                                        
+                                                        <!--Tiền vào-->
+                                                        <DockPanel Width="500" 
+                                                                   Margin="0,15,0,0" 
+                                                                   LastChildFill="False">
+
+                                                            <TextBlock DockPanel.Dock="Left" 
+                                                                       TextWrapping="Wrap" 
+                                                                       FontSize="15" 
+                                                                       FontFamily="Segoe UI Semibold"
+                                                                       VerticalAlignment="Center" 
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="Inflow"/>
+
                                                             <TextBlock DockPanel.Dock="Right" 
                                                                        TextWrapping="Wrap" 
                                                                        FontSize="15" 
                                                                        FontFamily="Segoe UI Semibold" 
                                                                        VerticalAlignment="Center" 
                                                                        HorizontalAlignment="Left" 
-                                                                       Foreground="#039BE5">
-                                            0
-                                                            </TextBlock>
+                                                                       Foreground="#039BE5"
+                                                                       Text="0"/>
+
                                                         </DockPanel>
 
-                                                        <DockPanel Width="500" LastChildFill="False">
-                                                            <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                            Tiền ra
-                                                            </TextBlock>
+                                                        <!--Tiền ra-->
+                                                        <DockPanel Width="500"
+                                                                   Margin="0,10,0,0"
+                                                                   LastChildFill="False">
+
+                                                            <TextBlock DockPanel.Dock="Left" 
+                                                                       TextWrapping="Wrap"
+                                                                       FontSize="15" 
+                                                                       FontFamily="Segoe UI Semibold"
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="Outflow"/>
+
                                                             <TextBlock DockPanel.Dock="Right" 
                                                                        TextWrapping="Wrap" 
                                                                        FontSize="15" 
                                                                        FontFamily="Segoe UI Semibold" 
                                                                        VerticalAlignment="Center"
                                                                        HorizontalAlignment="Left" 
-                                                                       Foreground="#E51C23">
-                                            -4,091,000
-                                                            </TextBlock>
+                                                                       Foreground="#E51C23"
+                                                                       Text="-4,091,000"/>
+
                                                         </DockPanel>
 
-                                                        <DockPanel Width="500" LastChildFill="False" Margin="0,5,0,0">
-                                                            <GridSplitter DockPanel.Dock="Right" Grid.ColumnSpan="5" Width="100" Height="0.5" 
-                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" 
-                             />
-                                                        </DockPanel>
+                                                        <!--Dấu ngăn cách-->
+                                                        <GridSplitter DockPanel.Dock="Right" 
+                                                                      Margin="0,9,50,9" 
+                                                                      Grid.ColumnSpan="5" 
+                                                                      Width="100" 
+                                                                      Height="0.5" 
+                                                                      VerticalAlignment="Bottom" 
+                                                                      HorizontalAlignment="Right"
+                                                                      Background="Black"/>
 
-                                                        <DockPanel Width="500" LastChildFill="False" Margin="0,2,0,0" >
-                                                            <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                            -4,091,000
-                                                            </TextBlock>
-                                                        </DockPanel>
+                                                        <!--Số dư-->
+                                                        <DockPanel Width="500"
+                                                                   LastChildFill="False">
 
+                                                            <TextBlock DockPanel.Dock="Right" 
+                                                                       TextWrapping="Wrap" 
+                                                                       FontSize="15" 
+                                                                       FontFamily="Segoe UI Semibold"
+                                                                       VerticalAlignment="Center" 
+                                                                       HorizontalAlignment="Left" 
+                                                                       Text="-4,091,000"/>
+
+                                                        </DockPanel>
 
                                                         <Button Name="ViewReportButton" Margin="0,5,0,0"  Width="600" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="ViewReportButton_Click">
                                                             <!--<Button.Style>

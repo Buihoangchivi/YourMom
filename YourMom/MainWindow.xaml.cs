@@ -1591,52 +1591,64 @@ namespace YourMom
         // Nút chuyển sang tháng trước trong giao diện giao dịch
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            PreviousTextblock.Foreground = Brushes.Green;
-            PreviousTextblock.FontSize = 20;
-            PreviousButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            PreviousButton.BorderBrush = Brushes.Green;
 
-            CurrentTextblock.Foreground = Brushes.Black;
-            CurrentButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            CurrentTextblock.FontSize = 15;
+            //Chuyển nút trước đó sang trạng thái được chọn
+            ChangeButtonStatus(PreviousDash, PreviousTextBlock, true);
+            //Chuyển nút hiện tại sang trạng thái không được chọn
+            ChangeButtonStatus(CurrentDash, CurrentTextBlock, false);
+            //Chuyển nút tiếp theo sang trạng thái không được chọn
+            ChangeButtonStatus(NextDash, NextTextBlock, false);
 
-            NextTextblock.Foreground = Brushes.Black;
-            NextButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            NextTextblock.FontSize = 15;
         }
 
         // Nút tháng hiện tại, có thể dùng để chuyển sang tháng tiếp theo với tháng trước 
         private void CurrentButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentTextblock.Foreground = Brushes.Green;
-            CurrentTextblock.FontSize = 20;
-            CurrentButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            CurrentButton.BorderBrush = Brushes.Green;
 
-            PreviousTextblock.Foreground = Brushes.Black;
-            PreviousButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            PreviousTextblock.FontSize = 15;
+            //Chuyển nút trước đó sang trạng thái không được chọn
+            ChangeButtonStatus(PreviousDash, PreviousTextBlock, false);
+            //Chuyển nút hiện tại sang trạng thái được chọn
+            ChangeButtonStatus(CurrentDash, CurrentTextBlock, true);
+            //Chuyển nút tiếp theo sang trạng thái không được chọn
+            ChangeButtonStatus(NextDash, NextTextBlock, false);
 
-            NextTextblock.Foreground = Brushes.Black;
-            NextButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            NextTextblock.FontSize = 15;
         }
 
         // Nút chuyển sang tháng tiếp theo của Nút tháng hiện tại
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            NextTextblock.Foreground = Brushes.Green;
-            NextTextblock.FontSize = 20;
-            NextButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            NextButton.BorderBrush = Brushes.Green;
 
-            CurrentTextblock.Foreground = Brushes.Black;
-            CurrentButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            CurrentTextblock.FontSize = 15;
+            //Chuyển nút trước đó sang trạng thái không được chọn
+            ChangeButtonStatus(PreviousDash, PreviousTextBlock, false);
+            //Chuyển nút hiện tại sang trạng thái không được chọn
+            ChangeButtonStatus(CurrentDash, CurrentTextBlock, false);
+            //Chuyển nút tiếp theo sang trạng thái được chọn
+            ChangeButtonStatus(NextDash, NextTextBlock, true);
 
-            PreviousTextblock.Foreground = Brushes.Black;
-            PreviousButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            PreviousTextblock.FontSize = 15;
+        }
+
+        private void ChangeButtonStatus(TextBlock dash, TextBlock textBlock, bool isSelected)
+        {
+
+            //Trường hợp nút được chọn
+            if (isSelected)
+            {
+
+                textBlock.Foreground = Brushes.Green;
+                textBlock.FontSize = 19;
+                dash.Background = Brushes.Green;
+
+            }
+            else //Trường hợp nút không được chọn
+            {
+
+                var color = (SolidColorBrush)new BrushConverter().ConvertFromString("#FF757575");
+                textBlock.Foreground = color;
+                textBlock.FontSize = 15;
+                dash.Background = Brushes.White;
+
+            }
+
         }
 
         private void ViewReportButton_Click(object sender, RoutedEventArgs e)
