@@ -1835,7 +1835,7 @@
                     <!--Header của danh sách các giao dịch-->
                     <Grid Name="TransactionListHeader" 
                           Visibility="Visible">
-                        <Border Background="Beige" CornerRadius="10,10,0,0" Width="600" >
+                        <Border Background="White" CornerRadius="10,10,0,0" Width="600" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -1949,7 +1949,7 @@
                     
                 </Border>-->
 
-                            <Border Grid.Row="0" Grid.Column="1" Background="Beige" CornerRadius="0,0, 10,10">
+                            <Border Grid.Row="0" Grid.Column="1" Background="White" CornerRadius="0,0, 10,10">
                                 <Grid >
 
                                     <Grid.RowDefinitions>
@@ -1984,8 +1984,13 @@
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
                                             Tiền vào
                                                             </TextBlock>
-                                                            <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Blue">
+                                                            <TextBlock DockPanel.Dock="Right" 
+                                                                       TextWrapping="Wrap" 
+                                                                       FontSize="15" 
+                                                                       FontFamily="Segoe UI Semibold" 
+                                                                       VerticalAlignment="Center" 
+                                                                       HorizontalAlignment="Left" 
+                                                                       Foreground="#039BE5">
                                             0
                                                             </TextBlock>
                                                         </DockPanel>
@@ -1995,8 +2000,13 @@
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" >
                                             Tiền ra
                                                             </TextBlock>
-                                                            <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red">
+                                                            <TextBlock DockPanel.Dock="Right" 
+                                                                       TextWrapping="Wrap" 
+                                                                       FontSize="15" 
+                                                                       FontFamily="Segoe UI Semibold" 
+                                                                       VerticalAlignment="Center"
+                                                                       HorizontalAlignment="Left" 
+                                                                       Foreground="#E51C23">
                                             -4,091,000
                                                             </TextBlock>
                                                         </DockPanel>
@@ -2036,8 +2046,13 @@
                                             </Style>
                                         </Button.Style>-->
 
-                                                            <TextBlock Name="ViewReportTextblock" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Green" >
+                                                            <TextBlock Name="ViewReportTextblock" 
+                                                                       TextWrapping="Wrap" 
+                                                                       FontSize="15" 
+                                                                       FontFamily="Segoe UI Semibold"
+                                                                       VerticalAlignment="Center" 
+                                                                       HorizontalAlignment="Left" 
+                                                                       Foreground="Green">
                                     XEM BÁO CÁO CHO GIAI ĐOẠN NÀY
                                                             </TextBlock>
                                                         </Button>
@@ -2047,8 +2062,6 @@
 
 
                                                 </StackPanel>
-
-                                                <TextBlock Width="600" Height="50" Background="Gainsboro"></TextBlock>
 
                                                 <!--Khung xem các loại giao dịch-->
 
@@ -2062,12 +2075,22 @@
                                                         <ItemsControl.ItemTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel>
-                                                                    <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                                        <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
 
+                                                                    <TextBlock Width="600" Height="40" Background="#F4F4F4"></TextBlock>
 
+                                                                    <DockPanel x:Name="BudgetDocPanel"
+                                                                               LastChildFill="True"
+                                                                               Height="70">
 
-                                                                        <DockPanel DockPanel.Dock="Top" >
+                                                                        <Image DockPanel.Dock="Left" 
+                                                                               Source="{Binding ImagePath}"
+                                                                               Height="45" Width="45" 
+                                                                               Margin="10,0"
+                                                                               VerticalAlignment="Center"
+                                                                               RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                                                                        <DockPanel VerticalAlignment="Center">
+
                                                                             <StackPanel DockPanel.Dock="Left"  >
                                                                                 <TextBlock Text="{Binding Name}" 
                                                                                            Width="175" 
@@ -2087,17 +2110,21 @@
                                                                                            MaxHeight="60" 
                                                                                            Margin="0,0,0,8"/>
                                                                             </StackPanel>
-                                                                            <TextBlock DockPanel.Dock="Right"  Text="{Binding TotalMoney}" Width="175" TextAlignment="Right" VerticalAlignment="Center" HorizontalAlignment="Right" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
+
+                                                                            <TextBlock DockPanel.Dock="Right"  
+                                                                                       Text="{Binding TotalMoney, Converter={StaticResource moneyConverter}}"
+                                                                                       TextAlignment="Right" 
+                                                                                       VerticalAlignment="Center" 
+                                                                                       HorizontalAlignment="Right" 
+                                                                                       TextWrapping="Wrap" 
+                                                                                       FontSize="20"
+                                                                                       MaxHeight="60" Margin="0,0,15,0"  
+                                                                                       FontFamily="Segoe UI Semibold"></TextBlock>
 
                                                                         </DockPanel>
 
-
-
-
-
-
                                                                     </DockPanel>
+
                                                                     <GridSplitter  Width="600" Height="0.5" 
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" 
                              />
@@ -2129,8 +2156,8 @@
 
 
                                                                                         <TextBlock DockPanel.Dock="Right"  
-                                                                                                   Text="{Binding Amount}"  
-                                                                                                   Width="160" 
+                                                                                                   Text="{Binding Amount, Converter={StaticResource moneyConverter}}"  
+                                                                                                   Margin="0,0,10,0"
                                                                                                    TextAlignment="Right" 
                                                                                                    HorizontalAlignment="Right" 
                                                                                                    VerticalAlignment="Center"
@@ -2172,6 +2199,7 @@
                                                                             </DataTemplate>
                                                                         </ListView.ItemTemplate>
                                                                     </ListView>
+
                                                                 </StackPanel>
                                                             </DataTemplate>
                                                         </ItemsControl.ItemTemplate>
@@ -2228,15 +2256,10 @@
                             </ItemsControl>-->
 
                                                 </ScrollViewer>
+
                                             </StackPanel>
 
-
-
-
-
-
                                         </Grid>
-
 
                                     </ScrollViewer>
 

@@ -40,6 +40,8 @@ namespace YourMom
         List<DetailCategory> expenseList = new List<DetailCategory>();
         List<DetailCategory> debtList = new List<DetailCategory>();
         List<DetailCategory> loanList = new List<DetailCategory>();
+        ObservableCollection<TransactionList> transactionCollection = new ObservableCollection<TransactionList>();
+        ObservableCollection<TransactionList> debtCollection = new ObservableCollection<TransactionList>();
 
         List<DetailCategory> detailCategoryList = new List<DetailCategory>
             {
@@ -223,102 +225,6 @@ namespace YourMom
 
         Stack<DetailInfomation> detailStack = new Stack<DetailInfomation>();
 
-        //ObservableCollection<TransactionList> transactionLists = new ObservableCollection<TransactionList>
-        //{
-        //    new TransactionList()
-        //    {
-        //        Transactions = new ObservableCollection<Transaction>()
-        //        {
-        //            new Transaction
-        //            {
-        //                ID = "gd1",
-        //                Amount = 10000,
-        //                Date = new DateTime(2021, 1, 1)
-        //            },
-        //            new Transaction
-        //            {
-        //                ID = "gd2",
-        //                Amount = 20000,
-        //                Date = new DateTime(2021, 1, 2)
-        //            },
-        //        },
-
-
-        //        ImagePath = "Images/category_foodndrink.png",
-        //        TransactionType = "Ăn uống"
-
-        //    },
-        //    new TransactionList()
-        //    {
-        //        Transactions = new ObservableCollection<Transaction>()
-        //        {
-        //            new Transaction
-        //            {
-        //                ID = "gd3",
-        //                Amount = 40000,
-        //                Date = new DateTime(2021, 1, 3)
-        //            },
-        //            new Transaction
-        //            {
-        //                ID = "gd4",
-        //                Amount = 50000,
-        //                Date = new DateTime(2021, 1, 4)
-        //            },
-        //        },
-
-        //        ImagePath = "Images/category_foodndrink.png",
-        //        TransactionType = "Ăn uống"
-        //    },
-        //    new TransactionList()
-        //    {
-        //        Transactions = new ObservableCollection<Transaction>()
-        //        {
-        //            new Transaction
-        //            {
-        //                ID = "gd5",
-        //                Amount = 40000,
-        //                Date = new DateTime(2021, 1, 3)
-        //            },
-        //            new Transaction
-        //            {
-        //                ID = "gd6",
-        //                Amount = 50000,
-        //                Date = new DateTime(2021, 1, 4)
-        //            },
-        //        },
-
-        //        ImagePath = "Images/category_foodndrink.png",
-        //        TransactionType = "Ăn uống"
-        //    },
-        //    new TransactionList()
-        //    {
-        //        Transactions = new ObservableCollection<Transaction>()
-        //        {
-        //            new Transaction
-        //            {
-        //                ID = "gd7",
-        //                Amount = 40000,
-        //                Date = new DateTime(2021, 1, 3)
-        //            },
-        //            new Transaction
-        //            {
-        //                ID = "gd8",
-        //                Amount = 50000,
-        //                Date = new DateTime(2021, 1, 4)
-        //            },
-        //            new Transaction
-        //            {
-        //                ID = "gd9",
-        //                Amount = 50000,
-        //                Date = new DateTime(2021, 1, 4)
-        //            },
-        //        },
-
-        //        ImagePath = "Images/category_foodndrink.png",
-        //        TransactionType = "Ăn uống"
-        //    }
-        //    };
-
         List<Budget> budgetList = new List<Budget>
         {
             new Budget
@@ -445,18 +351,6 @@ namespace YourMom
             }
             BudgetList.ItemsSource = runningBudgetList;
 
-            // Hàm xử lý giao dịch
-            //for (int i = 0; i < transactionLists.Count; i++)
-            //{
-            //    transactionLists[i].NumberOfTransactions = transactionLists[i].Transactions.Count;
-            //    for (int j = 0; j < transactionLists[i].Transactions.Count; j++)
-            //    {
-            //        transactionLists[i].TotalMoney += transactionLists[i].Transactions[j].Amount;
-            //    }
-            //}
-
-
-
         }
 
         private void InitializeData()
@@ -498,50 +392,78 @@ namespace YourMom
             AddDataIntoList(debtPairs, debtList);
             AddDataIntoList(loanPairs, loanList);
 
-            var transactionLists = new ObservableCollection<TransactionList>();
 
-            AddDataIntoObservableCollection(transactionLists);
 
-            TransactionList.ItemsSource = transactionLists;
+            //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch
+            InitDataIntoObservableCollection(transactionCollection);
+
+            TransactionList.ItemsSource = transactionCollection;
 
         }
 
-        private void AddDataIntoObservableCollection(ObservableCollection<TransactionList> transactionCollection)
+        //Hàm khởi tạo dữ liệu vào danh sách giao dịch hoặc danh sách vay nợ
+        private void InitDataIntoObservableCollection(ObservableCollection<TransactionList> collection)
         {
 
+            //Từ điển lưu chỉ số của ID loại giao dịch
             Dictionary<string, int> positionDict = new Dictionary<string, int>();
 
+            //Đọc qua tất cả các giao dịch
             foreach (var transaction in transactionList)
             {
 
+                //ID của loại giao dịch
                 var type = transaction.TransactionType;
+                //Biến kiểm tra ID có xuất phát là số 0 hoặc số 1 không
+                var isTransaction = (type[0] - '0') < 2;
 
-                if (positionDict.ContainsKey(type))
+                //Kiểm tra có phải trường hợp danh sách giao dịch không
+                if ((isTransaction && collection == transactionCollection) ||
+                    //Kiểm tra có phải trường hợp danh sách vay nợ không
+                    (!isTransaction && collection == debtCollection))
                 {
 
-                    var pos = positionDict[type];
-                    var list = transactionCollection[pos];
-                    list.Transactions.Add(transaction);
-                    list.NumberOfTransactions++;
-                    list.TotalMoney += transaction.Amount;
-
-                }
-                else
-                {
-
-                    positionDict.Add(type, transactionCollection.Count);
-                    transactionCollection.Add(new TransactionList
+                    //Kiểm tra đã thêm loại giao dịch này vào list chưa
+                    if (positionDict.ContainsKey(type))
                     {
 
-                        ImagePath = categoryList[type].ImagePath,
-                        NumberOfTransactions = 1,
-                        Name = categoryList[type].Name,
-                        TotalMoney = transaction.Amount,
-                        Transactions = new ObservableCollection<Transaction>() { transaction },
+                        //Chỉ số của vị trí lưu loại giao dịch trong list
+                        var pos = positionDict[type];
+                        //Lấy danh sách giao dịch cần tìm ra
+                        var list = transactionCollection[pos];
+                        //Thêm giao dịch vào danh sách
+                        list.Transactions.Add(transaction);
+                        //Tăng số lượng giao dịch lên
+                        list.NumberOfTransactions++;
+                        //Cộng dồn số tiền của danh sách giao dịch lên
+                        list.TotalMoney += transaction.Amount;
 
-                    });
+                    }
+                    else //Trường hợp chưa thêm danh sách giao dịch vào list
+                    {
 
-                }
+                        //Thêm danh sách giao dịch vào vị trí cuối cùng của list
+                        positionDict.Add(type, transactionCollection.Count);
+                        //Khởi tạo và thêm mới giao dịch vào list
+                        collection.Add(new TransactionList
+                        {
+
+                            //Đường dẫn ảnh của icon loại giao dịch
+                            ImagePath = categoryList[type].ImagePath,
+                            //Só lượng giao dịch hiện có
+                            NumberOfTransactions = 1,
+                            //Tên loại giao dịch
+                            Name = categoryList[type].Name,
+                            //Tổng số tiền
+                            TotalMoney = transaction.Amount,
+                            //Danh sách giao dịch
+                            Transactions = new ObservableCollection<Transaction>() { transaction },
+
+                        });
+
+                    }
+
+                }                
 
             }
 
