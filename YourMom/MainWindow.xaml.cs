@@ -412,9 +412,6 @@ namespace YourMom
         private void InitDataIntoObservableCollection(ObservableCollection<CategoryList> categories, DateTime startingDate, DateTime endDate)
         {
 
-            //Từ điển lưu chỉ số của ID loại giao dịch
-            Dictionary<string, int> positionDict = new Dictionary<string, int>();
-
             //Mảng lưu số tiền thu vào và số tiền chi ra
             double[] amountArray = { 0.0, 0.0 };
 
@@ -438,12 +435,23 @@ namespace YourMom
                         (!isTransaction && categories == categoryDebtCollection))
                     {
 
-                        //Kiểm tra đã thêm loại giao dịch này vào list chưa
-                        if (positionDict.ContainsKey(type))
+                        var pos = 0;
+
+                        for (; pos < categories.Count; pos++)
                         {
 
-                            //Chỉ số của vị trí lưu loại giao dịch trong list
-                            var pos = positionDict[type];
+                            if (categories[pos].Name == categoryList[type].Name)
+                            {
+
+                                break;
+
+                            }
+
+                        }
+
+                        //Kiểm tra đã thêm loại giao dịch này vào list chưa
+                        if (pos < categories.Count)
+                        {
 
                             //Lấy danh sách giao dịch cần tìm ra
                             var list = categories[pos];
@@ -464,8 +472,6 @@ namespace YourMom
                         else //Trường hợp chưa thêm danh sách giao dịch vào list
                         {
 
-                            //Thêm danh sách giao dịch vào vị trí cuối cùng của list
-                            positionDict.Add(type, categories.Count);
                             //Khởi tạo và thêm mới giao dịch vào list
                             categories.Add(new CategoryList
                             {
