@@ -231,5 +231,9 @@
     <Resource Include="Images\category_loan.png" />
     <Resource Include="Images\category_pay.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\view_by_category.png" />
+    <Resource Include="Images\view_by_transaction.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

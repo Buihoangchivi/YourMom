@@ -527,8 +527,7 @@
             </Button>
 
             <!--Nút các giao dịch-->
-            <Button Width="100" Height="80" Name="TransactionsButton" 
-                    Click="TransactionsButton_Click">
+            <Button Width="100" Height="80" Name="TransactionsButton">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="White"/>
@@ -761,8 +760,7 @@
             </Button>
 
             <!--Nút tìm kiếm giao dịch-->
-            <Button Width="50" Height="50" DockPanel.Dock="Right"
-                    Click="TransactionsButton_Click" Margin="0,0,30,0">
+            <Button Width="50" Height="50" DockPanel.Dock="Right" Margin="0,0,30,0">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="White"/>
@@ -791,7 +789,39 @@
 
             <!--Nút hiển thị lịch-->
             <Button Width="50" Height="50" DockPanel.Dock="Right"
-                    Click="TransactionsButton_Click">
+                    Click="ChangeTransactionViewButton_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <StackPanel>
+                    <Image Name="ChangeTransactionViewImage"
+                           Source="Images/view_by_transaction.png" 
+                           Width="35"
+                           RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                </StackPanel>
+
+            </Button>
+
+            <!--Nút hiển thị lịch-->
+            <Button Width="50" Height="50" DockPanel.Dock="Right"
+                    Click="JumpToTodayButton_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="White"/>
@@ -2276,7 +2306,7 @@
                                                                                                    VerticalAlignment="Center">
 
                                                                                             <!--Thứ, tháng và năm giao dịch-->
-                                                                                            <TextBlock DockPanel.Dock="Top" Background="Red"
+                                                                                            <TextBlock DockPanel.Dock="Top"
                                                                                                        TextAlignment="Left"
                                                                                                        TextWrapping="Wrap" 
                                                                                                        FontSize="15"
@@ -2299,7 +2329,7 @@
 
                                                                                             </TextBlock>
 
-                                                                                            <TextBlock DockPanel.Dock="Bottom" Background="Blue"
+                                                                                            <TextBlock DockPanel.Dock="Bottom"
                                                                                                        MaxWidth="450" 
                                                                                                        TextWrapping="WrapWithOverflow" 
                                                                                                        FontSize="13" 
@@ -2492,7 +2522,7 @@
                                                                                                        VerticalAlignment="Center">
 
                                                                                                 <TextBlock.Text>
-                                                                                                    <MultiBinding StringFormat="{}{0} with {1}">
+                                                                                                    <MultiBinding StringFormat="{}{0} {1}">
                                                                                                         <Binding Path="Note"/>
                                                                                                         <Binding Path="Stakeholder"/>
                                                                                                     </MultiBinding>

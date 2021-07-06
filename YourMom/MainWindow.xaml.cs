@@ -895,7 +895,33 @@ namespace YourMom
 
         }
 
-        private void TransactionsButton_Click(object sender, RoutedEventArgs e)
+        private void ChangeTransactionViewButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            var button = (Button)sender;
+            
+            if (CategoryListScrollView.Visibility == Visibility.Visible)
+            {
+
+                CategoryListScrollView.Visibility = Visibility.Collapsed;
+                TransactionListScrollView.Visibility = Visibility.Visible;
+                var imgName = "Images/view_by_transaction.png";
+                ChangeImage(imgName, ChangeTransactionViewImage);
+
+            }
+            else
+            {
+
+                CategoryListScrollView.Visibility = Visibility.Visible;
+                TransactionListScrollView.Visibility = Visibility.Collapsed;
+                var imgName = "Images/view_by_category.png";
+                ChangeImage(imgName, ChangeTransactionViewImage);
+
+            }
+
+        }
+
+        private void JumpToTodayButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
