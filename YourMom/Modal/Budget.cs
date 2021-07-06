@@ -9,7 +9,8 @@ public class Budget : Category
 {
 	protected string startingDate;
 	protected string endDate;
-	protected int daysLeft;
+	// dayLeft kiểu string để hiển thị hết hạn thay vì còn 0 ngày
+	protected string daysLeft;
 	protected double moneyFund;
 	protected double balance;
 	protected double spentMoney;
@@ -45,7 +46,7 @@ public class Budget : Category
 		}
 	}
 
-	public int DaysLeft
+	public string DaysLeft
 	{
 		get
 		{

@@ -1411,9 +1411,12 @@
                 </Grid>
 
             </Grid>
+            
+            
+            
 
             <!--Màn hình danh sách các ngân sách-->
-            <Grid Background="#E4E4E4" Visibility="Collapsed">
+            <Grid Background="#E4E4E4" Visibility="Visible">
                 <Grid Margin="0,10,13,10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*"></RowDefinition>
@@ -1572,11 +1575,11 @@
 
 
                                                                 <!--Thời gian còn lại của ngân sách-->
-                                                                <TextBlock Text="{Binding DaysLeft, StringFormat=Còn {0} ngày}" Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold"></TextBlock>
+                                                                <TextBlock Text="{Binding DaysLeft}" Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold"></TextBlock>
                                                             </StackPanel>
                                                             <StackPanel Grid.Row="1" Grid.Column="2">
                                                                 <TextBlock Text="{Binding MoneyFund, StringFormat=≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
-                                                                <TextBlock Text="{Binding Balance, StringFormat=Còn lại ≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
+                                                                <TextBlock Text="{Binding Balance, StringFormat=Left ≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
                                                             </StackPanel>
                                                         </Grid>
                                                         <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="BudgetListButton_Click" HorizontalContentAlignment="Stretch" >
@@ -1593,7 +1596,7 @@
                                                                     <StackPanel DockPanel.Dock="Right">
                                                                         <TextBlock  Text="{Binding MoneyFund}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
-                                                                        <TextBlock  Text="{Binding Balance, StringFormat=Còn lại {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
+                                                                        <TextBlock  Text="{Binding Balance, StringFormat=Left {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
                                                FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
                                                                     </StackPanel>
                                                                 </DockPanel>
@@ -1678,7 +1681,7 @@
                                                 <Image Source="Images/black_close.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
                                             </Button>
                                             <TextBlock TextWrapping="Wrap" FontSize="20" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Chi tiết</TextBlock>
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Detail</TextBlock>
                                         </StackPanel>
                                         <GridSplitter Grid.Row="0"  Width="Auto" Height="0.5" 
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
@@ -1691,14 +1694,14 @@
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
 
                                                 <!--Thời hạn còn lại của giao dịch-->
-                                                <TextBlock Text="{Binding DaysLeft, StringFormat=Còn {0} ngày}"  TextWrapping="Wrap" FontSize="15" 
+                                                <TextBlock Text="{Binding DaysLeft}"  TextWrapping="Wrap" FontSize="15" 
                            VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                                                 <GridSplitter  Width="Auto" Height="0.5" Margin="0,10,0,0"
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
                              />
 
                                                 <TextBlock TextWrapping="Wrap" FontSize="15" Margin="0,10,10,0"
-                           VerticalAlignment="Center" HorizontalAlignment="Left">Còn lại</TextBlock>
+                           VerticalAlignment="Center" HorizontalAlignment="Left">Left</TextBlock>
 
                                                 <TextBlock Text="{Binding Balance}" Margin="0,0,10,10" FontSize="20" FontFamily="Segoe UI Semibold" HorizontalAlignment="Left"></TextBlock>
 
@@ -1714,22 +1717,22 @@
                                                     </Grid.ColumnDefinitions>
 
                                                     <StackPanel Grid.Row="0" Grid.Column="0">
-                                                        <TextBlock>Đã chi</TextBlock>
+                                                        <TextBlock>Spent</TextBlock>
                                                         <TextBlock Name="SpentMoneyTextblock" Text="{Binding SpentMoney}" ></TextBlock>
                                                     </StackPanel>
 
                                                     <StackPanel Grid.Row="0" Grid.Column="1">
-                                                        <TextBlock>Dự kiến chi tiêu</TextBlock>
+                                                        <TextBlock>Expected spending</TextBlock>
                                                         <TextBlock Text="{Binding ExpectedSpendingMoney}"></TextBlock>
                                                     </StackPanel>
 
                                                     <StackPanel Grid.Row="1" Grid.Column="0">
-                                                        <TextBlock>Nên chi tiêu hằng ngày</TextBlock>
+                                                        <TextBlock>Should spend every day </TextBlock>
                                                         <TextBlock Text="{Binding ShouldSpending_DayMoney}"></TextBlock>
                                                     </StackPanel>
 
                                                     <StackPanel Grid.Row="1" Grid.Column="1">
-                                                        <TextBlock>Thực tế chi tiêu hàng ngày</TextBlock>
+                                                        <TextBlock>Actual Daily Spending</TextBlock>
                                                         <TextBlock Text="{Binding RealitySpending_DayMoney}"></TextBlock>
                                                     </StackPanel>
                                                 </Grid>
@@ -1758,15 +1761,16 @@
                                                 </lvc:Axis>
                                             </lvc:CartesianChart.AxisY>
                                         </lvc:CartesianChart>
-
-                                        <DockPanel Width="480" Margin="20,0,0,0" LastChildFill="False">
-                                            <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
+                                       
+                                        <!--Thời hạn của ngân sách-->
+                                        <DockPanel x:Name="budgetDocPanel" Width="480" Margin="20,0,0,0" LastChildFill="False">
+                                            <TextBlock Text="{Binding StartingDate}" DockPanel.Dock="Left" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                            01/06/2021
+                                            
                                             </TextBlock>
-                                            <TextBlock DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
+                                            <TextBlock Text="{Binding EndDate}" DockPanel.Dock="Right" TextWrapping="Wrap" FontSize="15" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                            30/06/2021
+                                            
                                             </TextBlock>
                                         </DockPanel>
 
@@ -1819,7 +1823,7 @@
             </Grid>
 
             <!--Màn hình danh sách các giao dịch-->
-            <Grid Background="#E4E4E4" Visibility="Visible">
+            <Grid Background="#E4E4E4" Visibility="Collapsed">
                 
                 <Grid Margin="0,10,13,10">
                     
