@@ -1709,8 +1709,15 @@ namespace YourMom
 
         }
 
+        //Hàm xử lý khi nhấn vào nút xem báo cáo trong màn hình giao dịch
         private void ViewReportButton_Click(object sender, RoutedEventArgs e)
         {
+
+            //Đóng màn hình giao dịch
+            TransactionScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Hiển thị màn hình ngân sách
+            ReportScreenGrid.Visibility = Visibility.Visible;
 
         }
 

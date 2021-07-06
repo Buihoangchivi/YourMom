@@ -826,7 +826,9 @@
         <Grid>
 
             <!--Báo cáo chi tiêu-->
-            <Grid Background="#E4E4E4" Visibility="Collapsed">
+            <Grid Name="ReportScreenGrid" 
+                  Background="#E4E4E4" 
+                  Visibility="Collapsed">
 
                 <Grid Margin="0,10,13,10">
 
@@ -1414,7 +1416,9 @@
             </Grid>
 
             <!--Màn hình danh sách các ngân sách-->
-            <Grid Background="#E4E4E4" Visibility="Collapsed">
+            <Grid Name="BudgetScreenGrid" 
+                  Background="#E4E4E4" 
+                  Visibility="Collapsed">
                 <Grid Margin="0,10,13,10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*"></RowDefinition>
@@ -1820,7 +1824,9 @@
             </Grid>
 
             <!--Màn hình danh sách các giao dịch-->
-            <Grid Background="#E4E4E4" Visibility="Visible">
+            <Grid Name="TransactionScreenGrid" 
+                  Background="#E4E4E4"
+                  Visibility="Visible">
 
                 <Grid Margin="0,10,13,10">
 
@@ -1959,7 +1965,7 @@
                                                 </Style.Triggers>
                                             </Style>
                                         </Button.Style>
-                                        
+
                                         <TextBlock Name="NextTextBlock"
                                                    TextWrapping="Wrap" 
                                                    FontSize="15" 
@@ -2114,35 +2120,54 @@
 
                                                         </DockPanel>
 
-                                                        <Button Name="ViewReportButton" Margin="0,5,0,0"  Width="600" Height="50" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="ViewReportButton_Click">
-                                                            <!--<Button.Style>
-                                            <Style TargetType="{x:Type Button}">
+                                                        <!--Nút xem báo cáo trong giai đoạn này-->
+                                                        <Button Name="ViewReportButton" 
+                                                                Margin="0,5,0,15" 
+                                                                Width="350" 
+                                                                Height="44"
+                                                                VerticalAlignment="Center" 
+                                                                BorderThickness ="0"
+                                                                Cursor="Hand" 
+                                                                Click="ViewReportButton_Click"
+                                                                Content="VIEW REPORT FOR THIS PERIOD">
+                                                            <Button.Style>
+                                                                <Style TargetType="{x:Type Button}">
+                                                                    <Setter Property="Background" Value="Transparent"/>
+                                                                    <Setter Property="Foreground" Value="ForestGreen"/>
+                                                                    <Setter Property="FontSize" Value="15"/>
+                                                                    <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+                                                                    <Setter Property="Template">
+                                                                        <Setter.Value>
+                                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                                <Border Background="{TemplateBinding Background}"
+                                                                                        CornerRadius="22" 
+                                                                                        BorderThickness="0">
+                                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                </Border>
+                                                                            </ControlTemplate>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                    <Style.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Background" Value="ForestGreen"/>
+                                                                            <Setter Property="Foreground" Value="White"/>
+                                                                        </Trigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Button.Style>
 
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="{x:Type Button}">
-                                                            <Border Background="{TemplateBinding Background}">
-                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="Transparent"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>-->
+                                                            <!--<Button.Content>
 
-                                                            <TextBlock Name="ViewReportTextblock" 
+                                                                <TextBlock Name="ViewReportTextblock" 
                                                                        TextWrapping="Wrap" 
-                                                                       FontSize="15" 
-                                                                       FontFamily="Segoe UI Semibold"
                                                                        VerticalAlignment="Center" 
                                                                        HorizontalAlignment="Left" 
                                                                        Foreground="Green"
                                                                        Text="VIEW REPORT FOR THIS PERIOD"/>
+
+                                                            </Button.Content>-->
+
+                                                            
                                                         </Button>
 
                                                     </StackPanel>
@@ -2254,7 +2279,7 @@
                                                                                                        FontFamily="Segoe UI Historic" 
                                                                                                        VerticalAlignment="Center" 
                                                                                                        HorizontalAlignment="Center"/>
-                                                                                            
+
                                                                                         </Border>
 
                                                                                         <!--Số tiền giao dịch-->
