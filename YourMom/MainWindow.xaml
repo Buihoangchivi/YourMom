@@ -2271,15 +2271,18 @@
                                                                                                    FontFamily="Segoe UI Historic"
                                                                                                    Foreground="{Binding TransactionType, Converter={StaticResource foregroundColorConverter}}"/>
 
-                                                                                        <DockPanel DockPanel.Dock="Top"
-                                                                                                   Margin="10,0,0,0">
+                                                                                        <DockPanel DockPanel.Dock="Left"
+                                                                                                   Margin="10,0,0,0"
+                                                                                                   VerticalAlignment="Center">
 
                                                                                             <!--Thứ, tháng và năm giao dịch-->
-                                                                                            <TextBlock DockPanel.Dock="Left"
+                                                                                            <TextBlock DockPanel.Dock="Top" Background="Red"
+                                                                                                       TextAlignment="Left"
                                                                                                        TextWrapping="Wrap" 
-                                                                                                       FontSize="14" 
+                                                                                                       FontSize="15"
                                                                                                        MaxHeight="60" 
-                                                                                                       FontFamily="Segoe UI Historic"
+                                                                                                       MaxWidth="450" 
+                                                                                                       FontFamily="Segoe UI Semibold"
                                                                                                        VerticalAlignment="Center">
 
                                                                                                 <TextBlock.Text>
@@ -2296,7 +2299,22 @@
 
                                                                                             </TextBlock>
 
-                                                                                            <StackPanel DockPanel.Dock="Right"/>
+                                                                                            <TextBlock DockPanel.Dock="Bottom" Background="Blue"
+                                                                                                       MaxWidth="450" 
+                                                                                                       TextWrapping="WrapWithOverflow" 
+                                                                                                       FontSize="13" 
+                                                                                                       MaxHeight="20" 
+                                                                                                       FontFamily="Segoe UI Historic"
+                                                                                                       VerticalAlignment="Center">
+
+                                                                                                <TextBlock.Text>
+                                                                                                    <MultiBinding StringFormat="{}{0} with {1}">
+                                                                                                        <Binding Path="Note"/>
+                                                                                                        <Binding Path="Stakeholder"/>
+                                                                                                    </MultiBinding>
+                                                                                                </TextBlock.Text>
+
+                                                                                            </TextBlock>
 
                                                                                         </DockPanel>
 
@@ -2320,6 +2338,10 @@
 
                                                 </ScrollViewer>
 
+                                                
+                                                
+                                                
+                                                
                                                 <!--Khung xem các loại giao dịch theo ngày giao dịch-->
                                                 <ScrollViewer Name="TransactionListScrollView"  
                                                               Grid.Column="0" 
@@ -2362,7 +2384,7 @@
                                                                                            Width="175" 
                                                                                            TextAlignment="Justify" 
                                                                                            TextWrapping="Wrap" 
-                                                                                           FontSize="15" 
+                                                                                           FontSize="16" 
                                                                                            Padding="3,1" 
                                                                                            MaxHeight="60" 
                                                                                            FontFamily="Segoe UI Semibold" 
@@ -2423,7 +2445,7 @@
 
                                                                                     <DockPanel LastChildFill="True" >
                                                                                         <Border BorderBrush="{x:Null}" Width="40" Height="40"
-                                                                                                Margin="7,0,0,0">
+                                                                                                Margin="7,0,3,0">
 
                                                                                             <!--Hình ảnh icon của nhóm giao dịch-->
                                                                                             <Image DockPanel.Dock="Left" 
@@ -2461,14 +2483,22 @@
                                                                                                        FontFamily="Segoe UI Semibold"
                                                                                                        VerticalAlignment="Center"/>
 
-                                                                                            <TextBlock Text="{Binding Note}"
-                                                                                                       DockPanel.Dock="Bottom" 
+                                                                                            <TextBlock DockPanel.Dock="Bottom" 
                                                                                                        MaxWidth="450" 
                                                                                                        TextWrapping="WrapWithOverflow" 
                                                                                                        FontSize="13" 
                                                                                                        MaxHeight="20" 
                                                                                                        FontFamily="Segoe UI Historic"
-                                                                                                       VerticalAlignment="Center"/>
+                                                                                                       VerticalAlignment="Center">
+
+                                                                                                <TextBlock.Text>
+                                                                                                    <MultiBinding StringFormat="{}{0} with {1}">
+                                                                                                        <Binding Path="Note"/>
+                                                                                                        <Binding Path="Stakeholder"/>
+                                                                                                    </MultiBinding>
+                                                                                                </TextBlock.Text>
+
+                                                                                            </TextBlock>
 
                                                                                         </DockPanel>
 

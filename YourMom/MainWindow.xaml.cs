@@ -561,11 +561,8 @@ namespace YourMom
                         //Lấy danh sách giao dịch cần tìm ra
                         var list = transactions[index];
 
-                        //Tìm vị trí để chèn giao dịch vào danh sách
-                        index = IndexOfCollectionBinarySearch(list.Transactions, transaction.Date);
-
                         //Thêm giao dịch vào danh sách
-                        list.Transactions.Insert(index, detail);
+                        list.Transactions.Add(detail);
 
                         //Cộng dồn số tiền của danh sách giao dịch lên
                         list.TotalMoney += amount;
@@ -623,6 +620,7 @@ namespace YourMom
 
             int low = 0, high = list.Count;
             int mid;
+
             while (low < high)
             {
 
@@ -635,7 +633,7 @@ namespace YourMom
 
                 }
 
-                if (list[mid].Date > dateTime)
+                if (dateTime.CompareTo(list[mid].Date) < 0)
                 {
 
                     low = mid + 1;
