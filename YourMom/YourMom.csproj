@@ -98,9 +98,11 @@
   <ItemGroup>
     <Compile Include="Modal\Budget.cs" />
     <Compile Include="Modal\Category.cs" />
+    <Compile Include="Modal\CategoryList.cs" />
     <Compile Include="Modal\DebitBook.cs" />
     <Compile Include="Modal\DetailCategory.cs" />
     <Compile Include="Modal\DetailInfomation.cs" />
+    <Compile Include="Modal\DetailTransaction.cs" />
     <Compile Include="Modal\ForegroundColorConverter.cs" />
     <Compile Include="Modal\MoneyConverter.cs" />
     <Compile Include="Modal\Report.cs" />

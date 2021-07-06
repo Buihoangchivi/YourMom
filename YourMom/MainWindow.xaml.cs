@@ -40,8 +40,11 @@ namespace YourMom
         List<DetailCategory> expenseList = new List<DetailCategory>();
         List<DetailCategory> debtList = new List<DetailCategory>();
         List<DetailCategory> loanList = new List<DetailCategory>();
+
+        ObservableCollection<CategoryList> categoryCollection = new ObservableCollection<CategoryList>();
+        ObservableCollection<CategoryList> categoryDebtCollection = new ObservableCollection<CategoryList>();
         ObservableCollection<TransactionList> transactionCollection = new ObservableCollection<TransactionList>();
-        ObservableCollection<TransactionList> debtCollection = new ObservableCollection<TransactionList>();
+        ObservableCollection<TransactionList> transactionDebtCollection = new ObservableCollection<TransactionList>();
 
         List<DetailCategory> detailCategoryList = new List<DetailCategory>
             {
@@ -392,15 +395,18 @@ namespace YourMom
             AddDataIntoList(debtPairs, debtList);
             AddDataIntoList(loanPairs, loanList);
 
-            //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch
-            InitDataIntoObservableCollection(transactionCollection);
+            //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng nhóm
+            //InitDataIntoObservableCollection(categoryCollection);
+            //CategoryList.ItemsSource = categoryCollection;
 
+            //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng giao dịch
+            InitDataIntoObservableCollection(transactionCollection);
             TransactionList.ItemsSource = transactionCollection;
 
         }
 
-        //Hàm khởi tạo dữ liệu vào danh sách giao dịch hoặc danh sách vay nợ
-        private void InitDataIntoObservableCollection(ObservableCollection<TransactionList> collection)
+        //Hàm khởi tạo dữ liệu theo kiểu nhóm vào danh sách giao dịch hoặc danh sách vay nợ
+        private void InitDataIntoObservableCollection(ObservableCollection<CategoryList> categories)
         {
 
             //Từ điển lưu chỉ số của ID loại giao dịch
@@ -420,9 +426,9 @@ namespace YourMom
                 var isTransaction = firstID < 2;
 
                 //Kiểm tra có phải trường hợp danh sách giao dịch không
-                if ((isTransaction && collection == transactionCollection) ||
+                if ((isTransaction && categories == categoryCollection) ||
                     //Kiểm tra có phải trường hợp danh sách vay nợ không
-                    (!isTransaction && collection == debtCollection))
+                    (!isTransaction && categories == categoryDebtCollection))
                 {
 
                     //Kiểm tra đã thêm loại giao dịch này vào list chưa
@@ -433,10 +439,10 @@ namespace YourMom
                         var pos = positionDict[type];
 
                         //Lấy danh sách giao dịch cần tìm ra
-                        var list = transactionCollection[pos];
+                        var list = categories[pos];
 
                         //Tìm vị trí để chèn giao dịch vào danh sách
-                        var index = IndexOfTransactionBinarySearch(list.Transactions, transaction.Date);
+                        var index = IndexOfCollectionBinarySearch(list.Transactions, transaction.Date);
 
                         //Thêm giao dịch vào danh sách
                         list.Transactions.Insert(index, transaction);
@@ -452,9 +458,9 @@ namespace YourMom
                     {
 
                         //Thêm danh sách giao dịch vào vị trí cuối cùng của list
-                        positionDict.Add(type, transactionCollection.Count);
+                        positionDict.Add(type, categories.Count);
                         //Khởi tạo và thêm mới giao dịch vào list
-                        collection.Add(new TransactionList
+                        categories.Add(new CategoryList
                         {
 
                             //Đường dẫn ảnh của icon loại giao dịch
@@ -498,8 +504,116 @@ namespace YourMom
 
         }
 
+        //Hàm khởi tạo dữ liệu theo kiểu giao dịch vào danh sách giao dịch hoặc danh sách vay nợ
+        private void InitDataIntoObservableCollection(ObservableCollection<TransactionList> transactions)
+        {
+
+            //Từ điển lưu chỉ số của ID loại giao dịch
+            Dictionary<string, int> positionDict = new Dictionary<string, int>();
+
+            //Mảng lưu số tiền thu vào và số tiền chi ra
+            double[] amountArray = { 0.0, 0.0 };
+
+            //Đọc qua tất cả các giao dịch
+            foreach (var transaction in transactionList)
+            {
+
+                //ID của loại giao dịch
+                var type = transaction.TransactionType;
+                var firstID = type[0] - '0';
+                //Biến kiểm tra ID có xuất phát là số 0 hoặc số 1 không
+                var isTransaction = firstID < 2;
+
+                //Kiểm tra có phải trường hợp danh sách giao dịch không
+                if ((isTransaction && transactions == transactionCollection) ||
+                    //Kiểm tra có phải trường hợp danh sách vay nợ không
+                    (!isTransaction && transactions == transactionDebtCollection))
+                {
+
+                    var date = transaction.Date.ToLongDateString();
+
+                    var detail = new DetailTransaction
+                    {
+
+                        Amount = transaction.Amount,
+                        Date = transaction.Date,
+                        ID = transaction.ID,
+                        ImagePath = categoryList[transaction.TransactionType].ImagePath,
+                        Name = categoryList[transaction.TransactionType].Name,
+                        Note = transaction.Note,
+                        Stakeholder = transaction.Stakeholder,
+                        TransactionType = transaction.TransactionType
+
+                    };
+
+                    //Kiểm tra đã thêm loại ngày tháng năm này vào list chưa
+                    if (positionDict.ContainsKey(date))
+                    {
+
+                        //Chỉ số của vị trí lưu loại giao dịch trong list
+                        var pos = positionDict[date];
+
+                        //Lấy danh sách giao dịch cần tìm ra
+                        var list = transactions[pos];
+
+                        //Tìm vị trí để chèn giao dịch vào danh sách
+                        var index = IndexOfCollectionBinarySearch(list.Transactions, transaction.Date);
+
+                        //Thêm giao dịch vào danh sách
+                        list.Transactions.Insert(index, detail);
+
+                        //Cộng dồn số tiền của danh sách giao dịch lên
+                        list.TotalMoney += transaction.Amount;
+
+                    }
+                    else //Trường hợp chưa thêm danh sách giao dịch vào list
+                    {
+
+                        //Thêm danh sách giao dịch vào vị trí cuối cùng của list
+                        positionDict.Add(date, transactions.Count);
+                        //Khởi tạo và thêm mới giao dịch vào list
+                        transactions.Add(new TransactionList
+                        {
+
+                            //Thời gian tạo giao dịch
+                            Date = transaction.Date,
+                            //Tổng số tiền
+                            TotalMoney = transaction.Amount,
+                            //Danh sách giao dịch
+                            Transactions = new ObservableCollection<DetailTransaction>() { detail },
+
+                        });
+
+                    }
+
+                    //Cộng dồn số tiền tương ứng
+                    //firstID: 0 hoặc 2 (thu nhập hoặc đi vay) được tính vào khoản tiền vào
+                    //firstID: 1 hoặc 3 (chi tiêu hoặc cho vay) được tính vào khoản tiền ra
+                    amountArray[firstID % 2] += transaction.Amount;
+
+                }
+
+            }
+
+            //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
+            Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
+
+            //Hiển thị số tiền chi ra
+            var money = (string)moneyConverter.Convert(amountArray[0], null, null, null);
+            InflowTextBlock.Text = money;
+
+            //Hiển thị số tiền thu vào
+            money = (string)moneyConverter.Convert(-amountArray[1], null, null, null);
+            OutflowTextBlock.Text = money;
+
+            //Hiển thị số tiền còn lại
+            money = (string)moneyConverter.Convert(amountArray[0] - amountArray[1], null, null, null);
+            LeftTextBlock.Text = money;
+
+        }
+
         //Hàm tìm kiếm nhị phân vị trí để chèn giao dịch vào danh sách tăng dần theo ngày tháng
-        private int IndexOfTransactionBinarySearch(ObservableCollection<Transaction> list, DateTime dateTime)
+        private int IndexOfCollectionBinarySearch(dynamic list, DateTime dateTime)
         {
 
             int low = 0, high = list.Count;
