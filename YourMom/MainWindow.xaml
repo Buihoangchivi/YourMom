@@ -2241,9 +2241,7 @@
                                                                         </ListView.ItemContainerStyle>
                                                                         <ListView.ItemTemplate>
                                                                             <DataTemplate>
-                                                                                <Button Grid.Row="0" x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch"  >
-
-
+                                                                                <Button Grid.Row="0" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch"  >
 
                                                                                     <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
                                                                                         <Border BorderBrush="{x:Null}" Width="50" Height="50" >
@@ -2277,8 +2275,7 @@
                                                                                                    Margin="10,0,0,0">
 
                                                                                             <!--Thứ, tháng và năm giao dịch-->
-                                                                                            <TextBlock DockPanel.Dock="Left" 
-                                                                                                       Width="160" 
+                                                                                            <TextBlock DockPanel.Dock="Left"
                                                                                                        TextWrapping="Wrap" 
                                                                                                        FontSize="14" 
                                                                                                        MaxHeight="60" 
@@ -2415,14 +2412,18 @@
                                                                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                                                             </Style>
                                                                         </ListView.ItemContainerStyle>
+
                                                                         <ListView.ItemTemplate>
+
                                                                             <DataTemplate>
-                                                                                <Button Grid.Row="0" x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch"  >
 
+                                                                                <Button Background="White" BorderThickness="0" 
+                                                                                        Click="Button_Click" HorizontalContentAlignment="Stretch"  
+                                                                                        Height="55">
 
-
-                                                                                    <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                                                        <Border BorderBrush="{x:Null}" Width="50" Height="50" >
+                                                                                    <DockPanel LastChildFill="True" >
+                                                                                        <Border BorderBrush="{x:Null}" Width="40" Height="40"
+                                                                                                Margin="7,0,0,0">
 
                                                                                             <!--Hình ảnh icon của nhóm giao dịch-->
                                                                                             <Image DockPanel.Dock="Left" 

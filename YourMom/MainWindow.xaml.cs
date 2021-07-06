@@ -396,8 +396,8 @@ namespace YourMom
             AddDataIntoList(loanPairs, loanList);
 
             //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng nhóm
-            //InitDataIntoObservableCollection(categoryCollection);
-            //CategoryList.ItemsSource = categoryCollection;
+            InitDataIntoObservableCollection(categoryCollection);
+            CategoryList.ItemsSource = categoryCollection;
 
             //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng giao dịch
             InitDataIntoObservableCollection(transactionCollection);
@@ -508,9 +508,6 @@ namespace YourMom
         private void InitDataIntoObservableCollection(ObservableCollection<TransactionList> transactions)
         {
 
-            //Từ điển lưu chỉ số của ID loại giao dịch
-            Dictionary<string, int> positionDict = new Dictionary<string, int>();
-
             //Mảng lưu số tiền thu vào và số tiền chi ra
             double[] amountArray = { 0.0, 0.0 };
 
@@ -531,6 +528,13 @@ namespace YourMom
                 {
 
                     var date = transaction.Date.ToLongDateString();
+                    var amount = transaction.Amount;
+                    if (firstID % 2 != 0)
+                    {
+
+                        amount *= -1;
+
+                    }
 
                     var detail = new DetailTransaction
                     {
@@ -546,43 +550,44 @@ namespace YourMom
 
                     };
 
+                    //Tìm vị trí để chèn giao dịch vào danh sách
+                    var index = IndexOfCollectionBinarySearch(transactions, transaction.Date);
+
                     //Kiểm tra đã thêm loại ngày tháng năm này vào list chưa
-                    if (positionDict.ContainsKey(date))
+                    if (index >= 0 && index < transactions.Count &&
+                        transactions[index].Date.ToLongDateString() == date)
                     {
 
-                        //Chỉ số của vị trí lưu loại giao dịch trong list
-                        var pos = positionDict[date];
-
                         //Lấy danh sách giao dịch cần tìm ra
-                        var list = transactions[pos];
+                        var list = transactions[index];
 
                         //Tìm vị trí để chèn giao dịch vào danh sách
-                        var index = IndexOfCollectionBinarySearch(list.Transactions, transaction.Date);
+                        index = IndexOfCollectionBinarySearch(list.Transactions, transaction.Date);
 
                         //Thêm giao dịch vào danh sách
                         list.Transactions.Insert(index, detail);
 
                         //Cộng dồn số tiền của danh sách giao dịch lên
-                        list.TotalMoney += transaction.Amount;
+                        list.TotalMoney += amount;
 
                     }
                     else //Trường hợp chưa thêm danh sách giao dịch vào list
                     {
 
-                        //Thêm danh sách giao dịch vào vị trí cuối cùng của list
-                        positionDict.Add(date, transactions.Count);
                         //Khởi tạo và thêm mới giao dịch vào list
-                        transactions.Add(new TransactionList
+                        var list = new TransactionList
                         {
 
                             //Thời gian tạo giao dịch
                             Date = transaction.Date,
                             //Tổng số tiền
-                            TotalMoney = transaction.Amount,
+                            TotalMoney = amount,
                             //Danh sách giao dịch
                             Transactions = new ObservableCollection<DetailTransaction>() { detail },
 
-                        });
+                        };
+
+                        transactions.Insert(index, list);
 
                     }
 
@@ -622,7 +627,15 @@ namespace YourMom
             {
 
                 mid = (low + high) / 2;
-                if (list[mid].Date <= dateTime)
+
+                if (list[mid].Date.ToLongDateString() == dateTime.ToLongDateString())
+                {
+
+                    return mid;
+
+                }
+
+                if (list[mid].Date > dateTime)
                 {
 
                     low = mid + 1;
@@ -640,6 +653,8 @@ namespace YourMom
             return low;
 
         }
+
+
 
         //Hàm thêm dữ liệu vào từ điển
         private void AddDataIntoDictionary(Dictionary<string, double> valuePairs, string str, double amount, bool getOnlyParent)
