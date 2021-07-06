@@ -1861,13 +1861,11 @@
                 <Grid Margin="0,10,13,10">
 
                     <Grid.RowDefinitions>
+
                         <RowDefinition Height="1.3*"></RowDefinition>
                         <RowDefinition Height="8*"></RowDefinition>
+
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
 
                     <!--Header của danh sách các giao dịch-->
                     <Grid Name="TransactionListHeader" 
@@ -2020,15 +2018,16 @@
                     </Grid>
 
                     <!--Danh sách các giao dịch-->
-                    <ScrollViewer x:Name="TransactionListScrollviewer" 
+                    <ScrollViewer Name="TransactionScrollViewer"
                                   VerticalScrollBarVisibility="Hidden" 
-                                  Grid.Row="2"
+                                  Grid.Row="1"
+                                  VerticalAlignment="Top"
                                   Visibility="Visible">
+                        
                         <!--Màn hình danh sách các giao dịch-->
-                        <Grid x:Name="Transaction" Grid.Row="1" Grid.Column="0" Width="600"  >
+                        <Grid Grid.Row="1" Width="600">
 
-                            <Border Grid.Row="0"
-                                    Grid.Column="1" 
+                            <Border Grid.Column="1" 
                                     Background="White" 
                                     CornerRadius="0,0,10,10">
                                 <Grid>
@@ -2038,10 +2037,13 @@
                                         <RowDefinition Height="17*"/>
                                     </Grid.RowDefinitions>
 
-                                    <GridSplitter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Width="Auto" Height="0.5" 
-                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black" Margin="0,-15,0,0"
-                             />
-
+                                    <GridSplitter Grid.ColumnSpan="5" 
+                                                  Width="Auto"
+                                                  Height="0.5" 
+                                                  VerticalAlignment="Bottom"
+                                                  HorizontalAlignment="Stretch"
+                                                  Background="Black" 
+                                                  Margin="0,-15,0,0"/>
 
                                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3"   
                                                   VerticalScrollBarVisibility="Hidden" 
@@ -2207,7 +2209,7 @@
                                                                         <Image DockPanel.Dock="Left" 
                                                                                Source="{Binding ImagePath}"
                                                                                Height="45" Width="45" 
-                                                                               Margin="10,0"
+                                                                               Margin="10,0,12,0"
                                                                                VerticalAlignment="Center"
                                                                                RenderOptions.BitmapScalingMode="HighQuality"/>
 
@@ -2302,7 +2304,6 @@
                                                                                                    Foreground="{Binding TransactionType, Converter={StaticResource foregroundColorConverter}}"/>
 
                                                                                         <DockPanel DockPanel.Dock="Left"
-                                                                                                   Margin="10,0,0,0"
                                                                                                    VerticalAlignment="Center">
 
                                                                                             <!--Thứ, tháng và năm giao dịch-->
@@ -2368,10 +2369,10 @@
 
                                                 </ScrollViewer>
 
-                                                
-                                                
-                                                
-                                                
+
+
+
+
                                                 <!--Khung xem các loại giao dịch theo ngày giao dịch-->
                                                 <ScrollViewer Name="TransactionListScrollView"  
                                                               Grid.Column="0" 
@@ -2429,7 +2430,7 @@
                                                                                            Padding="3,1" 
                                                                                            MaxHeight="60" 
                                                                                            Margin="0,0,0,8"/>
-                                                                                
+
                                                                             </StackPanel>
 
                                                                             <!--Tổng số tiền giao dịch của nhóm-->
@@ -2691,6 +2692,23 @@
                         </Grid>
 
                     </ScrollViewer>
+
+                    <!--Khung hiển thị thông báo không có giao dịch nào-->
+                    <Border Name="NoTransactionBorder" Background="#F4F4F4"
+                            CornerRadius="0,0,10,10"
+                            Grid.Row="1"
+                            Width="600" Height="300"
+                            VerticalAlignment="Top"
+                            Visibility="Collapsed">
+
+                        <TextBlock Text="No transactions"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontSize="30"
+                                   Foreground="#757575"
+                                   FontFamily="Microsoft YaHei" />
+
+                    </Border>
 
                 </Grid>
 
