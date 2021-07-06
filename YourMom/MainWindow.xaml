@@ -420,7 +420,7 @@
                     BorderThickness="0" DockPanel.Dock="Right">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="ForestGreen"/>
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -445,7 +445,7 @@
                     DockPanel.Dock="Right" IsEnabled="False">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="ForestGreen"/>
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -470,7 +470,7 @@
                     DockPanel.Dock="Right">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="ForestGreen"/>
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -734,7 +734,7 @@
                     Click="AddBudgetButton_Click" Visibility="Visible">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="ForestGreen"/>
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -1416,7 +1416,7 @@
             
 
             <!--Màn hình danh sách các ngân sách-->
-            <Grid Background="#E4E4E4" Visibility="Visible">
+            <Grid Background="#E4E4E4" Visibility="Collapsed">
                 <Grid Margin="0,10,13,10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*"></RowDefinition>
@@ -2307,6 +2307,32 @@
                 </Grid>
 
             </Grid>
+
+            <!--Nút cài đặt-->
+            <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Name="SettingStackPanel" Margin="15,6,0,0" Visibility="Visible">
+                <TextBlock FontSize="16" Margin="0,0,0,10">Select color scheme</TextBlock>
+                <ItemsControl Name="SettingColorItemsControl" Margin="0,0,0,10" Width="290" HorizontalAlignment="Left">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Margin="0,0,8,8" Width="50" Height="50" Background="{Binding Color}"
+                                    BorderThickness="0" Click="ColorButton_Click"></Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!--<CheckBox Name="ShowSplashScreenCheckBox"
+                              HorizontalAlignment="Left"
+                              Foreground="Black"
+                              FontSize="14"
+                              Checked="ShowSplashScreenCheckBox_Checked" Unchecked="ShowSplashScreenCheckBox_Unchecked"
+                              VerticalContentAlignment="Center">
+                    Show Splash Screen
+                </CheckBox>-->
+            </StackPanel>
 
         </Grid>
 

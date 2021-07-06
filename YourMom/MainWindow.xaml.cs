@@ -19,6 +19,8 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Xml.Serialization;
+using System.ComponentModel;
+using System.Configuration;
 
 
 namespace YourMom
@@ -32,7 +34,7 @@ namespace YourMom
 
     public partial class MainWindow : Window
     {
-
+        public event PropertyChangedEventHandler PropertyChanged;
         private List<Transaction> transactionList;
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         private Budget budgetInfo;
@@ -41,6 +43,31 @@ namespace YourMom
         List<DetailCategory> expenseList = new List<DetailCategory>();
         List<DetailCategory> debtList = new List<DetailCategory>();
         List<DetailCategory> loanList = new List<DetailCategory>();
+
+        private BindingList<ColorSetting> ListColor;
+
+
+        public class ColorSetting
+        {
+            public string Color { get; set; }
+        }
+
+        private string _colorScheme = "";           //Màu nền hiện tại
+        public string ColorScheme
+        {
+            get
+            {
+                return _colorScheme;
+            }
+            set
+            {
+                _colorScheme = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
+                }
+            }
+        }
 
         ObservableCollection<TransactionList> transactionLists = new ObservableCollection<TransactionList>
         {
@@ -719,6 +746,22 @@ namespace YourMom
             //Hiển thị số tiền đó vào khung tiền nợ
             money = (string)moneyConverter.Convert(left, null, null, null);
             LoanLeftTextBlock.Text = $"{money} left";
+
+
+            //Tạo dữ liệu màu cho ListColor
+            ListColor = new BindingList<ColorSetting>
+            {
+                new ColorSetting { Color = "#FFCA5010"}, new ColorSetting { Color = "#FFFF8C00"}, new ColorSetting { Color = "#FFE81123"}, new ColorSetting { Color = "#FFD13438"}, new ColorSetting { Color = "#FFFF4081"},
+                new ColorSetting { Color = "#FFC30052"}, new ColorSetting { Color = "#FFBF0077"}, new ColorSetting { Color = "#FF9A0089"}, new ColorSetting { Color = "#FF881798"}, new ColorSetting { Color = "#FF744DA9"},
+                new ColorSetting { Color = "#FF4CAF50"}, new ColorSetting { Color = "#FF10893E"}, new ColorSetting { Color = "#FF018574"}, new ColorSetting { Color = "#FF03A9F4"}, new ColorSetting { Color = "#FF304FFE"},
+                new ColorSetting { Color = "#FF0063B1"}, new ColorSetting { Color = "#FF6B69D6"}, new ColorSetting { Color = "#FF8E8CD8"}, new ColorSetting { Color = "#FF8764B8"}, new ColorSetting { Color = "#FF038387"},
+                new ColorSetting { Color = "#FF525E54"}, new ColorSetting { Color = "#FF7E735F"}, new ColorSetting { Color = "#FF9E9E9E"}, new ColorSetting { Color = "#FF515C6B"}, new ColorSetting { Color = "#FF000000"}
+            };
+
+            //Binding dữ liệu màu cho Setting Color Table
+            SettingColorItemsControl.ItemsSource = ListColor;
+            //
+            ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
 
         }
 
@@ -1916,6 +1959,16 @@ namespace YourMom
             e.Handled = true;
         }
 
+        private void ColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            var datatContex = (sender as Button).DataContext;
+            var color = (datatContex as ColorSetting).Color;
+            ColorScheme = color;
+            TitleBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            //SettingTextBlock.Background = TitleBar.Background;
+            //clickedTypeButton.Foreground = TitleBar.Background;
+            //SettingTitleTextBlock.Foreground = SettingTextBlock.Background;
+        }
     }
 
 }
