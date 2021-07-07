@@ -1882,11 +1882,12 @@
 
                                 <StackPanel>
 
-                                    <Button Height="68.5"
-                                        VerticalAlignment="Center" 
-                                        Background="Transparent"  
-                                        Cursor="Hand"
-                                        Click="PreviousButton_Click">
+                                    <Button Name="PreviousButton"
+                                            Height="68.5"
+                                            VerticalAlignment="Center" 
+                                            Background="Transparent"  
+                                            Cursor="Hand"
+                                            Click="PreviousButton_Click">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
 
@@ -1927,10 +1928,10 @@
                                 <StackPanel Grid.Column="1" >
 
                                     <Button Height="68.5"
-                                        VerticalAlignment="Center"
-                                        Background="Transparent"  
-                                        Cursor="Hand" 
-                                        Click="CurrentButton_Click">
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"  
+                                            Cursor="Hand"
+                                            Click="CurrentButton_Click">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
 
@@ -1969,11 +1970,12 @@
 
                                 <StackPanel Grid.Column="2">
 
-                                    <Button Height="68.5"
-                                        VerticalAlignment="Center"
-                                        Background="Transparent"  
-                                        Cursor="Hand"
-                                        Click="NextButton_Click">
+                                    <Button Name="NextButton"
+                                            Height="68.5"
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"  
+                                            Cursor="Hand"
+                                            Click="NextButton_Click">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
 
@@ -2339,7 +2341,7 @@
                                                                                                        VerticalAlignment="Center">
 
                                                                                                 <TextBlock.Text>
-                                                                                                    <MultiBinding StringFormat="{}{0} with {1}">
+                                                                                                    <MultiBinding StringFormat="{}{0}{1}">
                                                                                                         <Binding Path="Note"/>
                                                                                                         <Binding Path="Stakeholder"/>
                                                                                                     </MultiBinding>
@@ -2523,7 +2525,7 @@
                                                                                                        VerticalAlignment="Center">
 
                                                                                                 <TextBlock.Text>
-                                                                                                    <MultiBinding StringFormat="{}{0} {1}">
+                                                                                                    <MultiBinding StringFormat="{}{0}{1}">
                                                                                                         <Binding Path="Note"/>
                                                                                                         <Binding Path="Stakeholder"/>
                                                                                                     </MultiBinding>
