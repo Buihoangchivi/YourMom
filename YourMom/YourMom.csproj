@@ -247,5 +247,20 @@
     <Resource Include="Images\category_loan.png" />
     <Resource Include="Images\category_pay.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\white_budget.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\white_columnChart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\white_setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\white_transactions.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\white_debts.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

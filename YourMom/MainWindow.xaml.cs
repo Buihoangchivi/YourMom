@@ -22,6 +22,12 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Configuration;
 
+using System.Text.RegularExpressions;
+
+using System.Windows.Media.Animation;
+
+using Microsoft.Win32;
+
 
 namespace YourMom
 {
@@ -35,6 +41,7 @@ namespace YourMom
     public partial class MainWindow : Window
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private Button clickedControlButton;
         private List<Transaction> transactionList;
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         private Budget budgetInfo;
@@ -46,7 +53,7 @@ namespace YourMom
 
         private BindingList<ColorSetting> ListColor;
 
-
+        //Class lưu trữ màu trong Color setting
         public class ColorSetting
         {
             public string Color { get; set; }
@@ -748,6 +755,11 @@ namespace YourMom
             LoanLeftTextBlock.Text = $"{money} left";
 
 
+
+
+
+
+
             //Tạo dữ liệu màu cho ListColor
             ListColor = new BindingList<ColorSetting>
             {
@@ -762,6 +774,12 @@ namespace YourMom
             SettingColorItemsControl.ItemsSource = ListColor;
             //
             ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
+
+            //Default buttons
+
+            AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            clickedControlButton = TransactionsButton;
 
         }
 
@@ -801,6 +819,7 @@ namespace YourMom
 				ConfigurationUserLevel.None);
 			config.AppSettings.Settings["ColorScheme"].Value = ColorScheme;
 			config.Save(ConfigurationSaveMode.Minimal);*/
+           
             Application.Current.Shutdown();
 
         }
@@ -1618,14 +1637,14 @@ namespace YourMom
 
         private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTransaction add = new AddTransaction();
+            AddTransaction add = new AddTransaction(ColorScheme);
             add.Show();
         }
 
         private void AddBudgetButton_Click(object sender, RoutedEventArgs e)
         {
-            AddBudget add = new AddBudget();
-            add.Show();
+           AddBudget add = new AddBudget(ColorScheme);
+           add.Show();
         }
 
         private void CloseDetailBudget_Click(object sender, RoutedEventArgs e)
@@ -1959,15 +1978,69 @@ namespace YourMom
             e.Handled = true;
         }
 
+        private void ChangeClickedControlButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+            //Tắt màu của nút hiện tại
+            var stackpanel = (StackPanel)clickedControlButton.Content;
+            var collection = stackpanel.Children;
+            var image = (Image)collection[0];
+            var text = (TextBlock)collection[1];
+            var button_name = clickedControlButton.Name;
+            button_name = button_name.Replace("Button", "").ToLower();
+
+
+            image.Source = new BitmapImage(new Uri($"Images/{button_name}.png",
+                        UriKind.Relative));
+            text.Foreground = Brushes.Black;
+            clickedControlButton.Background = Brushes.White;
+
+            //Hiển thị màu cho nút vừa được nhấn
+            var button = (Button)sender;
+            stackpanel = (StackPanel)button.Content;
+            collection = stackpanel.Children;
+            image = (Image)collection[0];
+            button_name = button.Name;
+            button_name = button_name.Replace("Button", "").ToLower();
+            button_name = "white_" + button_name;
+            image.Source = new BitmapImage(new Uri($"Images/{button_name}.png",
+                       UriKind.Relative));
+            text = (TextBlock)collection[1];            
+
+            text.Foreground = Brushes.White;
+            button.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+
+            
+            //Cập nhật nút mới
+            clickedControlButton = button;
+        }
+
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
             var datatContex = (sender as Button).DataContext;
             var color = (datatContex as ColorSetting).Color;
             ColorScheme = color;
             TitleBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            //SettingTextBlock.Background = TitleBar.Background;
-            //clickedTypeButton.Foreground = TitleBar.Background;
-            //SettingTitleTextBlock.Foreground = SettingTextBlock.Background;
+            
+
+            // Chỉnh lại giao diện nút setting đang được chọn
+            SettingButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            SettingTitleTextBlock.Foreground = Brushes.White;
+            var stackpanel = (StackPanel)SettingButton.Content;
+            var collection = stackpanel.Children;
+            var image = (Image)collection[0];
+            image.Source = new BitmapImage(new Uri($"Images/white_setting.png",
+                       UriKind.Relative));
+
+
+            // Cập nhật màu cho các nút chung
+            AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            AddBudget add = new AddBudget(ColorScheme);
+            AddTransaction add1 = new AddTransaction(ColorScheme);
+
+
         }
     }
 

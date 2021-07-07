@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AddBudget" 
         MinWidth="810" MinHeight="350"
-        Height="350" Width="800" Loaded="Window_Loaded" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Height="350" Width="800"  WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Grid>
@@ -342,7 +342,7 @@
                    Name="CancelButton" Click="CancelButton_Click" >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="ForestGreen"/>
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -364,10 +364,10 @@
                            FontWeight="Medium" Margin="12,0"
                            Text="Cancel" />
             </Button>
-            <Button DockPanel.Dock="Right" Width="80"  BorderThickness="0" Height="33" Foreground="White">
+            <Button DockPanel.Dock="Right" Width="80"  BorderThickness="0" Height="33" Foreground="White" Name="SaveButton" Click="SaveButton_Click" >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="ForestGreen"/>
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
