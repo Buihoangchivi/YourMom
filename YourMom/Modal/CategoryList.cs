@@ -8,14 +8,16 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
-public class TransactionList : INotifyPropertyChanged
+public class CategoryList: INotifyPropertyChanged
 {
 
-	protected ObservableCollection<DetailTransaction> transactions;
-	protected DateTime date;
+	protected ObservableCollection<Transaction> transactions;
+	protected int numberOfTransactions;
 	protected double totalMoney;
+	protected string imagePath;
+	protected string name;
 
-	public ObservableCollection<DetailTransaction> Transactions
+	public ObservableCollection<Transaction> Transactions
 	{
 		get
 		{
@@ -29,16 +31,16 @@ public class TransactionList : INotifyPropertyChanged
 		}
 	}
 
-	public DateTime Date
+	public int NumberOfTransactions
 	{
 		get
 		{
-			return date;
+			return numberOfTransactions;
 		}
 		set
 		{
-			date = value;
-			OnPropertyChanged("Date");
+			numberOfTransactions = value;
+			OnPropertyChanged("NumberOfTransactions");
 		}
 	}
 
@@ -52,6 +54,32 @@ public class TransactionList : INotifyPropertyChanged
 		{
 			totalMoney = value;
 			OnPropertyChanged("TotalMoney");
+		}
+	}
+
+	public string ImagePath
+	{
+		get
+		{
+			return imagePath;
+		}
+		set
+		{
+			imagePath = value;
+			OnPropertyChanged("ImagePath");
+		}
+	}
+
+	public string Name
+	{
+		get
+		{
+			return name;
+		}
+		set
+		{
+			name = value;
+			OnPropertyChanged("Name");
 		}
 	}
 
