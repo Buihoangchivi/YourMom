@@ -2313,7 +2313,7 @@
             <!--Nút cài đặt-->
             <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Name="SettingStackPanel" Margin="15,6,0,0" Visibility="Visible">
                 <TextBlock FontSize="16" Margin="0,0,0,10">Select color scheme</TextBlock>
-                <ItemsControl Name="SettingColorItemsControl" Margin="0,0,0,10" Width="290" HorizontalAlignment="Left">
+                <ItemsControl Name="SettingColorItemsControl" Margin="0,0,0,10" Width="410" HorizontalAlignment="Left">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
