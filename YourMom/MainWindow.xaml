@@ -680,6 +680,39 @@
                 </StackPanel>
 
             </Button>
+
+            <!--Nút thông tin nhóm-->
+            <Button Width="100" Height="80" Name="AboutButton" 
+                    Click="ChangeClickedControlButton_Click"
+                    BorderThickness="0" Padding="0,1,1,1">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <StackPanel>
+                    <Image Source="Images/about.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <!--<TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Setting"></TextBlock>-->
+                    <TextBlock Name="InfoTitleTextBlock" VerticalAlignment="Center" FontSize="15">About us</TextBlock>
+
+                </StackPanel>
+
+            </Button>
         </StackPanel>
 
         <!--Thanh công cụ-->
@@ -2311,7 +2344,7 @@
             </Grid>
 
             <!--Nút cài đặt-->
-            <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Name="SettingStackPanel" Margin="15,6,0,0" Visibility="Visible">
+            <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Name="SettingStackPanel" Margin="15,6,0,0" Visibility="Collapsed">
                 <TextBlock FontSize="16" Margin="0,0,0,10">Select color scheme</TextBlock>
                 <ItemsControl Name="SettingColorItemsControl" Margin="0,0,0,10" Width="410" HorizontalAlignment="Left">
                     <ItemsControl.ItemsPanel>
@@ -2334,6 +2367,21 @@
                               VerticalContentAlignment="Center">
                     Show Splash Screen
                 </CheckBox>-->
+            </StackPanel>
+
+            <!--Nút thông tin nhóm lập trình-->
+            <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"
+                    Name="AboutStackPanel" Margin="15,6,0,0" Visibility="Visible">
+                <TextBlock FontSize="16" Margin="0,20,0,10" FontWeight="Bold">Design Software - 18_31</TextBlock>
+                <TextBlock FontSize="16" Margin="0,0,0,30">VNUHCM - University of Science</TextBlock>
+                <TextBlock FontSize="16" Margin="0,0,0,10" FontWeight="Bold">Contact</TextBlock>
+                <TextBlock FontSize="16" Margin="0,0,0,30">
+                        <Hyperlink>18120082@student.hcmus.edu.vn</Hyperlink>
+                </TextBlock>
+                <TextBlock FontSize="16" Margin="0,0,0,10" FontWeight="Bold">Developers</TextBlock>
+                <TextBlock FontSize="16" Margin="0,0,0,10">Phạm Tấn - 18120082</TextBlock>
+                <TextBlock FontSize="16" Margin="0,0,0,10">Bùi Văn Vĩ - 18120106</TextBlock>
+                <TextBlock FontSize="16" Margin="0,0,0,10">Copyright © 2021</TextBlock>
             </StackPanel>
 
         </Grid>
