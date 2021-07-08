@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,15 +21,42 @@ namespace YourMom
     /// </summary>
     public partial class AddBudget : Window
     {
-        public AddBudget()
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        public AddBudget(string ColorScheme)
         {
+            //ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
             InitializeComponent();
+            ColorScheme = ColorScheme;
+            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private string _colorScheme = "";           //Màu nền hiện tại
+        public string ColorScheme
         {
-
+            get
+            {
+                return _colorScheme;
+            }
+            set
+            {
+                _colorScheme = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
+                }
+            }
         }
+
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
+            
+        //    SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+        //    CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+        //}
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -61,6 +90,11 @@ namespace YourMom
         }
 
         private void TimeButton2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

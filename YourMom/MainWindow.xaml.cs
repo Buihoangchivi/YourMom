@@ -19,6 +19,14 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Xml.Serialization;
+using System.ComponentModel;
+using System.Configuration;
+
+using System.Text.RegularExpressions;
+
+using System.Windows.Media.Animation;
+
+using Microsoft.Win32;
 
 
 namespace YourMom
@@ -32,9 +40,11 @@ namespace YourMom
 
     public partial class MainWindow : Window
     {
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        private Button clickedControlButton;
         private List<Transaction> transactionList;
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
+        private Budget budgetInfo;
         private DateTime startingDate, endDate;
         private bool isDebtTransaction = false;
 
@@ -42,6 +52,31 @@ namespace YourMom
         List<DetailCategory> expenseList = new List<DetailCategory>();
         List<DetailCategory> debtList = new List<DetailCategory>();
         List<DetailCategory> loanList = new List<DetailCategory>();
+
+        private BindingList<ColorSetting> ListColor;
+
+        //Class lưu trữ màu trong Color setting
+        public class ColorSetting
+        {
+            public string Color { get; set; }
+        }
+
+        private string _colorScheme = "";           //Màu nền hiện tại
+        public string ColorScheme
+        {
+            get
+            {
+                return _colorScheme;
+            }
+            set
+            {
+                _colorScheme = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
+                }
+            }
+        }
 
         ObservableCollection<CategoryList> categoryCollection = new ObservableCollection<CategoryList>();
         ObservableCollection<CategoryList> categoryDebtCollection = new ObservableCollection<CategoryList>();
@@ -56,11 +91,11 @@ namespace YourMom
             {
                 ID = "1",
                 ImagePath = "Images/category_foodndrink.png",
-                Name = "Ăn uống",
+                Name = "Eating",
                 MoneyFund = 9000000,
-                SpentMoney = 4000000,
-                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
-                EndDate = new DateTime(2021,6,30).ToLongDateString()
+
+                StartingDate = new DateTime(2021,6,1).ToShortDateString(),
+                EndDate = new DateTime(2021,6,30).ToShortDateString()
             },
 
             new Budget
@@ -69,9 +104,9 @@ namespace YourMom
                 ImagePath = "Images/category_foodndrink.png",
                 Name = "Mua sắm",
                 MoneyFund = 5000000,
-                SpentMoney = 2000000,
-                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
-                EndDate = new DateTime(2021,6,30).ToLongDateString()
+
+                StartingDate = new DateTime(2021,6,1).ToShortDateString(),
+                EndDate = new DateTime(2021,6,30).ToShortDateString()
             },
 
             new Budget
@@ -80,19 +115,19 @@ namespace YourMom
                 ImagePath = "Images/category_foodndrink.png",
                 Name = "Đi chơi",
                 MoneyFund = 5000000,
-                SpentMoney = 2000000,
-                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
-                EndDate = new DateTime(2021,6,27).ToLongDateString()
+
+                StartingDate = new DateTime(2021,6,1).ToShortDateString(),
+                EndDate = new DateTime(2021,6,27).ToShortDateString()
             },
             new Budget
             {
                 ID = "4",
                 ImagePath = "Images/category_foodndrink.png",
-                Name = "Đi chơi",
+                Name = "Eating",
                 MoneyFund = 5000000,
-                SpentMoney = 2000000,
-                StartingDate = new DateTime(2021,6,1).ToLongDateString(),
-                EndDate =new DateTime(2021,7,27).ToLongDateString()
+                
+                StartingDate = new DateTime(2021,7,1).ToShortDateString(),
+                EndDate =new DateTime(2021,7,31).ToShortDateString()
             }
         };
 
@@ -118,9 +153,31 @@ namespace YourMom
             InitializeReportData();
 
             double temp;
+
+
             // Hàm xử lý ngân sách
             for (int i = 0; i < budgetList.Count; i++)
             {
+
+                // Lấy số tiền đã chi tiêu cho ngân sách thông qua cách giao dịch(nên để vào lúc khởi tạo một ngân sách mới!!!)
+                var end = DateTime.Parse(budgetList[i].EndDate);
+                var start = DateTime.Parse(budgetList[i].StartingDate);
+                double moneyTotal = 0;
+                for (int j = 0; j < transactionLists.Count; j++)
+                {
+                    if (budgetList[i].Name == transactionLists[j].TransactionType)
+                    {
+                        for (int k = 0; k < transactionLists[j].Transactions.Count; k++)
+                        {
+                            if (transactionLists[j].Transactions[k].Date < end && transactionLists[j].Transactions[k].Date > start)
+                            {
+                                moneyTotal += transactionLists[j].Transactions[k].Amount;
+                            }
+                        }
+                    }
+                    
+                }
+                budgetList[i].SpentMoney = moneyTotal;
 
                 // lấy số ngày còn lại trong ngân sách			
 
@@ -128,11 +185,11 @@ namespace YourMom
 
                 //Lấy thông tin ngày tháng kết thúc
                 var endDate = DateTime.Parse(budgetList[i].EndDate);
-
+                // Số ngày còn lại của ngân sách
                 TimeSpan time = endDate - currentdate;
+                int dayLeft = time.Days < 0 ? 0 : time.Days;
 
-                budgetList[i].DaysLeft = time.Days < 0 ? 0 : time.Days;
-                //budgetList[i].DaysLeft = time.Days;
+                budgetList[i].DaysLeft = dayLeft > 0 ? $"{time.Days} days left" : "Finished";              
 
 
                 // số tiền dư còn lại cho ngân sách
@@ -145,7 +202,6 @@ namespace YourMom
                 budgetList[i].Progress = temp;
 
 
-
                 // định dạng lại ngày
                 //convert = DateTime.Parse(budgetList[i].StartingDate);
                 //budgetList[i].StartingDate = convert.ToString("dd-MM-yyyy");
@@ -153,7 +209,7 @@ namespace YourMom
                 //budgetList[i].EndDate = convert.ToString("dd-MM-yyyy");
 
                 // số tiền nên chi hàng ngày
-                budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ? Math.Round(budgetList[i].Balance / budgetList[i].DaysLeft, 2) : 0;
+                budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ? Math.Round(budgetList[i].Balance / dayLeft, 2) : 0;
 
                 // số tiền thực tế chi hàng ngày
                 //DateTime startingdate = Convert.ToDateTime(budgetList[i].StartingDate);
@@ -164,7 +220,7 @@ namespace YourMom
                 budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney / ((currentdate - startingDate).Days + 1), 2);
 
                 // số tiền dự kiến chi tiêu
-                budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney + budgetList[i].RealitySpending_DayMoney * budgetList[i].DaysLeft;
+                budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney + budgetList[i].RealitySpending_DayMoney * dayLeft;
 
                 if (time.Days < 0)
                 {
@@ -739,6 +795,44 @@ namespace YourMom
             //Hiển thị số dư
             leftTextBlock.Text = $"{money} left";
 
+
+
+
+
+
+
+            //Tạo dữ liệu màu cho ListColor
+            //ListColor = new BindingList<ColorSetting>
+            //{
+            //    new ColorSetting { Color = "#FFCA5010"}, new ColorSetting { Color = "#FFFF8C00"}, new ColorSetting { Color = "#FFE81123"}, new ColorSetting { Color = "#FFD13438"}, new ColorSetting { Color = "#FFFF4081"},
+            //    new ColorSetting { Color = "#FFC30052"}, new ColorSetting { Color = "#FFBF0077"}, new ColorSetting { Color = "#FF9A0089"}, new ColorSetting { Color = "#FF881798"}, new ColorSetting { Color = "#FF744DA9"},
+            //    new ColorSetting { Color = "#FF4CAF50"}, new ColorSetting { Color = "#FF10893E"}, new ColorSetting { Color = "#FF018574"}, new ColorSetting { Color = "#FF03A9F4"}, new ColorSetting { Color = "#FF304FFE"},
+            //    new ColorSetting { Color = "#FF0063B1"}, new ColorSetting { Color = "#FF6B69D6"}, new ColorSetting { Color = "#FF8E8CD8"}, new ColorSetting { Color = "#FF8764B8"}, new ColorSetting { Color = "#FF038387"},
+            //    new ColorSetting { Color = "#FF525E54"}, new ColorSetting { Color = "#FF7E735F"}, new ColorSetting { Color = "#FF9E9E9E"}, new ColorSetting { Color = "#FF515C6B"}, new ColorSetting { Color = "#FF000000"}
+            //};
+
+            ListColor = new BindingList<ColorSetting>
+            {
+                new ColorSetting { Color = "#4D0400"}, new ColorSetting { Color = "#7A0600"}, new ColorSetting { Color = "#A80900"}, new ColorSetting { Color = "#D60B00"}, new ColorSetting { Color = "#FF1205"}, new ColorSetting { Color = "#FF3D33"},new ColorSetting { Color = "#FF6961"},
+                new ColorSetting { Color = "#AC001E"}, new ColorSetting { Color = "#D90026"}, new ColorSetting { Color = "#FF0833"}, new ColorSetting { Color = "#FF3659"}, new ColorSetting { Color = "#FF647F"}, new ColorSetting { Color = "#FF92A5"},new ColorSetting { Color = "#FFC0CB"},
+                new ColorSetting { Color = "#7D7D02"}, new ColorSetting { Color = "#AAAA03"}, new ColorSetting { Color = "#D7D704"}, new ColorSetting { Color = "#FAFA0F"}, new ColorSetting { Color = "#FBFB3C"}, new ColorSetting { Color = "#FCFC69"},new ColorSetting { Color = "#FDFD96"},
+                new ColorSetting { Color = "#51087E"}, new ColorSetting { Color = "#6C0BA9"}, new ColorSetting { Color = "#880ED4"}, new ColorSetting { Color = "#A020F0"}, new ColorSetting { Color = "#B24BF3"}, new ColorSetting { Color = "#C576F6"},new ColorSetting { Color = "#D7A1F9"},
+                new ColorSetting { Color = "#0D340D"}, new ColorSetting { Color = "#165816"}, new ColorSetting { Color = "#1F7D1F"}, new ColorSetting { Color = "#28A228"}, new ColorSetting { Color = "#32C732"}, new ColorSetting { Color = "#52D452"},new ColorSetting { Color = "#77DD77"},
+                new ColorSetting { Color = "#273B42"}, new ColorSetting { Color = "#38555F"}, new ColorSetting { Color = "#496E7C"}, new ColorSetting { Color = "#5B8899"}, new ColorSetting { Color = "#749DAD"}, new ColorSetting { Color = "#91B2BE"},new ColorSetting { Color = "#AEC6CF"}, 
+                new ColorSetting { Color = "#0A0A0A"}, new ColorSetting { Color = "#212121"}, new ColorSetting { Color = "#383838"}, new ColorSetting { Color = "#4F4F4F"}, new ColorSetting { Color = "#666666"}, new ColorSetting { Color = "#7D7D7D"},new ColorSetting { Color = "#949494"}
+            };
+
+            //Binding dữ liệu màu cho Setting Color Table
+            SettingColorItemsControl.ItemsSource = ListColor;
+            //
+            ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
+
+            //Default buttons
+
+            AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            clickedControlButton = TransactionsButton;
+
         }
 
         //Tách chuỗi id thành mảng các id thành phần
@@ -777,6 +871,7 @@ namespace YourMom
 				ConfigurationUserLevel.None);
 			config.AppSettings.Settings["ColorScheme"].Value = ColorScheme;
 			config.Save(ConfigurationSaveMode.Minimal);*/
+           
             Application.Current.Shutdown();
 
         }
@@ -1407,14 +1502,14 @@ namespace YourMom
 
         private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTransaction add = new AddTransaction();
+            AddTransaction add = new AddTransaction(ColorScheme);
             add.Show();
         }
 
         private void AddBudgetButton_Click(object sender, RoutedEventArgs e)
         {
-            AddBudget add = new AddBudget();
-            add.Show();
+           AddBudget add = new AddBudget(ColorScheme);
+           add.Show();
         }
 
         private void CloseDetailBudget_Click(object sender, RoutedEventArgs e)
@@ -1472,23 +1567,82 @@ namespace YourMom
 
         private void BudgetLineChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            BudgetLineChart.Series.Clear();
-            BudgetLineChart.Series.Add(new LineSeries()
-            {
-                Values = new ChartValues<double> { 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90 },
-                LineSmoothness = 0,
-                PointGeometry = null,
-                PointGeometrySize = 0,
-                Title = "Max"
-            });
-            BudgetLineChart.Series.Add(new LineSeries()
-            {
-                Values = new ChartValues<double> { 0, 0, 0, 3, 30, 30, 30, 30, 30 },
-                LineSmoothness = 0,
-                PointGeometry = null,
-                PointGeometrySize = 0,
-                Title = "Current"
-            });
+            //BudgetLineChart.Series.Clear();
+           
+            //var end = DateTime.Parse(budgetInfo.EndDate);
+            //var start = DateTime.Parse(budgetInfo.StartingDate);
+            //var curr = new DateTime();
+            //TimeSpan time = end - start;
+            //int durationOfBudget = time.Days + 1;
+
+            //List<double> budgetGoalLine = new List<double>();
+            //List<double> budgetSpentLine = new List<double>();
+           
+            //Dictionary<DateTime, double> myDic = new Dictionary<DateTime, double>();
+            //Dictionary<DateTime, double> myDic1 = new Dictionary<DateTime, double>();
+            //Dictionary<DateTime, double> myDic2 = new Dictionary<DateTime, double>();
+            //double money= 0;
+
+            //for (int i = 0; i < transactionLists.Count; i++)    
+            //{
+            //    if (transactionLists[i].TransactionType == budgetInfo.Name)
+            //    {
+                   
+            //        for (int j = 0; j < transactionLists[i].Transactions.Count; j++)
+            //        {
+                       
+            //            if (transactionLists[i].Transactions[j].Date < end && transactionLists[i].Transactions[j].Date > start)
+            //            {
+                          
+            //                if (!myDic2.ContainsKey(transactionLists[i].Transactions[j].Date))
+            //                {
+            //                    myDic2.Add(transactionLists[i].Transactions[j].Date, transactionLists[i].Transactions[j].Amount);
+            //                }
+            //                else
+            //                {
+            //                    myDic2[transactionLists[i].Transactions[j].Date] = myDic2[transactionLists[i].Transactions[j].Date] + transactionLists[i].Transactions[j].Amount;
+            //                }
+                            
+                            
+            //            }
+            //        }
+            //    }
+
+                
+                
+            //}
+
+            //for (int i = 0; i < durationOfBudget; i++)
+            //{
+            //    budgetGoalLine.Add(budgetInfo.MoneyFund);
+            //    curr = start.AddDays(i);
+            //    if (myDic2.ContainsKey(curr))
+            //    {
+            //        money += myDic2[curr];
+            //    }
+            //    budgetSpentLine.Add(money);
+
+            //}
+
+
+        
+
+            //BudgetLineChart.Series.Add(new LineSeries()
+            //{
+            //    Values = new ChartValues<double> (budgetGoalLine),
+            //    LineSmoothness = 0,
+            //    PointGeometry = null,
+            //    PointGeometrySize = 0,
+            //    Title = "Max"
+            //});
+            //BudgetLineChart.Series.Add(new LineSeries()
+            //{
+            //    Values = new ChartValues<double> (budgetSpentLine),
+            //    LineSmoothness = 0,
+            //    PointGeometry = null,
+            //    PointGeometrySize = 0,
+            //    Title = "Current"
+            //});
         }
 
         // Nút chuyển sang tháng trước trong giao diện giao dịch
@@ -1680,20 +1834,114 @@ namespace YourMom
             Budget.Width = 410;
             BudgetListBorder.Width = 410;
             BudgetReportGrid.Width = 600;
+
             var temp = sender as Button;
 
-            var budgetInfo = temp.DataContext as Budget;
+            budgetInfo = temp.DataContext as Budget;
             int lol = 0;
             foreach (var budget in budgetList)
             {
                 if (budget.ID == budgetInfo.ID)
                 {
+                    //transactionType = budget.Name;
                     break;
                 }
                 lol++;
             }
 
             BudgetInfo.DataContext = budgetList[lol];
+            budgetDocPanel.DataContext = budgetList[lol];
+
+
+
+            // Hiển thị dữ liệu cho biểu đồ(nên gôp với hàm tính số tiền đã chi tiêu cho ngân sách, nếu được thì chỉ cập nhật sau khi CRUD 1 giao dịch)
+            BudgetLineChart.Series.Clear();
+
+            var end = DateTime.Parse(budgetInfo.EndDate);
+            var start = DateTime.Parse(budgetInfo.StartingDate);
+            var curr = new DateTime();
+            TimeSpan time = end - start;
+            int durationOfBudget = time.Days + 1;
+
+            List<double> budgetGoalLine = new List<double>();
+            List<double> budgetSpentLine = new List<double>();
+            // Lưu <ngày, số tiền chi tiêu> trong các giao dịch 
+            Dictionary<DateTime, double> myDic = new Dictionary<DateTime, double>();
+            double money = 0;
+
+            for (int i = 0; i < transactionLists.Count; i++)
+            {
+                if (transactionLists[i].TransactionType == budgetInfo.Name)
+                {
+
+                    for (int j = 0; j < transactionLists[i].Transactions.Count; j++)
+                    {
+
+                        if (transactionLists[i].Transactions[j].Date < end && transactionLists[i].Transactions[j].Date > start)
+                        {
+
+                            if (!myDic.ContainsKey(transactionLists[i].Transactions[j].Date))
+                            {
+                                myDic.Add(transactionLists[i].Transactions[j].Date, transactionLists[i].Transactions[j].Amount);
+                            }
+                            else
+                            {
+                                myDic[transactionLists[i].Transactions[j].Date] = myDic[transactionLists[i].Transactions[j].Date] + transactionLists[i].Transactions[j].Amount;
+                            }
+
+
+                        }
+                    }
+                }
+
+
+
+            }
+
+            for (int i = 0; i < durationOfBudget; i++)
+            {
+                budgetGoalLine.Add(budgetInfo.MoneyFund);
+                curr = start.AddDays(i);
+                // nếu có ngày trong danh sách giao dịch thì thêm vào
+                if (myDic.ContainsKey(curr))
+                {
+                    money += myDic[curr];
+                }
+                budgetSpentLine.Add(money);
+
+            }
+
+
+
+            
+           
+
+            BudgetLineChart.Series.Add(new LineSeries()
+            {
+                Values = new ChartValues<double>(budgetGoalLine),
+                LineSmoothness = 0,
+                PointGeometry = null,
+                PointGeometrySize = 0,
+                Title = "Max",
+              
+            });
+            BudgetLineChart.Series.Add(new LineSeries()
+            {
+                Values = new ChartValues<double>(budgetSpentLine),
+                LineSmoothness = 0,
+                PointGeometry = null,
+                PointGeometrySize = 0,
+                Title = "Current",
+                
+            });
+
+            // Xóa Axisx
+            BudgetLineChart.AxisX.Add(new Axis
+            {
+                Labels = new string[0]
+            });
+
+
 
         }
 
@@ -1715,12 +1963,76 @@ namespace YourMom
             }
         }
 
-        // Hàm chặn khi auto scrolling lúc nhấn vào vị trí bất kì trol scrollviewer
+        // Hàm chặn khi auto scrolling lúc nhấn vào vị trí bất kì trong scrollviewer
         private void ScrollViewer_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
             e.Handled = true;
         }
 
+        private void ChangeClickedControlButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+            //Tắt màu của nút hiện tại
+            var stackpanel = (StackPanel)clickedControlButton.Content;
+            var collection = stackpanel.Children;
+            var image = (Image)collection[0];
+            var text = (TextBlock)collection[1];
+            var button_name = clickedControlButton.Name;
+            button_name = button_name.Replace("Button", "").ToLower();
+
+
+            image.Source = new BitmapImage(new Uri($"Images/{button_name}.png",
+                        UriKind.Relative));
+            text.Foreground = Brushes.Black;
+            clickedControlButton.Background = Brushes.White;
+
+            //Hiển thị màu cho nút vừa được nhấn
+            var button = (Button)sender;
+            stackpanel = (StackPanel)button.Content;
+            collection = stackpanel.Children;
+            image = (Image)collection[0];
+            button_name = button.Name;
+            button_name = button_name.Replace("Button", "").ToLower();
+            button_name = "white_" + button_name;
+            image.Source = new BitmapImage(new Uri($"Images/{button_name}.png",
+                       UriKind.Relative));
+            text = (TextBlock)collection[1];            
+
+            text.Foreground = Brushes.White;
+            button.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+
+            
+            //Cập nhật nút mới
+            clickedControlButton = button;
+        }
+
+        private void ColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            var datatContex = (sender as Button).DataContext;
+            var color = (datatContex as ColorSetting).Color;
+            ColorScheme = color;
+            TitleBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            
+
+            // Chỉnh lại giao diện nút setting đang được chọn
+            SettingButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            SettingTitleTextBlock.Foreground = Brushes.White;
+            var stackpanel = (StackPanel)SettingButton.Content;
+            var collection = stackpanel.Children;
+            var image = (Image)collection[0];
+            image.Source = new BitmapImage(new Uri($"Images/white_setting.png",
+                       UriKind.Relative));
+
+
+            // Cập nhật màu cho các nút chung
+            AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            AddBudget add = new AddBudget(ColorScheme);
+            AddTransaction add1 = new AddTransaction(ColorScheme);
+
+
+        }
     }
 
 }
