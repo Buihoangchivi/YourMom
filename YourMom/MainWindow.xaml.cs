@@ -109,8 +109,13 @@ namespace YourMom
             //Đọc dữ liệu
             ReadData();
 
-            //Khởi tạo dữ liệu
-            InitializeData();
+            //Thời gian mặc định là tháng hiện tại
+            startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            endDate = startingDate.AddMonths(1).AddDays(-1);
+            AddDataIntoTransactionScreen();
+
+            //Khởi tạo dữ liệu cho màn hình báo cáo
+            InitializeReportData();
 
             double temp;
             // Hàm xử lý ngân sách
@@ -178,34 +183,46 @@ namespace YourMom
 
         }
 
-        private void InitializeData()
+        private void InitializeReportData()
         {
 
+            //Khởi tạo các từ điển
             var incomePairs = new Dictionary<string, double>();
             var expensePairs = new Dictionary<string, double>();
             var debtPairs = new Dictionary<string, double>();
             var loanPairs = new Dictionary<string, double>();
 
+            //Xóa sạch dữ liệu trong các danh sách
+            incomeList.Clear();
+            expenseList.Clear();
+            debtList.Clear();
+            loanList.Clear();
+
             //Tính tổng 4 nhóm giao dịch
             foreach (Transaction transaction in transactionList)
             {
 
-                var type = transaction.TransactionType;
-                switch (type[0] - '0')
+                if (startingDate <= transaction.Date && transaction.Date <= endDate)
                 {
 
-                    case 0: //Thu nhập
-                        AddDataIntoDictionary(incomePairs, type, transaction.Amount, true);
-                        break;
-                    case 1: //Chi tiêu
-                        AddDataIntoDictionary(expensePairs, type, transaction.Amount, true);
-                        break;
-                    case 2: //Đi vay
-                        AddDataIntoDictionary(debtPairs, type, transaction.Amount, true);
-                        break;
-                    case 3: //Cho vay
-                        AddDataIntoDictionary(loanPairs, type, transaction.Amount, true);
-                        break;
+                    var type = transaction.TransactionType;
+                    switch (type[0] - '0')
+                    {
+
+                        case 0: //Thu nhập
+                            AddDataIntoDictionary(incomePairs, type, transaction.Amount, true);
+                            break;
+                        case 1: //Chi tiêu
+                            AddDataIntoDictionary(expensePairs, type, transaction.Amount, true);
+                            break;
+                        case 2: //Đi vay
+                            AddDataIntoDictionary(debtPairs, type, transaction.Amount, true);
+                            break;
+                        case 3: //Cho vay
+                            AddDataIntoDictionary(loanPairs, type, transaction.Amount, true);
+                            break;
+
+                    }
 
                 }
 
@@ -217,11 +234,9 @@ namespace YourMom
             AddDataIntoList(debtPairs, debtList);
             AddDataIntoList(loanPairs, loanList);
 
-            startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-            endDate = startingDate.AddMonths(1).AddDays(-1);
-            categoryCollection = new ObservableCollection<CategoryList>();
-            transactionCollection = new ObservableCollection<TransactionList>();
-            AddDataIntoTransactionScreen();
+            //Khởi tạo dữ liệu cho khung vay nợ
+            InitDebtReportData(debtList, DebtTextBlock, DebtLeftTextBlock);
+            InitDebtReportData(loanList, LoanTextBlock, LoanLeftTextBlock);
 
         }
 
@@ -680,18 +695,23 @@ namespace YourMom
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+            
+
+        }
+
+        private void InitDebtReportData(List<DetailCategory> list, TextBlock textBlock, TextBlock leftTextBlock)
+        {
+
             //Tổng tiền và số dư
             double sum, left;
             //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
             Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
 
             //Tính tổng số tiền nợ người khác
-            sum = SumComponent(debtList);
-            //Hiển thị số tiền đó vào khung tiền nợ
-            DebtTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
+            sum = SumComponent(list);
 
             //Tính toán số dư
-            if (debtList.Count == 0)
+            if (list.Count == 0)
             {
 
                 left = 0;
@@ -700,49 +720,24 @@ namespace YourMom
             else
             {
 
-                left = debtList[0].Amount;
+                left = list[0].Amount;
 
-                if (debtList.Count == 2)
+                if (list.Count == 2)
                 {
 
-                    left -= debtList[1].Amount;
+                    left -= list[1].Amount;
 
                 }
 
             }
 
-            //Hiển thị số tiền đó vào khung tiền nợ
+            //Tính toán số dư
             var money = (string)moneyConverter.Convert(left, null, null, null);
-            DebtLeftTextBlock.Text = $"{money} left";
 
-            //Tính tổng số tiền cho người khác vay
-            sum = SumComponent(loanList);
-            //Hiển thị số tiền đó vào khung tiền cho vay
-            LoanTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
-
-            //Tính toán số dư
-            if (loanList.Count == 0)
-            {
-
-                left = 0;
-
-            }
-            else
-            {
-                left = loanList[0].Amount;
-
-                if (loanList.Count == 2)
-                {
-
-                    left -= loanList[1].Amount;
-
-                }
-
-            }
-
-            //Hiển thị số tiền đó vào khung tiền cho vay
-            money = (string)moneyConverter.Convert(left, null, null, null);
-            LoanLeftTextBlock.Text = $"{money} left";
+            //Hiển thị số tiền nợ
+            textBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
+            //Hiển thị số dư
+            leftTextBlock.Text = $"{money} left";
 
         }
 
@@ -805,10 +800,9 @@ namespace YourMom
 
         }
 
+        //Thay đổi kiểu xem danh sách giao dịch
         private void ChangeTransactionViewButton_Click(object sender, RoutedEventArgs e)
         {
-
-            var button = (Button)sender;
 
             if (CategoryListScrollView.Visibility == Visibility.Visible)
             {
@@ -831,6 +825,7 @@ namespace YourMom
 
         }
 
+        //Quay về danh sách giao dịch ở tháng hiện tại
         private void JumpToTodayButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -871,9 +866,26 @@ namespace YourMom
         private void ReportButton_Click(object sender, RoutedEventArgs e)
         {
 
+            var button = (Button)sender;
             //Đóng tất cả các màn hình khác
             TransactionScreenGrid.Visibility = Visibility.Collapsed;
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Trường hợp nhấn nút báo cáo thì hiển thị mặc định là giai đoạn tháng hiện tại
+            if (button.Name == "ReportButton")
+            {
+
+                startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                endDate = startingDate.AddMonths(1).AddDays(-1);
+
+            }
+
+            //Khởi tạo lại dữ liệu báo cáo với giai đoạn tháng hiện tại
+            InitializeReportData();
+
+            //Reload dữ liệu của biểu đồ thu nhập và biểu đồ chi tiêu
+            IncomeReportChart_IsVisibleChanged(null, new DependencyPropertyChangedEventArgs());
+            ExpenseReportChart_IsVisibleChanged(null, new DependencyPropertyChangedEventArgs());
 
             //Mở màn hình báo cáo
             ReportScreenGrid.Visibility = Visibility.Visible;
@@ -1166,8 +1178,6 @@ namespace YourMom
 
         }
 
-        //Hàm xử lý nút xem chi tiết danh sách loại
-
         //Hàm nạp dữ liệu cho khung báo cáo chi tiết
         private DetailInfomation AddDataIntoDetailReport(string title, List<DetailCategory> list)
         {
@@ -1266,13 +1276,18 @@ namespace YourMom
                 foreach (Transaction transaction in transactionList)
                 {
 
-                    var type = transaction.TransactionType;
-                    var index = type.IndexOf(detailCategory.ID);
-
-                    if (index == 0) //Nhóm con thì thêm dữ liệu vào từ điển
+                    if (startingDate.Date <= transaction.Date && transaction.Date <= endDate)
                     {
 
-                        AddDataIntoDictionary(valuePairs, type, transaction.Amount, false);
+                        var type = transaction.TransactionType;
+                        var index = type.IndexOf(detailCategory.ID);
+
+                        if (index == 0) //Nhóm con thì thêm dữ liệu vào từ điển
+                        {
+
+                            AddDataIntoDictionary(valuePairs, type, transaction.Amount, false);
+
+                        }
 
                     }
 
@@ -1349,12 +1364,17 @@ namespace YourMom
             foreach (Transaction transaction in transactionList)
             {
 
-                //Giao dịch phải thỏa điều kiện cùng ID với ID của tham số đầu vào
-                if (transaction.TransactionType == detailCategory.ID)
+                if (startingDate.Date <= transaction.Date && transaction.Date <= endDate)
                 {
 
-                    //Cộng dồn số tiền giao dịch trong tháng
-                    amountPerMonth[transaction.Date.Month - 1] += transaction.Amount;
+                    //Giao dịch phải thỏa điều kiện cùng ID với ID của tham số đầu vào
+                    if (transaction.TransactionType == detailCategory.ID)
+                    {
+
+                        //Cộng dồn số tiền giao dịch trong tháng
+                        amountPerMonth[transaction.Date.Month - 1] += transaction.Amount;
+
+                    }
 
                 }
 
