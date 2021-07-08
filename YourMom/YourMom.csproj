@@ -275,6 +275,5 @@
     <Resource Include="Images\view_by_category.png" />
     <Resource Include="Images\view_by_transaction.png" />
   </ItemGroup>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
