@@ -527,7 +527,10 @@
             </Button>
 
             <!--Nút các giao dịch-->
-            <Button Width="100" Height="80" Name="TransactionsButton">
+            <Button Width="100" 
+                    Height="80" 
+                    Name="TransactionsButton"
+                    Click="TransactionsButton_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="White"/>

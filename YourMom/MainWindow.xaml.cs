@@ -36,6 +36,7 @@ namespace YourMom
         private List<Transaction> transactionList;
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         private DateTime startingDate, endDate;
+        private bool isDebtTransaction = false;
 
         List<DetailCategory> incomeList = new List<DetailCategory>();
         List<DetailCategory> expenseList = new List<DetailCategory>();
@@ -218,6 +219,8 @@ namespace YourMom
 
             startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             endDate = startingDate.AddMonths(1).AddDays(-1);
+            categoryCollection = new ObservableCollection<CategoryList>();
+            transactionCollection = new ObservableCollection<TransactionList>();
             AddDataIntoTransactionScreen();
 
         }
@@ -226,16 +229,37 @@ namespace YourMom
         private void AddDataIntoTransactionScreen()
         {
 
-            categoryCollection = new ObservableCollection<CategoryList>();
-            transactionCollection = new ObservableCollection<TransactionList>();
+            //Trường hợp đang mở màn hình giao dịch vay nợ
+            if (isDebtTransaction == true)
+            {
 
-            //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng nhóm
-            InitDataIntoObservableCollection(categoryCollection, startingDate, endDate);
-            CategoryList.ItemsSource = categoryCollection;
+                categoryDebtCollection = new ObservableCollection<CategoryList>();
+                transactionDebtCollection = new ObservableCollection<TransactionList>();
 
-            //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng giao dịch
-            InitDataIntoObservableCollection(transactionCollection, startingDate, endDate);
-            TransactionList.ItemsSource = transactionCollection;
+                //Đọc dữ liệu tất cả các giao dịch vay nợ vào danh sách giao dịch ở dạng nhóm
+                InitDataIntoObservableCollection(categoryDebtCollection, startingDate, endDate);
+                CategoryList.ItemsSource = categoryDebtCollection;
+
+                //Đọc dữ liệu tất cả các giao dịch vay nợ vào danh sách giao dịch ở dạng giao dịch
+                InitDataIntoObservableCollection(transactionDebtCollection, startingDate, endDate);
+                TransactionList.ItemsSource = transactionDebtCollection;
+
+            }
+            else //Trường hợp đang mở màn hình giao dịch thông thường
+            {
+
+                categoryCollection = new ObservableCollection<CategoryList>();
+                transactionCollection = new ObservableCollection<TransactionList>();
+
+                //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng nhóm
+                InitDataIntoObservableCollection(categoryCollection, startingDate, endDate);
+                CategoryList.ItemsSource = categoryCollection;
+
+                //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng giao dịch
+                InitDataIntoObservableCollection(transactionCollection, startingDate, endDate);
+                TransactionList.ItemsSource = transactionCollection;
+
+            }
 
         }
 
@@ -827,20 +851,64 @@ namespace YourMom
         private void TransactionsButton_Click(object sender, RoutedEventArgs e)
         {
 
+            //Đóng tất cả các màn hình khác
+            ReportScreenGrid.Visibility = Visibility.Collapsed;
+            BudgetScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Mở màn hình giao dịch
+            TransactionScreenGrid.Visibility = Visibility.Visible;
+
+            //Đọc dữ liệu tất cả các giao dịch thông thường vào danh sách giao dịch
+            categoryCollection = new ObservableCollection<CategoryList>();
+            transactionCollection = new ObservableCollection<TransactionList>();
+            isDebtTransaction = false;
+
+            //Hiển thị danh sách giao dịch của tháng hiện tại
+            JumpToTodayButton_Click(null, new RoutedEventArgs());
+
         }
 
         private void ReportButton_Click(object sender, RoutedEventArgs e)
         {
+
+            //Đóng tất cả các màn hình khác
+            TransactionScreenGrid.Visibility = Visibility.Collapsed;
+            BudgetScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Mở màn hình báo cáo
+            ReportScreenGrid.Visibility = Visibility.Visible;
 
         }
 
         private void BudgetButton_Click(object sender, RoutedEventArgs e)
         {
 
+            //Đóng tất cả các màn hình khác
+            TransactionScreenGrid.Visibility = Visibility.Collapsed;
+            ReportScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Mở màn hình ngân sách
+            BudgetScreenGrid.Visibility = Visibility.Visible;
+
         }
 
         private void DebtsButton_Click(object sender, RoutedEventArgs e)
         {
+
+            //Đóng tất cả các màn hình khác
+            ReportScreenGrid.Visibility = Visibility.Collapsed;
+            BudgetScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Mở màn hình giao dịch
+            TransactionScreenGrid.Visibility = Visibility.Visible;
+
+            //Đọc dữ liệu tất cả các giao dịch vay nợ vào danh sách giao dịch
+            categoryDebtCollection = new ObservableCollection<CategoryList>();
+            transactionDebtCollection = new ObservableCollection<TransactionList>();
+            isDebtTransaction = true;
+
+            //Hiển thị danh sách giao dịch của tháng hiện tại
+            JumpToTodayButton_Click(null, new RoutedEventArgs());
 
         }
 
