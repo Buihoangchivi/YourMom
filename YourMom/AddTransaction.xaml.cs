@@ -24,13 +24,13 @@ namespace YourMom
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public AddTransaction(string ColorScheme)
+        public AddTransaction(string colorScheme)
         {
             
             InitializeComponent();
-            ColorScheme = ColorScheme;
-            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            ColorScheme = colorScheme;
+            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
+            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
         }
 
 

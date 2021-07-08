@@ -41,7 +41,7 @@ namespace YourMom
     public partial class MainWindow : Window
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private Button clickedControlButton;
+        private Button clickedButton;
         private List<Transaction> transactionList;
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         private Budget budgetInfo;
@@ -751,7 +751,27 @@ namespace YourMom
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            
+            ListColor = new BindingList<ColorSetting>
+            {
+                new ColorSetting { Color = "#4D0400"}, new ColorSetting { Color = "#7A0600"}, new ColorSetting { Color = "#A80900"}, new ColorSetting { Color = "#D60B00"}, new ColorSetting { Color = "#FF1205"}, new ColorSetting { Color = "#FF3D33"},new ColorSetting { Color = "#FF6961"},
+                new ColorSetting { Color = "#AC001E"}, new ColorSetting { Color = "#D90026"}, new ColorSetting { Color = "#FF0833"}, new ColorSetting { Color = "#FF3659"}, new ColorSetting { Color = "#FF647F"}, new ColorSetting { Color = "#FF92A5"},new ColorSetting { Color = "#FFC0CB"},
+                new ColorSetting { Color = "#7D7D02"}, new ColorSetting { Color = "#AAAA03"}, new ColorSetting { Color = "#D7D704"}, new ColorSetting { Color = "#FAFA0F"}, new ColorSetting { Color = "#FBFB3C"}, new ColorSetting { Color = "#FCFC69"},new ColorSetting { Color = "#FDFD96"},
+                new ColorSetting { Color = "#51087E"}, new ColorSetting { Color = "#6C0BA9"}, new ColorSetting { Color = "#880ED4"}, new ColorSetting { Color = "#A020F0"}, new ColorSetting { Color = "#B24BF3"}, new ColorSetting { Color = "#C576F6"},new ColorSetting { Color = "#D7A1F9"},
+                new ColorSetting { Color = "#0D340D"}, new ColorSetting { Color = "#165816"}, new ColorSetting { Color = "#1F7D1F"}, new ColorSetting { Color = "#28A228"}, new ColorSetting { Color = "#32C732"}, new ColorSetting { Color = "#52D452"},new ColorSetting { Color = "#77DD77"},
+                new ColorSetting { Color = "#273B42"}, new ColorSetting { Color = "#38555F"}, new ColorSetting { Color = "#496E7C"}, new ColorSetting { Color = "#5B8899"}, new ColorSetting { Color = "#749DAD"}, new ColorSetting { Color = "#91B2BE"},new ColorSetting { Color = "#AEC6CF"},
+                new ColorSetting { Color = "#0A0A0A"}, new ColorSetting { Color = "#212121"}, new ColorSetting { Color = "#383838"}, new ColorSetting { Color = "#4F4F4F"}, new ColorSetting { Color = "#666666"}, new ColorSetting { Color = "#7D7D7D"},new ColorSetting { Color = "#949494"}
+            };
+
+            //Binding dữ liệu màu cho Setting Color Table
+            SettingColorItemsControl.ItemsSource = ListColor;
+            //
+            ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
+
+            //Default buttons
+
+            AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            clickedButton = TransactionsButton;
 
         }
 
@@ -810,28 +830,6 @@ namespace YourMom
             //    new ColorSetting { Color = "#FF0063B1"}, new ColorSetting { Color = "#FF6B69D6"}, new ColorSetting { Color = "#FF8E8CD8"}, new ColorSetting { Color = "#FF8764B8"}, new ColorSetting { Color = "#FF038387"},
             //    new ColorSetting { Color = "#FF525E54"}, new ColorSetting { Color = "#FF7E735F"}, new ColorSetting { Color = "#FF9E9E9E"}, new ColorSetting { Color = "#FF515C6B"}, new ColorSetting { Color = "#FF000000"}
             //};
-
-            ListColor = new BindingList<ColorSetting>
-            {
-                new ColorSetting { Color = "#4D0400"}, new ColorSetting { Color = "#7A0600"}, new ColorSetting { Color = "#A80900"}, new ColorSetting { Color = "#D60B00"}, new ColorSetting { Color = "#FF1205"}, new ColorSetting { Color = "#FF3D33"},new ColorSetting { Color = "#FF6961"},
-                new ColorSetting { Color = "#AC001E"}, new ColorSetting { Color = "#D90026"}, new ColorSetting { Color = "#FF0833"}, new ColorSetting { Color = "#FF3659"}, new ColorSetting { Color = "#FF647F"}, new ColorSetting { Color = "#FF92A5"},new ColorSetting { Color = "#FFC0CB"},
-                new ColorSetting { Color = "#7D7D02"}, new ColorSetting { Color = "#AAAA03"}, new ColorSetting { Color = "#D7D704"}, new ColorSetting { Color = "#FAFA0F"}, new ColorSetting { Color = "#FBFB3C"}, new ColorSetting { Color = "#FCFC69"},new ColorSetting { Color = "#FDFD96"},
-                new ColorSetting { Color = "#51087E"}, new ColorSetting { Color = "#6C0BA9"}, new ColorSetting { Color = "#880ED4"}, new ColorSetting { Color = "#A020F0"}, new ColorSetting { Color = "#B24BF3"}, new ColorSetting { Color = "#C576F6"},new ColorSetting { Color = "#D7A1F9"},
-                new ColorSetting { Color = "#0D340D"}, new ColorSetting { Color = "#165816"}, new ColorSetting { Color = "#1F7D1F"}, new ColorSetting { Color = "#28A228"}, new ColorSetting { Color = "#32C732"}, new ColorSetting { Color = "#52D452"},new ColorSetting { Color = "#77DD77"},
-                new ColorSetting { Color = "#273B42"}, new ColorSetting { Color = "#38555F"}, new ColorSetting { Color = "#496E7C"}, new ColorSetting { Color = "#5B8899"}, new ColorSetting { Color = "#749DAD"}, new ColorSetting { Color = "#91B2BE"},new ColorSetting { Color = "#AEC6CF"}, 
-                new ColorSetting { Color = "#0A0A0A"}, new ColorSetting { Color = "#212121"}, new ColorSetting { Color = "#383838"}, new ColorSetting { Color = "#4F4F4F"}, new ColorSetting { Color = "#666666"}, new ColorSetting { Color = "#7D7D7D"},new ColorSetting { Color = "#949494"}
-            };
-
-            //Binding dữ liệu màu cho Setting Color Table
-            SettingColorItemsControl.ItemsSource = ListColor;
-            //
-            ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
-
-            //Default buttons
-
-            AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            clickedControlButton = TransactionsButton;
 
         }
 
@@ -944,6 +942,8 @@ namespace YourMom
             //Đóng tất cả các màn hình khác
             ReportScreenGrid.Visibility = Visibility.Collapsed;
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
+            SettingScreenStackPanel.Visibility = Visibility.Collapsed;
+            AboutScreenStackPanel.Visibility = Visibility.Collapsed;
 
             //Mở màn hình giao dịch
             TransactionScreenGrid.Visibility = Visibility.Visible;
@@ -956,17 +956,33 @@ namespace YourMom
             //Hiển thị danh sách giao dịch của tháng hiện tại
             JumpToTodayButton_Click(null, new RoutedEventArgs());
 
+            ChangeButtonColor(TransactionsButton);
+
         }
 
-        private void ViewReportButton_Click(object sender, RoutedEventArgs e)
+        private void ReportButton_Click(object sender, RoutedEventArgs e)
         {
 
             var button = (Button)sender;
             //Đóng tất cả các màn hình khác
             TransactionScreenGrid.Visibility = Visibility.Collapsed;
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
+            SettingScreenStackPanel.Visibility = Visibility.Collapsed;
+            AboutScreenStackPanel.Visibility = Visibility.Collapsed;
             //Đóng khung báo cáo chi tiết
             DetailReportGrid.Visibility = Visibility.Collapsed;
+            //Phóng to chiều rộng của khung báo cáo chung
+            GeneralReportGrid.Width = 600;
+
+            //Phóng to kích thước của 2 biểu đồ hình bánh thể hiện thu chi
+            IncomeReportChart.Width = 250;
+            IncomeReportChart.Height = 300;
+            ExpenseReportChart.Width = 250;
+            ExpenseReportChart.Height = 300;
+
+            //Phóng to chiều rộng của 2 nút vay nợ
+            DebtDockPanel.Width = 600;
+            LoanDockPanel.Width = 600;
 
             //Trường hợp nhấn nút báo cáo thì hiển thị mặc định là giai đoạn tháng hiện tại
             if (button.Name == "ReportButton")
@@ -987,6 +1003,8 @@ namespace YourMom
             //Mở màn hình báo cáo
             ReportScreenGrid.Visibility = Visibility.Visible;
 
+            ChangeButtonColor(ReportButton);
+
         }
 
         private void BudgetButton_Click(object sender, RoutedEventArgs e)
@@ -995,9 +1013,13 @@ namespace YourMom
             //Đóng tất cả các màn hình khác
             TransactionScreenGrid.Visibility = Visibility.Collapsed;
             ReportScreenGrid.Visibility = Visibility.Collapsed;
+            SettingScreenStackPanel.Visibility = Visibility.Collapsed;
+            AboutScreenStackPanel.Visibility = Visibility.Collapsed;
 
             //Mở màn hình ngân sách
             BudgetScreenGrid.Visibility = Visibility.Visible;
+
+            ChangeButtonColor(BudgetButton);
 
         }
 
@@ -1007,6 +1029,8 @@ namespace YourMom
             //Đóng tất cả các màn hình khác
             ReportScreenGrid.Visibility = Visibility.Collapsed;
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
+            SettingScreenStackPanel.Visibility = Visibility.Collapsed;
+            AboutScreenStackPanel.Visibility = Visibility.Collapsed;
 
             //Mở màn hình giao dịch
             TransactionScreenGrid.Visibility = Visibility.Visible;
@@ -1019,10 +1043,39 @@ namespace YourMom
             //Hiển thị danh sách giao dịch của tháng hiện tại
             JumpToTodayButton_Click(null, new RoutedEventArgs());
 
+            ChangeButtonColor(DebtsButton);
+
         }
 
         private void SettingButton_Click(object sender, RoutedEventArgs e)
         {
+
+            //Đóng tất cả các màn hình khác
+            ReportScreenGrid.Visibility = Visibility.Collapsed;
+            BudgetScreenGrid.Visibility = Visibility.Collapsed;
+            TransactionScreenGrid.Visibility = Visibility.Collapsed;
+            AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+
+            //Mở màn hình cài đặt
+            SettingScreenStackPanel.Visibility = Visibility.Visible;
+
+            ChangeButtonColor(SettingButton);
+
+        }
+
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            //Đóng tất cả các màn hình khác
+            ReportScreenGrid.Visibility = Visibility.Collapsed;
+            BudgetScreenGrid.Visibility = Visibility.Collapsed;
+            TransactionScreenGrid.Visibility = Visibility.Collapsed;
+            SettingScreenStackPanel.Visibility = Visibility.Collapsed;
+
+            //Mở màn hình cài đặt
+            AboutScreenStackPanel.Visibility = Visibility.Visible;
+
+            ChangeButtonColor(AboutButton);
 
         }
 
@@ -1978,6 +2031,39 @@ namespace YourMom
         private void ScrollViewer_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void ChangeButtonColor(Button button)
+        {
+
+            //Tắt màu của nút hiện tại
+            var stackpanel = (StackPanel)clickedButton.Content;
+            var collection = stackpanel.Children;
+            var image = (Image)collection[0];
+            var text = (TextBlock)collection[1];
+            var button_name = clickedButton.Name.Replace("Button", "").ToLower();
+
+            image.Source = new BitmapImage(new Uri($"Images/{button_name}.png",
+                        UriKind.Relative));
+            text.Foreground = Brushes.Black;
+            clickedButton.Background = Brushes.White;
+
+            //Hiển thị màu cho nút vừa được nhấn
+            stackpanel = (StackPanel)button.Content;
+            collection = stackpanel.Children;
+            image = (Image)collection[0];
+            button_name = button.Name;
+            button_name = button_name.Replace("Button", "").ToLower();
+            button_name = "white_" + button_name;
+            image.Source = new BitmapImage(new Uri($"Images/{button_name}.png",
+                       UriKind.Relative));
+            text = (TextBlock)collection[1];
+
+            text.Foreground = Brushes.White;
+            button.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+
+            //Cập nhật nút mới
+            clickedButton = button;
         }
 
         private void ColorButton_Click(object sender, RoutedEventArgs e)

@@ -25,13 +25,13 @@ namespace YourMom
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public AddBudget(string ColorScheme)
+        public AddBudget(string colorScheme)
         {
             //ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
             InitializeComponent();
-            ColorScheme = ColorScheme;
-            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            ColorScheme = colorScheme;
+            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
+            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
         }
 
         private string _colorScheme = "";           //Màu nền hiện tại

@@ -254,9 +254,6 @@
     <Resource Include="Images\white_budget.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\white_columnChart.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\white_setting.png" />
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +271,9 @@
   <ItemGroup>
     <Resource Include="Images\view_by_category.png" />
     <Resource Include="Images\view_by_transaction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\white_report.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
