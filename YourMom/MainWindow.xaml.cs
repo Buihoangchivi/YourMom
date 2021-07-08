@@ -47,186 +47,6 @@ namespace YourMom
         ObservableCollection<TransactionList> transactionCollection = new ObservableCollection<TransactionList>();
         ObservableCollection<TransactionList> transactionDebtCollection = new ObservableCollection<TransactionList>();
 
-        List<DetailCategory> detailCategoryList = new List<DetailCategory>
-            {
-                new DetailCategory
-                {
-                    ID = "0",
-                    Name = "Eating",
-                    ImagePath = "Images\\category_foodndrink.png",
-                    Amount = 150320
-                },
-                new DetailCategory
-                {
-                    ID = "1",
-                    Name = "Shopping",
-                    ImagePath = "Images\\category_shopping.png",
-                    Amount = 342420
-                },
-                new DetailCategory
-                {
-                    ID = "2",
-                    Name = "Bills",
-                    ImagePath = "Images\\category_bills.png",
-                    Amount = 60230
-                },
-                new DetailCategory
-                {
-                    ID = "3",
-                    Name = "Entertainment",
-                    ImagePath = "Images\\category_entertainment.png",
-                    Amount = 24232
-                },
-                new DetailCategory
-                {
-                    ID = "0",
-                    Name = "Eating",
-                    ImagePath = "Images\\category_foodndrink.png",
-                    Amount = 5430
-                },
-                new DetailCategory
-                {
-                    ID = "1",
-                    Name = "Shopping",
-                    ImagePath = "Images\\category_shopping.png",
-                    Amount = 345325
-                },
-                new DetailCategory
-                {
-                    ID = "2",
-                    Name = "Bills",
-                    ImagePath = "Images\\category_bills.png",
-                    Amount = 454243
-                },
-                new DetailCategory
-                {
-                    ID = "3",
-                    Name = "Entertainment",
-                    ImagePath = "Images\\category_entertainment.png",
-                    Amount = 324523
-                }
-            };
-
-        List<DetailCategory> detailCategoryList1 = new List<DetailCategory>
-            {
-                new DetailCategory
-                {
-                    ID = "10",
-                    Name = "Clothes",
-                    ImagePath = "Images\\category_clothes.png",
-                    Amount = 150000
-                },
-                new DetailCategory
-                {
-                    ID = "11",
-                    Name = "Shoes",
-                    ImagePath = "Images\\category_shoes.png",
-                    Amount = 300000
-                },
-                new DetailCategory
-                {
-                    ID = "12",
-                    Name = "Accessories",
-                    ImagePath = "Images\\category_accessories.png",
-                    Amount = 760000
-                },
-                new DetailCategory
-                {
-                    ID = "13",
-                    Name = "Electronic Device",
-                    ImagePath = "Images\\category_electronic_device.png",
-                    Amount = 100000
-                }
-            };
-
-        List<DetailCategory> detailCategoryList2 = new List<DetailCategory>
-            {
-                new DetailCategory
-                {
-                    ID = "10",
-                    Name = "January",
-                    ImagePath = "Images\\january.png",
-                    Amount = -1227.239723
-                },
-                new DetailCategory
-                {
-                    ID = "11",
-                    Name = "February",
-                    ImagePath = "Images\\february.png",
-                    Amount = 25343
-                },
-                new DetailCategory
-                {
-                    ID = "12",
-                    Name = "March",
-                    ImagePath = "Images\\march.png",
-                    Amount = 45536
-                },
-                new DetailCategory
-                {
-                    ID = "13",
-                    Name = "April",
-                    ImagePath = "Images\\april.png",
-                    Amount = 23123
-                },
-                new DetailCategory
-                {
-                    ID = "10",
-                    Name = "May",
-                    ImagePath = "Images\\may.png",
-                    Amount = 11472
-                },
-                new DetailCategory
-                {
-                    ID = "11",
-                    Name = "June",
-                    ImagePath = "Images\\june.png",
-                    Amount = 45443
-                },
-                new DetailCategory
-                {
-                    ID = "12",
-                    Name = "July",
-                    ImagePath = "Images\\july.png",
-                    Amount = 34535
-                },
-                new DetailCategory
-                {
-                    ID = "13",
-                    Name = "August",
-                    ImagePath = "Images\\august.png",
-                    Amount = 23284
-                },
-                new DetailCategory
-                {
-                    ID = "10",
-                    Name = "September",
-                    ImagePath = "Images\\september.png",
-                    Amount = 24024
-                },
-                new DetailCategory
-                {
-                    ID = "11",
-                    Name = "October",
-                    ImagePath = "Images\\october.png",
-                    Amount = 27257
-                },
-                new DetailCategory
-                {
-                    ID = "12",
-                    Name = "November",
-                    ImagePath = "Images\\november.png",
-                    Amount = 57567
-                },
-                new DetailCategory
-                {
-                    ID = "13",
-                    Name = "December",
-                    ImagePath = "Images\\december.png",
-                    Amount = 45682
-                }
-            };
-
         Stack<DetailInfomation> detailStack = new Stack<DetailInfomation>();
 
         List<Budget> budgetList = new List<Budget>
@@ -402,6 +222,7 @@ namespace YourMom
 
         }
 
+        //Nạp dữ liệu vào màn hình giao dịch
         private void AddDataIntoTransactionScreen()
         {
 
@@ -719,8 +540,6 @@ namespace YourMom
 
         }
 
-
-
         //Hàm thêm dữ liệu vào từ điển
         private void AddDataIntoDictionary(Dictionary<string, double> valuePairs, string str, double amount, bool getOnlyParent)
         {
@@ -989,6 +808,23 @@ namespace YourMom
         }
 
         private void JumpToTodayButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            //Chuyển nút hiện tại sang trạng thái được chọn
+            ChangeButtonStatus(CurrentDash, CurrentTextBlock, true);
+            //Chuyển nút tiếp theo sang trạng thái không được chọn
+            ChangeButtonStatus(NextDash, NextTextBlock, false);
+
+            //Khoảng thời gian là tháng hiện tại
+            startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            endDate = startingDate.AddMonths(1).AddDays(-1);
+
+            //Thay đổi tên các nút hiển thị khoảng thời gian
+            ChangeTitleOfDateButton();
+
+        }
+
+        private void TransactionsButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
