@@ -117,9 +117,12 @@
   <ItemGroup>
     <Compile Include="Modal\Budget.cs" />
     <Compile Include="Modal\Category.cs" />
+    <Compile Include="Modal\CategoryList.cs" />
     <Compile Include="Modal\DebitBook.cs" />
     <Compile Include="Modal\DetailCategory.cs" />
     <Compile Include="Modal\DetailInfomation.cs" />
+    <Compile Include="Modal\DetailTransaction.cs" />
+    <Compile Include="Modal\ForegroundColorConverter.cs" />
     <Compile Include="Modal\MoneyConverter.cs" />
     <Compile Include="Modal\Report.cs" />
     <Compile Include="Modal\Transaction.cs" />
@@ -267,6 +270,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\white_about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\view_by_category.png" />
+    <Resource Include="Images\view_by_transaction.png" />
+  </ItemGroup>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

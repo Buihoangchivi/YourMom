@@ -45,6 +45,8 @@ namespace YourMom
         private List<Transaction> transactionList;
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         private Budget budgetInfo;
+        private DateTime startingDate, endDate;
+        private bool isDebtTransaction = false;
 
         List<DetailCategory> incomeList = new List<DetailCategory>();
         List<DetailCategory> expenseList = new List<DetailCategory>();
@@ -76,119 +78,12 @@ namespace YourMom
             }
         }
 
-        ObservableCollection<TransactionList> transactionLists = new ObservableCollection<TransactionList>
-        {
-            new TransactionList()
-            {
-                Transactions = new ObservableCollection<Transaction>()
-                {
-                    new Transaction
-                    {
-                        ID = "gd1",
-                        Amount = 1000000,
-                        Date = new DateTime(2021, 7, 3)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd2",
-                        Amount = 200000,
-                        Date = new DateTime(2021, 7, 2)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd2",
-                        Amount = 200000,
-                        Date = new DateTime(2021, 7, 4)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd2",
-                        Amount = 2000000,
-                        Date = new DateTime(2021, 7, 4)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd2",
-                        Amount = 200000,
-                        Date = new DateTime(2021, 7, 30)
-                    },
-                },
+        ObservableCollection<CategoryList> categoryCollection = new ObservableCollection<CategoryList>();
+        ObservableCollection<CategoryList> categoryDebtCollection = new ObservableCollection<CategoryList>();
+        ObservableCollection<TransactionList> transactionCollection = new ObservableCollection<TransactionList>();
+        ObservableCollection<TransactionList> transactionDebtCollection = new ObservableCollection<TransactionList>();
 
-
-                ImagePath = "Images/category_foodndrink.png",
-                TransactionType = "Eating"
-
-            },
-            new TransactionList()
-            {
-                Transactions = new ObservableCollection<Transaction>()
-                {
-                    new Transaction
-                    {
-                        ID = "gd3",
-                        Amount = 40000,
-                        Date = new DateTime(2021, 1, 3)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd4",
-                        Amount = 50000,
-                        Date = new DateTime(2021, 1, 4)
-                    },
-                },
-
-                ImagePath = "Images/category_foodndrink.png",
-                TransactionType = "Eating"
-            },
-            new TransactionList()
-            {
-                Transactions = new ObservableCollection<Transaction>()
-                {
-                    new Transaction
-                    {
-                        ID = "gd5",
-                        Amount = 40000,
-                        Date = new DateTime(2021, 1, 3)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd6",
-                        Amount = 50000,
-                        Date = new DateTime(2021, 1, 4)
-                    },
-                },
-
-                ImagePath = "Images/category_foodndrink.png",
-                TransactionType = "Eating"
-            },
-            new TransactionList()
-            {
-                Transactions = new ObservableCollection<Transaction>()
-                {
-                    new Transaction
-                    {
-                        ID = "gd7",
-                        Amount = 40000,
-                        Date = new DateTime(2021, 1, 3)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd8",
-                        Amount = 50000,
-                        Date = new DateTime(2021, 1, 4)
-                    },
-                    new Transaction
-                    {
-                        ID = "gd9",
-                        Amount = 50000,
-                        Date = new DateTime(2021, 1, 4)
-                    },
-                },
-
-                ImagePath = "Images/category_foodndrink.png",
-                TransactionType = "Ăn uống"
-            }
-            };
+        Stack<DetailInfomation> detailStack = new Stack<DetailInfomation>();
 
         List<Budget> budgetList = new List<Budget>
         {
@@ -249,8 +144,13 @@ namespace YourMom
             //Đọc dữ liệu
             ReadData();
 
-            //Khởi tạo dữ liệu
-            InitializeData();
+            //Thời gian mặc định là tháng hiện tại
+            startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            endDate = startingDate.AddMonths(1).AddDays(-1);
+            AddDataIntoTransactionScreen();
+
+            //Khởi tạo dữ liệu cho màn hình báo cáo
+            InitializeReportData();
 
             double temp;
 
@@ -337,230 +237,48 @@ namespace YourMom
             }
             BudgetList.ItemsSource = runningBudgetList;
 
-            // Hàm xử lý giao dịch
-            for (int i = 0; i < transactionLists.Count; i++)
-            {
-                transactionLists[i].NumberOfTransactions = transactionLists[i].Transactions.Count;
-                for (int j = 0; j < transactionLists[i].Transactions.Count; j++)
-                {
-                    transactionLists[i].TotalMoney += transactionLists[i].Transactions[j].Amount;
-                }
-            }
-
-            TransactionList.ItemsSource = transactionLists;
-
         }
 
-        List<DetailCategory> detailCategoryList = new List<DetailCategory>
-            {
-                new DetailCategory
-                {
-                    ID = "0",
-                    Name = "Eating",
-                    ImagePath = "Images\\category_foodndrink.png",
-                    Amount = 150320
-                },
-                new DetailCategory
-                {
-                    ID = "1",
-                    Name = "Shopping",
-                    ImagePath = "Images\\category_shopping.png",
-                    Amount = 342420
-                },
-                new DetailCategory
-                {
-                    ID = "2",
-                    Name = "Bills",
-                    ImagePath = "Images\\category_bills.png",
-                    Amount = 60230
-                },
-                new DetailCategory
-                {
-                    ID = "3",
-                    Name = "Entertainment",
-                    ImagePath = "Images\\category_entertainment.png",
-                    Amount = 24232
-                },
-                new DetailCategory
-                {
-                    ID = "0",
-                    Name = "Eating",
-                    ImagePath = "Images\\category_foodndrink.png",
-                    Amount = 5430
-                },
-                new DetailCategory
-                {
-                    ID = "1",
-                    Name = "Shopping",
-                    ImagePath = "Images\\category_shopping.png",
-                    Amount = 345325
-                },
-                new DetailCategory
-                {
-                    ID = "2",
-                    Name = "Bills",
-                    ImagePath = "Images\\category_bills.png",
-                    Amount = 454243
-                },
-                new DetailCategory
-                {
-                    ID = "3",
-                    Name = "Entertainment",
-                    ImagePath = "Images\\category_entertainment.png",
-                    Amount = 324523
-                }
-            };
-
-        List<DetailCategory> detailCategoryList1 = new List<DetailCategory>
-            {
-                new DetailCategory
-                {
-                    ID = "10",
-                    Name = "Clothes",
-                    ImagePath = "Images\\category_clothes.png",
-                    Amount = 150000
-                },
-                new DetailCategory
-                {
-                    ID = "11",
-                    Name = "Shoes",
-                    ImagePath = "Images\\category_shoes.png",
-                    Amount = 300000
-                },
-                new DetailCategory
-                {
-                    ID = "12",
-                    Name = "Accessories",
-                    ImagePath = "Images\\category_accessories.png",
-                    Amount = 760000
-                },
-                new DetailCategory
-                {
-                    ID = "13",
-                    Name = "Electronic Device",
-                    ImagePath = "Images\\category_electronic_device.png",
-                    Amount = 100000
-                }
-            };
-
-        List<DetailCategory> detailCategoryList2 = new List<DetailCategory>
-            {
-                new DetailCategory
-                {
-                    ID = "10",
-                    Name = "January",
-                    ImagePath = "Images\\january.png",
-                    Amount = -1227.239723
-                },
-                new DetailCategory
-                {
-                    ID = "11",
-                    Name = "February",
-                    ImagePath = "Images\\february.png",
-                    Amount = 25343
-                },
-                new DetailCategory
-                {
-                    ID = "12",
-                    Name = "March",
-                    ImagePath = "Images\\march.png",
-                    Amount = 45536
-                },
-                new DetailCategory
-                {
-                    ID = "13",
-                    Name = "April",
-                    ImagePath = "Images\\april.png",
-                    Amount = 23123
-                },
-                new DetailCategory
-                {
-                    ID = "10",
-                    Name = "May",
-                    ImagePath = "Images\\may.png",
-                    Amount = 11472
-                },
-                new DetailCategory
-                {
-                    ID = "11",
-                    Name = "June",
-                    ImagePath = "Images\\june.png",
-                    Amount = 45443
-                },
-                new DetailCategory
-                {
-                    ID = "12",
-                    Name = "July",
-                    ImagePath = "Images\\july.png",
-                    Amount = 34535
-                },
-                new DetailCategory
-                {
-                    ID = "13",
-                    Name = "August",
-                    ImagePath = "Images\\august.png",
-                    Amount = 23284
-                },
-                new DetailCategory
-                {
-                    ID = "10",
-                    Name = "September",
-                    ImagePath = "Images\\september.png",
-                    Amount = 24024
-                },
-                new DetailCategory
-                {
-                    ID = "11",
-                    Name = "October",
-                    ImagePath = "Images\\october.png",
-                    Amount = 27257
-                },
-                new DetailCategory
-                {
-                    ID = "12",
-                    Name = "November",
-                    ImagePath = "Images\\november.png",
-                    Amount = 57567
-                },
-                new DetailCategory
-                {
-                    ID = "13",
-                    Name = "December",
-                    ImagePath = "Images\\december.png",
-                    Amount = 45682
-                }
-            };
-
-        Stack<DetailInfomation> detailStack = new Stack<DetailInfomation>();
-
-        private void InitializeData()
+        private void InitializeReportData()
         {
 
+            //Khởi tạo các từ điển
             var incomePairs = new Dictionary<string, double>();
             var expensePairs = new Dictionary<string, double>();
             var debtPairs = new Dictionary<string, double>();
             var loanPairs = new Dictionary<string, double>();
 
+            //Xóa sạch dữ liệu trong các danh sách
+            incomeList.Clear();
+            expenseList.Clear();
+            debtList.Clear();
+            loanList.Clear();
+
             //Tính tổng 4 nhóm giao dịch
             foreach (Transaction transaction in transactionList)
             {
 
-                var type = transaction.TransactionType;
-                switch (type[0] - '0')
+                if (startingDate <= transaction.Date && transaction.Date <= endDate)
                 {
 
-                    case 0: //Thu nhập
-                        AddDataIntoDictionary(incomePairs, type, transaction.Amount, true);
-                        break;
-                    case 1: //Chi tiêu
-                        AddDataIntoDictionary(expensePairs, type, transaction.Amount, true);
-                        break;
-                    case 2: //Đi vay
-                        AddDataIntoDictionary(debtPairs, type, transaction.Amount, true);
-                        break;
-                    case 3: //Cho vay
-                        AddDataIntoDictionary(loanPairs, type, transaction.Amount, true);
-                        break;
+                    var type = transaction.TransactionType;
+                    switch (type[0] - '0')
+                    {
+
+                        case 0: //Thu nhập
+                            AddDataIntoDictionary(incomePairs, type, transaction.Amount, true);
+                            break;
+                        case 1: //Chi tiêu
+                            AddDataIntoDictionary(expensePairs, type, transaction.Amount, true);
+                            break;
+                        case 2: //Đi vay
+                            AddDataIntoDictionary(debtPairs, type, transaction.Amount, true);
+                            break;
+                        case 3: //Cho vay
+                            AddDataIntoDictionary(loanPairs, type, transaction.Amount, true);
+                            break;
+
+                    }
 
                 }
 
@@ -571,6 +289,349 @@ namespace YourMom
             AddDataIntoList(expensePairs, expenseList);
             AddDataIntoList(debtPairs, debtList);
             AddDataIntoList(loanPairs, loanList);
+
+            //Khởi tạo dữ liệu cho khung vay nợ
+            InitDebtReportData(debtList, DebtTextBlock, DebtLeftTextBlock);
+            InitDebtReportData(loanList, LoanTextBlock, LoanLeftTextBlock);
+
+        }
+
+        //Nạp dữ liệu vào màn hình giao dịch
+        private void AddDataIntoTransactionScreen()
+        {
+
+            //Trường hợp đang mở màn hình giao dịch vay nợ
+            if (isDebtTransaction == true)
+            {
+
+                categoryDebtCollection = new ObservableCollection<CategoryList>();
+                transactionDebtCollection = new ObservableCollection<TransactionList>();
+
+                //Đọc dữ liệu tất cả các giao dịch vay nợ vào danh sách giao dịch ở dạng nhóm
+                InitDataIntoObservableCollection(categoryDebtCollection, startingDate, endDate);
+                CategoryList.ItemsSource = categoryDebtCollection;
+
+                //Đọc dữ liệu tất cả các giao dịch vay nợ vào danh sách giao dịch ở dạng giao dịch
+                InitDataIntoObservableCollection(transactionDebtCollection, startingDate, endDate);
+                TransactionList.ItemsSource = transactionDebtCollection;
+
+            }
+            else //Trường hợp đang mở màn hình giao dịch thông thường
+            {
+
+                categoryCollection = new ObservableCollection<CategoryList>();
+                transactionCollection = new ObservableCollection<TransactionList>();
+
+                //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng nhóm
+                InitDataIntoObservableCollection(categoryCollection, startingDate, endDate);
+                CategoryList.ItemsSource = categoryCollection;
+
+                //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng giao dịch
+                InitDataIntoObservableCollection(transactionCollection, startingDate, endDate);
+                TransactionList.ItemsSource = transactionCollection;
+
+            }
+
+        }
+
+        //Hàm khởi tạo dữ liệu theo kiểu nhóm vào danh sách giao dịch hoặc danh sách vay nợ
+        private void InitDataIntoObservableCollection(ObservableCollection<CategoryList> categories, DateTime startingDate, DateTime endDate)
+        {
+
+            //Mảng lưu số tiền thu vào và số tiền chi ra
+            double[] amountArray = { 0.0, 0.0 };
+
+            //Đọc qua tất cả các giao dịch
+            foreach (var transaction in transactionList)
+            {
+
+                //Kiểm tra xem thời gian của giao dịch có nằm trong khoảng thời thời đầu vào hay không
+                if (startingDate <= transaction.Date &&
+                    (transaction.Date <= endDate || endDate == DateTime.MaxValue))
+                {
+
+                    //ID của loại giao dịch
+                    var type = transaction.TransactionType;
+                    var firstID = type[0] - '0';
+                    //Biến kiểm tra ID có xuất phát là số 0 hoặc số 1 không
+                    var isTransaction = firstID < 2;
+
+                    //Kiểm tra có phải trường hợp danh sách giao dịch không
+                    if ((isTransaction && categories == categoryCollection) ||
+                        //Kiểm tra có phải trường hợp danh sách vay nợ không
+                        (!isTransaction && categories == categoryDebtCollection))
+                    {
+
+                        var pos = 0;
+
+                        for (; pos < categories.Count; pos++)
+                        {
+
+                            if (categories[pos].Name == categoryList[type].Name)
+                            {
+
+                                break;
+
+                            }
+
+                        }
+
+                        //Kiểm tra đã thêm loại giao dịch này vào list chưa
+                        if (pos < categories.Count)
+                        {
+
+                            //Lấy danh sách giao dịch cần tìm ra
+                            var list = categories[pos];
+
+                            //Tìm vị trí để chèn giao dịch vào danh sách
+                            var index = IndexOfCollectionBinarySearch(list.Transactions, transaction.Date);
+
+                            //Thêm giao dịch vào danh sách
+                            list.Transactions.Insert(index, transaction);
+
+                            //Tăng số lượng giao dịch lên
+                            list.NumberOfTransactions++;
+
+                            //Cộng dồn số tiền của danh sách giao dịch lên
+                            list.TotalMoney += transaction.Amount;
+
+                        }
+                        else //Trường hợp chưa thêm danh sách giao dịch vào list
+                        {
+
+                            //Khởi tạo và thêm mới giao dịch vào list
+                            categories.Add(new CategoryList
+                            {
+
+                                //Đường dẫn ảnh của icon loại giao dịch
+                                ImagePath = categoryList[type].ImagePath,
+                                //Só lượng giao dịch hiện có
+                                NumberOfTransactions = 1,
+                                //Tên loại giao dịch
+                                Name = categoryList[type].Name,
+                                //Tổng số tiền
+                                TotalMoney = transaction.Amount,
+                                //Danh sách giao dịch
+                                Transactions = new ObservableCollection<Transaction>() { transaction },
+
+                            });
+
+                        }
+
+                        //Cộng dồn số tiền tương ứng
+                        //firstID: 0 hoặc 2 (thu nhập hoặc đi vay) được tính vào khoản tiền vào
+                        //firstID: 1 hoặc 3 (chi tiêu hoặc cho vay) được tính vào khoản tiền ra
+                        amountArray[firstID % 2] += transaction.Amount;
+
+                    }
+
+                }
+
+            }
+
+            //Nếu không có giao dịch nào trong khoảng thời gian đầu vào thì hiển thị khung trống
+            if (categories.Count == 0)
+            {
+
+                TransactionScrollViewer.Visibility = Visibility.Collapsed;
+                NoTransactionBorder.Visibility = Visibility.Visible;
+                return;
+
+            }
+            else //Nếu có giao dịch thì hiển thị khung danh sách giao dịch
+            {
+
+                TransactionScrollViewer.Visibility = Visibility.Visible;
+                NoTransactionBorder.Visibility = Visibility.Collapsed;
+
+            }
+
+            //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
+            Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
+
+            //Hiển thị số tiền chi ra
+            var money = (string)moneyConverter.Convert(amountArray[0], null, null, null);
+            InflowTextBlock.Text = money;
+
+            //Hiển thị số tiền thu vào
+            money = (string)moneyConverter.Convert(-amountArray[1], null, null, null);
+            OutflowTextBlock.Text = money;
+
+            //Hiển thị số tiền còn lại
+            money = (string)moneyConverter.Convert(amountArray[0] - amountArray[1], null, null, null);
+            LeftTextBlock.Text = money;
+
+        }
+
+        //Hàm khởi tạo dữ liệu theo kiểu giao dịch vào danh sách giao dịch hoặc danh sách vay nợ
+        private void InitDataIntoObservableCollection(ObservableCollection<TransactionList> transactions, DateTime startingDate, DateTime endDate)
+        {
+
+            //Mảng lưu số tiền thu vào và số tiền chi ra
+            double[] amountArray = { 0.0, 0.0 };
+
+            //Đọc qua tất cả các giao dịch
+            foreach (var transaction in transactionList)
+            {
+
+                //Kiểm tra xem thời gian của giao dịch có nằm trong khoảng thời thời đầu vào hay không
+                if (startingDate <= transaction.Date &&
+                    (transaction.Date <= endDate || endDate == DateTime.MaxValue))
+                {
+
+                    //ID của loại giao dịch
+                    var type = transaction.TransactionType;
+                    var firstID = type[0] - '0';
+                    //Biến kiểm tra ID có xuất phát là số 0 hoặc số 1 không
+                    var isTransaction = firstID < 2;
+
+                    //Kiểm tra có phải trường hợp danh sách giao dịch không
+                    if ((isTransaction && transactions == transactionCollection) ||
+                        //Kiểm tra có phải trường hợp danh sách vay nợ không
+                        (!isTransaction && transactions == transactionDebtCollection))
+                    {
+
+                        var date = transaction.Date.ToLongDateString();
+                        var amount = transaction.Amount;
+                        if (firstID % 2 != 0)
+                        {
+
+                            amount *= -1;
+
+                        }
+
+                        var detail = new DetailTransaction
+                        {
+
+                            Amount = transaction.Amount,
+                            Date = transaction.Date,
+                            ID = transaction.ID,
+                            ImagePath = categoryList[transaction.TransactionType].ImagePath,
+                            Name = categoryList[transaction.TransactionType].Name,
+                            Note = transaction.Note,
+                            Stakeholder = transaction.Stakeholder,
+                            TransactionType = transaction.TransactionType
+
+                        };
+
+                        //Tìm vị trí để chèn giao dịch vào danh sách
+                        var index = IndexOfCollectionBinarySearch(transactions, transaction.Date);
+
+                        //Kiểm tra đã thêm loại ngày tháng năm này vào list chưa
+                        if (index >= 0 && index < transactions.Count &&
+                            transactions[index].Date.ToLongDateString() == date)
+                        {
+
+                            //Lấy danh sách giao dịch cần tìm ra
+                            var list = transactions[index];
+
+                            //Thêm giao dịch vào danh sách
+                            list.Transactions.Add(detail);
+
+                            //Cộng dồn số tiền của danh sách giao dịch lên
+                            list.TotalMoney += amount;
+
+                        }
+                        else //Trường hợp chưa thêm danh sách giao dịch vào list
+                        {
+
+                            //Khởi tạo và thêm mới giao dịch vào list
+                            var list = new TransactionList
+                            {
+
+                                //Thời gian tạo giao dịch
+                                Date = transaction.Date,
+                                //Tổng số tiền
+                                TotalMoney = amount,
+                                //Danh sách giao dịch
+                                Transactions = new ObservableCollection<DetailTransaction>() { detail },
+
+                            };
+
+                            transactions.Insert(index, list);
+
+                        }
+
+                        //Cộng dồn số tiền tương ứng
+                        //firstID: 0 hoặc 2 (thu nhập hoặc đi vay) được tính vào khoản tiền vào
+                        //firstID: 1 hoặc 3 (chi tiêu hoặc cho vay) được tính vào khoản tiền ra
+                        amountArray[firstID % 2] += transaction.Amount;
+
+                    }
+
+                }
+
+            }
+
+            //Nếu không có giao dịch nào trong khoảng thời gian đầu vào thì hiển thị khung trống
+            if (transactions.Count == 0)
+            {
+
+                TransactionScrollViewer.Visibility = Visibility.Collapsed;
+                NoTransactionBorder.Visibility = Visibility.Visible;
+                return;
+
+            }
+            else //Nếu có giao dịch thì hiển thị khung danh sách giao dịch
+            {
+
+                TransactionScrollViewer.Visibility = Visibility.Visible;
+                NoTransactionBorder.Visibility = Visibility.Collapsed;
+
+            }
+
+            //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
+            Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
+
+            //Hiển thị số tiền chi ra
+            var money = (string)moneyConverter.Convert(amountArray[0], null, null, null);
+            InflowTextBlock.Text = money;
+
+            //Hiển thị số tiền thu vào
+            money = (string)moneyConverter.Convert(-amountArray[1], null, null, null);
+            OutflowTextBlock.Text = money;
+
+            //Hiển thị số tiền còn lại
+            money = (string)moneyConverter.Convert(amountArray[0] - amountArray[1], null, null, null);
+            LeftTextBlock.Text = money;
+
+        }
+
+        //Hàm tìm kiếm nhị phân vị trí để chèn giao dịch vào danh sách tăng dần theo ngày tháng
+        private int IndexOfCollectionBinarySearch(dynamic list, DateTime dateTime)
+        {
+
+            int low = 0, high = list.Count;
+            int mid;
+
+            while (low < high)
+            {
+
+                mid = (low + high) / 2;
+
+                if (list[mid].Date.ToLongDateString() == dateTime.ToLongDateString())
+                {
+
+                    return mid;
+
+                }
+
+                if (dateTime.CompareTo(list[mid].Date) < 0)
+                {
+
+                    low = mid + 1;
+
+                }
+                else
+                {
+
+                    high = mid;
+
+                }
+
+            }
+
+            return low;
 
         }
 
@@ -644,7 +705,7 @@ namespace YourMom
             {
                 tempTransactionList = new List<TempTransaction>();
             }
-            
+
             //Sao chép dữ liệu sang danh sách giao dịch sử dụng kiểu Datetime
             transactionList = new List<Transaction>();
 
@@ -690,18 +751,23 @@ namespace YourMom
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+            
+
+        }
+
+        private void InitDebtReportData(List<DetailCategory> list, TextBlock textBlock, TextBlock leftTextBlock)
+        {
+
             //Tổng tiền và số dư
             double sum, left;
             //Định dạng lại số tiền ở dạng chuỗi và truyền vào màn hình
             Modal.MoneyConverter moneyConverter = new Modal.MoneyConverter();
 
             //Tính tổng số tiền nợ người khác
-            sum = SumComponent(debtList);
-            //Hiển thị số tiền đó vào khung tiền nợ
-            DebtTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
+            sum = SumComponent(list);
 
             //Tính toán số dư
-            if (debtList.Count == 0)
+            if (list.Count == 0)
             {
 
                 left = 0;
@@ -710,49 +776,24 @@ namespace YourMom
             else
             {
 
-                left = debtList[0].Amount;
+                left = list[0].Amount;
 
-                if (debtList.Count == 2)
+                if (list.Count == 2)
                 {
 
-                    left -= debtList[1].Amount;
+                    left -= list[1].Amount;
 
                 }
 
             }
 
-            //Hiển thị số tiền đó vào khung tiền nợ
+            //Tính toán số dư
             var money = (string)moneyConverter.Convert(left, null, null, null);
-            DebtLeftTextBlock.Text = $"{money} left";
 
-            //Tính tổng số tiền cho người khác vay
-            sum = SumComponent(loanList);
-            //Hiển thị số tiền đó vào khung tiền nợ
-            LoanTextBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
-
-            //Tính toán số dư
-            if (loanList.Count == 0)
-            {
-
-                left = 0;
-
-            }
-            else
-            {
-                left = loanList[0].Amount;
-
-                if (loanList.Count == 2)
-                {
-
-                    left -= loanList[1].Amount;
-
-                }
-
-            }
-
-            //Hiển thị số tiền đó vào khung tiền nợ
-            money = (string)moneyConverter.Convert(left, null, null, null);
-            LoanLeftTextBlock.Text = $"{money} left";
+            //Hiển thị số tiền nợ
+            textBlock.Text = (string)moneyConverter.Convert(sum, null, null, null);
+            //Hiển thị số dư
+            leftTextBlock.Text = $"{money} left";
 
 
 
@@ -854,23 +895,127 @@ namespace YourMom
 
         }
 
+        //Thay đổi kiểu xem danh sách giao dịch
+        private void ChangeTransactionViewButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (CategoryListScrollView.Visibility == Visibility.Visible)
+            {
+
+                CategoryListScrollView.Visibility = Visibility.Collapsed;
+                TransactionListScrollView.Visibility = Visibility.Visible;
+                var imgName = "Images/view_by_transaction.png";
+                ChangeImage(imgName, ChangeTransactionViewImage);
+
+            }
+            else
+            {
+
+                CategoryListScrollView.Visibility = Visibility.Visible;
+                TransactionListScrollView.Visibility = Visibility.Collapsed;
+                var imgName = "Images/view_by_category.png";
+                ChangeImage(imgName, ChangeTransactionViewImage);
+
+            }
+
+        }
+
+        //Quay về danh sách giao dịch ở tháng hiện tại
+        private void JumpToTodayButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            //Chuyển nút hiện tại sang trạng thái được chọn
+            ChangeButtonStatus(CurrentDash, CurrentTextBlock, true);
+            //Chuyển nút tiếp theo sang trạng thái không được chọn
+            ChangeButtonStatus(NextDash, NextTextBlock, false);
+
+            //Khoảng thời gian là tháng hiện tại
+            startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            endDate = startingDate.AddMonths(1).AddDays(-1);
+
+            //Thay đổi tên các nút hiển thị khoảng thời gian
+            ChangeTitleOfDateButton();
+
+        }
+
         private void TransactionsButton_Click(object sender, RoutedEventArgs e)
         {
+
+            //Đóng tất cả các màn hình khác
+            ReportScreenGrid.Visibility = Visibility.Collapsed;
+            BudgetScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Mở màn hình giao dịch
+            TransactionScreenGrid.Visibility = Visibility.Visible;
+
+            //Đọc dữ liệu tất cả các giao dịch thông thường vào danh sách giao dịch
+            categoryCollection = new ObservableCollection<CategoryList>();
+            transactionCollection = new ObservableCollection<TransactionList>();
+            isDebtTransaction = false;
+
+            //Hiển thị danh sách giao dịch của tháng hiện tại
+            JumpToTodayButton_Click(null, new RoutedEventArgs());
 
         }
 
         private void ReportButton_Click(object sender, RoutedEventArgs e)
         {
 
+            var button = (Button)sender;
+            //Đóng tất cả các màn hình khác
+            TransactionScreenGrid.Visibility = Visibility.Collapsed;
+            BudgetScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Trường hợp nhấn nút báo cáo thì hiển thị mặc định là giai đoạn tháng hiện tại
+            if (button.Name == "ReportButton")
+            {
+
+                startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                endDate = startingDate.AddMonths(1).AddDays(-1);
+
+            }
+
+            //Khởi tạo lại dữ liệu báo cáo với giai đoạn tháng hiện tại
+            InitializeReportData();
+
+            //Reload dữ liệu của biểu đồ thu nhập và biểu đồ chi tiêu
+            IncomeReportChart_IsVisibleChanged(null, new DependencyPropertyChangedEventArgs());
+            ExpenseReportChart_IsVisibleChanged(null, new DependencyPropertyChangedEventArgs());
+
+            //Mở màn hình báo cáo
+            ReportScreenGrid.Visibility = Visibility.Visible;
+
         }
 
         private void BudgetButton_Click(object sender, RoutedEventArgs e)
         {
 
+            //Đóng tất cả các màn hình khác
+            TransactionScreenGrid.Visibility = Visibility.Collapsed;
+            ReportScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Mở màn hình ngân sách
+            BudgetScreenGrid.Visibility = Visibility.Visible;
+
         }
 
         private void DebtsButton_Click(object sender, RoutedEventArgs e)
         {
+
+            //Đóng tất cả các màn hình khác
+            ReportScreenGrid.Visibility = Visibility.Collapsed;
+            BudgetScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Mở màn hình giao dịch
+            TransactionScreenGrid.Visibility = Visibility.Visible;
+
+            //Đọc dữ liệu tất cả các giao dịch vay nợ vào danh sách giao dịch
+            categoryDebtCollection = new ObservableCollection<CategoryList>();
+            transactionDebtCollection = new ObservableCollection<TransactionList>();
+            isDebtTransaction = true;
+
+            //Hiển thị danh sách giao dịch của tháng hiện tại
+            JumpToTodayButton_Click(null, new RoutedEventArgs());
 
         }
 
@@ -931,309 +1076,10 @@ namespace YourMom
 
             }
 
-
-
-            /*List<Category> categoryList = new List<Category>
-			{
-				new Category
-				{
-					ID = "0",
-					Name = "Eating",
-					ImagePath = "Images\\Eating.jpg"
-				},
-				new Category
-				{
-					ID = "1",
-					Name = "Shopping",
-					ImagePath = "Images\\Shopping.jpg"
-				},
-				new Category
-				{
-					ID = "2",
-					Name = "Bills",
-					ImagePath = "Images\\Bills.jpg"
-				},
-				new Category
-				{
-					ID = "3",
-					Name = "Entertainment",
-					ImagePath = "Images\\Entertainment.jpg"
-				},
-			};*/
-
-            /*List<DetailCategory> detailCategoryList = new List<DetailCategory>
-			{
-				new DetailCategory
-				{
-					ID = "0",
-					Name = "Eating",
-					ImagePath = "Images\\Eating.jpg",
-					Amount = 1500000
-				},
-				new DetailCategory
-				{
-					ID = "1",
-					Name = "Shopping",
-					ImagePath = "Images\\Shopping.jpg",
-					Amount = 300000
-				},
-				new DetailCategory
-				{
-					ID = "2",
-					Name = "Bills",
-					ImagePath = "Images\\Bills.jpg",
-					Amount = 760000
-				},
-				new DetailCategory
-				{
-					ID = "3",
-					Name = "Entertainment",
-					ImagePath = "Images\\Entertainment.jpg",
-					Amount = 100000
-				}
-			};*/
-
-            /*List<Budget> budgetList = new List<Budget>
-			{
-				new Budget
-				{
-					ID = "0",
-					Name = "Eating",
-					ImagePath = "Images\\Eating.jpg",
-					StartingDate = "6/7/2021 11:14:17 AM",
-					EndDate = "7/20/2021 12:17:00 AM",
-					MoneyFund = 2000000,
-					Note = "Tiền ăn uống cho nửa tháng"
-				},
-				new Budget
-				{
-					ID = "1",
-					Name = "Shopping",
-					ImagePath = "Images\\Shopping.jpg",
-					StartingDate = "5/7/2021 4:00:00 AM",
-					EndDate = "6/7/2021 12:00:00 AM",
-					MoneyFund = 2000000,
-					Note = "Tiền mua sắm cho một tháng"
-				},
-				new Budget
-				{
-					ID = "2",
-					Name = "Bills",
-					ImagePath = "Images\\Bills.jpg",
-					StartingDate = "3/10/2021 10:14:17 AM",
-					EndDate = "3/12/2021 10:17:00 AM",
-					MoneyFund = 2000000,
-					Note = "Tiền hóa đơn cho 2 ngày"
-				},
-				new Budget
-				{
-					ID = "3",
-					Name = "Entertainment",
-					ImagePath = "Images\\Entertainment.jpg",
-					StartingDate = "2/22/2020 16:00:00 AM",
-					EndDate = "2/22/2021 16:00:00 AM",
-					MoneyFund = 2000000,
-					Note = "Tiền giải trí cho một năm"
-				}
-			};*/
-
-            /*List<DebitBook> debitBookList = new List<DebitBook>
-			{
-				new DebitBook
-				{
-					ID = "14",
-					Name = "Lending",
-					ImagePath = "Images\\Lending.jpg",
-					StartingDate = "6/7/2021 11:14:17 AM",
-					EndDate = "7/20/2021 12:17:00 AM",
-					Amount = 500000,
-					Note = "Tiền mượn đi ăn sáng",
-					Stakeholder = "Phạm Tấn" 
-				},
-				new DebitBook
-				{
-					ID = "15",
-					Name = "Paying",
-					ImagePath = "Images\\Paying.jpg",
-					StartingDate = "5/7/2021 4:00:00 AM",
-					EndDate = "6/7/2021 12:00:00 AM",
-					Amount = 250000,
-					Note = "Trả tiền mượn đi ăn sáng",
-					Stakeholder = "Phạm Tấn"
-				},
-				new DebitBook
-				{
-					ID = "16",
-					Name = "Borrowing",
-					ImagePath = "Images\\Borrowing.jpg",
-					StartingDate = "3/10/2021 10:14:17 AM",
-					EndDate = "3/12/2021 10:17:00 AM",
-					Amount = 60000,
-					Note = "Cho mượn tiền đi đổ xăng",
-					Stakeholder = "Bùi Văn Vĩ"
-				},
-				new DebitBook
-				{
-					ID = "17",
-					Name = "DebtCollection",
-					ImagePath = "Images\\DebtCollection.jpg",
-					StartingDate = "2/22/2020 16:00:00 AM",
-					Amount = 24000,
-					Note = "Thu nợ tiền đi đổ xăng",
-					Stakeholder = "Bùi Văn Vĩ"
-				}
-			};*/
-
-            /*List<Transaction> transactionList = new List<Transaction>
-			{
-				new Transaction
-				{
-					ID = "abc111",
-					Date = "6/7/2021 11:14:17 AM",
-					TransactionType = "0",
-					Amount = 50000,
-					Note = "Tiền đi ăn sáng ở quán bún đậu mắm tôm",
-					Stakeholder = "Phạm Tấn"
-				},
-				new Transaction
-				{
-					ID = "hyz423",
-					Date = "3/10/2021 10:14:17 AM",
-					TransactionType = "1",
-					Amount = 230000,
-					Note = "Tiền đi mua sắm ở siêu thị",
-					Stakeholder = "Bùi Văn Vĩ"
-				},
-				new Transaction
-				{
-					ID = "xyz473",
-					Date = "2/22/2020 16:00:00 AM",
-					TransactionType = "2",
-					Amount = 100000,
-					Note = "Tiền điện tháng 7 ở phòng KTX",
-					Stakeholder = "Nguyễn Huy Hải"
-				},
-				new Transaction
-				{
-					ID = "uhd723",
-					Date = "3/12/2021 10:17:00 AM",
-					TransactionType = "3",
-					Amount = 96000,
-					Note = "Tiền đi uống cà phê ở quán Highland",
-					Stakeholder = "Nguyễn Công Phượng"
-				}
-			};*/
-
-            /*List<Report> reports = new List<Report>
-			{
-				new Report
-				{
-					ID = "a28hdw23jou4",
-					StartingDate = "6/7/2021 11:14:17 AM",
-					EndDate = "7/20/2021 12:17:00 AM",
-					Income = new List<DetailCategory>
-					{
-						new DetailCategory
-						{
-							ID = "25",
-							Name = "Bonus",
-							ImagePath = "Images\\Bonus.jpg",
-							Amount = 1500000
-						},
-						new DetailCategory
-						{
-							ID = "26",
-							Name = "Interest",
-							ImagePath = "Images\\Interest.jpg",
-							Amount = 300000
-						},
-						new DetailCategory
-						{
-							ID = "27",
-							Name = "Salary",
-							ImagePath = "Images\\Salary.jpg",
-							Amount = 760000
-						},
-						new DetailCategory
-						{
-							ID = "28",
-							Name = "Awarded",
-							ImagePath = "Images\\Awarded.jpg",
-							Amount = 100000
-						}
-					},
-					Expense = new List<DetailCategory>
-					{
-						new DetailCategory
-						{
-							ID = "0",
-							Name = "Eating",
-							ImagePath = "Images\\Eating.jpg",
-							Amount = 1500000
-						},
-						new DetailCategory
-						{
-							ID = "1",
-							Name = "Shopping",
-							ImagePath = "Images\\Shopping.jpg",
-							Amount = 300000
-						},
-						new DetailCategory
-						{
-							ID = "2",
-							Name = "Bills",
-							ImagePath = "Images\\Bills.jpg",
-							Amount = 760000
-						},
-						new DetailCategory
-						{
-							ID = "3",
-							Name = "Entertainment",
-							ImagePath = "Images\\Entertainment.jpg",
-							Amount = 100000
-						}
-					},
-					Debt = new List<DetailCategory>
-					{
-						new DetailCategory
-						{
-							ID = "15",
-							Name = "Paying",
-							ImagePath = "Images\\Paying.jpg",
-							Amount = 300000
-						},
-						new DetailCategory
-						{
-							ID = "16",
-							Name = "Borrowing",
-							ImagePath = "Images\\Borrowing.jpg",
-							Amount = 760000
-						}
-					},
-					Loan = new List<DetailCategory>
-					{
-						new DetailCategory
-						{
-							ID = "14",
-							Name = "Lending",
-							ImagePath = "Images\\Lending.jpg",
-							Amount = 1500000
-						},
-						new DetailCategory
-						{
-							ID = "17",
-							Name = "DebtCollection",
-							ImagePath = "Images\\DebtCollection.jpg",
-							Amount = 100000
-						}
-					}
-				}
-			};
-
-			XmlSerializer xs = new XmlSerializer(typeof(List<Report>));
-			TextWriter writer = new StreamWriter(@"Data\Report.xml");
-			xs.Serialize(writer, reports);
-			writer.Close();*/
+            //XmlSerializer xs = new XmlSerializer(typeof(List<Report>));
+            //TextWriter writer = new StreamWriter(@"Data\Report.xml");
+            //xs.Serialize(writer, reports);
+            //writer.Close();
 
         }
 
@@ -1427,8 +1273,6 @@ namespace YourMom
 
         }
 
-        //Hàm xử lý nút xem chi tiết danh sách loại
-
         //Hàm nạp dữ liệu cho khung báo cáo chi tiết
         private DetailInfomation AddDataIntoDetailReport(string title, List<DetailCategory> list)
         {
@@ -1527,13 +1371,18 @@ namespace YourMom
                 foreach (Transaction transaction in transactionList)
                 {
 
-                    var type = transaction.TransactionType;
-                    var index = type.IndexOf(detailCategory.ID);
-
-                    if (index == 0) //Nhóm con thì thêm dữ liệu vào từ điển
+                    if (startingDate.Date <= transaction.Date && transaction.Date <= endDate)
                     {
 
-                        AddDataIntoDictionary(valuePairs, type, transaction.Amount, false);
+                        var type = transaction.TransactionType;
+                        var index = type.IndexOf(detailCategory.ID);
+
+                        if (index == 0) //Nhóm con thì thêm dữ liệu vào từ điển
+                        {
+
+                            AddDataIntoDictionary(valuePairs, type, transaction.Amount, false);
+
+                        }
 
                     }
 
@@ -1610,12 +1459,17 @@ namespace YourMom
             foreach (Transaction transaction in transactionList)
             {
 
-                //Giao dịch phải thỏa điều kiện cùng ID với ID của tham số đầu vào
-                if (transaction.TransactionType == detailCategory.ID)
+                if (startingDate.Date <= transaction.Date && transaction.Date <= endDate)
                 {
 
-                    //Cộng dồn số tiền giao dịch trong tháng
-                    amountPerMonth[transaction.Date.Month - 1] += transaction.Amount;
+                    //Giao dịch phải thỏa điều kiện cùng ID với ID của tham số đầu vào
+                    if (transaction.TransactionType == detailCategory.ID)
+                    {
+
+                        //Cộng dồn số tiền giao dịch trong tháng
+                        amountPerMonth[transaction.Date.Month - 1] += transaction.Amount;
+
+                    }
 
                 }
 
@@ -1794,56 +1648,182 @@ namespace YourMom
         // Nút chuyển sang tháng trước trong giao diện giao dịch
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            PreviousTextblock.Foreground = Brushes.Green;
-            PreviousTextblock.FontSize = 20;
-            PreviousButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            PreviousButton.BorderBrush = Brushes.Green;
 
-            CurrentTextblock.Foreground = Brushes.Black;
-            CurrentButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            CurrentTextblock.FontSize = 15;
+            //Trường hợp đang ở trạng thái tháng tương lai
+            if (CurrentDash.Background != Brushes.Green)
+            {
 
-            NextTextblock.Foreground = Brushes.Black;
-            NextButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            NextTextblock.FontSize = 15;
+                //Chuyển nút hiện tại sang trạng thái được chọn
+                ChangeButtonStatus(CurrentDash, CurrentTextBlock, true);
+                //Chuyển nút tiếp theo sang trạng thái không được chọn
+                ChangeButtonStatus(NextDash, NextTextBlock, false);
+
+                //Giảm khoảng thời gian bắt đầu xuống tháng hiện tại
+                startingDate = startingDate.AddMonths(-1);
+
+            }
+
+            //Giảm khoảng thời gian bắt đầu xuống tháng trước
+            startingDate = startingDate.AddMonths(-1);
+            endDate = startingDate.AddMonths(1).AddDays(-1);
+
+            //Thay đổi tên các nút hiển thị khoảng thời gian
+            ChangeTitleOfDateButton();
+
         }
 
-        // Nút tháng hiện tại, có thể dùng để chuyển sang tháng tiếp theo với tháng trước 
+        // Nút chuyển sang tháng hiện tại trong giao diện giao dịch
         private void CurrentButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentTextblock.Foreground = Brushes.Green;
-            CurrentTextblock.FontSize = 20;
-            CurrentButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            CurrentButton.BorderBrush = Brushes.Green;
 
-            PreviousTextblock.Foreground = Brushes.Black;
-            PreviousButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            PreviousTextblock.FontSize = 15;
+            //Trường hợp đang ở trạng thái tháng tương lai
+            if (CurrentDash.Background != Brushes.Green)
+            {
 
-            NextTextblock.Foreground = Brushes.Black;
-            NextButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            NextTextblock.FontSize = 15;
+                //Chuyển nút hiện tại sang trạng thái được chọn
+                ChangeButtonStatus(CurrentDash, CurrentTextBlock, true);
+                //Chuyển nút tiếp theo sang trạng thái không được chọn
+                ChangeButtonStatus(NextDash, NextTextBlock, false);
+
+                //Khoảng thời gian là tháng hiện tại
+                startingDate = startingDate.AddMonths(-1);
+                endDate = startingDate.AddMonths(1).AddDays(-1);
+
+                //Thay đổi tên các nút hiển thị khoảng thời gian
+                ChangeTitleOfDateButton();
+
+            }
+
         }
 
         // Nút chuyển sang tháng tiếp theo của Nút tháng hiện tại
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            NextTextblock.Foreground = Brushes.Green;
-            NextTextblock.FontSize = 20;
-            NextButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            NextButton.BorderBrush = Brushes.Green;
 
-            CurrentTextblock.Foreground = Brushes.Black;
-            CurrentButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            CurrentTextblock.FontSize = 15;
+            //Trường hợp không ở trạng thái tháng tương lai
+            if (NextDash.Background != Brushes.Green)
+            {
 
-            PreviousTextblock.Foreground = Brushes.Black;
-            PreviousButton.BorderThickness = new Thickness(0, 0, 0, 0);
-            PreviousTextblock.FontSize = 15;
+                //Tăng thời gian bắt đầu lên 1 tháng
+                startingDate = startingDate.AddMonths(1);
+                endDate = startingDate.AddMonths(1).AddDays(-1);
+
+                //Thay đổi tên các nút hiển thị khoảng thời gian
+                ChangeTitleOfDateButton();
+
+            }
+
         }
 
+        //Thay đổi tiêu đề của 3 nút trạng thái thời gian
+        private void ChangeTitleOfDateButton()
+        {
+
+            //Thời gian bắt đầu của tháng hiện tại theo thời gian thực
+            var startingOfThisMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+
+            //Thời gian bắt đầu của tháng trước
+            var lastStartingDate = startingDate.AddMonths(-1);
+            //Thời gian kết thúc của tháng trước
+            var lastEndDate = lastStartingDate.AddMonths(1).AddDays(-1);
+            //Thời gian bắt đầu của tháng tiếp theo
+            var nextStartingDate = startingDate.AddMonths(1);
+            //Thời gian kết thúc của tháng tiếp theo
+            var nextEndDate = nextStartingDate.AddMonths(1).AddDays(-1);
+
+            //Hiển thị tên 3 nút
+            PreviousTextBlock.Text =
+                $"{lastStartingDate.Day}/{lastStartingDate.Month}/{lastStartingDate.Year}" +
+                $" - {lastEndDate.Day}/{lastEndDate.Month}/{lastEndDate.Year}";
+
+            CurrentTextBlock.Text =
+                $"{startingDate.Day}/{startingDate.Month}/{startingDate.Year}" +
+                $" - {endDate.Day}/{endDate.Month}/{endDate.Year}";
+
+            NextTextBlock.Text =
+                $"{nextStartingDate.Day}/{nextStartingDate.Month}/{nextStartingDate.Year}" +
+                $" - {nextEndDate.Day}/{nextEndDate.Month}/{nextEndDate.Year}";
+
+            //Kiểm tra có phải là 2 tháng trước hay không
+            if (startingDate == startingOfThisMonth.AddMonths(-2))
+            {
+
+                //Tháng tiếp theo chính là tháng trước
+                NextTextBlock.Text = "LAST MONTH";
+
+            }
+            //Kiểm tra có phải là tháng trước hay không
+            else if (startingDate == startingOfThisMonth.AddMonths(-1))
+            {
+
+                //Tháng hiện tại chính là tháng trước
+                CurrentTextBlock.Text = "LAST MONTH";
+                //Tháng tiếp theo chính là tháng này
+                NextTextBlock.Text = "THIS MONTH";
+
+            }
+            //Kiểm tra có phải là tháng hiện tại trở đi hay không
+            else if (startingDate >= startingOfThisMonth)
+            {
+
+                PreviousTextBlock.Text = "LAST MONTH";
+                CurrentTextBlock.Text = "THIS MONTH";
+                NextTextBlock.Text = "FUTURE";
+
+                //Đang ở trạng thái tháng tương lai
+                if (startingDate > startingOfThisMonth)
+                {
+
+                    //Thời gian kết thúc là vô cùng
+                    endDate = DateTime.MaxValue;
+
+                    //Chuyển nút hiện tại sang trạng thái không được chọn
+                    ChangeButtonStatus(CurrentDash, CurrentTextBlock, false);
+                    //Chuyển nút tiếp theo sang trạng thái được chọn
+                    ChangeButtonStatus(NextDash, NextTextBlock, true);
+
+                }
+
+            }
+
+            //Đưa dữ liệu vào màn hình danh sách giao dịch
+            AddDataIntoTransactionScreen();
+
+        }
+
+        private void ChangeButtonStatus(TextBlock dash, TextBlock textBlock, bool isSelected)
+        {
+
+            //Trường hợp nút được chọn
+            if (isSelected)
+            {
+
+                textBlock.Foreground = Brushes.Green;
+                textBlock.FontSize = 19;
+                dash.Background = Brushes.Green;
+
+            }
+            else //Trường hợp nút không được chọn
+            {
+
+                var color = (SolidColorBrush)new BrushConverter().ConvertFromString("#757575");
+                textBlock.Foreground = color;
+                textBlock.FontSize = 15;
+                dash.Background = Brushes.White;
+
+            }
+
+        }
+
+        //Hàm xử lý khi nhấn vào nút xem báo cáo trong màn hình giao dịch
         private void ViewReportButton_Click(object sender, RoutedEventArgs e)
         {
+
+            //Đóng màn hình giao dịch
+            TransactionScreenGrid.Visibility = Visibility.Collapsed;
+
+            //Hiển thị màn hình ngân sách
+            ReportScreenGrid.Visibility = Visibility.Visible;
 
         }
 

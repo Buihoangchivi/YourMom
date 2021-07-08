@@ -8,7 +8,7 @@ using System.ComponentModel;
 public class Transaction : INotifyPropertyChanged
 {
 	protected string id;
-	private DateTime date;
+	protected DateTime date;
 	protected string transactionType;
 	protected double amount;
 	protected string note;
