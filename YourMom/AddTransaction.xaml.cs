@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
-
+using System.Configuration;
+using System.ComponentModel;
 
 namespace YourMom
 {
@@ -21,16 +22,38 @@ namespace YourMom
     /// </summary>
     public partial class AddTransaction : Window
     {
-        public AddTransaction()
-        {
-            InitializeComponent();
-        }
-        
-        
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        public AddTransaction(string colorScheme)
+        {
+            
+            InitializeComponent();
+            ColorScheme = colorScheme;
+            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
+            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
         }
+
+
+        private string _colorScheme = "";           //Màu nền hiện tại
+        public string ColorScheme
+        {
+            get
+            {
+                return _colorScheme;
+            }
+            set
+            {
+                _colorScheme = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
+                }
+            }
+        }
+
+        
+
+
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -84,5 +107,12 @@ namespace YourMom
             DateTime? datepicker = DatePicker1.SelectedDate;
             MessageBox.Show(datepicker.Value.ToString());
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        
     }
 }

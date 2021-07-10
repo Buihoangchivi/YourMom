@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTempTransaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Transaction>
+  <TempTransaction>
     <ID>x3</ID>
-    <Date>8/22/2020 6:00:00 AM</Date>
+    <Date>7/26/2021 6:00:00 AM</Date>
     <TransactionType>0_0</TransactionType>
     <Amount>100000</Amount>
     <Note>Tiền điện tháng 7 ở phòng KTX</Note>
-    <Stakeholder>Nguyễn Huy Hải</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Nguyễn Huy Hải</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>23d3</ID>
     <Date>1/12/2021 10:17:00 AM</Date>
     <TransactionType>0_1</TransactionType>
     <Amount>236000</Amount>
     <Note>Tiền đi uống cà phê ở quán Highland</Note>
-    <Stakeholder>Nguyễn Công Phượng</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Nguyễn Công Phượng</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>abc111</ID>
     <Date>6/7/2021 11:14:17 AM</Date>
     <TransactionType>1_0</TransactionType>
     <Amount>50000</Amount>
     <Note>Tiền đi ăn sáng ở quán bún đậu mắm tôm</Note>
-    <Stakeholder>Phạm Tấn</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Phạm Tấn</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>hyz423</ID>
     <Date>3/10/2021 10:14:17 AM</Date>
     <TransactionType>1_1</TransactionType>
     <Amount>230000</Amount>
     <Note>Tiền đi mua sắm ở siêu thị</Note>
-    <Stakeholder>Bùi Văn Vĩ</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Bùi Văn Vĩ</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>abc112</ID>
     <Date>6/7/2021 11:14:17 AM</Date>
     <TransactionType>1_1_0</TransactionType>
     <Amount>50000</Amount>
     <Note>Bún đậu mắm tôm</Note>
-    <Stakeholder>Phạm Tấn</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Phạm Tấn</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>hyz424</ID>
     <Date>3/10/2021 10:14:17 AM</Date>
     <TransactionType>1_1_1</TransactionType>
     <Amount>230000</Amount>
     <Note>Siêu thị</Note>
-    <Stakeholder>Bùi Văn Vĩ</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Bùi Văn Vĩ</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>xyz475</ID>
-    <Date>2/22/2020 4:00:00 AM</Date>
+    <Date>2/22/2021 4:00:00 AM</Date>
     <TransactionType>1_1_2</TransactionType>
     <Amount>100000</Amount>
     <Note>KTX</Note>
-    <Stakeholder>Nguyễn Huy Hải</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Nguyễn Huy Hải</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>xyz475</ID>
     <Date>11/12/2024 6:00:00 PM</Date>
     <TransactionType>1_1_2</TransactionType>
     <Amount>43900.35</Amount>
     <Note>KTX</Note>
-    <Stakeholder>Nguyễn Huy Hải</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Nguyễn Huy Hải</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>xyz473</ID>
-    <Date>2/22/2020 1:00:00 AM</Date>
+    <Date>2/22/2021 1:00:00 AM</Date>
     <TransactionType>1_2</TransactionType>
     <Amount>100000</Amount>
     <Note>Tiền điện tháng 7 ở phòng KTX</Note>
-    <Stakeholder>Nguyễn Huy Hải</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Nguyễn Huy Hải</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>uhd723</ID>
     <Date>12/12/2021 10:17:00 AM</Date>
     <TransactionType>1_3</TransactionType>
     <Amount>96000</Amount>
     <Note>Tiền đi uống cà phê ở quán Highland</Note>
-    <Stakeholder>Nguyễn Công Phượng</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Nguyễn Công Phượng</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>xyz45</ID>
-    <Date>5/22/2020 4:00:00 AM</Date>
+    <Date>5/22/2021 4:00:00 AM</Date>
     <TransactionType>2_0</TransactionType>
     <Amount>200000</Amount>
     <Note>KTX</Note>
-    <Stakeholder>Nguyễn Huy Hải</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Nguyễn Huy Hải</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>xyz5</ID>
     <Date>3/12/2024 6:00:00 PM</Date>
     <TransactionType>2_1</TransactionType>
     <Amount>43900</Amount>
     <Note>KTX</Note>
-    <Stakeholder>Nguyễn Huy Hải</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Nguyễn Huy Hải</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>yz473</ID>
-    <Date>7/22/2020 1:00:00 AM</Date>
+    <Date>7/22/2021 1:00:00 AM</Date>
     <TransactionType>3_0</TransactionType>
     <Amount>196000</Amount>
     <Note>Tiền điện tháng 7 ở phòng KTX</Note>
-    <Stakeholder>Nguyễn Huy Hải</Stakeholder>
-  </Transaction>
-  <Transaction>
+    <Stakeholder> with Nguyễn Huy Hải</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
     <ID>ud723</ID>
     <Date>11/12/2021 10:17:00 AM</Date>
     <TransactionType>3_1</TransactionType>
     <Amount>100000</Amount>
     <Note>Tiền đi uống cà phê ở quán Highland</Note>
-    <Stakeholder>Nguyễn Công Phượng</Stakeholder>
-  </Transaction>
+    <Stakeholder> with Nguyễn Công Phượng</Stakeholder>
+  </TempTransaction>
 </ArrayOfTempTransaction>
