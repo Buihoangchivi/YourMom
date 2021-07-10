@@ -17,11 +17,13 @@
 
     <Window.Resources>
 
+        <SolidColorBrush x:Key="ColorScheme" Color="{Binding ColorScheme}"></SolidColorBrush>
+        
         <Style TargetType="{x:Type ProgressBar}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Height" Value="15"/>
-            <Setter Property="Background" Value="#6fae5f"/>
+            <Setter Property="Background" Value="#2DB84C"/>
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="Padding" Value="5,0"/>
             <Setter Property="Template">
@@ -404,7 +406,7 @@
     <DockPanel LastChildFill="True" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 
         <!--Thanh tiêu đề-->
-        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="ForestGreen">
+        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="{DynamicResource ColorScheme}">
 
             <!--Nút quay lại-->
             <Button Name="BackButton" Width="46" BorderThickness="0" Padding="7" Background="Black" 
@@ -421,7 +423,7 @@
                     BorderThickness="0" DockPanel.Dock="Right">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -446,7 +448,7 @@
                     DockPanel.Dock="Right" IsEnabled="False">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -471,7 +473,7 @@
                     DockPanel.Dock="Right">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -533,7 +535,7 @@
                     Click="TransactionsButton_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -552,8 +554,8 @@
                 </Button.Style>
 
                 <StackPanel>
-                    <Image Source="Images/transactions.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                    <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Transactions"></TextBlock>
+                    <Image Source="Images/white_transactions.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <TextBlock FontSize="15" Foreground="White" Text="Transactions"></TextBlock>
                 </StackPanel>
 
             </Button>
@@ -584,7 +586,7 @@
 
                 <StackPanel>
                     <Image Source="Images/report.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                    <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Report"></TextBlock>
+                    <TextBlock FontSize="15" Text="Report"></TextBlock>
                 </StackPanel>
 
             </Button>
@@ -615,7 +617,7 @@
 
                 <StackPanel>
                     <Image Source="Images/budget.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                    <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Budget"></TextBlock>
+                    <TextBlock FontSize="15" Text="Budget"></TextBlock>
                 </StackPanel>
 
             </Button>
@@ -646,7 +648,7 @@
 
                 <StackPanel>
                     <Image Source="Images/debts.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                    <TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Debts"></TextBlock>
+                    <TextBlock FontSize="15" Text="Debts"></TextBlock>
                 </StackPanel>
 
             </Button>
@@ -677,7 +679,6 @@
 
                 <StackPanel>
                     <Image Source="Images/setting.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                    <!--<TextBlock FontSize="15" Foreground="{Binding ColorScheme}" Text="Setting"></TextBlock>-->
                     <TextBlock Name="SettingTitleTextBlock" VerticalAlignment="Center" FontSize="15">Setting</TextBlock>
                     
                 </StackPanel>
@@ -897,7 +898,7 @@
             <!--Màn hình danh sách các giao dịch-->
             <Grid Name="TransactionScreenGrid" 
                   Background="#E4E4E4"
-                  Visibility="Collapsed">
+                  Visibility="Visible">
 
                 <Grid Margin="0,10,13,10">
 
@@ -995,7 +996,7 @@
                                         <TextBlock Name="CurrentTextBlock" 
                                                    TextWrapping="Wrap"
                                                    FontSize="20"
-                                                   Foreground="ForestGreen"
+                                                   Foreground="{DynamicResource ColorScheme}"
                                                    FontFamily="Segoe UI Semibold"
                                                    VerticalAlignment="Center" 
                                                    HorizontalAlignment="Left"
@@ -1005,7 +1006,7 @@
 
                                     <TextBlock Name="CurrentDash"
                                                Height="2" 
-                                               Background="ForestGreen"/>
+                                               Background="{DynamicResource ColorScheme}"/>
 
                                 </StackPanel>
 
@@ -1184,7 +1185,7 @@
                                                         <Button.Style>
                                                             <Style TargetType="{x:Type Button}">
                                                                 <Setter Property="Background" Value="Transparent"/>
-                                                                <Setter Property="Foreground" Value="ForestGreen"/>
+                                                                <Setter Property="Foreground" Value="{Binding ColorScheme}"/>
                                                                 <Setter Property="FontSize" Value="15"/>
                                                                 <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
                                                                 <Setter Property="Template">
@@ -1200,7 +1201,7 @@
                                                                 </Setter>
                                                                 <Style.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                                        <Setter Property="Background" Value="ForestGreen"/>
+                                                                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
                                                                         <Setter Property="Foreground" Value="White"/>
                                                                         <Setter Property="FontSize" Value="16"/>
                                                                     </Trigger>
@@ -1804,60 +1805,6 @@
                                     <RowDefinition Height="6.5*"/>
                                     <RowDefinition Height="1*"/>
                                     <RowDefinition Height="1*"/>
-<!--<<<<<<< budget
-                                </Grid.RowDefinitions>
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal" >
-                                            <Button x:Name="CloseDetailBudget" 
-                                                Width="47" 
-                                                Click="CloseDetailBudget_Click" 
-                                                BorderThickness="0" 
-                                                DockPanel.Dock="Right">
-                                                <Button.Style>
-                                                    <Style TargetType="{x:Type Button}">
-                                                        <Setter Property="Background" Value="Transparent"/>
-                                                        <Setter Property="Template">
-                                                            <Setter.Value>
-                                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                                    <Border Background="{TemplateBinding Background}">
-                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                    </Border>
-                                                                </ControlTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="Red"/>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Button.Style>
-                                                <Image Source="Images/black_close.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
-                                            </Button>
-                                            <TextBlock TextWrapping="Wrap" FontSize="20" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Detail</TextBlock>
-                                        </StackPanel>
-                                        <GridSplitter Grid.Row="0"  Width="Auto" Height="0.5" 
-                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
-                             />
-                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0" >
-                                            <Image  Source="Images/category_foodndrink.png" VerticalAlignment="Top" Height="45" Width="45" Margin="50,0,20,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                                            <StackPanel Orientation="Vertical" Name="BudgetInfo">
-                                                <-Tên của ngân sách-
-                                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" FontSize="20" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-
-                                                <!Thời hạn còn lại của giao dịch
-                                                <TextBlock Text="{Binding DaysLeft}"  TextWrapping="Wrap" FontSize="15" 
-                           VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-                                                <GridSplitter  Width="Auto" Height="0.5" Margin="0,10,0,0"
-                              VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"
-                             />
-
-                                                <TextBlock TextWrapping="Wrap" FontSize="15" Margin="0,10,10,0"
-                           VerticalAlignment="Center" HorizontalAlignment="Left">Left</TextBlock>
-=======-->
-
                                 </Grid.RowDefinitions>
 
                                 <!--Nút xem chi tiết báo cáo về thu nhập-->
@@ -1884,29 +1831,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-
-<!--<<<<<<< budget
-                                                    <StackPanel Grid.Row="0" Grid.Column="0">
-                                                        <TextBlock>Spent</TextBlock>
-                                                        <TextBlock Name="SpentMoneyTextblock" Text="{Binding SpentMoney}" ></TextBlock>
-                                                    </StackPanel>
-
-                                                    <StackPanel Grid.Row="0" Grid.Column="1">
-                                                        <TextBlock>Expected spending</TextBlock>
-                                                        <TextBlock Text="{Binding ExpectedSpendingMoney}"></TextBlock>
-                                                    </StackPanel>
-
-                                                    <StackPanel Grid.Row="1" Grid.Column="0">
-                                                        <TextBlock>Should spend every day </TextBlock>
-                                                        <TextBlock Text="{Binding ShouldSpending_DayMoney}"></TextBlock>
-                                                    </StackPanel>
-
-                                                    <StackPanel Grid.Row="1" Grid.Column="1">
-                                                        <TextBlock>Actual Daily Spending</TextBlock>
-                                                        <TextBlock Text="{Binding RealitySpending_DayMoney}"></TextBlock>
-                                                    </StackPanel>
-                                                </Grid>
-=======-->
+                                    
                                     <Grid>
 
                                         <Grid.RowDefinitions>
@@ -2237,7 +2162,7 @@
                                             </Button>
 
                                             <TextBlock Name="ColumnChartIconTextBlock" Visibility="Collapsed"
-                                                   Height="5" Background="ForestGreen"></TextBlock>
+                                                   Height="5" Background="{DynamicResource ColorScheme}"></TextBlock>
 
                                         </StackPanel>
 
@@ -2277,7 +2202,7 @@
                                             </Button>
 
                                             <TextBlock Name="PieChartIconTextBlock" Visibility="Collapsed"
-                                                   Height="4" Background="ForestGreen"></TextBlock>
+                                                   Height="4" Background="{DynamicResource ColorScheme}"></TextBlock>
 
                                         </StackPanel>
 
@@ -2441,7 +2366,9 @@
             </Grid>
 
             <!--Màn hình danh sách các ngân sách-->
-            <Grid Name="BudgetScreenGrid" Background="#E4E4E4" Visibility="Visible">
+            <Grid Name="BudgetScreenGrid" 
+                  Background="#E4E4E4" 
+                  Visibility="Collapsed">
                 <Grid Margin="0,10,13,10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*"></RowDefinition>
@@ -2489,7 +2416,7 @@
                                         <TextBlock Name="RunningTextblock" 
                                                    TextWrapping="Wrap"
                                                    FontSize="20"
-                                                   Foreground="Green" 
+                                                   Foreground="{Binding ColorScheme}" 
                                                    FontFamily="Segoe UI Semibold" 
                                                    VerticalAlignment="Center" 
                                                    HorizontalAlignment="Left" 
@@ -2498,7 +2425,7 @@
                                     </Button>
                                     
                                     <TextBlock Name="RunningUnderlineTextBlock" Visibility="Visible"
-                                                   Height="4" Background="Green"></TextBlock>
+                                                   Height="4" Background="{DynamicResource ColorScheme}"></TextBlock>
                                     
                                 </StackPanel>
 
@@ -2506,7 +2433,14 @@
                                 <StackPanel Grid.Column="1">
                                     
                                     <!--Nút ngân sách đã kết thúc-->
-                                    <Button Name="FinishedButton"  Margin="5" Width="120" Height="60" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="FinishedButton_Click">
+                                    <Button Name="FinishedButton" 
+                                            Margin="5" Width="120" 
+                                            Height="60" 
+                                            VerticalAlignment="Center" 
+                                            BorderThickness ="0" 
+                                            Background="Transparent" 
+                                            Cursor="Hand" 
+                                            Click="FinishedButton_Click">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
 
@@ -2539,7 +2473,7 @@
                                     </Button>
                                     
                                     <TextBlock Name="FinishedUnderlineTextBlock" Visibility="Collapsed"
-                                                   Height="4" Background="Green"></TextBlock>
+                                                   Height="4" Background="{DynamicResource ColorScheme}"></TextBlock>
                                     
                                 </StackPanel>
                                 
@@ -2938,7 +2872,7 @@
                                             <Button.Style>
                                                 <Style TargetType="{x:Type Button}">
                                                     <Setter Property="Background" Value="Transparent"/>
-                                                    <Setter Property="Foreground" Value="ForestGreen"/>
+                                                    <Setter Property="Foreground" Value="{Binding ColorScheme}"/>
                                                     <Setter Property="FontSize" Value="15"/>
                                                     <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
                                                     <Setter Property="Template">
@@ -2954,7 +2888,7 @@
                                                     </Setter>
                                                     <Style.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="ForestGreen"/>
+                                                            <Setter Property="Background" Value="{Binding ColorScheme}"/>
                                                             <Setter Property="Foreground" Value="White"/>
                                                             <Setter Property="FontSize" Value="16"/>
                                                         </Trigger>
@@ -2979,7 +2913,7 @@
             </Grid>
 
             <!--Nút cài đặt-->
-            <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Name="SettingScreenStackPanel" Margin="15,6,0,0" Visibility="Collapsed">
+            <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Name="SettingScreenStackPanel" Margin="30,6,0,0" Visibility="Collapsed">
                 <TextBlock FontSize="16" Margin="0,0,0,10">Select color scheme</TextBlock>
                 <ItemsControl Name="SettingColorItemsControl" Margin="0,0,0,10" Width="410" HorizontalAlignment="Left">
                     <ItemsControl.ItemsPanel>
@@ -3009,7 +2943,7 @@
                         Grid.RowSpan="2" 
                         Grid.Column="1"
                         Name="AboutScreenStackPanel" 
-                        Margin="15,6,0,0" 
+                        Margin="30,6,0,0" 
                         Visibility="Collapsed">
                 
                 <TextBlock FontSize="16" Margin="0,20,0,10" FontWeight="Bold">Design Software - 18_31</TextBlock>

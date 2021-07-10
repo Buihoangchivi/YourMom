@@ -765,8 +765,9 @@ namespace YourMom
             //
             ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
 
-            //Default buttons
+            this.DataContext = this;
 
+            //Default buttons
             AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             clickedButton = TransactionsButton;
@@ -1600,14 +1601,14 @@ namespace YourMom
         private void RunningButton_Click(object sender, RoutedEventArgs e)
         {
             // Chỉnh lại định dạng nút cho nổi bật
-            RunningTextblock.Foreground = Brushes.Green;
+            RunningTextblock.Foreground = ChangeHexToBrushColor(ColorScheme);
             RunningTextblock.FontSize = 20;
             RunningButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            RunningButton.BorderBrush = Brushes.Green;
+            RunningButton.BorderBrush = ChangeHexToBrushColor(ColorScheme);
             RunningUnderlineTextBlock.Visibility = Visibility.Visible;
 
             // Chỉnh lại định dạng nút còn lại thành bình thường
-            FinishedTextblock.Foreground = Brushes.Black;
+            FinishedTextblock.Foreground = ChangeHexToBrushColor("#757575");
             FinishedButton.BorderThickness = new Thickness(0, 0, 0, 0);
             FinishedTextblock.FontSize = 15;
             FinishedUnderlineTextBlock.Visibility = Visibility.Collapsed;
@@ -1620,14 +1621,14 @@ namespace YourMom
         private void FinishedButton_Click(object sender, RoutedEventArgs e)
         {
             // Chỉnh lại định dạng nút cho nổi bật
-            FinishedTextblock.Foreground = Brushes.Green;
+            FinishedTextblock.Foreground = ChangeHexToBrushColor(ColorScheme);
             FinishedTextblock.FontSize = 20;
             FinishedButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            FinishedButton.BorderBrush = Brushes.Green;
+            FinishedButton.BorderBrush = ChangeHexToBrushColor(ColorScheme);
             FinishedUnderlineTextBlock.Visibility = Visibility.Visible;
 
             // Chỉnh lại định dạng nút còn lại thành bình thường
-            RunningTextblock.Foreground = Brushes.Black;
+            RunningTextblock.Foreground = ChangeHexToBrushColor("#757575");
             RunningButton.BorderThickness = new Thickness(0, 0, 0, 0);
             RunningTextblock.FontSize = 15;
             RunningUnderlineTextBlock.Visibility = Visibility.Collapsed;
@@ -1727,7 +1728,7 @@ namespace YourMom
         {
 
             //Trường hợp đang ở trạng thái tháng tương lai
-            if (CurrentDash.Background != Brushes.Green)
+            if (CurrentDash.Background != ChangeHexToBrushColor(ColorScheme))
             {
 
                 //Chuyển nút hiện tại sang trạng thái được chọn
@@ -1754,7 +1755,7 @@ namespace YourMom
         {
 
             //Trường hợp đang ở trạng thái tháng tương lai
-            if (CurrentDash.Background != Brushes.Green)
+            if (CurrentDash.Background != ChangeHexToBrushColor(ColorScheme))
             {
 
                 //Chuyển nút hiện tại sang trạng thái được chọn
@@ -1778,7 +1779,7 @@ namespace YourMom
         {
 
             //Trường hợp không ở trạng thái tháng tương lai
-            if (NextDash.Background != Brushes.Green)
+            if (NextDash.Background != ChangeHexToBrushColor(ColorScheme))
             {
 
                 //Tăng thời gian bắt đầu lên 1 tháng
@@ -1876,20 +1877,27 @@ namespace YourMom
             if (isSelected)
             {
 
-                textBlock.Foreground = Brushes.Green;
+                textBlock.Foreground = ChangeHexToBrushColor(ColorScheme);
                 textBlock.FontSize = 19;
-                dash.Background = Brushes.Green;
+                dash.Background = ChangeHexToBrushColor(ColorScheme);
 
             }
             else //Trường hợp nút không được chọn
             {
 
-                var color = (SolidColorBrush)new BrushConverter().ConvertFromString("#757575");
-                textBlock.Foreground = color;
+                textBlock.Foreground = ChangeHexToBrushColor("#757575");
                 textBlock.FontSize = 15;
                 dash.Background = Brushes.White;
 
             }
+
+        }
+
+        private SolidColorBrush ChangeHexToBrushColor(string hex)
+        {
+
+            var color = (SolidColorBrush)new BrushConverter().ConvertFromString(hex);
+            return color;
 
         }
 
