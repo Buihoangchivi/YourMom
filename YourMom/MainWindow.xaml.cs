@@ -1643,84 +1643,84 @@ namespace YourMom
             win.Show();
         }
 
-        private void BudgetLineChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            BudgetLineChart.Series.Clear();
+        //private void BudgetLineChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    BudgetLineChart.Series.Clear();
 
-            var curr = new DateTime();
-            TimeSpan time = budgetInfo.EndDate - budgetInfo.StartingDate;
-            int durationOfBudget = time.Days + 1;
+        //    var curr = new DateTime();
+        //    TimeSpan time = budgetInfo.EndDate - budgetInfo.StartingDate;
+        //    int durationOfBudget = time.Days + 1;
 
-            List<double> budgetGoalLine = new List<double>();
-            List<double> budgetSpentLine = new List<double>();
+        //    List<double> budgetGoalLine = new List<double>();
+        //    List<double> budgetSpentLine = new List<double>();
 
-            Dictionary<DateTime, double> myDic = new Dictionary<DateTime, double>();
-            Dictionary<DateTime, double> myDic1 = new Dictionary<DateTime, double>();
-            Dictionary<DateTime, double> myDic2 = new Dictionary<DateTime, double>();
-            double money = 0;
+        //    Dictionary<DateTime, double> myDic = new Dictionary<DateTime, double>();
+        //    Dictionary<DateTime, double> myDic1 = new Dictionary<DateTime, double>();
+        //    Dictionary<DateTime, double> myDic2 = new Dictionary<DateTime, double>();
+        //    double money = 0;
 
-            for (int i = 0; i < categoryCollection.Count; i++)
-            {
-                if (categoryCollection[i].Name == budgetInfo.Name)
-                {
+        //    for (int i = 0; i < categoryCollection.Count; i++)
+        //    {
+        //        if (categoryCollection[i].Name == budgetInfo.Name)
+        //        {
 
-                    for (int j = 0; j < categoryCollection[i].Transactions.Count; j++)
-                    {
+        //            for (int j = 0; j < categoryCollection[i].Transactions.Count; j++)
+        //            {
 
-                        if (categoryCollection[i].Transactions[j].Date < budgetInfo.EndDate &&
-                            categoryCollection[i].Transactions[j].Date > budgetInfo.StartingDate)
-                        {
+        //                if (categoryCollection[i].Transactions[j].Date < budgetInfo.EndDate &&
+        //                    categoryCollection[i].Transactions[j].Date > budgetInfo.StartingDate)
+        //                {
 
-                            if (!myDic2.ContainsKey(categoryCollection[i].Transactions[j].Date))
-                            {
-                                myDic2.Add(categoryCollection[i].Transactions[j].Date, categoryCollection[i].Transactions[j].Amount);
-                            }
-                            else
-                            {
-                                myDic2[categoryCollection[i].Transactions[j].Date] = myDic2[categoryCollection[i].Transactions[j].Date] + categoryCollection[i].Transactions[j].Amount;
-                            }
-
-
-                        }
-                    }
-                }
+        //                    if (!myDic2.ContainsKey(categoryCollection[i].Transactions[j].Date))
+        //                    {
+        //                        myDic2.Add(categoryCollection[i].Transactions[j].Date, categoryCollection[i].Transactions[j].Amount);
+        //                    }
+        //                    else
+        //                    {
+        //                        myDic2[categoryCollection[i].Transactions[j].Date] = myDic2[categoryCollection[i].Transactions[j].Date] + categoryCollection[i].Transactions[j].Amount;
+        //                    }
 
 
-
-            }
-
-            for (int i = 0; i < durationOfBudget; i++)
-            {
-                budgetGoalLine.Add(budgetInfo.MoneyFund);
-                curr = budgetInfo.StartingDate.AddDays(i);
-                if (myDic2.ContainsKey(curr))
-                {
-                    money += myDic2[curr];
-                }
-                budgetSpentLine.Add(money);
-
-            }
+        //                }
+        //            }
+        //        }
 
 
 
+        //    }
 
-            BudgetLineChart.Series.Add(new LineSeries()
-            {
-                Values = new ChartValues<double>(budgetGoalLine),
-                LineSmoothness = 0,
-                PointGeometry = null,
-                PointGeometrySize = 0,
-                Title = "Max"
-            });
-            BudgetLineChart.Series.Add(new LineSeries()
-            {
-                Values = new ChartValues<double>(budgetSpentLine),
-                LineSmoothness = 0,
-                PointGeometry = null,
-                PointGeometrySize = 0,
-                Title = "Current"
-            });
-        }
+        //    for (int i = 0; i < durationOfBudget; i++)
+        //    {
+        //        budgetGoalLine.Add(budgetInfo.MoneyFund);
+        //        curr = budgetInfo.StartingDate.AddDays(i);
+        //        if (myDic2.ContainsKey(curr))
+        //        {
+        //            money += myDic2[curr];
+        //        }
+        //        budgetSpentLine.Add(money);
+
+        //    }
+
+
+
+
+        //    BudgetLineChart.Series.Add(new LineSeries()
+        //    {
+        //        Values = new ChartValues<double>(budgetGoalLine),
+        //        LineSmoothness = 0,
+        //        PointGeometry = null,
+        //        PointGeometrySize = 0,
+        //        Title = "Max"
+        //    });
+        //    BudgetLineChart.Series.Add(new LineSeries()
+        //    {
+        //        Values = new ChartValues<double>(budgetSpentLine),
+        //        LineSmoothness = 0,
+        //        PointGeometry = null,
+        //        PointGeometrySize = 0,
+        //        Title = "Current"
+        //    });
+        //}
 
         // Nút chuyển sang tháng trước trong giao diện giao dịch
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
@@ -1902,6 +1902,13 @@ namespace YourMom
             BudgetListBorder.Width = 410;
             BudgetReportGrid.Width = 600;
 
+            CreateBudgetLineChart(sender);
+
+        }
+
+        private void CreateBudgetLineChart(object sender)
+        {
+
             var temp = sender as Button;
 
             budgetInfo = temp.DataContext as Budget;
@@ -1930,8 +1937,11 @@ namespace YourMom
             TimeSpan time = budgetInfo.EndDate - budgetInfo.StartingDate;
             int durationOfBudget = time.Days + 1;
 
+            //Đường giới hạn ngân sách
             List<double> budgetGoalLine = new List<double>();
+            //Đường chi tiêu thực tế
             List<double> budgetSpentLine = new List<double>();
+
             // Lưu <ngày, số tiền chi tiêu> trong các giao dịch 
             Dictionary<DateTime, double> myDic = new Dictionary<DateTime, double>();
             double money = 0;
@@ -1947,9 +1957,9 @@ namespace YourMom
                     if (myDic.ContainsKey(transactionList[i].Date))
                     {
 
-                        myDic[transactionList[i].Date] = myDic[transactionList[i].Date] + 
+                        myDic[transactionList[i].Date] = myDic[transactionList[i].Date] +
                             transactionList[i].Amount;
-                                                
+
                     }
                     else
                     {
@@ -1960,12 +1970,13 @@ namespace YourMom
 
                 }
             }
-            
+
             //Duyệt qua hết tất cả các ngày trong khoảng thời gian của ngân sách
             for (int i = 0; i < durationOfBudget; i++)
             {
 
                 var currentDate = budgetInfo.StartingDate.AddDays(i);
+                var startingCurrentDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
 
                 // nếu có ngày trong danh sách giao dịch thì thêm vào
                 if (myDic.ContainsKey(currentDate))
@@ -1975,47 +1986,41 @@ namespace YourMom
 
                 }
 
-                //if (currentDate <= DateTime.Today)
-                //{
+                if (startingCurrentDate <= DateTime.Today)
+                {
 
-                //    //Đường ngân sách thực tế
-                //    budgetSpentLine.Add(money);
+                    //Đường chi tiêu thực tế
+                    budgetSpentLine.Add(money);
 
-                //} 
-                //else
-                //{
-
-                //    budgetSpentLine.Add(0);
-
-                //}
-
-                //Đường ngân sách thực tế
-                budgetSpentLine.Add(money);
+                }
 
                 //Đường ngân sách giới hạn
                 budgetGoalLine.Add(budgetInfo.MoneyFund);
 
             }
 
-            //Tạo đường ngân sách giới hạn
+            //Tạo đường giới hạn ngân sách
             BudgetLineChart.Series.Add(new LineSeries()
             {
                 Values = new ChartValues<double>(budgetGoalLine),
                 LineSmoothness = 0,
                 PointGeometry = null,
                 PointGeometrySize = 0,
-                Title = "Max",
+                Title = "Maximum",
+                Stroke = Brushes.Red
 
             });
 
-            //Tạo đường ngân sách thực tế
+            //Tạo đường chi tiêu thực tế
             BudgetLineChart.Series.Add(new LineSeries()
             {
+
                 Values = new ChartValues<double>(budgetSpentLine),
                 LineSmoothness = 0,
                 PointGeometry = null,
-                PointGeometrySize = 0,
+                PointGeometrySize = 10,
                 Title = "Current",
+                Stroke = Brushes.ForestGreen,
 
             });
 

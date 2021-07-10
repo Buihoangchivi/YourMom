@@ -2890,7 +2890,6 @@
                                                             Height="400"
                                                             Grid.Row="1" Grid.ColumnSpan="2"
                                                             Name="BudgetLineChart"
-                                                            IsVisibleChanged="BudgetLineChart_IsVisibleChanged"
                                                             Margin="50,30,50,0" 
                                                             Visibility="Visible">
                                             <lvc:CartesianChart.AxisY>
