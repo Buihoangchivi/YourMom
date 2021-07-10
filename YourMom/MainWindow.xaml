@@ -2635,11 +2635,11 @@
                                                                         VerticalAlignment="Center"
                                                                         Margin="0,15,20,15">
 
-                                                                <TextBlock Text="{Binding MoneyFund, StringFormat=\= {0}}" 
+                                                                <TextBlock Text="{Binding MoneyFund, StringFormat=\= {0}, Converter={StaticResource moneyConverter}}" 
                                                                            FontSize="15"
                                                                            FontFamily="Segoe UI Hictorical"
                                                                            HorizontalAlignment="Right"/>
-                                                                <TextBlock Text="{Binding Balance, StringFormat=Left \= {0}}"
+                                                                <TextBlock Text="{Binding Balance, StringFormat=Left \= {0}, Converter={StaticResource moneyConverter}}"
                                                                            FontSize="15"
                                                                            FontFamily="Segoe UI Hictorical"
                                                                            HorizontalAlignment="Right"/>
@@ -2683,7 +2683,7 @@
                                                                     <StackPanel DockPanel.Dock="Right">
 
                                                                         <!--Ngân quỹ-->
-                                                                        <TextBlock Text="{Binding MoneyFund}"
+                                                                        <TextBlock Text="{Binding MoneyFund, Converter={StaticResource moneyConverter}}"
                                                                                    TextAlignment="Right"
                                                                                    HorizontalAlignment="Right"
                                                                                    TextWrapping="Wrap" 
@@ -2691,7 +2691,7 @@
                                                                                    FontFamily="Segoe UI Semibold"/>
 
                                                                         <!--Số dư-->
-                                                                        <TextBlock Text="{Binding Balance, StringFormat=Left {0}}"
+                                                                        <TextBlock Text="{Binding Balance, StringFormat=Left {0}, Converter={StaticResource moneyConverter}}"
                                                                                    TextAlignment="Right"
                                                                                    HorizontalAlignment="Right" 
                                                                                    TextWrapping="Wrap"
@@ -2704,7 +2704,7 @@
 
                                                                 <!--Thanh hiển thị tiến trình của ngân sách-->
                                                                 <ProgressBar Value="{Binding Progress}" 
-                                                                             Height="10"
+                                                                             Height="12"
                                                                              Margin="0,0,20,17"
                                                                              Minimum="0" 
                                                                              Maximum="100"/>
