@@ -86,52 +86,6 @@ namespace YourMom
 
         Stack<DetailInfomation> detailStack = new Stack<DetailInfomation>();
 
-
-        //{
-        //    new Budget
-        //    {
-        //        ID = "1",
-        //        ImagePath = "Images/category_foodndrink.png",
-        //        Name = "Eating",
-        //        MoneyFund = 9000000,
-
-        //        StartingDate = new DateTime(2021,6,1).ToShortDateString(),
-        //        EndDate = new DateTime(2021,6,30).ToShortDateString()
-        //    },
-
-        //    new Budget
-        //    {
-        //        ID = "2",
-        //        ImagePath = "Images/category_foodndrink.png",
-        //        Name = "Mua sắm",
-        //        MoneyFund = 5000000,
-
-        //        StartingDate = new DateTime(2021,6,1).ToShortDateString(),
-        //        EndDate = new DateTime(2021,6,30).ToShortDateString()
-        //    },
-
-        //    new Budget
-        //    {
-        //        ID = "3",
-        //        ImagePath = "Images/category_foodndrink.png",
-        //        Name = "Đi chơi",
-        //        MoneyFund = 5000000,
-
-        //        StartingDate = new DateTime(2021,6,1).ToShortDateString(),
-        //        EndDate = new DateTime(2021,6,27).ToShortDateString()
-        //    },
-        //    new Budget
-        //    {
-        //        ID = "4",
-        //        ImagePath = "Images/category_foodndrink.png",
-        //        Name = "Eating",
-        //        MoneyFund = 5000000,
-
-        //        StartingDate = new DateTime(2021,7,1).ToShortDateString(),
-        //        EndDate =new DateTime(2021,7,31).ToShortDateString()
-        //    }
-        //};
-
         // Danh sách ngân sách đang sử dụng
         List<Budget> runningBudgetList = new List<Budget> { };
         // Danh sách ngân sách đã quá hạn
@@ -148,81 +102,19 @@ namespace YourMom
             //Thời gian mặc định là tháng hiện tại
             startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             endDate = startingDate.AddMonths(1).AddDays(-1);
+
+            //Nạp dữ liệu vào màn hình danh sách giao dịch
             AddDataIntoTransactionScreen();
+
+            //Nạp dữ liệu vào màn hình ngân sách
+            AddDataIntoBudgetScreen();
 
             //Khởi tạo dữ liệu cho màn hình báo cáo
             InitializeReportData();
 
-            double temp;
-
-
-            // Hàm xử lý ngân sách
-            for (int i = 0; i < budgetList.Count; i++)
-            {
-
-                // Lấy số tiền đã chi tiêu cho ngân sách thông qua cách giao dịch(nên để vào lúc khởi tạo một ngân sách mới!!!)
-                double moneyTotal = 0;
-                for (int j = 0; j < categoryCollection.Count; j++)
-                {
-                    if (budgetList[i].Name == categoryCollection[j].Name)
-                    {
-                        for (int k = 0; k < categoryCollection[j].Transactions.Count; k++)
-                        {
-                            if (categoryCollection[j].Transactions[k].Date < budgetList[i].EndDate &&
-                                categoryCollection[j].Transactions[k].Date > budgetList[i].StartingDate)
-                            {
-                                moneyTotal += categoryCollection[j].Transactions[k].Amount;
-                            }
-                        }
-                    }
-
-                }
-                budgetList[i].SpentMoney = moneyTotal;
-
-                // lấy số ngày còn lại trong ngân sách			
-
-                DateTime currentdate = DateTime.Now;
-
-                // Số ngày còn lại của ngân sách
-                TimeSpan time = budgetList[i].EndDate - currentdate;
-                int dayLeft = time.Days < 0 ? 0 : time.Days;
-
-                budgetList[i].DaysLeft = dayLeft > 0 ? $"{time.Days} days left" : "Finished";
-
-
-                // số tiền dư còn lại cho ngân sách
-                budgetList[i].Balance = budgetList[i].MoneyFund - budgetList[i].SpentMoney;
-
-
-
-                // lấy tiến độ hiện tại, làm tròn 2 số sau dấu phẩy
-                temp = Math.Round((double)(budgetList[i].MoneyFund - budgetList[i].Balance) / budgetList[i].MoneyFund * 100, 2);
-                budgetList[i].Progress = temp;
-
-                // số tiền nên chi hàng ngày
-                budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ? Math.Round(budgetList[i].Balance / dayLeft, 2) : 0;
-
-                budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney / ((currentdate - budgetList[i].StartingDate).Days + 1), 2);
-
-                // số tiền dự kiến chi tiêu
-                budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney + budgetList[i].RealitySpending_DayMoney * dayLeft;
-
-                if (time.Days < 0)
-                {
-                    finishedBudgetList.Add(budgetList[i]);
-
-                }
-                else
-                {
-                    runningBudgetList.Add(budgetList[i]);
-
-                }
-
-            }
-            BudgetList.ItemsSource = runningBudgetList;
-
         }
 
+        //Khởi tạo dữ liệu báo cáo
         private void InitializeReportData()
         {
 
@@ -315,6 +207,85 @@ namespace YourMom
                 TransactionList.ItemsSource = transactionCollection;
 
             }
+
+        }
+
+        //Nạp dữ liệu vào màn hình ngân sách
+        private void AddDataIntoBudgetScreen()
+        {
+
+            // Hàm xử lý ngân sách
+            for (int i = 0; i < budgetList.Count; i++)
+            {
+
+                // Lấy số tiền đã chi tiêu cho ngân sách thông qua cách giao dịch
+                double moneyTotal = 0;
+
+                //Duyện qua danh sách tất cả các giao dịch
+                for (int j = 0; j < transactionList.Count; j++)
+                {
+
+                    //Kiểm tra có cùng loại giao dịch hay không
+                    if (budgetList[i].ID == transactionList[j].TransactionType &&
+                        //Thời gian giao dịch phải nằm trong khoảng thời gian của ngân sách
+                        transactionList[j].Date <= budgetList[i].EndDate &&
+                        transactionList[j].Date >= budgetList[i].StartingDate)
+                    {
+
+                        moneyTotal += transactionList[j].Amount; //Tính tổng tiền
+
+                    }
+
+                }
+
+                //Gán tổng tiền vào ngân sách
+                budgetList[i].SpentMoney = moneyTotal;
+
+                // lấy số ngày còn lại trong ngân sách			
+                DateTime currentdate = DateTime.Now;
+
+                // Số ngày còn lại của ngân sách
+                TimeSpan time = budgetList[i].EndDate - currentdate;
+                int dayLeft = time.Days < 0 ? 0 : time.Days;
+
+                budgetList[i].DaysLeft = dayLeft > 0 ? $"{time.Days} days left" : "Finished";
+
+                // số tiền dư còn lại cho ngân sách
+                budgetList[i].Balance = budgetList[i].MoneyFund - budgetList[i].SpentMoney;
+
+                // lấy tiến độ hiện tại, làm tròn 2 số sau dấu phẩy
+                var temp = Math.Round(budgetList[i].SpentMoney / budgetList[i].MoneyFund * 100, 2);
+                budgetList[i].Progress = temp;
+
+                // số tiền nên chi hàng ngày
+                budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ?
+                    Math.Round(budgetList[i].Balance / dayLeft, 2) : 0;
+
+                //Số tiền chi tiêu thực tế trong ngày
+                budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney /
+                    ((currentdate - budgetList[i].StartingDate).Days + 1), 2);
+
+                // số tiền dự kiến chi tiêu
+                budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney +
+                    budgetList[i].RealitySpending_DayMoney * dayLeft;
+
+                //Ngân sách đã kết thúc
+                if (time.Days < 0)
+                {
+
+                    finishedBudgetList.Add(budgetList[i]);
+
+                }
+                else //Ngân sách đang thực hiện
+                {
+
+                    runningBudgetList.Add(budgetList[i]);
+
+                }
+
+            }
+
+            BudgetList.ItemsSource = runningBudgetList;
 
         }
 
@@ -1897,6 +1868,7 @@ namespace YourMom
 
         }
 
+        //Thay đổi trạng thái của nút
         private void ChangeButtonStatus(TextBlock dash, TextBlock textBlock, bool isSelected)
         {
 
@@ -1924,6 +1896,7 @@ namespace YourMom
         private void BudgetListButton_Click(object sender, RoutedEventArgs e)
         {
 
+            //Hiển thị màn hình chi tiết ngân sách
             BudgetReportGrid.Visibility = Visibility.Visible;
             Budget.Width = 410;
             BudgetListBorder.Width = 410;
@@ -1932,24 +1905,28 @@ namespace YourMom
             var temp = sender as Button;
 
             budgetInfo = temp.DataContext as Budget;
-            int lol = 0;
+            int count = 0;
+
+            //Tìm ngân sách được nhấn trong danh sách ngân sách
             foreach (var budget in budgetList)
             {
+
                 if (budget.ID == budgetInfo.ID)
                 {
-                    //transactionType = budget.Name;
+
                     break;
+
                 }
-                lol++;
+                count++;
+
             }
 
-            BudgetInfo.DataContext = budgetList[lol];
-            budgetDocPanel.DataContext = budgetList[lol];
+            BudgetInfo.DataContext = budgetList[count];
+            budgetDocPanel.DataContext = budgetList[count];
 
             // Hiển thị dữ liệu cho biểu đồ(nên gôp với hàm tính số tiền đã chi tiêu cho ngân sách, nếu được thì chỉ cập nhật sau khi CRUD 1 giao dịch)
             BudgetLineChart.Series.Clear();
 
-            var curr = new DateTime();
             TimeSpan time = budgetInfo.EndDate - budgetInfo.StartingDate;
             int durationOfBudget = time.Days + 1;
 
@@ -1959,54 +1936,68 @@ namespace YourMom
             Dictionary<DateTime, double> myDic = new Dictionary<DateTime, double>();
             double money = 0;
 
-            for (int i = 0; i < categoryCollection.Count; i++)
+            //Tính toán từ điển <ngày, số tiền chi tiêu>
+            for (int i = 0; i < transactionList.Count; i++)
             {
-                if (categoryCollection[i].Name == budgetInfo.Name)
+                if (transactionList[i].TransactionType == budgetInfo.ID &&
+                    transactionList[i].Date <= budgetInfo.EndDate &&
+                    transactionList[i].Date >= budgetInfo.StartingDate)
                 {
 
-                    for (int j = 0; j < categoryCollection[i].Transactions.Count; j++)
+                    if (myDic.ContainsKey(transactionList[i].Date))
                     {
 
-                        if (categoryCollection[i].Transactions[j].Date < budgetInfo.EndDate &&
-                            categoryCollection[i].Transactions[j].Date > budgetInfo.StartingDate)
-                        {
-
-                            if (!myDic.ContainsKey(categoryCollection[i].Transactions[j].Date))
-                            {
-                                myDic.Add(categoryCollection[i].Transactions[j].Date, categoryCollection[i].Transactions[j].Amount);
-                            }
-                            else
-                            {
-                                myDic[categoryCollection[i].Transactions[j].Date] = myDic[categoryCollection[i].Transactions[j].Date] + categoryCollection[i].Transactions[j].Amount;
-                            }
-
-
-                        }
+                        myDic[transactionList[i].Date] = myDic[transactionList[i].Date] + 
+                            transactionList[i].Amount;
+                                                
                     }
+                    else
+                    {
+
+                        myDic.Add(transactionList[i].Date, transactionList[i].Amount);
+
+                    }
+
                 }
-
-
-
             }
-
+            
+            //Duyệt qua hết tất cả các ngày trong khoảng thời gian của ngân sách
             for (int i = 0; i < durationOfBudget; i++)
             {
-                budgetGoalLine.Add(budgetInfo.MoneyFund);
-                curr = budgetInfo.StartingDate.AddDays(i);
+
+                var currentDate = budgetInfo.StartingDate.AddDays(i);
+
                 // nếu có ngày trong danh sách giao dịch thì thêm vào
-                if (myDic.ContainsKey(curr))
+                if (myDic.ContainsKey(currentDate))
                 {
-                    money += myDic[curr];
+
+                    money += myDic[currentDate];
+
                 }
+
+                //if (currentDate <= DateTime.Today)
+                //{
+
+                //    //Đường ngân sách thực tế
+                //    budgetSpentLine.Add(money);
+
+                //} 
+                //else
+                //{
+
+                //    budgetSpentLine.Add(0);
+
+                //}
+
+                //Đường ngân sách thực tế
                 budgetSpentLine.Add(money);
+
+                //Đường ngân sách giới hạn
+                budgetGoalLine.Add(budgetInfo.MoneyFund);
 
             }
 
-
-
-
-
-
+            //Tạo đường ngân sách giới hạn
             BudgetLineChart.Series.Add(new LineSeries()
             {
                 Values = new ChartValues<double>(budgetGoalLine),
@@ -2016,6 +2007,8 @@ namespace YourMom
                 Title = "Max",
 
             });
+
+            //Tạo đường ngân sách thực tế
             BudgetLineChart.Series.Add(new LineSeries()
             {
                 Values = new ChartValues<double>(budgetSpentLine),
@@ -2031,8 +2024,6 @@ namespace YourMom
             {
                 Labels = new string[0]
             });
-
-
 
         }
 
@@ -2119,6 +2110,7 @@ namespace YourMom
 
 
         }
+
     }
 
 }
