@@ -944,9 +944,11 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
 
             //Mở màn hình giao dịch
             TransactionScreenGrid.Visibility = Visibility.Visible;
+            AddTransactionButton.Visibility = Visibility.Visible;
 
             //Đọc dữ liệu tất cả các giao dịch thông thường vào danh sách giao dịch
             categoryCollection = new ObservableCollection<CategoryList>();
@@ -1015,9 +1017,11 @@ namespace YourMom
             ReportScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            AddTransactionButton.Visibility = Visibility.Collapsed;
 
             //Mở màn hình ngân sách
             BudgetScreenGrid.Visibility = Visibility.Visible;
+            AddBudgetButton.Visibility = Visibility.Visible;
 
             ChangeButtonColor(BudgetButton);
 
