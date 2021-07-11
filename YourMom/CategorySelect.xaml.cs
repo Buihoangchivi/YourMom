@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -454,15 +455,17 @@ namespace YourMom
                 },
         };
 
+        List<Category> temp = new List<Category>();
 
-        
+
+        private Button clickedButton;
 
         public CategorySelect()
         {
             InitializeComponent();
             
 
-            CategoryList.ItemsSource = expenseCategories;
+            CategoryList.ItemsSource = temp;
         }
 
         private void CloseListDetailBudget_Click(object sender, RoutedEventArgs e)
@@ -471,7 +474,7 @@ namespace YourMom
             AddTransaction add = new AddTransaction();
             if ((!check && Global.lol > 0) || check)
             {
-                add.Category = expenseCategories[Global.lol];
+                add.Category = temp[Global.lol];
             }
             
             add.Show();
@@ -481,22 +484,29 @@ namespace YourMom
 
         private void ExpensesButton_Click(object sender, RoutedEventArgs e)
         {
-            CategoryList.ItemsSource = expenseCategories;
+            temp = expenseCategories;
+            CategoryList.ItemsSource = temp;          
+            //clickedButton = ExpensesButton;
+            searchComboBox.ItemsSource = temp;
+
         }
 
         private void IncomeButton_Click(object sender, RoutedEventArgs e)
         {
-            CategoryList.ItemsSource = incomeCategories;
+            temp = incomeCategories;
+            CategoryList.ItemsSource = temp;
+            //clickedButton = IncomeButton;
+            searchComboBox.ItemsSource = temp;
         }
 
         private void CategorySelecttButton_Click(object sender, RoutedEventArgs e)
         {
-
-            var temp = sender as Button;
+            
+            var selected = sender as Button;
             check = false;
-            Category categoryInfo = temp.DataContext as Category;
+            Category categoryInfo = selected.DataContext as Category;
             Global.lol = 0;
-            foreach (var category in expenseCategories)
+            foreach (var category in temp)
             {
                 if (category.ID == categoryInfo.ID)
                 {
@@ -508,12 +518,196 @@ namespace YourMom
             }
             
             AddTransaction add = new AddTransaction();
-            add.Category = expenseCategories[Global.lol];
+            add.Category = temp[Global.lol];
             
             add.Show();
             this.Close();
         }
 
+        /*tim kiem*/
+        private string ConvertToUnSign(string input)
+        {
+            if (input != null)
+            {
+                input = input.Trim();
+                for (int i = 0x20; i < 0x30; i++)
+                {
+                    input = input.Replace(((char)i).ToString(), " ");
+                }
+                Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
+                string str = input.Normalize(NormalizationForm.FormD);
+                string str2 = regex.Replace(str, string.Empty).Replace('đ', 'd').Replace('Đ', 'D');
+                while (str2.IndexOf("?") >= 0)
+                {
+                    str2 = str2.Remove(str2.IndexOf("?"), 1);
+                }
+                return str2;
+            }
+            else
+            {
+                var res = "";
+                return res;
+            }
+        }
+
+        private void DeleteTextInSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            searchTextBox.Text = "";
+            searchTextBox.Focus();
+        }
+
+        private void DeleteTextInSearchButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DeleteTextInSearchButton_Click(null, null);
+            }
+            else
+            {
+                //Do nothing
+            }
+        }
+
+        private void searchTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Down)
+            {
+                searchComboBox.Focus();
+                searchComboBox.SelectedIndex = 0;
+                searchComboBox.IsDropDownOpen = true;
+            }
+            if (e.Key == Key.Escape)
+            {
+                searchComboBox.IsDropDownOpen = false;
+
+            }
+        }
+
+        private void searchTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            
+
+            if (e.Text != "\u001b")  //khác escapes
+            {
+                searchComboBox.IsDropDownOpen = true;
+            }
+            if (!string.IsNullOrEmpty(searchTextBox.Text))
+            {
+                string fullText = ConvertToUnSign(searchTextBox.Text.Insert(searchTextBox.CaretIndex, (e.Text)));
+                searchComboBox.ItemsSource = temp.Where(s => ConvertToUnSign(s.Name).IndexOf(fullText, StringComparison.InvariantCultureIgnoreCase) != -1).ToList();
+                if (searchComboBox.Items.Count == 0)
+                {
+                    SearchNotificationComboBox.IsDropDownOpen = true;
+                    searchComboBox.IsDropDownOpen = false;
+                }
+            }
+            else if (!string.IsNullOrEmpty(e.Text))
+            {
+                searchComboBox.ItemsSource = temp.Where(s => ConvertToUnSign(s.Name).IndexOf(ConvertToUnSign(e.Text),
+                    StringComparison.InvariantCultureIgnoreCase) != -1).ToList();
+            }
+            else
+            {
+                searchComboBox.ItemsSource = temp;
+            }
+        }
+
+        private void PreviewKeyUp_EnhanceTextBoxSearch(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Back || e.Key == Key.Delete)
+            {
+                
+
+                searchComboBox.IsDropDownOpen = true;
+
+                if (!string.IsNullOrEmpty(searchTextBox.Text))
+                {
+                    searchComboBox.ItemsSource = temp.Where(s => ConvertToUnSign(s.Name).IndexOf(ConvertToUnSign(searchTextBox.Text), StringComparison.InvariantCultureIgnoreCase) != -1).ToList();
+                }
+                else
+                {
+                    searchComboBox.ItemsSource = temp;
+                }
+            }
+        }
+
+        private void Pasting_EnhanceTextSearch(object sender, DataObjectPastingEventArgs e)
+        {
+            searchComboBox.IsDropDownOpen = true;
+
+            string pastedText = (string)e.DataObject.GetData(typeof(string));
+            string fullText = searchTextBox.Text.Insert(searchTextBox.CaretIndex, (pastedText));
+
+            if (!string.IsNullOrEmpty(fullText))
+            {
+                searchComboBox.ItemsSource = temp.Where(s => ConvertToUnSign(s.Name).IndexOf(ConvertToUnSign(fullText), StringComparison.InvariantCultureIgnoreCase) != -1).ToList();
+                if (searchComboBox.Items.Count == 0)
+                {
+                    SearchNotificationComboBox.IsDropDownOpen = true;
+                    searchComboBox.IsDropDownOpen = false;
+                }
+            }
+            else
+            {
+                searchComboBox.ItemsSource = temp;
+            }
+        }
+
+        private void SearchTripButton_Click(object sender, RoutedEventArgs e)
+        {
+            CategorySelecttButton_Click(sender, null);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            clickedButton = ExpensesButton;
+            
+            if (clickedButton == ExpensesButton)
+            {
+                temp = expenseCategories;
+            }
+            else if (clickedButton == IncomeButton)
+            {
+                temp = incomeCategories;
+            }
+
+            searchComboBox.ItemsSource = temp;
+            CategoryList.ItemsSource = temp;
+        }
+
+        private void searchComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = searchComboBox.SelectedIndex;
+            if (index >= 0)
+            {
+                var selectedFood = searchComboBox.SelectedItem as Category;
+                string textSelected = selectedFood.Name;
+                searchTextBox.Text = textSelected;
+            }
+        }
+
+        private void searchComboBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+                Button button = new Button();
+                button.DataContext = searchComboBox.SelectedItem as Category;
+                button.Content = "button";
+                SearchTripButton_Click(button, null);
+            }
+        }
+
         
+
+        //private void searchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    searchComboBox.Focus();
+        //    //searchComboBox.SelectedIndex = 0;
+        //    searchComboBox.IsDropDownOpen = true;
+            
+            
+        //}
     }
 }

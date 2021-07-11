@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:YourMom"
+        xmlns:local="clr-namespace:YourMom.Modal"
         mc:Ignorable="d"
-        Title="CategorySelect" Height="600" Width="500"  WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="CategorySelect" Height="600" Width="500"  WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:Converter x:Key="converter"/>
+        
+    </Window.Resources>
     <Grid>
         <Border Background="Beige" CornerRadius="10">
             <!--<ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -40,6 +44,94 @@
                         </Button>
                         <TextBlock TextWrapping="Wrap" FontSize="20" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Select category</TextBlock>
+                    </StackPanel>
+                    
+                    
+                    
+
+                    <StackPanel  Width="269">
+                        <Border CornerRadius="6" Margin="0,0.6,5,0" BorderBrush="Gray" Padding="0,0,2,0" BorderThickness="3">
+                            <DockPanel LastChildFill="True">
+                                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                    <Button Name="DeleteTextInSearchButton" Width="30" BorderThickness="0" Padding="8"
+                                    Background="White" Height="29" Click="DeleteTextInSearchButton_Click"
+                                    MouseEnter="DeleteTextInSearchButton_MouseEnter">
+                                        <Image Source="Images/deleteText.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Grid Margin="2,1,0,1">
+
+                                        <ComboBox Name="SearchNotificationComboBox" Width="219">
+                                            <ComboBoxItem>Không có kết quả</ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox IsTextSearchEnabled="False" IsEditable="True" Name="searchComboBox"          
+                                      Height="32" Width="226" SelectionChanged="searchComboBox_SelectionChanged"
+                                      PreviewKeyDown='searchComboBox_PreviewKeyDown' 
+                                      BorderThickness="0" VerticalContentAlignment="Center">
+                                            <!--Set chiều rộng cho dropdown list-->
+
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style TargetType="ComboBoxItem">
+                                                    <Setter Property="Width" Value="226"></Setter>
+                                                    <Setter Property="Padding" Value="0"></Setter>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsHighlighted" Value="True">
+                                                            <Setter Property="Background" Value="Red"/>
+                                                            <Setter Property="BorderThickness" Value="5"></Setter>
+                                                        </Trigger>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="Background" Value="Red"/>
+                                                            <Setter Property="BorderThickness" Value="5"></Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button BorderThickness="0" Width="226" Background="White" Click="SearchTripButton_Click">
+                                                            <Button.Content>
+                                                                <Grid>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="70"/>
+                                                                        <ColumnDefinition Width="149"/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <Image Grid.Column="0" Source="{Binding ImagePath}" Width="70" Height="70" Stretch="Fill"
+                                                            RenderOptions.BitmapScalingMode="HighQuality" RenderOptions.EdgeMode="Aliased" Margin="0"/>
+                                                                    <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"
+                                                                       Margin="-10 0 0 0" FontSize="13" TextWrapping="Wrap" 
+                                                                       Width="120"></TextBlock>
+                                                                </Grid>
+                                                            </Button.Content>
+                                                            <Button.Style>
+                                                                <Style TargetType="{x:Type Button}">
+                                                                    <Setter Property="Template">
+                                                                        <Setter.Value>
+                                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                                <Border Background="{TemplateBinding Background}">
+                                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                </Border>
+                                                                            </ControlTemplate>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </Style>
+                                                            </Button.Style>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBox Name="searchTextBox" PreviewKeyDown="searchTextBox_PreviewKeyDown" HorizontalAlignment="Left"
+                                         PreviewTextInput="searchTextBox_PreviewTextInput" FontSize="14" Width="223"
+                                         PreviewKeyUp="PreviewKeyUp_EnhanceTextBoxSearch" VerticalContentAlignment="Center"
+                                         DataObject.Pasting="Pasting_EnhanceTextSearch"  BorderThickness="0"/>
+                                    </Grid>
+
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
                     </StackPanel>
 
 
