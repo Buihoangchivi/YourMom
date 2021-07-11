@@ -2007,18 +2007,6 @@ namespace YourMom
 
             }
 
-            //Tạo đường giới hạn ngân sách
-            BudgetLineChart.Series.Add(new LineSeries()
-            {
-                Values = new ChartValues<double>(budgetGoalLine),
-                LineSmoothness = 0,
-                PointGeometry = null,
-                PointGeometrySize = 0,
-                Title = "Maximum",
-                Stroke = Brushes.Red
-
-            });
-
             //Tạo đường chi tiêu thực tế
             BudgetLineChart.Series.Add(new LineSeries()
             {
@@ -2027,8 +2015,18 @@ namespace YourMom
                 LineSmoothness = 0,
                 PointGeometry = null,
                 PointGeometrySize = 10,
-                Title = "Current",
-                Stroke = Brushes.ForestGreen,
+                Title = "Current"
+
+            });
+
+            //Tạo đường giới hạn ngân sách
+            BudgetLineChart.Series.Add(new LineSeries()
+            {
+                Values = new ChartValues<double>(budgetGoalLine),
+                LineSmoothness = 0,
+                PointGeometry = null,
+                PointGeometrySize = 0,
+                Title = "Maximum"
 
             });
 
@@ -2037,11 +2035,6 @@ namespace YourMom
             {
                 Labels = new string[0]
             });
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
         }
 

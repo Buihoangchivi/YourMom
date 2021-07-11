@@ -406,7 +406,7 @@
     <DockPanel LastChildFill="True" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 
         <!--Thanh tiêu đề-->
-        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="{DynamicResource ColorScheme}">
+        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="Red">
 
             <!--Nút quay lại-->
             <Button Name="BackButton" Width="46" BorderThickness="0" Padding="7" Background="Black" 
@@ -1305,7 +1305,9 @@
                                                                         </ListView.ItemContainerStyle>
                                                                         <ListView.ItemTemplate>
                                                                             <DataTemplate>
-                                                                                <Button Grid.Row="0" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch"  >
+                                                                                <Button Grid.Row="0" Background="White" 
+                                                                                        BorderThickness="0" 
+                                                                                        HorizontalContentAlignment="Stretch"  >
 
                                                                                     <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
                                                                                         <Border BorderBrush="{x:Null}" Width="50" Height="50" >
@@ -1503,7 +1505,7 @@
                                                                             <DataTemplate>
 
                                                                                 <Button Background="White" BorderThickness="0" 
-                                                                                        Click="Button_Click" HorizontalContentAlignment="Stretch"  
+                                                                                        HorizontalContentAlignment="Stretch"  
                                                                                         Height="55">
 
                                                                                     <DockPanel LastChildFill="True" >
@@ -1585,165 +1587,13 @@
 
                                                     </ItemsControl>
 
-                                                    <!--<ItemsControl x:Name="TransactionList">
-
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Grid>
-                                                <StackPanel Grid.Row="1">
-                                                    <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">01/06/2021 - 30/06/2021</TextBlock>
-                                                    <TextBlock Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold">Còn 21 ngày</TextBlock>
-                                                </StackPanel>
-                                                <StackPanel Grid.Row="1" Grid.Column="2">
-                                                    <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">≈ 9.000.000</TextBlock>
-                                                    <TextBlock Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right">Còn lại ≈ 8.999.999</TextBlock>
-                                                </StackPanel>
-                                            </Grid>
-                                            <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="Button_Click" HorizontalContentAlignment="Stretch" >
-
-
-
-                                                <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                    <Image DockPanel.Dock="Left" Source="{Binding Image}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-
-
-                                                    <DockPanel DockPanel.Dock="Top" >
-                                                        <TextBlock DockPanel.Dock="Left" Text="{Binding Text}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
-                                                        <StackPanel DockPanel.Dock="Right">
-                                                            <TextBlock  Text="{Binding Text1}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
-                                                            <TextBlock  Text="{Binding Text2}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
-                                                        </StackPanel>
-                                                    </DockPanel>
-
-
-                                                    <ProgressBar Height="15" Margin="0,0,14,20"  Minimum="0" Maximum="100" Value="75" />
-
-
-
-                                                </DockPanel>
-
-
-                                            </Button>
-                                        </StackPanel>
-
-
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>-->
-
                                                 </ScrollViewer>
 
                                             </StackPanel>
 
-<!--<<<<<<< budget
-                                                                <!Thời gian còn lại của ngân sách
-                                                                <TextBlock Text="{Binding DaysLeft}" Margin="10,10,0,10" FontSize="15" FontFamily="Segoe UI Semibold"></TextBlock>
-                                                            </StackPanel>
-                                                            <StackPanel Grid.Row="1" Grid.Column="2">
-                                                                <TextBlock Text="{Binding MoneyFund, StringFormat=≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
-                                                                <TextBlock Text="{Binding Balance, StringFormat=Left ≈ {0}}" Margin="10,10,10,10" FontSize="15" FontFamily="Segoe UI Semibold" HorizontalAlignment="Right"></TextBlock>
-                                                            </StackPanel>
-                                                        </Grid>
-                                                        <Button x:Name="BudgetListButton" Background="White" BorderThickness="0" Click="BudgetListButton_Click" HorizontalContentAlignment="Stretch" >
-
-
-
-                                                            <DockPanel x:Name="BudgetDocPanel"  LastChildFill="True" >
-                                                                <Image DockPanel.Dock="Left" Source="{Binding ImagePath}" Height="45" Width="45" Margin="10,0,10,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-
-
-                                                                <DockPanel DockPanel.Dock="Top" >
-                                                                    <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" Width="175" TextAlignment="Justify" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" FontFamily="Segoe UI Semibold" Margin="0,10,0,0"></TextBlock>
-                                                                    <StackPanel DockPanel.Dock="Right">
-                                                                        <TextBlock  Text="{Binding MoneyFund}" Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0"  FontFamily="Segoe UI Semibold"></TextBlock>
-                                                                        <TextBlock  Text="{Binding Balance, StringFormat=Left {0}}"  Width="175" TextAlignment="Right" HorizontalAlignment="Right" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60" Margin="0,0,10,0" FontFamily="Segoe UI Semibold"></TextBlock>
-                                                                    </StackPanel>
-                                                                </DockPanel>
-=======-->
                                         </Grid>
 
                                     </ScrollViewer>
-
-                                    <!--<ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Hidden">
-                                <Grid Margin="15,6,0,0">
-                                    <ItemsControl Grid.Row="1" Name="foodButtonIt   emsControl" Visibility="Visible">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        -->
-                                    <!--<ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Button Width="204" Background="White" Margin="0,0,8,10"  BorderThickness="0" >
-                                                    <Button.Resources>
-                                                        <Style TargetType="Border">
-                                                            <Setter Property="CornerRadius" Value="10"/>
-                                                        </Style>
-                                                    </Button.Resources>
-                                                    <WrapPanel>
-                                                        <Rectangle RadiusX="10" RadiusY="10" Width="202" Height="145">
-                                                           
-                                                        </Rectangle>
-                                                        <TextBlock Text="{Binding Name}" Width="175" TextAlignment="Left" TextWrapping="Wrap" 
-                                               FontSize="14" Padding="3,1" MaxHeight="60"></TextBlock>
-                                                        <Button Height="24" VerticalAlignment="Top" BorderThickness="0" Background="White"
-                                             Padding="2.8">
-                                                            <Button.Resources>
-                                                                <Style TargetType="Border">
-                                                                    <Setter Property="CornerRadius" Value="14"/>
-                                                                </Style>
-                                                            </Button.Resources>
-                                                            <Button.Content>
-                                                                <WrapPanel>
-                                                                    <Image Source="Images/unloved.png" RenderOptions.BitmapScalingMode="HighQuality">
-                                                                        <Image.Style>
-                                                                            <Style TargetType="Image">
-                                                                                <Setter Property="Visibility" Value="Collapsed" />
-                                                                                <Style.Triggers>
-                                                                                    <MultiDataTrigger>
-                                                                                        <MultiDataTrigger.Conditions>
-                                                                                            <Condition Binding="{Binding IsFavorite}" Value="False" />
-                                                                                        </MultiDataTrigger.Conditions>
-                                                                                        <Setter Property="Visibility" Value="Visible" />
-                                                                                    </MultiDataTrigger>
-                                                                                </Style.Triggers>
-                                                                            </Style>
-                                                                        </Image.Style>
-                                                                    </Image>
-                                                                    <Image Source="Images/favorite.png" RenderOptions.BitmapScalingMode="HighQuality">
-                                                                        <Image.Style>
-                                                                            <Style TargetType="Image">
-                                                                                <Setter Property="Visibility" Value="Collapsed" />
-                                                                                <Style.Triggers>
-                                                                                    <MultiDataTrigger>
-                                                                                        <MultiDataTrigger.Conditions>
-                                                                                            <Condition Binding="{Binding IsFavorite}" Value="True" />
-                                                                                        </MultiDataTrigger.Conditions>
-                                                                                        <Setter Property="Visibility" Value="Visible" />
-                                                                                    </MultiDataTrigger>
-                                                                                </Style.Triggers>
-                                                                            </Style>
-                                                                        </Image.Style>
-                                                                    </Image>
-                                                                </WrapPanel>
-                                                            </Button.Content>
-                                                        </Button>
-                                                    </WrapPanel>
-                                                </Button>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>-->
-                                    <!--
-                                    </ItemsControl>
-                                </Grid>
-                            </ScrollViewer>-->
 
                                 </Grid>
 
@@ -2692,7 +2542,7 @@
                                                         </Setter>
                                                         <Style.Triggers>
                                                             <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="#FFC8C4C4"/>
+                                                                <Setter Property="Background" Value="#C8C4C4"/>
                                                             </Trigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -2860,6 +2710,7 @@
 
                                         </DockPanel>
 
+                                        <!--Nút xem ngân sách-->
                                         <Button Name="ViewTransactionListButton" 
                                                                 Margin="0,15" 
                                                                 Width="350" 
