@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YourMom.Modal"
         mc:Ignorable="d"
-        Title="TransactionDetails" Height="300" Width="500" 
+        Title="TransactionDetails" Height="400" Width="500" 
         Loaded="Window_Loaded" WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
@@ -33,7 +33,7 @@
 
                 <Grid.RowDefinitions>
 
-                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
                     <RowDefinition Height="9*"></RowDefinition>
 
                 </Grid.RowDefinitions>
@@ -126,8 +126,7 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type Button}">
                                                 <Border CornerRadius="8" BorderThickness="1"
-                                                    BorderBrush="{Binding ColorScheme}"
-                                                    Background="#F4F4F4">
+                                                    BorderBrush="{Binding ColorScheme}">
                                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                 </Border>
 
@@ -161,7 +160,7 @@
 
                     <!--Icon loại ngân ngân sách-->
                     <Image DockPanel.Dock="Left" 
-                            Source="Images/category_shopping.png"
+                            Source="{Binding ImagePath}"
                             Height="60" Width="60" 
                             Margin="15,10,15,0"
                             VerticalAlignment="Top"
@@ -170,33 +169,59 @@
                     <!--Các thông số của của ngân sách-->
                     <StackPanel Margin="5,5,0,0">
 
-                        <TextBlock Text="Đi vay"
+                        <TextBlock Text="{Binding Name}"
                                    FontFamily="Segoe UI Semibold" 
                                    FontSize="25"
                                    Margin="0,5,0,2"/>
-                        
-                        <TextBlock Text="Saturday, 05/05/2021"
-                                   FontFamily="Segoe UI Historic" 
+
+                        <TextBlock FontFamily="Segoe UI Historic" 
                                    FontSize="13"
-                                   Margin="0,0,0,10"/>
+                                   Margin="0,0,0,10">
+
+                            <TextBlock.Text>
+
+                                <MultiBinding StringFormat="{}{0:dddd}, {0:dd}/{1:MM}/{2:yyyy}">
+
+                                    <Binding Path="Date"></Binding>
+                                    <Binding Path="Date"></Binding>
+                                    <Binding Path="Date"></Binding>
+
+                                </MultiBinding>
+
+                            </TextBlock.Text>
+
+                        </TextBlock>
 
                         <GridSplitter Width="130"
                                       Height="0.5" 
                                       VerticalAlignment="Bottom"
                                       HorizontalAlignment="Left" 
                                       Background="Gray"
-                                      Margin="0,0,0,5"/>   
+                                      Margin="0,0,0,5"/>
 
-                        <TextBlock Text="25,000"
+                        <TextBlock Text="{Binding Amount, Converter={StaticResource moneyConverter}}"
+                                   Foreground="{Binding TransactionType, Converter={StaticResource foregroundColorConverter}}"
                                    FontFamily="Segoe UI Semibold" 
                                    FontSize="40"
-                                   Margin="0,0,0,5"/>
-                        
-                        <TextBlock Text="Stakeholder"
-                                   FontFamily="Segoe UI Historic" 
+                                   Margin="0,0,0,10"/>
+
+                        <TextBlock FontFamily="Segoe UI Historic" 
                                    FontSize="14"
-                                   Height="50"/>
-                        
+                                   Height="100">
+
+                            <TextBlock.Text>
+
+                                <MultiBinding StringFormat="{}{0}{1}">
+
+                                    <Binding Path="Note"></Binding>
+                                    <Binding Path="Stakeholder"></Binding>
+
+                                </MultiBinding>
+
+                            </TextBlock.Text>
+
+                        </TextBlock>
+
                     </StackPanel>
 
                 </DockPanel>

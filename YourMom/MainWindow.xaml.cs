@@ -2080,6 +2080,47 @@ namespace YourMom
             clickedButton = button;
         }
 
+        //Xử lý hiển thị chi tiết giao dịch từ màn hình giao dịch
+        private void CategoryListDetail_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+            var listView = sender as ListView;
+            var name = listView.Name;
+            var window = new TransactionDetails();
+            var transaction = new DetailTransaction();
+
+            if (name == "TransactionListDetail")
+            {
+
+                transaction = listView.SelectedItem as DetailTransaction;
+
+            }
+            else
+            {
+
+                var tempTransaction = listView.SelectedItem as Transaction;
+                var type = tempTransaction.TransactionType;
+
+                transaction = new DetailTransaction()
+                {
+
+                    Amount = tempTransaction.Amount,
+                    Date = tempTransaction.Date,
+                    ImagePath = categoryList[type].ImagePath,
+                    Name = categoryList[type].Name,
+                    Note = tempTransaction.Note,
+                    Stakeholder = tempTransaction.Stakeholder,
+                    TransactionType = tempTransaction.TransactionType
+
+                };
+
+            }
+
+            window.detailTransaction = transaction;
+            window.Show();
+
+        }
+
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
             var datatContex = (sender as Button).DataContext;

@@ -20,11 +20,13 @@ namespace YourMom
     public partial class TransactionDetails : Window
     {
 
+        public DetailTransaction detailTransaction = new DetailTransaction();
+
         public TransactionDetails()
         {
 
             InitializeComponent();
-
+        
         }
 
         private void CloseListDetailBudget_Click(object sender, RoutedEventArgs e)
@@ -36,6 +38,8 @@ namespace YourMom
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
+            DataContext = detailTransaction;
 
         }
 

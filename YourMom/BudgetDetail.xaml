@@ -259,9 +259,10 @@
 
                                                                 <!--Danh sách giao dịch của nhóm-->
                                                                 <ListView Name="TransactionListDetail" 
-                                                                              ItemsSource="{Binding Transactions}" 
-                                                                              PreviewMouseWheel="HandlePreviewMouseWheel"
-                                                                              BorderThickness="0">
+                                                                          ItemsSource="{Binding Transactions}" 
+                                                                          PreviewMouseWheel="HandlePreviewMouseWheel"
+                                                                          MouseLeftButtonUp="TransactionListDetail_MouseLeftButtonUp"
+                                                                          BorderThickness="0">
 
                                                                     <ListView.ItemContainerStyle>
                                                                         <Style TargetType="ListViewItem">
@@ -273,25 +274,23 @@
 
                                                                         <DataTemplate>
 
-                                                                            <Button Background="White" BorderThickness="0" 
-                                                                            HorizontalContentAlignment="Stretch"  
-                                                                                        Height="55">
-
-                                                                                <DockPanel LastChildFill="True" >
-                                                                                    <Border BorderBrush="{x:Null}" Width="40" Height="40"
+                                                                            <DockPanel LastChildFill="True" 
+                                                                                           Background="White"
+                                                                                           Height="55">
+                                                                                <Border BorderBrush="{x:Null}" Width="40" Height="40"
                                                                                                 Margin="7,0,3,0">
 
-                                                                                        <!--Hình ảnh icon của nhóm giao dịch-->
-                                                                                        <Image DockPanel.Dock="Left" 
+                                                                                    <!--Hình ảnh icon của nhóm giao dịch-->
+                                                                                    <Image DockPanel.Dock="Left" 
                                                                                                    Source="{Binding ImagePath}"
                                                                                                    VerticalAlignment="Center" 
                                                                                                    HorizontalAlignment="Center"
                                                                                                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
-                                                                                    </Border>
+                                                                                </Border>
 
-                                                                                    <!--Số tiền giao dịch-->
-                                                                                    <TextBlock DockPanel.Dock="Right"  
+                                                                                <!--Số tiền giao dịch-->
+                                                                                <TextBlock DockPanel.Dock="Right"  
                                                                                                    Text="{Binding Amount, Converter={StaticResource moneyConverter}}"
                                                                                                    Margin="0,0,10,0"
                                                                                                    TextAlignment="Right" 
@@ -303,12 +302,12 @@
                                                                                                    FontFamily="Segoe UI Historic"
                                                                                                    Foreground="{Binding TransactionType, Converter={StaticResource foregroundColorConverter}}"/>
 
-                                                                                    <DockPanel DockPanel.Dock="Left"
+                                                                                <DockPanel DockPanel.Dock="Left"
                                                                                                    Margin="10,0,0,0"
                                                                                                    VerticalAlignment="Center">
 
-                                                                                        <!--Thứ, tháng và năm giao dịch-->
-                                                                                        <TextBlock Text="{Binding Name}"
+                                                                                    <!--Thứ, tháng và năm giao dịch-->
+                                                                                    <TextBlock Text="{Binding Name}"
                                                                                                        DockPanel.Dock="Top"
                                                                                                        TextAlignment="Left"
                                                                                                        TextWrapping="Wrap" 
@@ -317,7 +316,7 @@
                                                                                                        FontFamily="Segoe UI Semibold"
                                                                                                        VerticalAlignment="Center"/>
 
-                                                                                        <TextBlock DockPanel.Dock="Bottom" 
+                                                                                    <TextBlock DockPanel.Dock="Bottom" 
                                                                                                        MaxWidth="450" 
                                                                                                        TextWrapping="WrapWithOverflow" 
                                                                                                        FontSize="13" 
@@ -325,22 +324,20 @@
                                                                                                        FontFamily="Segoe UI Historic"
                                                                                                        VerticalAlignment="Center">
 
-                                                                                            <TextBlock.Text>
-                                                                                                <MultiBinding StringFormat="{}{0}{1}">
-                                                                                                    <Binding Path="Note"/>
-                                                                                                    <Binding Path="Stakeholder"/>
-                                                                                                </MultiBinding>
-                                                                                            </TextBlock.Text>
+                                                                                        <TextBlock.Text>
+                                                                                            <MultiBinding StringFormat="{}{0}{1}">
+                                                                                                <Binding Path="Note"/>
+                                                                                                <Binding Path="Stakeholder"/>
+                                                                                            </MultiBinding>
+                                                                                        </TextBlock.Text>
 
-                                                                                        </TextBlock>
-
-                                                                                    </DockPanel>
-
-                                                                                    <StackPanel/>
+                                                                                    </TextBlock>
 
                                                                                 </DockPanel>
 
-                                                                            </Button>
+                                                                                <StackPanel/>
+
+                                                                            </DockPanel>
 
                                                                         </DataTemplate>
 
@@ -395,5 +392,5 @@
         </Border>
 
     </Grid>
-    
+
 </Window>

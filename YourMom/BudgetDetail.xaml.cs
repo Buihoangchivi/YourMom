@@ -36,7 +36,7 @@ namespace YourMom
         public BudgetDetail()
         {
             InitializeComponent();
-            
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -271,6 +271,18 @@ namespace YourMom
                 parent.RaiseEvent(eventArg);
 
             }
+
+        }
+
+        private void TransactionListDetail_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+            var listView = sender as ListView;
+            var window = new TransactionDetails();
+            var transaction = listView.SelectedItem as DetailTransaction;
+
+            window.detailTransaction = transaction;
+            window.Show();
 
         }
 
