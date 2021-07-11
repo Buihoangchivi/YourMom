@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AddBudget" 
         MinWidth="810" MinHeight="350"
-        Height="350" Width="800"  WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Height="350" Width="800"  WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Grid>
@@ -369,6 +369,7 @@
                             BorderThickness="1"/>
 
             <StackPanel Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3">
+
 
                 <TextBlock Margin="10"  
                                    FontSize="15"

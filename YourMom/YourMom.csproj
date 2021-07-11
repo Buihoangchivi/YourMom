@@ -91,7 +91,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BudgetCategorySelected.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BudgetDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CategorySelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,8 +117,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BudgetCategorySelected.xaml.cs">
+      <DependentUpon>BudgetCategorySelected.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BudgetDetail.xaml.cs">
       <DependentUpon>BudgetDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CategorySelect.xaml.cs">
+      <DependentUpon>CategorySelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -125,6 +139,7 @@
     <Compile Include="Modal\Budget.cs" />
     <Compile Include="Modal\Category.cs" />
     <Compile Include="Modal\CategoryList.cs" />
+    <Compile Include="Modal\Converter.cs" />
     <Compile Include="Modal\DebitBook.cs" />
     <Compile Include="Modal\DetailCategory.cs" />
     <Compile Include="Modal\DetailInfomation.cs" />
@@ -281,6 +296,147 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\white_report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_restaurent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_coffee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_bills_utilities.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_telephone_bill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_water_bill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_electric_bill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_gas_bill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_TVbill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_internet_bill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_rent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_move.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_taxi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_petroleum.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_parking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_maintenance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_friends_lovers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_movie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_game.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_travel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_health.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_sport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_healthcare.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_medicine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\caregory_personal_care.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_gifts_donations.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_wedding.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_funeral.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_charity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_family.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_children.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_house_repair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_home_service.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_pet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_education.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_invest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_business.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_insurrance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_cost.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_withdrawal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_other_costs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_bonus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_interest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_awarded.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_sell_things.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\category_other_income.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\deleteText.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

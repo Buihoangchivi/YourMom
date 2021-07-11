@@ -40,8 +40,11 @@ namespace YourMom
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Button clickedButton;
-        public List<Transaction> transactionList;
+        
+        private List<Transaction> transactionList;
+        List<TempTransaction> tempTransactionList;
         private List<Budget> budgetList;
+
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         private Budget budgetInfo;
         private DateTime startingDate, endDate;
@@ -76,6 +79,8 @@ namespace YourMom
                 }
             }
         }
+
+       
 
         ObservableCollection<CategoryList> categoryCollection = new ObservableCollection<CategoryList>();
         ObservableCollection<CategoryList> categoryDebtCollection = new ObservableCollection<CategoryList>();
@@ -643,7 +648,7 @@ namespace YourMom
         //Đọc dữ liệu từ file xml
         private void ReadData()
         {
-            List<TempTransaction> tempTransactionList;
+            
             // Đọc dữ liệu các giao dịch từ data
             XmlSerializer xs = new XmlSerializer(typeof(List<TempTransaction>));
             try
@@ -761,6 +766,7 @@ namespace YourMom
             SettingColorItemsControl.ItemsSource = ListColor;
             //
             ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
+            
 
             this.DataContext = this;
 
@@ -1627,13 +1633,29 @@ namespace YourMom
 
         private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTransaction add = new AddTransaction(ColorScheme);
+            AddTransaction add = new AddTransaction();            
+            add.ColorScheme = ColorScheme;
+            // Reset lại dữ liệu khi tạo một giao dịch mới
+            AddTransaction.Global.tempDate = default(DateTime);
+            AddTransaction.Global.tempAmount = "";
+            AddTransaction.Global.tempStakeholder = "";
+            AddTransaction.Global.tempNote = "";
+            AddTransaction.Global.tempTransactionType = "";
+            add.TransactionInfoList = tempTransactionList;
+            
             add.Show();
         }
 
         private void AddBudgetButton_Click(object sender, RoutedEventArgs e)
         {
-            AddBudget add = new AddBudget(ColorScheme);
+           AddBudget add = new AddBudget();
+            add.ColorScheme = ColorScheme;
+            // Reset lại dữ liệu khi tạo một giao dịch mới            
+            AddBudget.Global.tempStartingDate = default(DateTime);
+            AddBudget.Global.tempEndDate = default(DateTime);
+            AddBudget.Global.tempMoneyFund = "";           
+            AddBudget.Global.tempNote = "";
+            //AddBudget.Global.tempTransactionType = "";
             add.Show();
         }
 
@@ -2142,8 +2164,10 @@ namespace YourMom
             // Cập nhật màu cho các nút chung
             AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            AddBudget add = new AddBudget(ColorScheme);
-            AddTransaction add1 = new AddTransaction(ColorScheme);
+            //AddBudget add = new AddBudget(ColorScheme);
+            //AddTransaction add1 = new AddTransaction();
+            //add1.ColorScheme = ColorScheme;
+            
 
 
         }
