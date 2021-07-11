@@ -25,10 +25,11 @@ namespace YourMom
 
         ObservableCollection<TransactionList> transactionCollection = new ObservableCollection<TransactionList>();
         ObservableCollection<TransactionList> transactionDebtCollection = new ObservableCollection<TransactionList>();
-        public DateTime startingDate = new DateTime(), endDate = new DateTime();
         public Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         public List<Transaction> transactionList;
-        public string transactionType;
+        public string title = "";
+        public DateTime startingDate, endDate;
+        public string transactionType = "";
 
         public bool isDebtTransaction;
 
@@ -61,6 +62,20 @@ namespace YourMom
                 //Đọc dữ liệu tất cả các giao dịch vào danh sách giao dịch ở dạng giao dịch
                 InitDataIntoObservableCollection(transactionCollection, startingDate, endDate);
                 TransactionList.ItemsSource = transactionCollection;
+
+            }
+
+            //Hiển thị tiêu đề của cửa sổ
+            if (title != "")
+            {
+
+                TitleTextBlock.Text = title;
+
+            }
+            else
+            {
+
+                TitleTextBlock.Text = Name;
 
             }
 

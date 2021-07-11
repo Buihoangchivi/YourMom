@@ -71,12 +71,13 @@
                                        Width="17"></Image>
                     </Button>
 
-                    <TextBlock TextWrapping="Wrap" 
-                                       FontSize="20" 
-                                       FontFamily="Segoe UI Semibold" 
-                                       VerticalAlignment="Center" 
-                                       HorizontalAlignment="Left" 
-                                       Margin="10,0,0,0" Text="Ăn uống"/>
+                    <TextBlock Name="TitleTextBlock" 
+                               TextWrapping="Wrap" 
+                               FontSize="20" 
+                               FontFamily="Segoe UI Semibold" 
+                               VerticalAlignment="Center" 
+                               HorizontalAlignment="Left" 
+                               Margin="10,0,0,0"/>
 
                 </StackPanel>
 
@@ -374,10 +375,10 @@
                 <Border Name="NoTransactionBorder" 
                         Background="#F4F4F4"
                         Grid.Row="1"
-                            CornerRadius="0,0,10,10"
-                            Width="600" Height="300"
-                            VerticalAlignment="Top"
-                            Visibility="Collapsed">
+                        CornerRadius="0,0,10,10" 
+                        Height="558"
+                        VerticalAlignment="Top"
+                        Visibility="Collapsed">
 
                     <TextBlock Text="No transactions"
                                    VerticalAlignment="Center"

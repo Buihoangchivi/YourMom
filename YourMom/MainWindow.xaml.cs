@@ -27,7 +27,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Media.Animation;
 
 using Microsoft.Win32;
-
+using System.Globalization;
 
 namespace YourMom
 {
@@ -35,8 +35,6 @@ namespace YourMom
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-
-
 
     public partial class MainWindow : Window
     {
@@ -1420,11 +1418,45 @@ namespace YourMom
 
             var arr = GetTransactionType(detailCategory.ID);
 
-            //Trường hợp khung chi tiết loại nhóm cha
-            if (arr.Length < 3)
+            //Trường hợp hiển thị danh sách giao dịch của một loại trong một tháng cụ thể
+            if (arr.Length == 1)
+            {
+
+                var detail = detailStack.Peek();
+
+                foreach (var category in categoryList)
+                {
+
+                    if (category.Value.Name == detail.Title)
+                    {
+
+                        var id = category.Value.ID[0] - '0';
+                        var isDebt = id > 1;
+                        BudgetDetail win = new BudgetDetail()
+                        {
+
+                            isDebtTransaction = isDebt,
+                            categoryList = categoryList,
+                            transactionList = transactionList,
+                            startingDate = startingDate,
+                            endDate = endDate,
+                            transactionType = category.Value.ID,
+                            title = detailCategory.Name
+
+                        };
+
+                        win.Show();
+
+                    }
+
+                }
+
+            }
+            else if (arr.Length == 2) //Trường hợp khung chi tiết loại nhóm cha
             {
 
                 var valuePairs = new Dictionary<string, double>();
+                var check = false;
 
                 //Đọc qua tất cả các giao dịch để tìm các chi tiết loại nhóm con
                 foreach (Transaction transaction in transactionList)
@@ -1436,28 +1468,18 @@ namespace YourMom
                         var type = transaction.TransactionType;
                         var index = type.IndexOf(detailCategory.ID);
 
-                        if (index == 0) //Nhóm con thì thêm dữ liệu vào từ điển
+                        //Nhóm con thì thêm dữ liệu vào từ điển
+                        if ((detailStack.Count == 1 && index == 0) ||
+                            (detailStack.Count > 1 && index == 0 && type != detailCategory.ID))
                         {
 
                             AddDataIntoDictionary(valuePairs, type, transaction.Amount, false);
+                            if (detailCategory.ID != type)
+                            {
 
-                        }
+                                check = true;
 
-                    }
-
-                }
-
-                var check = true;
-                if (valuePairs.Count == 1)
-                {
-
-                    foreach (var pair in valuePairs)
-                    {
-
-                        if (pair.Key == detailCategory.ID)
-                        {
-
-                            check = false;
+                            }
 
                         }
 
@@ -1466,7 +1488,7 @@ namespace YourMom
                 }
 
                 //Nếu có từ 2 nhóm con trở lên thì hiển thị khung chi tiết loại nhóm con
-                if (arr.Length == 2 && (valuePairs.Count > 1 || (valuePairs.Count == 1 && check)))
+                if (check == true)
                 {
 
                     List<DetailCategory> detailList = new List<DetailCategory>();
@@ -1540,8 +1562,10 @@ namespace YourMom
                 if (startingDate.Date <= transaction.Date && transaction.Date <= endDate)
                 {
 
+                    var index = transaction.TransactionType.IndexOf(detailCategory.ID);
+
                     //Giao dịch phải thỏa điều kiện cùng ID với ID của tham số đầu vào
-                    if (transaction.TransactionType == detailCategory.ID)
+                    if (index == 0)
                     {
 
                         //Cộng dồn số tiền giao dịch trong tháng
@@ -1639,15 +1663,19 @@ namespace YourMom
 
         private void ViewTransactionListButton_Click(object sender, RoutedEventArgs e)
         {
+            var id = budgetInfo.ID[0] - '0';
+            var isDebt = id > 1;
 
             BudgetDetail win = new BudgetDetail()
             {
 
-                startingDate = budgetInfo.StartingDate,
-                endDate = budgetInfo.EndDate,
+                isDebtTransaction = isDebt,
                 categoryList = categoryList,
                 transactionList = transactionList,
-                transactionType = budgetInfo.ID
+                startingDate = budgetInfo.StartingDate,
+                endDate = budgetInfo.EndDate,
+                transactionType = budgetInfo.ID,
+                title = budgetInfo.Name
 
             };
 
