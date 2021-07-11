@@ -3,13 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:YourMom" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:YourMom.Modal" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="BudgetDetail" Height="650" Width="500" 
         Loaded="Window_Loaded" WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True">
+
+    <Window.Resources>
+
+        <local:MoneyConverter x:Key="moneyConverter"/>
+        <local:ForegroundColorConverter x:Key="foregroundColorConverter"/>
+
+    </Window.Resources>
 
     <Grid Name="BudgetDetailGrid" Margin="15"
                   Visibility="Visible">

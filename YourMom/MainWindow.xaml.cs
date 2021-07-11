@@ -42,7 +42,7 @@ namespace YourMom
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Button clickedButton;
-        private List<Transaction> transactionList;
+        public List<Transaction> transactionList;
         private List<Budget> budgetList;
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         private Budget budgetInfo;
@@ -225,11 +225,12 @@ namespace YourMom
                 for (int j = 0; j < transactionList.Count; j++)
                 {
 
+                    var index = transactionList[j].TransactionType.IndexOf(budgetList[i].ID);
+
                     //Kiểm tra có cùng loại giao dịch hay không
-                    if (budgetList[i].ID == transactionList[j].TransactionType &&
-                        //Thời gian giao dịch phải nằm trong khoảng thời gian của ngân sách
+                    if (//Thời gian giao dịch phải nằm trong khoảng thời gian của ngân sách
                         transactionList[j].Date <= budgetList[i].EndDate &&
-                        transactionList[j].Date >= budgetList[i].StartingDate)
+                        transactionList[j].Date >= budgetList[i].StartingDate && index == 0)
                     {
 
                         moneyTotal += transactionList[j].Amount; //Tính tổng tiền
@@ -301,8 +302,7 @@ namespace YourMom
             {
 
                 //Kiểm tra xem thời gian của giao dịch có nằm trong khoảng thời thời đầu vào hay không
-                if (startingDate <= transaction.Date &&
-                    (transaction.Date <= endDate || endDate == DateTime.MaxValue))
+                if (startingDate <= transaction.Date && transaction.Date <= endDate)
                 {
 
                     //ID của loại giao dịch
@@ -430,8 +430,7 @@ namespace YourMom
             {
 
                 //Kiểm tra xem thời gian của giao dịch có nằm trong khoảng thời thời đầu vào hay không
-                if (startingDate <= transaction.Date &&
-                    (transaction.Date <= endDate || endDate == DateTime.MaxValue))
+                if (startingDate <= transaction.Date && transaction.Date <= endDate)
                 {
 
                     //ID của loại giao dịch
@@ -1640,88 +1639,20 @@ namespace YourMom
 
         private void ViewTransactionListButton_Click(object sender, RoutedEventArgs e)
         {
-            BudgetDetail win = new BudgetDetail();
+
+            BudgetDetail win = new BudgetDetail()
+            {
+
+                startingDate = budgetInfo.StartingDate,
+                endDate = budgetInfo.EndDate,
+                categoryList = categoryList,
+                transactionList = transactionList,
+                transactionType = budgetInfo.ID
+
+            };
+
             win.Show();
         }
-
-        //private void BudgetLineChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-        //    BudgetLineChart.Series.Clear();
-
-        //    var curr = new DateTime();
-        //    TimeSpan time = budgetInfo.EndDate - budgetInfo.StartingDate;
-        //    int durationOfBudget = time.Days + 1;
-
-        //    List<double> budgetGoalLine = new List<double>();
-        //    List<double> budgetSpentLine = new List<double>();
-
-        //    Dictionary<DateTime, double> myDic = new Dictionary<DateTime, double>();
-        //    Dictionary<DateTime, double> myDic1 = new Dictionary<DateTime, double>();
-        //    Dictionary<DateTime, double> myDic2 = new Dictionary<DateTime, double>();
-        //    double money = 0;
-
-        //    for (int i = 0; i < categoryCollection.Count; i++)
-        //    {
-        //        if (categoryCollection[i].Name == budgetInfo.Name)
-        //        {
-
-        //            for (int j = 0; j < categoryCollection[i].Transactions.Count; j++)
-        //            {
-
-        //                if (categoryCollection[i].Transactions[j].Date < budgetInfo.EndDate &&
-        //                    categoryCollection[i].Transactions[j].Date > budgetInfo.StartingDate)
-        //                {
-
-        //                    if (!myDic2.ContainsKey(categoryCollection[i].Transactions[j].Date))
-        //                    {
-        //                        myDic2.Add(categoryCollection[i].Transactions[j].Date, categoryCollection[i].Transactions[j].Amount);
-        //                    }
-        //                    else
-        //                    {
-        //                        myDic2[categoryCollection[i].Transactions[j].Date] = myDic2[categoryCollection[i].Transactions[j].Date] + categoryCollection[i].Transactions[j].Amount;
-        //                    }
-
-
-        //                }
-        //            }
-        //        }
-
-
-
-        //    }
-
-        //    for (int i = 0; i < durationOfBudget; i++)
-        //    {
-        //        budgetGoalLine.Add(budgetInfo.MoneyFund);
-        //        curr = budgetInfo.StartingDate.AddDays(i);
-        //        if (myDic2.ContainsKey(curr))
-        //        {
-        //            money += myDic2[curr];
-        //        }
-        //        budgetSpentLine.Add(money);
-
-        //    }
-
-
-
-
-        //    BudgetLineChart.Series.Add(new LineSeries()
-        //    {
-        //        Values = new ChartValues<double>(budgetGoalLine),
-        //        LineSmoothness = 0,
-        //        PointGeometry = null,
-        //        PointGeometrySize = 0,
-        //        Title = "Max"
-        //    });
-        //    BudgetLineChart.Series.Add(new LineSeries()
-        //    {
-        //        Values = new ChartValues<double>(budgetSpentLine),
-        //        LineSmoothness = 0,
-        //        PointGeometry = null,
-        //        PointGeometrySize = 0,
-        //        Title = "Current"
-        //    });
-        //}
 
         // Nút chuyển sang tháng trước trong giao diện giao dịch
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
@@ -1957,22 +1888,30 @@ namespace YourMom
             //Tính toán từ điển <ngày, số tiền chi tiêu>
             for (int i = 0; i < transactionList.Count; i++)
             {
-                if (transactionList[i].TransactionType == budgetInfo.ID &&
-                    transactionList[i].Date <= budgetInfo.EndDate &&
-                    transactionList[i].Date >= budgetInfo.StartingDate)
+
+                var index = transactionList[i].TransactionType.IndexOf(budgetInfo.ID);
+
+                if (transactionList[i].Date <= budgetInfo.EndDate &&
+                    transactionList[i].Date >= budgetInfo.StartingDate && index == 0)
                 {
+
+                    var date = new DateTime
+                        (
+                            transactionList[i].Date.Year,
+                            transactionList[i].Date.Month,
+                            transactionList[i].Date.Day
+                        );
 
                     if (myDic.ContainsKey(transactionList[i].Date))
                     {
 
-                        myDic[transactionList[i].Date] = myDic[transactionList[i].Date] +
-                            transactionList[i].Amount;
+                        myDic[date] = myDic[date] + transactionList[i].Amount;
 
                     }
                     else
                     {
 
-                        myDic.Add(transactionList[i].Date, transactionList[i].Amount);
+                        myDic.Add(date, transactionList[i].Amount);
 
                     }
 
@@ -1987,10 +1926,10 @@ namespace YourMom
                 var startingCurrentDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
 
                 // nếu có ngày trong danh sách giao dịch thì thêm vào
-                if (myDic.ContainsKey(currentDate))
+                if (myDic.ContainsKey(startingCurrentDate))
                 {
 
-                    money += myDic[currentDate];
+                    money += myDic[startingCurrentDate];
 
                 }
 
