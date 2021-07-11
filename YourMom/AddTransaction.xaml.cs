@@ -29,8 +29,7 @@ namespace YourMom
             
             InitializeComponent();
             ColorScheme = colorScheme;
-            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
-            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
+            this.DataContext = this;
         }
 
 
@@ -57,17 +56,23 @@ namespace YourMom
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+
             var noti = MessageBox.Show("Are you really want to cancel?",
                     "Notification",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
+
             if (noti == MessageBoxResult.Yes)
             {
+
                 this.Close();
+
             }
             else
             {
+
                 // Do nothing
+
             }
             
         }
@@ -77,42 +82,43 @@ namespace YourMom
 
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
-        }
-
-       
+        }       
 
         private static readonly Regex _regex = new Regex("[^0-9]+"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)
         {
+
             return !_regex.IsMatch(text);
+
         }
+
         private void Money_Pasting(object sender, DataObjectPastingEventArgs e)
         {
-            if (e.DataObject.GetDataPresent(typeof(String)))
+
+            if (e.DataObject.GetDataPresent(typeof(string)))
             {
-                String text = (String)e.DataObject.GetData(typeof(String));
+
+                var text = (string)e.DataObject.GetData(typeof(string));
                 if (!IsTextAllowed(text))
                 {
+
                     e.CancelCommand();
+
                 }
+
             }
             else
             {
-                e.CancelCommand();
-            }
-        }
 
-        private void TimeButton_Click(object sender, RoutedEventArgs e)
-        {
-            DateTime? datepicker = DatePicker1.SelectedDate;
-            MessageBox.Show(datepicker.Value.ToString());
+                e.CancelCommand();
+
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         
     }
 }

@@ -13,8 +13,8 @@
     <ID>1_1</ID>
     <Name>Shopping</Name>
     <ImagePath>Images\Shopping.jpg</ImagePath>
-    <StartingDate>5/7/2021 4:00:00 AM</StartingDate>
-    <EndDate>6/7/2021 12:00:00 AM</EndDate>
+    <StartingDate>5/7/2020 4:00:00 AM</StartingDate>
+    <EndDate>6/7/2025 12:00:00 AM</EndDate>
     <MoneyFund>2000000</MoneyFund>
     <Note>Tiền mua sắm cho một tháng</Note>
   </Budget>

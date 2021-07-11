@@ -945,6 +945,7 @@ namespace YourMom
             //Mở màn hình giao dịch
             TransactionScreenGrid.Visibility = Visibility.Visible;
             AddTransactionButton.Visibility = Visibility.Visible;
+            UtilityButtonsStackPanel.Visibility = Visibility.Visible;
 
             //Đọc dữ liệu tất cả các giao dịch thông thường vào danh sách giao dịch
             categoryCollection = new ObservableCollection<CategoryList>();
@@ -967,8 +968,13 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            UtilityButtonsStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
+            AddTransactionButton.Visibility = Visibility.Collapsed;
+
             //Đóng khung báo cáo chi tiết
             DetailReportGrid.Visibility = Visibility.Collapsed;
+
             //Phóng to chiều rộng của khung báo cáo chung
             GeneralReportGrid.Width = 600;
 
@@ -1014,6 +1020,14 @@ namespace YourMom
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
             AddTransactionButton.Visibility = Visibility.Collapsed;
+            UtilityButtonsStackPanel.Visibility = Visibility.Collapsed;
+
+            //Đóng khung báo cáo chi tiết
+            DetailBudgetGrid.Visibility = Visibility.Collapsed;
+
+            //Phóng to kích thước của khung ngân sách chung
+            Budget.Width = 600;
+            BudgetListBorder.Width = 600;
 
             //Mở màn hình ngân sách
             BudgetScreenGrid.Visibility = Visibility.Visible;
@@ -1031,9 +1045,12 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
 
             //Mở màn hình giao dịch
             TransactionScreenGrid.Visibility = Visibility.Visible;
+            AddTransactionButton.Visibility = Visibility.Visible;
+            UtilityButtonsStackPanel.Visibility = Visibility.Visible;
 
             //Đọc dữ liệu tất cả các giao dịch vay nợ vào danh sách giao dịch
             categoryDebtCollection = new ObservableCollection<CategoryList>();
@@ -1055,6 +1072,9 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             TransactionScreenGrid.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            UtilityButtonsStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
+            AddTransactionButton.Visibility = Visibility.Collapsed;
 
             //Mở màn hình cài đặt
             SettingScreenStackPanel.Visibility = Visibility.Visible;
@@ -1071,6 +1091,9 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             TransactionScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
+            UtilityButtonsStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
+            AddTransactionButton.Visibility = Visibility.Collapsed;
 
             //Mở màn hình cài đặt
             AboutScreenStackPanel.Visibility = Visibility.Visible;
@@ -1616,7 +1639,7 @@ namespace YourMom
 
         private void CloseDetailBudget_Click(object sender, RoutedEventArgs e)
         {
-            BudgetReportGrid.Visibility = Visibility.Collapsed;
+            DetailBudgetGrid.Visibility = Visibility.Collapsed;
             Budget.Width = 600;
             BudgetListBorder.Width = 600;
         }
@@ -1864,10 +1887,10 @@ namespace YourMom
         {
 
             //Hiển thị màn hình chi tiết ngân sách
-            BudgetReportGrid.Visibility = Visibility.Visible;
+            DetailBudgetGrid.Visibility = Visibility.Visible;
             Budget.Width = 410;
             BudgetListBorder.Width = 410;
-            BudgetReportGrid.Width = 600;
+            DetailBudgetGrid.Width = 600;
 
             CreateBudgetLineChart(sender);
 
@@ -1930,7 +1953,7 @@ namespace YourMom
                             transactionList[i].Date.Day
                         );
 
-                    if (myDic.ContainsKey(transactionList[i].Date))
+                    if (myDic.ContainsKey(date))
                     {
 
                         myDic[date] = myDic[date] + transactionList[i].Amount;

@@ -18,7 +18,7 @@
     <Window.Resources>
 
         <SolidColorBrush x:Key="ColorScheme" Color="{Binding ColorScheme}"></SolidColorBrush>
-        
+
         <Style TargetType="{x:Type ProgressBar}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -680,7 +680,7 @@
                 <StackPanel>
                     <Image Source="Images/setting.png" Width="25" Margin="0,0,0,5" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                     <TextBlock Name="SettingTitleTextBlock" VerticalAlignment="Center" FontSize="15">Setting</TextBlock>
-                    
+
                 </StackPanel>
 
             </Button>
@@ -717,7 +717,7 @@
                 </StackPanel>
 
             </Button>
-            
+
         </StackPanel>
 
         <!--Thanh công cụ-->
@@ -738,7 +738,7 @@
             </StackPanel>
 
             <!--Nút thêm giao dịch mới-->
-            <Button BorderThickness="0" Height="33" Margin="0,0,10,0" Name="AddTransactionButton"
+            <Button BorderThickness="0" Height="33" Margin="0,0,20,0" Name="AddTransactionButton"
                     DockPanel.Dock="Right" Foreground="White"
                     Click="AddTransactionButton_Click" Visibility="Visible">
                 <Button.Style>
@@ -769,7 +769,7 @@
             </Button>
 
             <!--Nút thêm ngân sách mới-->
-            <Button BorderThickness="0" Height="33" Margin="0,0,10,0" Name="AddBudgetButton"
+            <Button BorderThickness="0" Height="33" Margin="0,0,20,0" Name="AddBudgetButton"
                     DockPanel.Dock="Right" Foreground="White"
                     Click="AddBudgetButton_Click" Visibility="Collapsed">
                 <Button.Style>
@@ -795,98 +795,104 @@
 
                 <TextBlock VerticalAlignment="Center" FontSize="15" 
                            FontWeight="Medium" Margin="12,0"
-                           Text="Add Budget"/>
+                           Text="ADD BUDGET"/>
 
             </Button>
 
-            <!--Nút tìm kiếm giao dịch-->
-            <Button Width="50" Height="50" DockPanel.Dock="Right" Margin="0,0,30,0">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="White"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FFC8C4C4"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
+            <StackPanel Name="UtilityButtonsStackPanel" DockPanel.Dock="Right"
+                        Orientation="Horizontal"
+                        Margin="0,0,20,0">             
+                
+                <!--Nút hiển thị lịch-->
+                <Button Width="50" Height="50"
+                    Click="JumpToTodayButton_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFC8C4C4"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
 
-                <StackPanel>
-                    <Image Source="Images/search.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                </StackPanel>
+                    <StackPanel>
+                        <Image Source="Images/date.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    </StackPanel>
 
-            </Button>
+                </Button>
 
-            <!--Nút hiển thị lịch-->
-            <Button Width="50" Height="50" DockPanel.Dock="Right"
+                <!--Nút hiển thị lịch-->
+                <Button Width="50" Height="50"
                     Click="ChangeTransactionViewButton_Click">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="White"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FFC8C4C4"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFC8C4C4"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
 
-                <StackPanel>
-                    <Image Name="ChangeTransactionViewImage"
+                    <StackPanel>
+                        <Image Name="ChangeTransactionViewImage"
                            Source="Images/view_by_transaction.png" 
                            Width="35"
                            RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                </StackPanel>
+                    </StackPanel>
 
-            </Button>
+                </Button>
 
-            <!--Nút hiển thị lịch-->
-            <Button Width="50" Height="50" DockPanel.Dock="Right"
-                    Click="JumpToTodayButton_Click">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="White"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FFC8C4C4"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
+                <!--Nút tìm kiếm giao dịch-->
+                <Button Width="50" Height="50">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFC8C4C4"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
 
-                <StackPanel>
-                    <Image Source="Images/date.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                </StackPanel>
+                    <StackPanel>
+                        <Image Source="Images/search.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    </StackPanel>
 
-            </Button>
+                </Button>
+
+            </StackPanel>
 
             <TextBlock></TextBlock>
 
@@ -1681,7 +1687,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-                                    
+
                                     <Grid>
 
                                         <Grid.RowDefinitions>
@@ -2239,7 +2245,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel>
-                                    
+
                                     <!--Nút ngân sách hiện tại-->
                                     <Button Name="RunningButton" Margin="5" Width="120" Height="60" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="RunningButton_Click">
                                         <Button.Style>
@@ -2271,17 +2277,17 @@
                                                    VerticalAlignment="Center" 
                                                    HorizontalAlignment="Left" 
                                                    Text="RUNNING"/>
-                                        
+
                                     </Button>
-                                    
+
                                     <TextBlock Name="RunningUnderlineTextBlock" Visibility="Visible"
                                                    Height="4" Background="{DynamicResource ColorScheme}"></TextBlock>
-                                    
+
                                 </StackPanel>
 
 
                                 <StackPanel Grid.Column="1">
-                                    
+
                                     <!--Nút ngân sách đã kết thúc-->
                                     <Button Name="FinishedButton" 
                                             Margin="5" Width="120" 
@@ -2319,14 +2325,14 @@
                                                    HorizontalAlignment="Left"
                                                    Foreground="#757575"
                                                    Text ="FINISHED"/>
-                                        
+
                                     </Button>
-                                    
+
                                     <TextBlock Name="FinishedUnderlineTextBlock" Visibility="Collapsed"
                                                    Height="4" Background="{DynamicResource ColorScheme}"></TextBlock>
-                                    
+
                                 </StackPanel>
-                                
+
                                 <GridSplitter Grid.Row="1"
                                               Grid.ColumnSpan="5" 
                                               Width="Auto" 
@@ -2346,20 +2352,20 @@
                                   Grid.Row="1" 
                                   Visibility="Visible" 
                                   VerticalScrollBarVisibility="Hidden">
-                        
+
                         <!--Màn hình danh sách các ngân sách-->
                         <Grid x:Name="Budget"  Grid.RowSpan="2" Width="600"  Grid.Column="0" >
-                            
+
                             <Border Grid.Column="1" Background="White" CornerRadius="0,0,10,10">
-                                
+
                                 <Grid >
-                                    
+
                                     <Grid.ColumnDefinitions>
-                                        
+
                                         <ColumnDefinition />
                                         <ColumnDefinition />
                                         <ColumnDefinition />
-                                        
+
                                     </Grid.ColumnDefinitions>
 
                                     <!--Khung xem các loại ngân sách-->
@@ -2368,14 +2374,14 @@
                                         <ItemsControl x:Name="BudgetList">
 
                                             <ItemsControl.ItemTemplate>
-                                                
+
                                                 <DataTemplate>
-                                                    
+
                                                     <StackPanel>
 
                                                         <!--Khung hiển thị số liệu tổng-->
                                                         <Grid Background="#F4F4F4">
-                                                            
+
                                                             <StackPanel Grid.Row="1"
                                                                         VerticalAlignment="Center"
                                                                         Margin="20,0,0,0">
@@ -2383,18 +2389,18 @@
                                                                 <!--Thời gian cho ngân sách-->
                                                                 <TextBlock FontSize="15"
                                                                            FontFamily="Segoe UI Hictorical">
-                                                                    
+
                                                                     <TextBlock.Text>
-                                                                        
+
                                                                         <MultiBinding StringFormat="{}{0:dd/MM/yyyy} - {1:dd/MM/yyyy}">
-                                                                            
+
                                                                             <Binding Path="StartingDate" />
                                                                             <Binding Path="EndDate" />
-                                                                            
+
                                                                         </MultiBinding>
-                                                                        
+
                                                                     </TextBlock.Text>
-                                                                
+
                                                                 </TextBlock>
 
                                                                 <!--Thời gian còn lại của ngân sách-->
@@ -2403,7 +2409,7 @@
                                                                            FontFamily="Segoe UI Hictorical"/>
 
                                                             </StackPanel>
-                                                            
+
                                                             <StackPanel Grid.Row="1" Grid.Column="2"
                                                                         VerticalAlignment="Center"
                                                                         Margin="0,15,20,15">
@@ -2418,7 +2424,7 @@
                                                                            HorizontalAlignment="Right"/>
 
                                                             </StackPanel>
-                                                            
+
                                                         </Grid>
 
                                                         <!--Danh sách các ngân sách-->
@@ -2486,13 +2492,13 @@
 
 
                                                         </Button>
-                                                    
+
                                                     </StackPanel>
 
                                                 </DataTemplate>
-                                                
+
                                             </ItemsControl.ItemTemplate>
-                                            
+
                                         </ItemsControl>
 
                                     </ScrollViewer>
@@ -2502,11 +2508,11 @@
                             </Border>
 
                         </Grid>
-                    
+
                     </ScrollViewer>
 
                     <!--Màn hình chi tiết của ngân sách-->
-                    <Grid Name="BudgetReportGrid" 
+                    <Grid Name="DetailBudgetGrid" 
                           Grid.Row="0" Grid.RowSpan="2" 
                           Grid.Column="1"  
                           Width="600" 
@@ -2796,18 +2802,21 @@
                         Name="AboutScreenStackPanel" 
                         Margin="30,6,0,0" 
                         Visibility="Collapsed">
-                
+
                 <TextBlock FontSize="16" Margin="0,20,0,10" FontWeight="Bold">Design Software - 18_31</TextBlock>
                 <TextBlock FontSize="16" Margin="0,0,0,30">VNUHCM - University of Science</TextBlock>
                 <TextBlock FontSize="16" Margin="0,0,0,10" FontWeight="Bold">Contact</TextBlock>
-                <TextBlock FontSize="16" Margin="0,0,0,30">
+                <TextBlock FontSize="16" Margin="0,0,0,10">
                         <Hyperlink>18120082@student.hcmus.edu.vn</Hyperlink>
+                </TextBlock>
+                <TextBlock FontSize="16" Margin="0,0,0,30">
+                        <Hyperlink>18120106@student.hcmus.edu.vn</Hyperlink>
                 </TextBlock>
                 <TextBlock FontSize="16" Margin="0,0,0,10" FontWeight="Bold">Developers</TextBlock>
                 <TextBlock FontSize="16" Margin="0,0,0,10">Phạm Tấn - 18120082</TextBlock>
                 <TextBlock FontSize="16" Margin="0,0,0,10">Bùi Văn Vĩ - 18120106</TextBlock>
                 <TextBlock FontSize="16" Margin="0,0,0,10">Copyright © 2021</TextBlock>
-                
+
             </StackPanel>
 
         </Grid>

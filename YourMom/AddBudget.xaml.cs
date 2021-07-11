@@ -30,8 +30,7 @@ namespace YourMom
             //ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
             InitializeComponent();
             ColorScheme = colorScheme;
-            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
-            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
+            this.DataContext = this;
         }
 
         private string _colorScheme = "";           //Màu nền hiện tại
