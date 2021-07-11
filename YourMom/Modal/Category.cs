@@ -10,6 +10,8 @@ public class Category : INotifyPropertyChanged
 	protected string id;
 	protected string name;
 	protected string imagePath;
+	protected string space;
+
 
 	public string ID
 	{
@@ -47,6 +49,19 @@ public class Category : INotifyPropertyChanged
 		{
 			imagePath = value;
 			OnPropertyChanged("ImagePath");
+		}
+	}
+
+	public string Space
+	{
+		get
+		{
+			return space;
+		}
+		set
+		{
+			space = value;
+			OnPropertyChanged("Space");
 		}
 	}
 

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:YourMom"
         mc:Ignorable="d"
         MinWidth="810" MinHeight="350"
-        Title="AddTransaction" Height="350"  Width="800"  WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="AddTransaction" Height="350"  Width="800"  WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Grid>
@@ -223,10 +223,47 @@
             <Border Grid.Row="1" Grid.Column="1" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
                 BorderBrush="Gainsboro" BorderThickness="5">
             </Border>
-            <StackPanel Grid.Row="1" Grid.Column="1">
-                <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">Category</TextBlock>
-                <ComboBox Width="170" Margin="-10,8,10,0"></ComboBox>
-            </StackPanel>
+            <!--<StackPanel Grid.Row="1" Grid.Column="1">
+                <Grid HorizontalAlignment="Stretch">
+                    <Button Background="Transparent" HorizontalContentAlignment="Left" >
+                        <TextBlock Margin="10,10,0,0" FontSize="15" FontFamily="Segoe UI Semibold">Category</TextBlock>
+                        --><!--<ComboBox Width="170" Margin="-10,8,10,0"></ComboBox>--><!--
+                    </Button>
+                </Grid>
+                
+            
+            </StackPanel>-->
+            <Button Name="SelectCategoryButton" Click="SelectCategoryButton_Click" Background="Transparent" HorizontalContentAlignment="Left"  Grid.Row="1"  Grid.Column="1" BorderThickness="0" Margin="0,0,20,0" Cursor="Hand" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <StackPanel>
+                    <TextBlock  FontSize="15" FontFamily="Segoe UI Semibold" Margin="10,10,0,0">Category</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="CategoryImage" MaxHeight="40" MaxWidth="40" Margin="10,0,0,5"></Image>
+                        <TextBlock x:Name="CategorySelectItem" Margin="10,10,0,0" Text="Select Category"></TextBlock>
+                    </StackPanel>
+                    
+                </StackPanel>
+                
+                
+            </Button>
             <Border Grid.Row="1" Grid.Column="3" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
                 BorderBrush="Gainsboro" BorderThickness="5">
 
@@ -264,7 +301,7 @@
             </Border>
             <StackPanel Grid.Row="1" Grid.Column="5">
                 <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">With</TextBlock>
-                <TextBox  Width="170" Height="20" Margin="-10,10,10,0" BorderThickness="0">
+                <TextBox x:Name="Stakeholder"  Width="170" Height="20" Margin="-10,10,10,0" BorderThickness="0">
                     <TextBox.Style>
                         <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                             <Style.Resources>
@@ -298,13 +335,13 @@
                 <!--<ComboBox Width="170" Margin="-10,8,10,0"></ComboBox>-->               
                 <DatePicker Height="25"
                HorizontalAlignment="Left"
-               Name="DatePicker1"
+               Name="DatePicker"
                VerticalAlignment="Top"
                Width="150"
                FirstDayOfWeek="Monday"
                SelectedDateFormat="Short"
                Margin="10, 8, 10, 0"/>
-                <Button x:Name="TimeButton" Click="TimeButton_Click"></Button>
+                
             </StackPanel>
             <Border Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
                 BorderBrush="Gainsboro" BorderThickness="5">
@@ -312,7 +349,7 @@
             </Border>
             <StackPanel Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3">
                 <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Note</TextBlock>
-                <TextBox  Width="420" Height="20" Margin="-5,0,10,0" BorderThickness="0">
+                <TextBox x:Name="Note"  Width="420" Height="20" Margin="-5,0,10,0" BorderThickness="0">
                     <TextBox.Style>
                         <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                             <Style.Resources>

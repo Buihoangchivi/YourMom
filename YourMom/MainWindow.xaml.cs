@@ -43,6 +43,7 @@ namespace YourMom
         public event PropertyChangedEventHandler PropertyChanged;
         private Button clickedButton;
         private List<Transaction> transactionList;
+        List<TempTransaction> tempTransactionList;
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         private Budget budgetInfo;
         private DateTime startingDate, endDate;
@@ -77,6 +78,8 @@ namespace YourMom
                 }
             }
         }
+
+       
 
         ObservableCollection<CategoryList> categoryCollection = new ObservableCollection<CategoryList>();
         ObservableCollection<CategoryList> categoryDebtCollection = new ObservableCollection<CategoryList>();
@@ -691,7 +694,7 @@ namespace YourMom
         //Đọc dữ liệu từ file xml
         private void ReadData()
         {
-            List<TempTransaction> tempTransactionList;
+            
             // Đọc dữ liệu các giao dịch từ data
             XmlSerializer xs = new XmlSerializer(typeof(List<TempTransaction>));
             try
@@ -766,6 +769,7 @@ namespace YourMom
             SettingColorItemsControl.ItemsSource = ListColor;
             //
             ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
+            
 
             //Default buttons
 
@@ -1578,7 +1582,16 @@ namespace YourMom
 
         private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTransaction add = new AddTransaction(ColorScheme);
+            AddTransaction add = new AddTransaction();            
+            add.ColorScheme = ColorScheme;
+            // Reset lại dữ liệu khi tạo một giao dịch mới
+            AddTransaction.Global.tempDate = default(DateTime);
+            AddTransaction.Global.tempAmount = "";
+            AddTransaction.Global.tempStakeholder = "";
+            AddTransaction.Global.tempNote = "";
+            AddTransaction.Global.tempTransactionType = "";
+            add.TransactionInfoList = tempTransactionList;
+            
             add.Show();
         }
 
@@ -2088,7 +2101,9 @@ namespace YourMom
             AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             AddBudget add = new AddBudget(ColorScheme);
-            AddTransaction add1 = new AddTransaction(ColorScheme);
+            //AddTransaction add1 = new AddTransaction();
+            //add1.ColorScheme = ColorScheme;
+            
 
 
         }

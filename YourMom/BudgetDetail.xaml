@@ -34,7 +34,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Button.Style>
-                                <Image Source="Images/deleteText.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
+                                <Image Source="Images/black_close.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
                             </Button>
                             <TextBlock TextWrapping="Wrap" FontSize="20" 
                            FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Ăn uống</TextBlock>
