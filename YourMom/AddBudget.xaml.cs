@@ -43,7 +43,6 @@ namespace YourMom
         {
             
             InitializeComponent();
-            ColorScheme = colorScheme;
             this.DataContext = this;
             
         }
@@ -135,7 +134,7 @@ namespace YourMom
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Money.Text == "" || StartDatePicker.SelectedDate == null || EndDatePicker.SelectedDate == null || Category == null)
+            if (Money.Text == "" || StartingDatePicker.SelectedDate == null || EndDatePicker.SelectedDate == null || Category == null)
             {
                 var noti = MessageBox.Show("Please enter all required information.",
                     "Notification",
@@ -143,7 +142,7 @@ namespace YourMom
                     MessageBoxImage.Error);
 
             }
-            else if (StartDatePicker.SelectedDate > EndDatePicker.SelectedDate)
+            else if (StartingDatePicker.SelectedDate > EndDatePicker.SelectedDate)
             {
                 var noti = MessageBox.Show("Time range illegal.",
                     "Notification",
@@ -156,8 +155,9 @@ namespace YourMom
                 budget.MoneyFund = Math.Round(double.Parse(Money.Text), 2);                
                 //DateTime? datepicker = DatePicker.SelectedDate;
                 //transaction.Date = datepicker.Value.ToString();
-                budget.StartingDate = StartDatePicker.SelectedDate.ToString();
-                budget.EndDate = EndDatePicker.SelectedDate.ToString();
+
+                budget.StartingDate = (DateTime)StartingDatePicker.SelectedDate;
+                budget.EndDate = (DateTime)EndDatePicker.SelectedDate;
                 budget.Note = Note.Text;
                 budget.Name = Category.Name;
                 //TransactionInfoList.Add(transaction);
@@ -176,9 +176,9 @@ namespace YourMom
             //{
             //    Global.tempDate = datepicker.Value;
             //}
-            if (StartDatePicker.SelectedDate != null )
+            if (StartingDatePicker.SelectedDate != null )
             {
-                Global.tempStartingDate = StartDatePicker.SelectedDate.Value;
+                Global.tempStartingDate = StartingDatePicker.SelectedDate.Value;
             }
             if (EndDatePicker.SelectedDate != null)
             {
@@ -223,11 +223,11 @@ namespace YourMom
             {
                 DateTime? myTime = null;
 
-                StartDatePicker.SelectedDate = myTime;
+                StartingDatePicker.SelectedDate = myTime;
             }
             else
             {
-                StartDatePicker.SelectedDate = Global.tempStartingDate;
+                StartingDatePicker.SelectedDate = Global.tempStartingDate;
             }
 
             if (Global.tempEndDate == default(DateTime))

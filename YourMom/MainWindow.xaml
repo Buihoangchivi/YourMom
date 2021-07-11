@@ -740,7 +740,7 @@
             <!--Nút thêm giao dịch mới-->
             <Button BorderThickness="0" Height="33" Margin="0,0,20,0" Name="AddTransactionButton"
                     DockPanel.Dock="Right" Foreground="White"
-                    Click="AddTransactionButton_Click" Visibility="Collapsed">
+                    Click="AddTransactionButton_Click" Visibility="Visible">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="{Binding ColorScheme}"/>
@@ -771,7 +771,7 @@
             <!--Nút thêm ngân sách mới-->
             <Button BorderThickness="0" Height="33" Margin="0,0,20,0" Name="AddBudgetButton"
                     DockPanel.Dock="Right" Foreground="White"
-                    Click="AddBudgetButton_Click" Visibility="Visible">
+                    Click="AddBudgetButton_Click" Visibility="Collapsed">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="{Binding ColorScheme}"/>
