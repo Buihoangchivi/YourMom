@@ -1597,8 +1597,15 @@ namespace YourMom
 
         private void AddBudgetButton_Click(object sender, RoutedEventArgs e)
         {
-           AddBudget add = new AddBudget(ColorScheme);
-           add.Show();
+           AddBudget add = new AddBudget();
+            add.ColorScheme = ColorScheme;
+            // Reset lại dữ liệu khi tạo một giao dịch mới            
+            AddBudget.Global.tempStartingDate = default(DateTime);
+            AddBudget.Global.tempEndDate = default(DateTime);
+            AddBudget.Global.tempMoneyFund = "";           
+            AddBudget.Global.tempNote = "";
+            //AddBudget.Global.tempTransactionType = "";
+            add.Show();
         }
 
         private void CloseDetailBudget_Click(object sender, RoutedEventArgs e)
@@ -2100,7 +2107,7 @@ namespace YourMom
             // Cập nhật màu cho các nút chung
             AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            AddBudget add = new AddBudget(ColorScheme);
+            //AddBudget add = new AddBudget(ColorScheme);
             //AddTransaction add1 = new AddTransaction();
             //add1.ColorScheme = ColorScheme;
             
