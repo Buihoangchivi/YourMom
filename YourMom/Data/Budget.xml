@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfBudget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Budget>
-    <ID>0</ID>
+    <ID>1_0</ID>
     <Name>Eating</Name>
     <ImagePath>Images\Eating.jpg</ImagePath>
     <StartingDate>6/7/2021 11:14:17 AM</StartingDate>
@@ -10,16 +10,16 @@
     <Note>Tiền ăn uống cho nửa tháng</Note>
   </Budget>
   <Budget>
-    <ID>1</ID>
+    <ID>1_1</ID>
     <Name>Shopping</Name>
     <ImagePath>Images\Shopping.jpg</ImagePath>
-    <StartingDate>5/7/2021 4:00:00 AM</StartingDate>
-    <EndDate>6/7/2021 12:00:00 AM</EndDate>
+    <StartingDate>5/7/2020 4:00:00 AM</StartingDate>
+    <EndDate>6/7/2025 12:00:00 AM</EndDate>
     <MoneyFund>2000000</MoneyFund>
     <Note>Tiền mua sắm cho một tháng</Note>
   </Budget>
   <Budget>
-    <ID>2</ID>
+    <ID>1_2</ID>
     <Name>Bills</Name>
     <ImagePath>Images\Bills.jpg</ImagePath>
     <StartingDate>3/10/2021 10:14:17 AM</StartingDate>
@@ -28,7 +28,7 @@
     <Note>Tiền hóa đơn cho 2 ngày</Note>
   </Budget>
   <Budget>
-    <ID>3</ID>
+    <ID>1_3</ID>
     <Name>Entertainment</Name>
     <ImagePath>Images\Entertainment.jpg</ImagePath>
     <StartingDate>2/22/2020 16:00:00 AM</StartingDate>

@@ -221,115 +221,162 @@
                     <TextBlock>This budget is not included in the reports. For example Overview.</TextBlock>
                 </StackPanel>
             </StackPanel>
-            <Border Grid.Row="1" Grid.Column="1" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
-                BorderBrush="Gainsboro" BorderThickness="5">
-            </Border>
-            <Button Name="SelectCategoryButton" Click="SelectCategoryButton_Click" Background="Transparent" HorizontalContentAlignment="Left"  Grid.Row="1"  Grid.Column="1" BorderThickness="0" Margin="0,0,20,0" Cursor="Hand" >
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
 
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Transparent"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <StackPanel>
-                    <TextBlock  FontSize="15" FontFamily="Segoe UI Semibold" Margin="10,10,0,0">Category</TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <Image x:Name="CategoryImage" MaxHeight="40" MaxWidth="40" Margin="10,0,0,5"></Image>
-                        <TextBlock x:Name="CategorySelectItem" Margin="10,10,0,0" Text="Select Category"></TextBlock>
-                    </StackPanel>
+            <!--Khung chọn loại-->
+            <Border Grid.Row="1" 
+                            Grid.Column="1" 
+                            Background="Transparent" 
+                            CornerRadius="10" 
+                            Margin="0,0,0,0"
+                            BorderBrush="Gainsboro" 
+                            BorderThickness="1"/>
 
-                </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1">
 
+                <TextBlock Margin="10" 
+                                   FontSize="15"
+                                   FontFamily="Segoe UI Semibold"
+                                   Text="Category"/>
+                <ComboBox Margin="10,0"/>
 
-            </Button>
-            <Border Grid.Row="1" Grid.Column="3" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
-                BorderBrush="Gainsboro" BorderThickness="5">
+            </StackPanel>
 
-            </Border>
-            
-            <Border Grid.Row="1" Grid.Column="5" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
-                BorderBrush="Gainsboro" BorderThickness="5">
+            <!--Khung chọn ngày bắt đầu-->
+            <Border Grid.Row="1" 
+                            Grid.Column="3" 
+                            Background="Transparent" 
+                            CornerRadius="10" 
+                            Margin="0,0,0,0"
+                            BorderBrush="Gainsboro" 
+                            BorderThickness="1"/>
 
-            </Border>
-            
-            <Border Grid.Row="3" Grid.Column="1" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
-                BorderBrush="Gainsboro" BorderThickness="5">
-                
+            <StackPanel Grid.Row="1" Grid.Column="3">
 
-            </Border>
+                <TextBlock Margin="10"
+                                   FontSize="15"
+                                   FontFamily="Segoe UI Semibold"
+                                   Text="Starting Date"/>
+
+                <DatePicker Height="25"
+                                    HorizontalAlignment="Left"
+                                    Name="StartingDatePicker"
+                                    VerticalAlignment="Top"
+                                    Width="190"
+                                    FirstDayOfWeek="Monday"
+                                    SelectedDateFormat="Short"
+                                    Margin="10, 0"/>
+
+            </StackPanel>
+
+            <!--Khung chọn ngày kết thúc-->
+            <Border Grid.Row="1" 
+                            Grid.Column="5" 
+                            Background="Transparent" 
+                            CornerRadius="10" 
+                            Margin="0,0,0,0"
+                            BorderBrush="Gainsboro" 
+                            BorderThickness="1"/>
+
+            <StackPanel Grid.Row="1" Grid.Column="5">
+
+                <TextBlock Margin="10"
+                                   FontSize="15"
+                                   FontFamily="Segoe UI Semibold"
+                                   Text="End Date"/>
+
+                <DatePicker Height="25"
+                                    HorizontalAlignment="Left"
+                                    Name="EndDatePicker"
+                                    VerticalAlignment="Top"
+                                    Width="190"
+                                    FirstDayOfWeek="Monday"
+                                    SelectedDateFormat="Short"
+                                    Margin="10, 0"/>
+
+            </StackPanel>
+
+            <!--Khung nhập số tiền-->
+            <Border Grid.Row="3" 
+                            Grid.Column="1" 
+                            Background="Transparent" 
+                            CornerRadius="10" 
+                            Margin="0,0,0,0"
+                            BorderBrush="Gainsboro" 
+                            BorderThickness="1"/>
+
             <StackPanel Grid.Row="3" Grid.Column="1">
-                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Amount of Money</TextBlock>
-                <TextBox x:Name="Money" PreviewTextInput="Money_PreviewTextInput" DataObject.Pasting="Money_Pasting" Width="170" Height="20" Margin="-10,10,10,0" BorderThickness="0">
+
+                <TextBlock Margin="10"  
+                                   FontSize="15"
+                                   FontFamily="Segoe UI Semibold"
+                                   Text="Amount of Money"/>
+
+                <TextBox x:Name="Money" 
+                                 PreviewTextInput="Money_PreviewTextInput"
+                                 DataObject.Pasting="Money_Pasting" 
+                                 Height="20"
+                                 Margin="10,0"
+                                 BorderThickness="0">
+
                     <TextBox.Style>
+
                         <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
                             <Style.Resources>
+
                                 <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+
                                     <VisualBrush.Visual>
                                         <Label Content="0" Foreground="LightGray" />
                                     </VisualBrush.Visual>
+
                                 </VisualBrush>
+
                             </Style.Resources>
+
                             <Style.Triggers>
+
                                 <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
                                     <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
                                 </Trigger>
+
                                 <Trigger Property="Text" Value="{x:Null}">
                                     <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
                                 </Trigger>
+
                                 <Trigger Property="IsKeyboardFocused" Value="True">
                                     <Setter Property="Background" Value="White" />
                                 </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
-            </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="3">
-                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Start Date</TextBlock>
-                <!--<ComboBox Width="170" Margin="-10,8,10,0"></ComboBox>-->
-                <DatePicker Height="25"
-               HorizontalAlignment="Left"
-               Name="StartDatePicker"
-               VerticalAlignment="Top"
-               Width="150"
-               FirstDayOfWeek="Monday"
-               SelectedDateFormat="Short"
-               Margin="10, 8, 10, 0"/>
-                
-            </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="5">
-                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">End Date</TextBlock>
-                <!--<ComboBox Width="170" Margin="-10,8,10,0"></ComboBox>-->
-                <DatePicker Height="25"
-               HorizontalAlignment="Left"
-               Name="EndDatePicker"
-               VerticalAlignment="Top"
-               Width="150"
-               FirstDayOfWeek="Monday"
-               SelectedDateFormat="Short"
-               Margin="10, 8, 10, 0"/>
-                
-            </StackPanel>
-            <Border Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3" Background="Transparent" CornerRadius="10" Margin="0,0,20,0"
-                BorderBrush="Gainsboro" BorderThickness="5">
 
-            </Border>
+                            </Style.Triggers>
+
+                        </Style>
+
+                    </TextBox.Style>
+
+                </TextBox>
+
+            </StackPanel>
+
+            <!--Khung nhập ghi chú-->
+            <Border Grid.Row="3" 
+                            Grid.Column="3" 
+                            Grid.ColumnSpan="3"
+                            Background="Transparent" 
+                            CornerRadius="10" 
+                            Margin="0,0,0,0"
+                            BorderBrush="Gainsboro" 
+                            BorderThickness="1"/>
+
             <StackPanel Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3">
-                <TextBlock Margin="10,10,0,0"  FontSize="15" FontFamily="Segoe UI Semibold">Note</TextBlock>
-                <TextBox x:Name="Note" Width="420" Height="20" Margin="-5,0,10,0" BorderThickness="0">
+
+
+                <TextBlock Margin="10"  
+                                   FontSize="15"
+                                   FontFamily="Segoe UI Semibold"
+                                   Text="Note"/>
+
+                <TextBox Height="20" Margin="10,0" BorderThickness="0">
                     <TextBox.Style>
                         <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                             <Style.Resources>
@@ -359,41 +406,27 @@
 
 
 
+
+
+
         </Grid>
 
-        <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" FontSize="15" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left">
-            ADD BUDGET
-        </TextBlock>
-        <DockPanel Grid.Row="2" Grid.Column="5">
-            <Button DockPanel.Dock="Right" Width="80" Margin="10,0,0,0" 
-                    BorderThickness="0" Height="33"  Foreground="White"
-                   Name="CancelButton" Click="CancelButton_Click" >
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border CornerRadius="8" BorderThickness="0" Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
+        <TextBlock Grid.Row="0" Grid.Column="1" 
+                   TextWrapping="Wrap" FontSize="15" 
+                   FontFamily="Segoe UI Semibold" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Text="ADD BUDGET"
+                   Margin="0,20,0,0"/>
 
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.7"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <TextBlock VerticalAlignment="Center" FontSize="15" 
-                           FontWeight="Medium" Margin="12,0"
-                           Text="Cancel" />
-            </Button>
-            <Button DockPanel.Dock="Right" Width="80"  BorderThickness="0" Height="33" Foreground="White" Name="SaveButton" Click="SaveButton_Click" >
+        <DockPanel Grid.Row="2" Grid.Column="5">
+
+            <!--Nút lưu giao dịch mới-->
+            <Button DockPanel.Dock="Right" Width="80"
+                            BorderThickness="0" Height="33" 
+                            Foreground="White" 
+                            Name="SaveButton" 
+                            Click="SaveButton_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="{Binding ColorScheme}"/>
@@ -418,6 +451,41 @@
                            FontWeight="Medium" Margin="12,0"
                            Text="Save"/>
             </Button>
+
+            <!--Nút hủy thêm giao dịch mới-->
+            <Button DockPanel.Dock="Right" Width="80"
+                            Height="33"
+                            Name="CancelButton"
+                            Click="CancelButton_Click"
+                            Margin="10,0,0,0">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Foreground" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="8" BorderThickness="1"
+                                                    BorderBrush="{Binding ColorScheme}"
+                                                    Background="#F4F4F4">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <TextBlock VerticalAlignment="Center" FontSize="15" 
+                           FontWeight="Medium" Margin="12,0"
+                           Text="Cancel" />
+            </Button>
+
         </DockPanel>
+        
     </Grid>
 </Window>

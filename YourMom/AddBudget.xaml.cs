@@ -43,6 +43,8 @@ namespace YourMom
         {
             
             InitializeComponent();
+            ColorScheme = colorScheme;
+            this.DataContext = this;
             
         }
 

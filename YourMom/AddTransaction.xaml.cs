@@ -65,9 +65,9 @@ namespace YourMom
         {
             
             InitializeComponent();
-            //ColorScheme = colorScheme;
-            //SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
-            //CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
+            ColorScheme = colorScheme;
+            this.DataContext = this;
+            
         }
 
         //private string _category = "";           //Loại giao dịch lấy ra
@@ -131,18 +131,23 @@ namespace YourMom
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+
             var noti = MessageBox.Show("Are you really want to cancel?",
                     "Notification",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
+
             if (noti == MessageBoxResult.Yes)
             {
                 CategorySelect.Global.lol = 0;
                 this.Close();
+
             }
             else
             {
+
                 // Do nothing
+
             }
             //TransactionInfoList.Add(transaction);
 
@@ -153,32 +158,39 @@ namespace YourMom
 
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
-        }
-
-       
+        }       
 
         private static readonly Regex _regex = new Regex("[^0-9]+"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)
         {
+
             return !_regex.IsMatch(text);
+
         }
+
         private void Money_Pasting(object sender, DataObjectPastingEventArgs e)
         {
-            if (e.DataObject.GetDataPresent(typeof(String)))
+
+            if (e.DataObject.GetDataPresent(typeof(string)))
             {
-                String text = (String)e.DataObject.GetData(typeof(String));
+
+                var text = (string)e.DataObject.GetData(typeof(string));
                 if (!IsTextAllowed(text))
                 {
+
                     e.CancelCommand();
+
                 }
+
             }
             else
             {
-                e.CancelCommand();
-            }
-        }
 
-        
+                e.CancelCommand();
+                
+            }
+            
+        }        
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -204,7 +216,6 @@ namespace YourMom
                 CategorySelect.Global.lol = 0;
                 this.Close();
             }
-            
         }
 
         private void SelectCategoryButton_Click(object sender, RoutedEventArgs e)
@@ -227,10 +238,12 @@ namespace YourMom
             CategorySelect categorySelect = new CategorySelect();
             categorySelect.Show();
             this.Close();
+            
         }
-
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+        
             if (Global.tempTransaction != null)
             {
                 TransactionInfoList = Global.tempTransaction;
@@ -279,10 +292,10 @@ namespace YourMom
             //ColorScheme = _colorScheme;
             SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            //Category = _category;
-            
+            //Category = _category;            
 
         }
+        
     }
 }
 
