@@ -1648,7 +1648,7 @@ namespace YourMom
 
         private void AddBudgetButton_Click(object sender, RoutedEventArgs e)
         {
-           AddBudget add = new AddBudget();
+           AddBudget add = new AddBudget(ColorScheme);
             add.ColorScheme = ColorScheme;
             // Reset lại dữ liệu khi tạo một giao dịch mới            
             AddBudget.Global.tempStartingDate = default(DateTime);

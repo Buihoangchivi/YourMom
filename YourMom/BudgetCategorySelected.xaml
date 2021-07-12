@@ -5,18 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YourMom"
         mc:Ignorable="d"
-        Title="BudgetCategorySelected" Height="600" Width="500"  WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
-    <Grid>
-        <Border Background="Beige" CornerRadius="10">
+        Title="BudgetCategorySelected" Height="650" Width="500"  
+        WindowStyle="None" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded" Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.Resources>
+
+        <SolidColorBrush x:Key="ColorScheme" Color="{Binding ColorScheme}"/>
+
+    </Window.Resources>
+    
+    <Grid Margin="10">
+
+        <Grid.Effect>
+
+            <DropShadowEffect BlurRadius="15" Direction="-90"
+                              RenderingBias="Quality" ShadowDepth="2"/>
+        </Grid.Effect>
+
+        <Border Background="White" CornerRadius="10">
             <!--<ScrollViewer VerticalScrollBarVisibility="Hidden">
                 
             </ScrollViewer>-->
             <Grid>
 
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" >
-                        <Button x:Name="CloseListDetailBudget" Width="47" Click="CloseListDetailBudget_Click" 
-                    BorderThickness="0" DockPanel.Dock="Right">
+                    <StackPanel Orientation="Horizontal" 
+                                Margin="10,0,0,0">
+                        
+                        <Button x:Name="CloseListDetailBudget" 
+                                Width="45" 
+                                Height="45"
+                                Click="CloseListDetailBudget_Click">
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
                                     <Setter Property="Background" Value="Transparent"/>
@@ -36,10 +57,13 @@
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
-                            <Image Source="Images/black_close.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
+                            <Image Source="Images/black_close.png" RenderOptions.BitmapScalingMode="HighQuality" Width="17"></Image>
                         </Button>
+                        
                         <TextBlock TextWrapping="Wrap" FontSize="20" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Select category</TextBlock>
+                                   FontFamily="Segoe UI Semibold" VerticalAlignment="Center"
+                                   HorizontalAlignment="Left" Margin="5,0,0,0">Select category</TextBlock>
+                    
                     </StackPanel>
 
 
@@ -163,6 +187,7 @@
                         </StackPanel>-->
 
                     <Grid HorizontalAlignment="Center">
+                        
                         <StackPanel Orientation="Horizontal">
 
 
@@ -197,8 +222,8 @@
 
                                     <TextBlock Name="ExpensesTextBlock" 
                                                    TextWrapping="Wrap" 
-                                                   FontSize="15"
-                                                   Foreground="#757575"
+                                                   FontSize="20"
+                                                   Foreground="{DynamicResource ColorScheme}"
                                                    FontFamily="Segoe UI Semibold" 
                                                    VerticalAlignment="Center" 
                                                    HorizontalAlignment="Left" 
@@ -207,7 +232,7 @@
 
                                 <TextBlock Name="ExpensesDash"
                                                Height="2" 
-                                               Background="White"/>
+                                               Background="{DynamicResource ColorScheme}"/>
 
                             </StackPanel>
 
@@ -258,11 +283,8 @@
 
 
                         </StackPanel>
+                        
                     </Grid>
-
-
-
-
 
                     <GridSplitter  Width="Auto" Height="0.5" Margin="0,0,0,0"
                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="Black"></GridSplitter>

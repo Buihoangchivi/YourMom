@@ -39,10 +39,11 @@ namespace YourMom
         }
 
 
-        public AddBudget()
+        public AddBudget(string colorScheme)
         {
             
             InitializeComponent();
+            ColorScheme = colorScheme;
             this.DataContext = this;
             
         }
@@ -170,12 +171,7 @@ namespace YourMom
         private void SelectCategoryButton_Click(object sender, RoutedEventArgs e)
         {
             // LƯu lại các thông tin đã nhập
-            Global.tempMoneyFund = Money.Text;            
-            //DateTime? datepicker = DatePicker.SelectedDate;
-            //if (datepicker != null)
-            //{
-            //    Global.tempDate = datepicker.Value;
-            //}
+            Global.tempMoneyFund = Money.Text;           
             if (StartingDatePicker.SelectedDate != null )
             {
                 Global.tempStartingDate = StartingDatePicker.SelectedDate.Value;
@@ -187,21 +183,14 @@ namespace YourMom
 
             Global.tempNote = Note.Text;
             Global.tempColorScheme = _colorScheme;
-            //Global.tempTransaction = TransactionInfoList;
 
-
-            BudgetCategorySelected categorySelect = new BudgetCategorySelected();
+            BudgetCategorySelected categorySelect = new BudgetCategorySelected(ColorScheme);
             categorySelect.Show();
             this.Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            //if (Global.tempTransaction != null)
-            //{
-            //    TransactionInfoList = Global.tempTransaction;
-            //}
 
             if (Category != null)
             {
@@ -252,8 +241,8 @@ namespace YourMom
             }
 
             //ColorScheme = _colorScheme;
-            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            //SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            //CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             //Category = _category;
         }
 

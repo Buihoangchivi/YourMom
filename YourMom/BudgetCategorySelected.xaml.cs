@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,14 +21,17 @@ namespace YourMom
     /// </summary>
     public partial class BudgetCategorySelected : Window
     {
-        public BudgetCategorySelected()
+        public BudgetCategorySelected(string colorScheme)
         {
             InitializeComponent();
             CategoryList.ItemsSource = temp;
+            ColorScheme = colorScheme;
+            DataContext = this;
         }
         // Dùng static để lưu vị trí của category nếu bấm nút tắt
         public class Global
         {
+
             public static int lul;
 
         }
@@ -434,40 +438,94 @@ namespace YourMom
                     Name = "Trả nợ",
                     ImagePath = "Images/category_pay.png",
                 },
-            
+
         };
 
         List<Category> temp = new List<Category>();
 
 
         private Button clickedButton;
-
-        
+        public event PropertyChangedEventHandler PropertyChanged;
+        private string _colorScheme = "";           //Màu nền hiện tại
+        public string ColorScheme
+        {
+            get
+            {
+                return _colorScheme;
+            }
+            set
+            {
+                _colorScheme = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
+                }
+            }
+        }
 
         private void CloseListDetailBudget_Click(object sender, RoutedEventArgs e)
         {
+
             this.Close();
-            AddBudget add = new AddBudget();
+
+            AddBudget add = new AddBudget(ColorScheme);
             if ((!check && Global.lul > 0) || check)
             {
                 add.Category = temp[Global.lul];
             }
 
             add.Show();
+
         }
 
 
 
         private void ExpensesButton_Click(object sender, RoutedEventArgs e)
         {
+
             temp = expenseCategories;
             CategoryList.ItemsSource = temp;
             //clickedButton = ExpensesButton;
             searchComboBox.ItemsSource = temp;
 
+            //Chuyển nút hiện tại sang trạng thái không được chọn
+            ChangeButtonStatus(RevenueDash, RevenueTextBlock, false);
+            //Chuyển nút tiếp theo sang trạng thái được chọn
+            ChangeButtonStatus(ExpensesDash, ExpensesTextBlock, true);
+
         }
 
-        
+        //Thay đổi trạng thái của nút
+        private void ChangeButtonStatus(TextBlock dash, TextBlock textBlock, bool isSelected)
+        {
+
+            //Trường hợp nút được chọn
+            if (isSelected)
+            {
+
+                textBlock.Foreground = ChangeHexToBrushColor(ColorScheme);
+                textBlock.FontSize = 19;
+                dash.Background = ChangeHexToBrushColor(ColorScheme);
+
+            }
+            else //Trường hợp nút không được chọn
+            {
+
+                textBlock.Foreground = ChangeHexToBrushColor("#757575");
+                textBlock.FontSize = 15;
+                dash.Background = Brushes.White;
+
+            }
+
+        }
+
+        private SolidColorBrush ChangeHexToBrushColor(string hex)
+        {
+
+            var color = (SolidColorBrush)new BrushConverter().ConvertFromString(hex);
+            return color;
+
+        }
 
         private void CategorySelecttButton_Click(object sender, RoutedEventArgs e)
         {
@@ -487,7 +545,7 @@ namespace YourMom
                 Global.lul++;
             }
 
-            AddBudget add = new AddBudget();
+            AddBudget add = new AddBudget(ColorScheme);
             add.Category = temp[Global.lul];
 
             add.Show();
@@ -633,14 +691,7 @@ namespace YourMom
 
             clickedButton = ExpensesButton;
 
-            if (clickedButton == ExpensesButton)
-            {
-                temp = expenseCategories;
-            }
-            else if (clickedButton == Debt_Loan_Button)
-            {
-                temp = debtLoanCategories;
-            }
+            temp = expenseCategories;
 
             searchComboBox.ItemsSource = temp;
             CategoryList.ItemsSource = temp;
@@ -673,20 +724,14 @@ namespace YourMom
         {
             temp = debtLoanCategories;
             CategoryList.ItemsSource = temp;
-            //clickedButton = IncomeButton;
             searchComboBox.ItemsSource = temp;
+
+            //Chuyển nút hiện tại sang trạng thái không được chọn
+            ChangeButtonStatus(RevenueDash, RevenueTextBlock, true);
+            //Chuyển nút tiếp theo sang trạng thái được chọn
+            ChangeButtonStatus(ExpensesDash, ExpensesTextBlock, false);
         }
 
-
-
-        //private void searchTextBox_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    searchComboBox.Focus();
-        //    //searchComboBox.SelectedIndex = 0;
-        //    searchComboBox.IsDropDownOpen = true;
-
-
-        //}
     }
 }
 

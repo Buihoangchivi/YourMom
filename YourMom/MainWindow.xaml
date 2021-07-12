@@ -17,7 +17,7 @@
 
     <Window.Resources>
 
-        <SolidColorBrush x:Key="ColorScheme" Color="{Binding ColorScheme}"></SolidColorBrush>
+        <SolidColorBrush x:Key="ColorScheme" Color="{Binding ColorScheme}"/>
 
         <Style TargetType="{x:Type ProgressBar}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -865,7 +865,7 @@
                 </Button>
 
                 <!--Nút tìm kiếm giao dịch-->
-                <Button Width="50" Height="50">
+                <!--<Button Width="50" Height="50">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="White"/>
@@ -890,7 +890,7 @@
                         <Image Source="Images/search.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                     </StackPanel>
 
-                </Button>
+                </Button>-->
 
             </StackPanel>
 
