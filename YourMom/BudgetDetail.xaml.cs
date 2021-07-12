@@ -308,8 +308,47 @@ namespace YourMom
             window.detailTransaction = transaction;
             window.tempDetailTransaction.Add(transaction);
             window.ColorScheme = ColorScheme;
+
+            window.Handler += DetailTransaction_Screen_Handler;
+
             window.Show();
 
+        }
+
+        public delegate void UpdateUIDelegate();
+        public event UpdateUIDelegate Handler;
+
+        private void DetailTransaction_Screen_Handler(DetailTransaction transaction, bool isDeleted)
+        {
+
+            var index = transactionList.FindIndex(element => element.ID == transaction.ID);
+
+            if (isDeleted == true)
+            {
+
+                transactionList.RemoveAt(index);
+
+            }
+            else
+            {
+
+                if (index != -1)
+                {
+
+                    transactionList[index] = transaction;
+
+                }
+
+            }
+            
+            if (Handler != null)
+            {
+
+                Handler();
+
+            }
+
+            Close();
         }
 
         // Hàm chặn khi auto scrolling lúc nhấn vào vị trí bất kì trong scrollviewer

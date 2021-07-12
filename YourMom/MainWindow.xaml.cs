@@ -1803,8 +1803,25 @@ namespace YourMom
 
             };
             win.ColorScheme = ColorScheme;
+            win.Handler += UpdateUI;
 
             win.Show();
+        }
+
+        private void UpdateUI()
+        {
+
+            AddDataIntoTransactionScreen();
+            AddDataIntoBudgetScreen();
+            ViewTransactionListButton_Click(null, new RoutedEventArgs());
+            var button = new Button()
+            {
+
+                DataContext = budgetInfo
+
+            };
+            CreateBudgetLineChart(button);
+
         }
 
         // Nút chuyển sang tháng trước trong giao diện giao dịch
