@@ -25,10 +25,12 @@ namespace YourMom
         public class Global
         {
             public static int lol;
-            
+
         }
 
         static bool check = false;
+
+        public bool isTransaction;
 
         List<Category> expenseCategories = new List<Category>
             {
@@ -452,6 +454,38 @@ namespace YourMom
                 },
         };
 
+        List<Category> debtCategories = new List<Category>
+        {
+            new Category
+                {
+                    ID = "2_0",
+                    Name = "Debts",
+                    ImagePath = "Images/category_debt.png",
+                },
+            new Category
+                {
+                    ID = "2_1",
+                    Name = "Debt Collection",
+                    ImagePath = "Images/category_debt_collection.png",
+                }
+        };
+
+        List<Category> loanCategories = new List<Category>
+        {
+            new Category
+                {
+                    ID = "3_0",
+                    Name = "Loan",
+                    ImagePath = "Images/category_loan.png",
+                },
+            new Category
+                {
+                    ID = "3_1",
+                    Name = "Repayment",
+                    ImagePath = "Images/category_pay.png",
+                }
+        };
+
         List<Category> temp = new List<Category>();
 
         public delegate void ChooseCategoryDelegate(Category category);
@@ -488,14 +522,9 @@ namespace YourMom
 
         private void CloseListDetailBudget_Click(object sender, RoutedEventArgs e)
         {
+
             this.Close();
-            AddTransaction add = new AddTransaction(ColorScheme);
-            if ((!check && Global.lol > 0) || check)
-            {
-                add.Category = temp[Global.lol];
-            }
-            
-            add.Show();
+
         }
 
         //Thay đổi trạng thái của nút
@@ -532,8 +561,21 @@ namespace YourMom
 
         private void ExpensesButton_Click(object sender, RoutedEventArgs e)
         {
-            temp = expenseCategories;
-            CategoryList.ItemsSource = temp;          
+
+            if (isTransaction == true)
+            {
+
+                temp = expenseCategories;
+
+            }
+            else
+            {
+
+                temp = debtCategories;
+
+            }
+
+            CategoryList.ItemsSource = temp;
             //clickedButton = ExpensesButton;
             searchComboBox.ItemsSource = temp;
 
@@ -546,7 +588,21 @@ namespace YourMom
 
         private void IncomeButton_Click(object sender, RoutedEventArgs e)
         {
-            temp = incomeCategories;
+
+
+            if (isTransaction == true)
+            {
+
+                temp = incomeCategories;
+
+            }
+            else
+            {
+
+                temp = loanCategories;
+
+            }
+
             CategoryList.ItemsSource = temp;
             searchComboBox.ItemsSource = temp;
 
@@ -558,7 +614,7 @@ namespace YourMom
 
         private void CategorySelecttButton_Click(object sender, RoutedEventArgs e)
         {
-            
+
             var selected = sender as Button;
             check = false;
             Category categoryInfo = selected.DataContext as Category;
@@ -573,7 +629,7 @@ namespace YourMom
                 }
                 Global.lol++;
             }
-            
+
             //AddTransaction add = new AddTransaction(ColorScheme);
             //add.Category = temp[Global.lol];
 
@@ -583,7 +639,7 @@ namespace YourMom
                 Handler(temp[Global.lol]);
 
             }
-            
+
             //add.Show();
             this.Close();
         }
@@ -649,7 +705,7 @@ namespace YourMom
 
         private void searchTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            
+
 
             if (e.Text != "\u001b")  //khác escapes
             {
@@ -680,7 +736,7 @@ namespace YourMom
         {
             if (e.Key == Key.Back || e.Key == Key.Delete)
             {
-                
+
 
                 searchComboBox.IsDropDownOpen = true;
 
@@ -726,14 +782,22 @@ namespace YourMom
         {
 
             clickedButton = ExpensesButton;
-            
-            if (clickedButton == ExpensesButton)
+
+            if (isTransaction == true)
             {
+                
                 temp = expenseCategories;
+                ExpensesTextBlock.Text = "EXPENSES";
+                IncomeTextBlock.Text = "INCOME";
+
             }
-            else if (clickedButton == IncomeButton)
+            else
             {
-                temp = incomeCategories;
+
+                temp = debtCategories;
+                ExpensesTextBlock.Text = "DEBT";
+                IncomeTextBlock.Text = "LOAN";
+
             }
 
             searchComboBox.ItemsSource = temp;
@@ -763,15 +827,15 @@ namespace YourMom
             }
         }
 
-        
+
 
         //private void searchTextBox_GotFocus(object sender, RoutedEventArgs e)
         //{
         //    searchComboBox.Focus();
         //    //searchComboBox.SelectedIndex = 0;
         //    searchComboBox.IsDropDownOpen = true;
-            
-            
+
+
         //}
     }
 }

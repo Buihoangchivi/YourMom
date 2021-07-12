@@ -469,7 +469,7 @@
 
                 </Grid>
 
-                <TextBlock Grid.Column="1" 
+                <TextBlock Name="TitleTextBlock" Grid.Column="1" 
                            TextWrapping="Wrap" FontSize="20" 
                            FontFamily="Segoe UI Semibold" 
                            VerticalAlignment="Center" 

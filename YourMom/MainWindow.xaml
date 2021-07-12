@@ -536,7 +536,7 @@
                     </Style>
                 </Button.Style>
 
-                <TextBlock VerticalAlignment="Center" FontSize="15" 
+                <TextBlock Name="AddTextBlock" VerticalAlignment="Center" FontSize="15" 
                            FontWeight="Medium" Margin="12,0"
                            Text="ADD TRANSACTION"/>
 

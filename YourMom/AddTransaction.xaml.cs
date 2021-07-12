@@ -25,6 +25,7 @@ namespace YourMom
 
         public event PropertyChangedEventHandler PropertyChanged;
         public Transaction transaction = new Transaction();
+        public bool isTransaction;
 
         //private string tempAmount, tempStakeholder, tempDate, tempNote, tempTransactionType;
 
@@ -191,13 +192,21 @@ namespace YourMom
             else
             {
                 var datepicker = DatePicker.SelectedDate;
+                var stakeHolder = "";
+
+                if (Stakeholder.Text != "")
+                {
+
+                    stakeHolder = $" with {Stakeholder.Text}";
+
+                }
 
                 transaction = new Transaction()
                 {
 
                     ID = Guid.NewGuid().ToString(),
                     Amount = Math.Round(double.Parse(Money.Text), 2),
-                    Stakeholder = $" with {Stakeholder.Text}",
+                    Stakeholder = stakeHolder,
                     Date = datepicker.Value,
                     Note = Note.Text,
                     TransactionType = Category.ID
@@ -235,6 +244,7 @@ namespace YourMom
             CategorySelect categorySelect = new CategorySelect(ColorScheme);
 
             categorySelect.Handler += Screen_Handler;
+            categorySelect.isTransaction = isTransaction;
 
             categorySelect.Show();
             //this.Close();
@@ -264,6 +274,19 @@ namespace YourMom
                 CategoryImage.Source = new BitmapImage(new Uri($"{source}",
                        UriKind.Relative));
                 CategorySelectItem.Text = Category.Name;
+            }
+
+            if (isTransaction == true)
+            {
+
+                TitleTextBlock.Text = "TRANSACTION";
+
+            }
+            else
+            {
+
+                TitleTextBlock.Text = "DEBTS";
+
             }
 
 

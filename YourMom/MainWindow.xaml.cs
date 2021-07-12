@@ -1004,6 +1004,7 @@ namespace YourMom
             TransactionScreenGrid.Visibility = Visibility.Visible;
             AddTransactionButton.Visibility = Visibility.Visible;
             UtilityButtonsStackPanel.Visibility = Visibility.Visible;
+            AddTextBlock.Text = "ADD TRANSACTION";
 
             //Đọc dữ liệu tất cả các giao dịch thông thường vào danh sách giao dịch
             categoryCollection = new ObservableCollection<CategoryList>();
@@ -1109,6 +1110,7 @@ namespace YourMom
             TransactionScreenGrid.Visibility = Visibility.Visible;
             AddTransactionButton.Visibility = Visibility.Visible;
             UtilityButtonsStackPanel.Visibility = Visibility.Visible;
+            AddTextBlock.Text = "ADD DEBTS";
 
             //Đọc dữ liệu tất cả các giao dịch vay nợ vào danh sách giao dịch
             categoryDebtCollection = new ObservableCollection<CategoryList>();
@@ -1676,6 +1678,20 @@ namespace YourMom
         private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
         {
             AddTransaction addScreen = new AddTransaction(ColorScheme);
+
+            if (clickedButton == TransactionsButton)
+            {
+
+                addScreen.isTransaction = true;
+
+            }
+            else
+            {
+
+                addScreen.isTransaction = false;
+
+            }
+
             addScreen.ColorScheme = ColorScheme;
             // Reset lại dữ liệu khi tạo một giao dịch mới
             AddTransaction.Global.tempDate = default(DateTime);
