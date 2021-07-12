@@ -24,9 +24,12 @@ namespace YourMom
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public TempTransaction transaction = new TempTransaction();
+        public Transaction transaction = new Transaction();
 
         //private string tempAmount, tempStakeholder, tempDate, tempNote, tempTransactionType;
+
+        public delegate void AddTransactionDelegate(Transaction transaction);
+        public event AddTransactionDelegate Handler;
         
 
         public class Global
@@ -211,12 +214,18 @@ namespace YourMom
             {
                 transaction.ID = Guid.NewGuid().ToString();
                 transaction.Amount = Math.Round(double.Parse(Money.Text), 2);
-                transaction.Stakeholder = Stakeholder.Text;
+                transaction.Stakeholder = $" with {Stakeholder.Text}";
                 DateTime? datepicker = DatePicker.SelectedDate;
-                transaction.Date = datepicker.Value.ToString();
+                transaction.Date = datepicker.Value;
                 transaction.Note = Note.Text;
-                transaction.TransactionType = Category.Name;
-                TransactionInfoList.Add(transaction);
+                transaction.TransactionType = Category.ID;
+
+                if (Handler != null)
+                {
+
+                    Handler(transaction);
+
+                }
 
                 CategorySelect.Global.lol = 0;
                 this.Close();
@@ -241,11 +250,28 @@ namespace YourMom
 
           
             CategorySelect categorySelect = new CategorySelect(ColorScheme);
+
+            categorySelect.Handler += Screen_Handler;
+
             categorySelect.Show();
-            this.Close();
+            //this.Close();
             
         }
-        
+
+        private void Screen_Handler(Category category)
+        {
+
+            Category = category;
+            if (category != null)
+            {
+                string source = category.ImagePath;
+                CategoryImage.Source = new BitmapImage(new Uri($"{source}",
+                       UriKind.Relative));
+                CategorySelectItem.Text = category.Name;
+            }
+
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
         

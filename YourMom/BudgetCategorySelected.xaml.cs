@@ -36,6 +36,9 @@ namespace YourMom
 
         }
 
+        public delegate void ChooseCategoryDelegate(Category category);
+        public event ChooseCategoryDelegate Handler;
+
         static bool check = false;
 
         List<Category> expenseCategories = new List<Category>
@@ -464,13 +467,20 @@ namespace YourMom
 
             this.Close();
 
-            AddBudget add = new AddBudget(ColorScheme);
+            //AddBudget add = new AddBudget(ColorScheme);
             if ((!check && Global.lul > 0) || check)
             {
-                add.Category = temp[Global.lul];
+                if (Handler != null)
+                {
+
+                    Handler(temp[Global.lul]);
+
+                }
             }
 
-            add.Show();
+            
+
+            //add.Show();
 
         }
 
@@ -541,10 +551,18 @@ namespace YourMom
                 Global.lul++;
             }
 
-            AddBudget add = new AddBudget(ColorScheme);
-            add.Category = temp[Global.lul];
+            //AddBudget add = new AddBudget(ColorScheme);
+            //add.Category = temp[Global.lul];
 
-            add.Show();
+            //add.Show();
+
+            if (Handler != null)
+            {
+
+                Handler(temp[Global.lul]);
+
+            }
+
             this.Close();
         }
 

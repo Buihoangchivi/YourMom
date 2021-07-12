@@ -26,6 +26,9 @@ namespace YourMom
         public event PropertyChangedEventHandler PropertyChanged;
         public Budget budget = new Budget();
 
+        public delegate void AddBudgetDelegate(Budget budget);
+        public event AddBudgetDelegate Handler;
+
         public class Global
         {
             public static string tempMoneyFund;
@@ -157,15 +160,20 @@ namespace YourMom
             }
             else
             {
-                budget.ID = "";
                 budget.MoneyFund = Math.Round(double.Parse(Money.Text), 2);
-
                 budget.StartingDate = (DateTime)StartingDatePicker.SelectedDate;
                 budget.EndDate = (DateTime)EndDatePicker.SelectedDate;
                 budget.Note = Note.Text;
-                budget.Name = Category.Name;
 
                 BudgetCategorySelected.Global.lul = 0;
+
+                if (Handler != null)
+                {
+
+                    Handler(budget);
+
+                }
+
                 this.Close();
             }
         }
@@ -187,8 +195,27 @@ namespace YourMom
             Global.tempColorScheme = _colorScheme;
 
             BudgetCategorySelected categorySelect = new BudgetCategorySelected(ColorScheme);
+
+            categorySelect.Handler += Screen_Handler;
+
             categorySelect.Show();
-            this.Close();
+        }
+
+        private void Screen_Handler(Category category)
+        {
+
+            Category = category;
+            budget.ImagePath = category.ImagePath;
+            budget.Name = category.Name;
+            budget.ID = category.ID;
+            if (category != null)
+            {
+                string source = category.ImagePath;
+                CategoryImage.Source = new BitmapImage(new Uri($"{source}",
+                       UriKind.Relative));
+                CategorySelectItem.Text = category.Name;
+            }
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

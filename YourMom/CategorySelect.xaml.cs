@@ -454,6 +454,9 @@ namespace YourMom
 
         List<Category> temp = new List<Category>();
 
+        public delegate void ChooseCategoryDelegate(Category category);
+        public event ChooseCategoryDelegate Handler;
+
         public event PropertyChangedEventHandler PropertyChanged;
         private string _colorScheme = "";           //Màu nền hiện tại
         public string ColorScheme
@@ -571,10 +574,17 @@ namespace YourMom
                 Global.lol++;
             }
             
-            AddTransaction add = new AddTransaction(ColorScheme);
-            add.Category = temp[Global.lol];
+            //AddTransaction add = new AddTransaction(ColorScheme);
+            //add.Category = temp[Global.lol];
+
+            if (Handler != null)
+            {
+
+                Handler(temp[Global.lol]);
+
+            }
             
-            add.Show();
+            //add.Show();
             this.Close();
         }
 

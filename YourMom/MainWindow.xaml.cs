@@ -217,6 +217,9 @@ namespace YourMom
         private void AddDataIntoBudgetScreen()
         {
 
+            runningBudgetList.Clear();
+            finishedBudgetList.Clear();
+
             // Hàm xử lý ngân sách
             for (int i = 0; i < budgetList.Count; i++)
             {
@@ -1674,30 +1677,51 @@ namespace YourMom
 
         private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTransaction add = new AddTransaction(ColorScheme);            
-            add.ColorScheme = ColorScheme;
+            AddTransaction addScreen = new AddTransaction(ColorScheme);
+            addScreen.ColorScheme = ColorScheme;
             // Reset lại dữ liệu khi tạo một giao dịch mới
             AddTransaction.Global.tempDate = default(DateTime);
             AddTransaction.Global.tempAmount = "";
             AddTransaction.Global.tempStakeholder = "";
             AddTransaction.Global.tempNote = "";
             AddTransaction.Global.tempTransactionType = "";
-            add.TransactionInfoList = tempTransactionList;
-            
-            add.Show();
+            addScreen.TransactionInfoList = tempTransactionList;
+
+            addScreen.Handler += Screen_Handler;
+
+            addScreen.Show();
+        }
+
+        private void Screen_Handler(Transaction transaction)
+        {
+
+            transactionList.Add(transaction);
+            AddDataIntoTransactionScreen();
+
         }
 
         private void AddBudgetButton_Click(object sender, RoutedEventArgs e)
         {
-           AddBudget add = new AddBudget(ColorScheme);
-            add.ColorScheme = ColorScheme;
+           AddBudget addScreen = new AddBudget(ColorScheme);
+            addScreen.ColorScheme = ColorScheme;
             // Reset lại dữ liệu khi tạo một giao dịch mới            
             AddBudget.Global.tempStartingDate = default(DateTime);
             AddBudget.Global.tempEndDate = default(DateTime);
             AddBudget.Global.tempMoneyFund = "";           
             AddBudget.Global.tempNote = "";
             //AddBudget.Global.tempTransactionType = "";
-            add.Show();
+
+            addScreen.Handler += BudgetScreen_Handler;
+
+            addScreen.Show();
+        }
+
+        private void BudgetScreen_Handler(Budget budget)
+        {
+
+            budgetList.Add(budget);
+            AddDataIntoBudgetScreen();
+
         }
 
         private void CloseDetailBudget_Click(object sender, RoutedEventArgs e)
