@@ -2,7 +2,7 @@
 <ArrayOfTempTransaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TempTransaction>
     <ID>x3</ID>
-    <Date>7/26/2021 6:00:00 AM</Date>
+    <Date>7/22/2021 6:00:00 AM</Date>
     <TransactionType>0_0</TransactionType>
     <Amount>100000</Amount>
     <Note>Tiền điện tháng 7 ở phòng KTX</Note>
@@ -18,9 +18,17 @@
   </TempTransaction>
   <TempTransaction>
     <ID>abc111</ID>
-    <Date>6/7/2021 11:14:17 AM</Date>
+    <Date>7/9/2021 11:14:17 AM</Date>
     <TransactionType>1_0</TransactionType>
-    <Amount>50000</Amount>
+    <Amount>500000</Amount>
+    <Note>Tiền đi ăn sáng ở quán bún đậu mắm tôm</Note>
+    <Stakeholder> with Phạm Tấn</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
+    <ID>abc111</ID>
+    <Date>6/19/2021 11:14:17 AM</Date>
+    <TransactionType>1_0</TransactionType>
+    <Amount>300000</Amount>
     <Note>Tiền đi ăn sáng ở quán bún đậu mắm tôm</Note>
     <Stakeholder> with Phạm Tấn</Stakeholder>
   </TempTransaction>
@@ -58,7 +66,7 @@
   </TempTransaction>
   <TempTransaction>
     <ID>xyz475</ID>
-    <Date>11/12/2024 6:00:00 PM</Date>
+    <Date>11/12/2021 6:00:00 PM</Date>
     <TransactionType>1_1_2</TransactionType>
     <Amount>43900.35</Amount>
     <Note>KTX</Note>
@@ -111,5 +119,29 @@
     <Amount>100000</Amount>
     <Note>Tiền đi uống cà phê ở quán Highland</Note>
     <Stakeholder> with Nguyễn Công Phượng</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
+    <ID>058b5bc6-497c-4ce9-8862-9feb193145b8</ID>
+    <Date>7/12/2021 12:00:00 AM</Date>
+    <TransactionType>Bills &amp; Utilities</TransactionType>
+    <Amount>12</Amount>
+    <Note>b</Note>
+    <Stakeholder>a</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
+    <ID>613514fd-6042-4fb6-b49a-babe46184add</ID>
+    <Date>7/12/2021 12:00:00 AM</Date>
+    <TransactionType>1_1</TransactionType>
+    <Amount>1</Amount>
+    <Note>b</Note>
+    <Stakeholder>a</Stakeholder>
+  </TempTransaction>
+  <TempTransaction>
+    <ID>39b9ef38-fe29-4b52-9858-a1d6a5117269</ID>
+    <Date>7/11/2021 12:00:00 AM</Date>
+    <TransactionType>1_1_0</TransactionType>
+    <Amount>13235</Amount>
+    <Note>dth</Note>
+    <Stakeholder> with vb</Stakeholder>
   </TempTransaction>
 </ArrayOfTempTransaction>

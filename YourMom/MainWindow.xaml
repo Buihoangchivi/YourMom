@@ -2540,14 +2540,14 @@
                                                       Background="Black" />
 
                                         <!--Thông số chi tiết ngân sách-->
-                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0" >
+                                        <StackPanel Name="BudgetInfo" Orientation="Horizontal" Margin="0,10,0,0" >
 
-                                            <Image Source="Images/category_foodndrink.png" 
+                                            <Image Source="{Binding ImagePath}" 
                                                    VerticalAlignment="Top" Height="60"
                                                    Width="60" Margin="30,0,20,5"
                                                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
-                                            <StackPanel Orientation="Vertical" Name="BudgetInfo">
+                                            <StackPanel Orientation="Vertical">
 
                                                 <!--Tên của ngân sách-->
                                                 <TextBlock Text="{Binding Name}"

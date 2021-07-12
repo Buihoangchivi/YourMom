@@ -1,39 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfBudget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Budget>
+<ArrayOfTempBudget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TempBudget>
     <ID>1_0</ID>
-    <Name>Eating</Name>
-    <ImagePath>Images\Eating.jpg</ImagePath>
+    <Name>Food &amp; Drink</Name>
+    <ImagePath>Images/category_foodndrink.png</ImagePath>
     <StartingDate>6/7/2021 11:14:17 AM</StartingDate>
     <EndDate>7/20/2021 12:17:00 AM</EndDate>
+    <DaysLeft>7 days left</DaysLeft>
     <MoneyFund>2000000</MoneyFund>
+    <Balance>1200000</Balance>
+    <SpentMoney>800000</SpentMoney>
+    <ExpectedSpendingMoney>955555.54</ExpectedSpendingMoney>
+    <ShouldSpending_DayMoney>171428.57</ShouldSpending_DayMoney>
+    <RealitySpending_DayMoney>22222.22</RealitySpending_DayMoney>
+    <Progress>40</Progress>
     <Note>Tiền ăn uống cho nửa tháng</Note>
-  </Budget>
-  <Budget>
-    <ID>1_1</ID>
+  </TempBudget>
+  <TempBudget>
+    <ID>1_3</ID>
     <Name>Shopping</Name>
-    <ImagePath>Images\Shopping.jpg</ImagePath>
-    <StartingDate>5/7/2020 4:00:00 AM</StartingDate>
-    <EndDate>6/7/2025 12:00:00 AM</EndDate>
+    <ImagePath>Images/category_shopping.png</ImagePath>
+    <StartingDate>1/5/2021 4:00:00 AM</StartingDate>
+    <EndDate>12/30/2021 12:00:00 AM</EndDate>
+    <DaysLeft>170 days left</DaysLeft>
     <MoneyFund>2000000</MoneyFund>
+    <Balance>1904000</Balance>
+    <SpentMoney>96000</SpentMoney>
+    <ExpectedSpendingMoney>182349.8</ExpectedSpendingMoney>
+    <ShouldSpending_DayMoney>11200</ShouldSpending_DayMoney>
+    <RealitySpending_DayMoney>507.94</RealitySpending_DayMoney>
+    <Progress>4.8</Progress>
     <Note>Tiền mua sắm cho một tháng</Note>
-  </Budget>
-  <Budget>
-    <ID>1_2</ID>
-    <Name>Bills</Name>
-    <ImagePath>Images\Bills.jpg</ImagePath>
+  </TempBudget>
+  <TempBudget>
+    <ID>1_1</ID>
+    <Name>Bills &amp; Utilities</Name>
+    <ImagePath>Images/category_bills_utilities.png</ImagePath>
     <StartingDate>3/10/2021 10:14:17 AM</StartingDate>
     <EndDate>3/12/2021 10:17:00 AM</EndDate>
+    <DaysLeft>Finished</DaysLeft>
     <MoneyFund>2000000</MoneyFund>
+    <Balance>1540000</Balance>
+    <SpentMoney>460000</SpentMoney>
+    <ExpectedSpendingMoney>460000</ExpectedSpendingMoney>
+    <ShouldSpending_DayMoney>0</ShouldSpending_DayMoney>
+    <RealitySpending_DayMoney>3680</RealitySpending_DayMoney>
+    <Progress>23</Progress>
     <Note>Tiền hóa đơn cho 2 ngày</Note>
-  </Budget>
-  <Budget>
-    <ID>1_3</ID>
+  </TempBudget>
+  <TempBudget>
+    <ID>1_5</ID>
     <Name>Entertainment</Name>
-    <ImagePath>Images\Entertainment.jpg</ImagePath>
-    <StartingDate>2/22/2020 16:00:00 AM</StartingDate>
-    <EndDate>2/22/2021 16:00:00 AM</EndDate>
+    <ImagePath>Images/category_entertainment.png</ImagePath>
+    <StartingDate>2/22/2020 6:00:00 AM</StartingDate>
+    <EndDate>2/22/2021 6:00:00 AM</EndDate>
+    <DaysLeft>Finished</DaysLeft>
     <MoneyFund>2000000</MoneyFund>
+    <Balance>2000000</Balance>
+    <SpentMoney>0</SpentMoney>
+    <ExpectedSpendingMoney>0</ExpectedSpendingMoney>
+    <ShouldSpending_DayMoney>0</ShouldSpending_DayMoney>
+    <RealitySpending_DayMoney>0</RealitySpending_DayMoney>
+    <Progress>0</Progress>
     <Note>Tiền giải trí cho một năm</Note>
-  </Budget>
-</ArrayOfBudget>
+  </TempBudget>
+  <TempBudget>
+    <ID>1_0_1</ID>
+    <Name>Coffee</Name>
+    <ImagePath>Images/category_coffee.png</ImagePath>
+    <StartingDate>7/5/2021 12:00:00 AM</StartingDate>
+    <EndDate>7/19/2021 12:00:00 AM</EndDate>
+    <DaysLeft>6 days left</DaysLeft>
+    <MoneyFund>500000</MoneyFund>
+    <Balance>500000</Balance>
+    <SpentMoney>0</SpentMoney>
+    <ExpectedSpendingMoney>0</ExpectedSpendingMoney>
+    <ShouldSpending_DayMoney>83333.33</ShouldSpending_DayMoney>
+    <RealitySpending_DayMoney>0</RealitySpending_DayMoney>
+    <Progress>0</Progress>
+    <Note>Coffee</Note>
+  </TempBudget>
+</ArrayOfTempBudget>
