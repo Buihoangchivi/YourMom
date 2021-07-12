@@ -78,9 +78,7 @@ namespace YourMom
                     PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
                 }
             }
-        }
-
-       
+        }       
 
         ObservableCollection<CategoryList> categoryCollection = new ObservableCollection<CategoryList>();
         ObservableCollection<CategoryList> categoryDebtCollection = new ObservableCollection<CategoryList>();
@@ -1685,14 +1683,13 @@ namespace YourMom
             AddTransaction.Global.tempStakeholder = "";
             AddTransaction.Global.tempNote = "";
             AddTransaction.Global.tempTransactionType = "";
-            addScreen.TransactionInfoList = tempTransactionList;
 
             addScreen.Handler += Screen_Handler;
 
             addScreen.Show();
         }
 
-        private void Screen_Handler(Transaction transaction)
+        private void Screen_Handler(Transaction transaction, Category category)
         {
 
             transactionList.Add(transaction);
@@ -2204,7 +2201,38 @@ namespace YourMom
             }
 
             window.detailTransaction = transaction;
+            window.tempDetailTransaction.Add(transaction);
+
+            window.ColorScheme = ColorScheme;
+            window.Handler += DetailTransaction_Screen_Handler;
+
             window.Show();
+
+        }
+
+        private void DetailTransaction_Screen_Handler(DetailTransaction transaction, bool isDeleted)
+        {
+
+            var index = transactionList.FindIndex(element => element.ID == transaction.ID);
+
+            if (isDeleted == true)
+            {
+
+                transactionList.RemoveAt(index);
+
+            }
+            else
+            {
+                                
+                if (index != -1)
+                {
+
+                    transactionList[index] = transaction;
+
+                }
+
+            }
+            AddDataIntoTransactionScreen();
 
         }
 

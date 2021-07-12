@@ -28,9 +28,9 @@ namespace YourMom
 
         //private string tempAmount, tempStakeholder, tempDate, tempNote, tempTransactionType;
 
-        public delegate void AddTransactionDelegate(Transaction transaction);
+        public delegate void AddTransactionDelegate(Transaction transaction, Category category);
         public event AddTransactionDelegate Handler;
-        
+
 
         public class Global
         {
@@ -43,34 +43,13 @@ namespace YourMom
             public static List<TempTransaction> tempTransaction;
         }
 
-
-        private List<TempTransaction> _transactionInfoList = new List<TempTransaction>();
-        public List<TempTransaction> TransactionInfoList
-        {
-            get
-            {
-                return _transactionInfoList;
-            }
-            set
-            {
-                _transactionInfoList = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("TransactionInfoList"));
-                }
-            }
-        }
-
-
-
-
         public AddTransaction(string colorScheme)
         {
-            
+
             InitializeComponent();
             ColorScheme = colorScheme;
             this.DataContext = this;
-            
+
         }
 
         //private string _category = "";           //Loại giao dịch lấy ra
@@ -107,7 +86,7 @@ namespace YourMom
             }
         }
 
-        
+
 
         private string _colorScheme = "";           //Màu nền hiện tại
         public string ColorScheme
@@ -131,7 +110,7 @@ namespace YourMom
             }
         }
 
-        
+
 
 
 
@@ -166,7 +145,7 @@ namespace YourMom
 
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
-        }       
+        }
 
         private static readonly Regex _regex = new Regex("[^0-9]+"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)
@@ -195,10 +174,10 @@ namespace YourMom
             {
 
                 e.CancelCommand();
-                
+
             }
-            
-        }        
+
+        }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -208,22 +187,28 @@ namespace YourMom
                     "Notification",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
-                
+
             }
             else
             {
-                transaction.ID = Guid.NewGuid().ToString();
-                transaction.Amount = Math.Round(double.Parse(Money.Text), 2);
-                transaction.Stakeholder = $" with {Stakeholder.Text}";
-                DateTime? datepicker = DatePicker.SelectedDate;
-                transaction.Date = datepicker.Value;
-                transaction.Note = Note.Text;
-                transaction.TransactionType = Category.ID;
+                var datepicker = DatePicker.SelectedDate;
+
+                transaction = new Transaction()
+                {
+
+                    ID = Guid.NewGuid().ToString(),
+                    Amount = Math.Round(double.Parse(Money.Text), 2),
+                    Stakeholder = $" with {Stakeholder.Text}",
+                    Date = datepicker.Value,
+                    Note = Note.Text,
+                    TransactionType = Category.ID
+
+                };
 
                 if (Handler != null)
                 {
 
-                    Handler(transaction);
+                    Handler(transaction, category);
 
                 }
 
@@ -234,7 +219,7 @@ namespace YourMom
 
         private void SelectCategoryButton_Click(object sender, RoutedEventArgs e)
         {
-           
+
             // LƯu lại các thông tin đã nhập
             Global.tempAmount = Money.Text;
             Global.tempStakeholder = Stakeholder.Text;
@@ -243,19 +228,18 @@ namespace YourMom
             {
                 Global.tempDate = datepicker.Value;
             }
-            
+
             Global.tempNote = Note.Text;
             Global.tempColorScheme = _colorScheme;
-            Global.tempTransaction = TransactionInfoList;
 
-          
+
             CategorySelect categorySelect = new CategorySelect(ColorScheme);
 
             categorySelect.Handler += Screen_Handler;
 
             categorySelect.Show();
             //this.Close();
-            
+
         }
 
         private void Screen_Handler(Category category)
@@ -274,12 +258,7 @@ namespace YourMom
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-        
-            if (Global.tempTransaction != null)
-            {
-                TransactionInfoList = Global.tempTransaction;
-            }
-            
+
             if (Category != null)
             {
                 string source = Category.ImagePath;
@@ -287,7 +266,7 @@ namespace YourMom
                        UriKind.Relative));
                 CategorySelectItem.Text = Category.Name;
             }
-            
+
 
             if (Global.tempAmount != null && Global.tempAmount != "")
             {
@@ -296,9 +275,22 @@ namespace YourMom
 
             if (Global.tempStakeholder != null)
             {
-                Stakeholder.Text = Global.tempStakeholder;
+
+                if (Global.tempStakeholder.IndexOf(" with ") == 0)
+                {
+
+                    Stakeholder.Text = Global.tempStakeholder.Substring(6);
+
+                }
+                else
+                {
+
+                    Stakeholder.Text = Global.tempStakeholder;
+
+                }
+                
             }
-            
+
             if (Global.tempDate == default(DateTime))
             {
                 DateTime? myTime = null;
@@ -314,19 +306,19 @@ namespace YourMom
             {
                 Note.Text = Global.tempNote;
             }
-            
+
             if (Global.tempColorScheme != null)
             {
                 ColorScheme = Global.tempColorScheme;
             }
-            
+
             //ColorScheme = _colorScheme;
             SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             //Category = _category;            
 
         }
-        
+
     }
 }
 

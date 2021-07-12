@@ -16,24 +16,35 @@ namespace YourMom.Modal
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 
-			var type = (string)value;
-			var firstID = type[0] - '0';
+			if (value != null)
+			{
 
-			//Giao dịch tiền vào tương ứng màu chữ xanh nước biển
-			if (firstID % 2 == 0)
-            {
+				var type = (string)value;
+				var firstID = type[0] - '0';
+
+				//Giao dịch tiền vào tương ứng màu chữ xanh nước biển
+				if (firstID % 2 == 0)
+				{
+
+					return (SolidColorBrush)new BrushConverter().ConvertFromString("#039BE5");
+
+				}
+				else //Giao dịch tiền ra tương ứng màu chữ đỏ
+				{
+
+					return (SolidColorBrush)new BrushConverter().ConvertFromString("#E51C23");
+
+				}
+
+			}
+			else
+			{
 
 				return (SolidColorBrush)new BrushConverter().ConvertFromString("#039BE5");
 
 			}
-			else //Giao dịch tiền ra tương ứng màu chữ đỏ
-			{
-
-				return (SolidColorBrush)new BrushConverter().ConvertFromString("#E51C23");
 
 			}
-
-		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
