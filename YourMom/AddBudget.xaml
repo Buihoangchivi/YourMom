@@ -501,7 +501,7 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border CornerRadius="8" BorderThickness="2"
+                                            <Border CornerRadius="8" BorderThickness="1.5"
                                                     BorderBrush="{Binding ColorScheme}">
                                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Border>

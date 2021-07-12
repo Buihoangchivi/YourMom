@@ -61,10 +61,11 @@ namespace YourMom
 
 
 
-        public AddTransaction()
+        public AddTransaction(string colorScheme)
         {
             
             InitializeComponent();
+            ColorScheme = colorScheme;
             this.DataContext = this;
             
         }
@@ -234,7 +235,7 @@ namespace YourMom
             Global.tempTransaction = TransactionInfoList;
 
           
-            CategorySelect categorySelect = new CategorySelect();
+            CategorySelect categorySelect = new CategorySelect(ColorScheme);
             categorySelect.Show();
             this.Close();
             

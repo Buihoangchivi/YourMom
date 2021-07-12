@@ -153,15 +153,12 @@ namespace YourMom
             else
             {
                 budget.ID = "";
-                budget.MoneyFund = Math.Round(double.Parse(Money.Text), 2);                
-                //DateTime? datepicker = DatePicker.SelectedDate;
-                //transaction.Date = datepicker.Value.ToString();
+                budget.MoneyFund = Math.Round(double.Parse(Money.Text), 2);
 
                 budget.StartingDate = (DateTime)StartingDatePicker.SelectedDate;
                 budget.EndDate = (DateTime)EndDatePicker.SelectedDate;
                 budget.Note = Note.Text;
                 budget.Name = Category.Name;
-                //TransactionInfoList.Add(transaction);
 
                 BudgetCategorySelected.Global.lul = 0;
                 this.Close();

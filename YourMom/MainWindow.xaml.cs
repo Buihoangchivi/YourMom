@@ -1633,7 +1633,7 @@ namespace YourMom
 
         private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTransaction add = new AddTransaction();            
+            AddTransaction add = new AddTransaction(ColorScheme);            
             add.ColorScheme = ColorScheme;
             // Reset lại dữ liệu khi tạo một giao dịch mới
             AddTransaction.Global.tempDate = default(DateTime);

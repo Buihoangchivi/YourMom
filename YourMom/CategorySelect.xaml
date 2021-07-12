@@ -5,16 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YourMom.Modal"
         mc:Ignorable="d"
-        Title="CategorySelect" Height="600" Width="500"  WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
-    <Window.Resources>
-        <local:Converter x:Key="converter"/>
-        
-    </Window.Resources>
-    <Grid>
-        <Border Background="Beige" CornerRadius="10">
-            <!--<ScrollViewer VerticalScrollBarVisibility="Hidden">
-                
-            </ScrollViewer>-->
+        Title="CategorySelect" Height="650" Width="500" 
+        WindowStyle="None" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded" Background="Transparent"
+        AllowsTransparency="True">
+
+    <Grid Margin="10">
+
+        <Grid.Effect>
+
+            <DropShadowEffect BlurRadius="15" Direction="-90"
+                              RenderingBias="Quality" ShadowDepth="2"/>
+        </Grid.Effect>
+
+        <Border Background="White" CornerRadius="10">
+            
             <Grid>
 
                 <StackPanel>
@@ -168,7 +173,6 @@
 
                     <Grid HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal">
-                            
 
                             <StackPanel Width="150">
 
@@ -201,8 +205,8 @@
 
                                     <TextBlock Name="ExpensesTextBlock" 
                                                    TextWrapping="Wrap" 
-                                                   FontSize="15"
-                                                   Foreground="#757575"
+                                                   FontSize="20"
+                                                   Foreground="{Binding ColorScheme}"
                                                    FontFamily="Segoe UI Semibold" 
                                                    VerticalAlignment="Center" 
                                                    HorizontalAlignment="Left" 
@@ -211,7 +215,7 @@
 
                                 <TextBlock Name="ExpensesDash"
                                                Height="2" 
-                                               Background="White"/>
+                                               Background="{Binding ColorScheme}"/>
 
                             </StackPanel>
 
@@ -244,7 +248,7 @@
                                     </Button.Style>
 
 
-                                    <TextBlock Name="RevenueTextBlock" 
+                                    <TextBlock Name="IncomeTextBlock" 
                                                    TextWrapping="Wrap" 
                                                    FontSize="15"
                                                    Foreground="#757575"
@@ -254,7 +258,7 @@
                                                    Text="INCOME"/>
                                 </Button>
 
-                                <TextBlock Name="RevenueDash"
+                                <TextBlock Name="IncomeDash"
                                                Height="2" 
                                                Background="White"/>
 
@@ -305,6 +309,9 @@
                 </StackPanel>
 
             </Grid>
+            
         </Border>
+        
     </Grid>
+    
 </Window>

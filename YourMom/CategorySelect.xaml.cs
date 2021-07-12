@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -457,21 +458,39 @@ namespace YourMom
 
         List<Category> temp = new List<Category>();
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        private string _colorScheme = "";           //Màu nền hiện tại
+        public string ColorScheme
+        {
+            get
+            {
+                return _colorScheme;
+            }
+            set
+            {
+                _colorScheme = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
+                }
+            }
+        }
 
         private Button clickedButton;
 
-        public CategorySelect()
+        public CategorySelect(string colorScheme)
         {
             InitializeComponent();
-            
 
+            ColorScheme = colorScheme;
             CategoryList.ItemsSource = temp;
+            DataContext = this;
         }
 
         private void CloseListDetailBudget_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-            AddTransaction add = new AddTransaction();
+            AddTransaction add = new AddTransaction(ColorScheme);
             if ((!check && Global.lol > 0) || check)
             {
                 add.Category = temp[Global.lol];
@@ -480,7 +499,37 @@ namespace YourMom
             add.Show();
         }
 
-        
+        //Thay đổi trạng thái của nút
+        private void ChangeButtonStatus(TextBlock dash, TextBlock textBlock, bool isSelected)
+        {
+
+            //Trường hợp nút được chọn
+            if (isSelected)
+            {
+
+                textBlock.Foreground = ChangeHexToBrushColor(ColorScheme);
+                textBlock.FontSize = 19;
+                dash.Background = ChangeHexToBrushColor(ColorScheme);
+
+            }
+            else //Trường hợp nút không được chọn
+            {
+
+                textBlock.Foreground = ChangeHexToBrushColor("#757575");
+                textBlock.FontSize = 15;
+                dash.Background = Brushes.White;
+
+            }
+
+        }
+
+        private SolidColorBrush ChangeHexToBrushColor(string hex)
+        {
+
+            var color = (SolidColorBrush)new BrushConverter().ConvertFromString(hex);
+            return color;
+
+        }
 
         private void ExpensesButton_Click(object sender, RoutedEventArgs e)
         {
@@ -489,14 +538,23 @@ namespace YourMom
             //clickedButton = ExpensesButton;
             searchComboBox.ItemsSource = temp;
 
+            //Chuyển nút hiện tại sang trạng thái không được chọn
+            ChangeButtonStatus(IncomeDash, IncomeTextBlock, false);
+            //Chuyển nút tiếp theo sang trạng thái được chọn
+            ChangeButtonStatus(ExpensesDash, ExpensesTextBlock, true);
+
         }
 
         private void IncomeButton_Click(object sender, RoutedEventArgs e)
         {
             temp = incomeCategories;
             CategoryList.ItemsSource = temp;
-            //clickedButton = IncomeButton;
             searchComboBox.ItemsSource = temp;
+
+            //Chuyển nút hiện tại sang trạng thái không được chọn
+            ChangeButtonStatus(IncomeDash, IncomeTextBlock, true);
+            //Chuyển nút tiếp theo sang trạng thái được chọn
+            ChangeButtonStatus(ExpensesDash, ExpensesTextBlock, false);
         }
 
         private void CategorySelecttButton_Click(object sender, RoutedEventArgs e)
@@ -517,7 +575,7 @@ namespace YourMom
                 Global.lol++;
             }
             
-            AddTransaction add = new AddTransaction();
+            AddTransaction add = new AddTransaction(ColorScheme);
             add.Category = temp[Global.lol];
             
             add.Show();

@@ -10,12 +10,6 @@
         Loaded="Window_Loaded" Background="Transparent"
         AllowsTransparency="True">
 
-    <Window.Resources>
-
-        <SolidColorBrush x:Key="ColorScheme" Color="{Binding ColorScheme}"/>
-
-    </Window.Resources>
-    
     <Grid Margin="10">
 
         <Grid.Effect>
@@ -223,7 +217,7 @@
                                     <TextBlock Name="ExpensesTextBlock" 
                                                    TextWrapping="Wrap" 
                                                    FontSize="20"
-                                                   Foreground="{DynamicResource ColorScheme}"
+                                                   Foreground="{Binding ColorScheme}"
                                                    FontFamily="Segoe UI Semibold" 
                                                    VerticalAlignment="Center" 
                                                    HorizontalAlignment="Left" 
@@ -232,7 +226,7 @@
 
                                 <TextBlock Name="ExpensesDash"
                                                Height="2" 
-                                               Background="{DynamicResource ColorScheme}"/>
+                                               Background="{Binding ColorScheme}"/>
 
                             </StackPanel>
 
