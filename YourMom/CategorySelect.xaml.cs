@@ -34,22 +34,22 @@ namespace YourMom
             {
                 new Category
                 {
-                    ID = "1",
-                    Name = "Ăn uống",
+                    ID = "1_0",
+                    Name = "Food & Drink",
                     ImagePath = "Images/category_foodndrink.png",
                 },
                 new Category
                 {
-                    ID = "2",
-                    Name = "Nhà hàng",
+                    ID = "1_0_0",
+                    Name = "Restaurent",
                     ImagePath = "Images/category_restaurent.png",
                     Space = "          "
 
                 },
                 new Category
                 {
-                    ID = "3",
-                    Name = "Cà phê" ,
+                    ID = "1_0_1",
+                    Name = "Coffee" ,
                     ImagePath = "Images/category_coffee.png",
                     Space = "          "
                 },
@@ -59,57 +59,57 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "4",
-                    Name = "Hóa đơn và tiện ích" ,
+                    ID = "1_1",
+                    Name = "Bills & Utilities" ,
                     ImagePath = "Images/category_bills_utilities.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "5",
-                    Name = "Hóa đơn điện thoại" ,
+                    ID = "1_1_0",
+                    Name = "Phone" ,
                     ImagePath = "Images/category_telephone_bill.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "6",
-                    Name = "Hóa đơn nước" ,
+                    ID = "1_1_1",
+                    Name = "Water" ,
                     ImagePath = "Images/category_water_bill.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "7",
-                    Name = "Hóa đơn điện" ,
+                    ID = "1_1_2",
+                    Name = "Electricity" ,
                     ImagePath = "Images/category_electric_bill.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "8",
-                    Name = "Hóa đơn ga" ,
+                    ID = "1_1_3",
+                    Name = "Gas" ,
                     ImagePath = "Images/category_gas_bill.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "9",
-                    Name = "Hóa đơn TV" ,
+                    ID = "1_1_4",
+                    Name = "Television" ,
                     ImagePath = "Images/category_TVbill.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "10",
-                    Name = "Hóa đơn Internet" ,
+                    ID = "1_1_5",
+                    Name = "Internet" ,
                     ImagePath = "Images/category_internet_bill.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "11",
-                    Name = "Thuê nhà" ,
+                    ID = "1_1_6",
+                    Name = "Rentals" ,
                     ImagePath = "Images/category_rent.png",
                     Space = "          "
                 },
@@ -119,36 +119,36 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "12",
-                    Name = "Di chuyển" ,
+                    ID = "1_2",
+                    Name = "Transport" ,
                     ImagePath = "Images/category_move.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "13",
+                    ID = "1_2_0",
                     Name = "Taxi" ,
                     ImagePath = "Images/category_taxi.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "14",
-                    Name = "Gửi xe" ,
+                    ID = "1_2_1",
+                    Name = "Parking" ,
                     ImagePath = "Images/category_parking.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "15",
-                    Name = "Xăng dầu" ,
+                    ID = "1_2_2",
+                    Name = "Petrol" ,
                     ImagePath = "Images/category_petroleum.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "16",
-                    Name = "Bảo dưỡng" ,
+                    ID = "1_2_3",
+                    Name = "Maintenance" ,
                     ImagePath = "Images/category_maintenance.png",
                     Space = "          "
                 },
@@ -158,36 +158,36 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "17",
-                    Name = "Mua sắm" ,
+                    ID = "1_3",
+                    Name = "Shopping" ,
                     ImagePath = "Images/category_shopping.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "18",
-                    Name = "Quần áo" ,
+                    ID = "1_3_0",
+                    Name = "Clothing" ,
                     ImagePath = "Images/category_clothes.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "19",
-                    Name = "Giày dép" ,
+                    ID = "1_3_1",
+                    Name = "Shoes" ,
                     ImagePath = "Images/category_shoes.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "20",
-                    Name = "Phụ kiện" ,
+                    ID = "1_3_2",
+                    Name = "Accessories" ,
                     ImagePath = "Images/category_accessories.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "21",
-                    Name = "Thiết bị điện tử" ,
+                    ID = "1_3_3",
+                    Name = "Electronic Device" ,
                     ImagePath = "Images/category_electronic_device.png",
                     Space = "          "
                 },
@@ -197,10 +197,10 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "22",
-                    Name = "Bạn bè và người yêu" ,
+                    ID = "1_4",
+                    Name = "Friends & Lovers" ,
                     ImagePath = "Images/category_friends_lovers.png",
-                    
+
                 },
 
 
@@ -208,22 +208,22 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "23",
-                    Name = "Giải trí" ,
+                    ID = "1_5",
+                    Name = "Entertainment" ,
                     ImagePath = "Images/category_entertainment.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "24",
-                    Name = "Phim ảnh" ,
+                    ID = "1_5_0",
+                    Name = "Movies" ,
                     ImagePath = "Images/category_movie.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "25",
-                    Name = "Trò chơi" ,
+                    ID = "1_5_1",
+                    Name = "Games" ,
                     ImagePath = "Images/category_game.png",
                     Space = "          "
                 },
@@ -232,10 +232,10 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "26",
-                    Name = "Du lịch" ,
+                    ID = "1_6",
+                    Name = "Travel" ,
                     ImagePath = "Images/category_travel.png",
-                    
+
                 },
 
 
@@ -243,36 +243,36 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "27",
-                    Name = "Sức khỏe" ,
+                    ID = "1_7",
+                    Name = "Health & Fitness" ,
                     ImagePath = "Images/category_health.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "28",
-                    Name = "Thể thao" ,
+                    ID = "1_7_0",
+                    Name = "Sport" ,
                     ImagePath = "Images/category_sport.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "29",
+                    ID = "1_7_1",
                     Name = "Khám chữa bệnh" ,
                     ImagePath = "Images/category_healthcare.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "30",
-                    Name = "Thuốc" ,
+                    ID = "1_7_2",
+                    Name = "Medicine" ,
                     ImagePath = "Images/category_medicine.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "31",
-                    Name = "Chăm sóc cá nhân" ,
+                    ID = "1_7_3",
+                    Name = "Personal Care" ,
                     ImagePath = "Images/caregory_personal_care.png",
                     Space = "          "
                 },
@@ -281,29 +281,29 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "32",
-                    Name = "Quà tặng và quyên góp" ,
+                    ID = "1_8",
+                    Name = "Gifts & Donations" ,
                     ImagePath = "Images/category_gifts_donations.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "33",
-                    Name = "Cưới hỏi" ,
+                    ID = "1_8_0",
+                    Name = "Wedding" ,
                     ImagePath = "Images/category_wedding.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "34",
-                    Name = "Tang lễ " ,
+                    ID = "1_8_1",
+                    Name = "Funeral" ,
                     ImagePath = "Images/category_funeral.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "35",
-                    Name = "Từ thiện" ,
+                    ID = "1_8_2",
+                    Name = "Charity" ,
                     ImagePath = "Images/category_charity.png",
                     Space = "          "
                 },
@@ -314,36 +314,36 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "36",
-                    Name = "Gia đình" ,
+                    ID = "1_9",
+                    Name = "Home" ,
                     ImagePath = "Images/category_family.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "37",
-                    Name = "Con cái" ,
+                    ID = "1_9_0",
+                    Name = "Children & Babies" ,
                     ImagePath = "Images/category_children.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "38",
-                    Name = "Sửa chữa nhà cửa" ,
+                    ID = "1_9_1",
+                    Name = "Home Improvement" ,
                     ImagePath = "Images/category_house_repair.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "39",
-                    Name = "Dịch vụ gia đình" ,
+                    ID = "1_9_2",
+                    Name = "Home Sevices" ,
                     ImagePath = "Images/category_home_service.png",
                     Space = "          "
                 },
                 new Category
                 {
-                    ID = "40",
-                    Name = "Vật nuôi" ,
+                    ID = "1_9_3",
+                    Name = "Pets" ,
                     ImagePath = "Images/category_pet.png",
                     Space = "          "
                 },
@@ -351,15 +351,15 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "41",
-                    Name = "Giáo dục" ,
+                    ID = "1_10",
+                    Name = "Education" ,
                     ImagePath = "Images/category_education.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "42",
-                    Name = "Sách" ,
+                    ID = "1_10_0",
+                    Name = "Books" ,
                     ImagePath = "Images/category_book.png",
                     Space = "          "
                 },
@@ -369,50 +369,46 @@ namespace YourMom
 
                 new Category
                 {
-                    ID = "43",
-                    Name = "Đầu tư" ,
+                    ID = "1_11",
+                    Name = "Investment" ,
                     ImagePath = "Images/category_invest.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "44",
-                    Name = "Kinh doanh" ,
+                    ID = "1_12",
+                    Name = "Bussiness" ,
                     ImagePath = "Images/category_business.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "45",
-                    Name = "Bảo hiểm" ,
+                    ID = "1_13",
+                    Name = "Insurance" ,
                     ImagePath = "Images/category_insurrance.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "46",
-                    Name = "Chi phí" ,
+                    ID = "1_14",
+                    Name = "Fees & Charges" ,
                     ImagePath = "Images/category_cost.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "47",
-                    Name = "Rút tiền" ,
+                    ID = "1_15",
+                    Name = "Withdrawal" ,
                     ImagePath = "Images/category_withdrawal.png",
-                    
+
                 },
                 new Category
                 {
-                    ID = "48",
-                    Name = "Các chi phí khác" ,
+                    ID = "1_16",
+                    Name = "Others" ,
                     ImagePath = "Images/category_other_costs.png",
-                   
+
                 },
-
-
-
-
 
             };
 
@@ -420,38 +416,38 @@ namespace YourMom
         {
             new Category
                 {
-                    ID = "49",
-                    Name = "Thưởng",
+                    ID = "0_0",
+                    Name = "Award",
                     ImagePath = "Images/category_bonus.png",
                 },
             new Category
                 {
-                    ID = "50",
-                    Name = "Tiền lãi",
+                    ID = "0_1",
+                    Name = "Interest Money",
                     ImagePath = "Images/category_interest.png",
                 },
             new Category
                 {
-                    ID = "51",
-                    Name = "Lương",
+                    ID = "0_2",
+                    Name = "Salary",
                     ImagePath = "Images/category_salary.png",
                 },
             new Category
                 {
-                    ID = "52",
-                    Name = "Được tặng",
+                    ID = "0_3",
+                    Name = "Gifts",
                     ImagePath = "Images/category_awarded.png",
                 },
             new Category
                 {
-                    ID = "53",
-                    Name = "Bán đồ",
+                    ID = "0_4",
+                    Name = "Selling",
                     ImagePath = "Images/category_sell_things.png",
                 },
             new Category
                 {
-                    ID = "54",
-                    Name = "Thu nhập khác",
+                    ID = "0_5",
+                    Name = "Others",
                     ImagePath = "Images/category_other_income.png",
                 },
         };

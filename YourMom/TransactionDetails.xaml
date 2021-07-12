@@ -207,7 +207,8 @@
 
                         <TextBlock FontFamily="Segoe UI Historic" 
                                    FontSize="14"
-                                   Height="100">
+                                   TextWrapping="Wrap"
+                                   Height="150">
 
                             <TextBlock.Text>
 

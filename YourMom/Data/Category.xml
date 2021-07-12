@@ -2,72 +2,292 @@
 <ArrayOfCategory xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Category>
     <ID>0_0</ID>
-    <Name>Salary</Name>
-    <ImagePath>Images\category_salary.png</ImagePath>
+    <Name>Award</Name>
+    <ImagePath>Images/category_bonus.png</ImagePath>
   </Category>
   <Category>
     <ID>0_1</ID>
+    <Name>Interest Money</Name>
+    <ImagePath>Images/category_interest.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>0_2</ID>
+    <Name>Salary</Name>
+    <ImagePath>Images/category_salary.png</ImagePath>
+  </Category>
+  <Category>  
+    <ID>0_3</ID>
+    <Name>Gifts</Name>
+    <ImagePath>Images/category_awarded.png</ImagePath>
+  </Category>
+  <Category>  
+    <ID>0_4</ID>
     <Name>Selling</Name>
-    <ImagePath>Images\category_selling.png</ImagePath>
+    <ImagePath>Images/category_sell_things.png"</ImagePath>
+  </Category>
+  <Category>  
+    <ID>0_5</ID>
+    <Name>Others</Name>
+    <ImagePath>Images/category_other_income.png</ImagePath>
   </Category>
   <Category>
     <ID>1_0</ID>
-    <Name>Eating</Name>
-    <ImagePath>Images\category_foodndrink.png</ImagePath>
+    <Name>Food &amp; Drink</Name>
+    <ImagePath>Images/category_foodndrink.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_0_0</ID>
+    <Name>Restaurent</Name>
+    <ImagePath>Images/category_restaurent.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_0_1</ID>
+    <Name>Coffee</Name>
+    <ImagePath>Images/category_coffee.png</ImagePath>
   </Category>
   <Category>
     <ID>1_1</ID>
+    <Name>Bills &amp; Utilities</Name>
+    <ImagePath>Images/category_bills_utilities.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_1_0</ID>
+    <Name>Phone</Name>
+    <ImagePath>Images/category_telephone_bill.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_1_1</ID>
+    <Name>Water</Name>
+    <ImagePath>Images/category_water_bill.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_1_2</ID>
+    <Name>Electricity</Name>
+    <ImagePath>Images/category_electric_bill.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_1_3</ID>
+    <Name>Gas</Name>
+    <ImagePath>Images/category_gas_bill.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_1_4</ID>
+    <Name>Television</Name>
+    <ImagePath>Images/Images/category_TVbill.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_1_5</ID>
+    <Name>Internet</Name>
+    <ImagePath>Images/Images/category_internet_bill.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_1_6</ID>
+    <Name>Rentals</Name>
+    <ImagePath>Images/category_rent.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_2</ID>
+    <Name>Transport</Name>
+    <ImagePath>Images/category_move.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_2_0</ID>
+    <Name>Taxi</Name>
+    <ImagePath>Images/category_taxi.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_2_1</ID>
+    <Name>Parking</Name>
+    <ImagePath>Images/category_parking.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_2_2</ID>
+    <Name>Petrol</Name>
+    <ImagePath>Images/category_petroleum.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_2_3</ID>
+    <Name>Maintenance</Name>
+    <ImagePath>Images/category_maintenance.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_3</ID>
     <Name>Shopping</Name>
     <ImagePath>Images\category_shopping.png</ImagePath>
   </Category>
   <Category>
-    <ID>1_1_0</ID>
+    <ID>1_3_0</ID>
     <Name>Clothes</Name>
     <ImagePath>Images\category_clothes.png</ImagePath>
   </Category>
   <Category>
-    <ID>1_1_1</ID>
+    <ID>1_3_1</ID>
     <Name>Shoes</Name>
     <ImagePath>Images\category_shoes.png</ImagePath>
   </Category>
   <Category>
-    <ID>1_1_2</ID>
+    <ID>1_3_2</ID>
     <Name>Accessories</Name>
     <ImagePath>Images\category_accessories.png</ImagePath>
   </Category>
   <Category>
-    <ID>1_1_3</ID>
+    <ID>1_3_3</ID>
     <Name>Electronic Device</Name>
     <ImagePath>Images\category_electronic_device.png</ImagePath>
   </Category>
   <Category>
-    <ID>1_2</ID>
-    <Name>Bills</Name>
-    <ImagePath>Images\category_bills.png</ImagePath>
+    <ID>1_4</ID>
+    <Name>Friends &amp; Lovers</Name>
+    <ImagePath>Images\category_friends_lovers.png</ImagePath>
   </Category>
   <Category>
-    <ID>1_3</ID>
+    <ID>1_5</ID>
     <Name>Entertainment</Name>
-    <ImagePath>Images\category_entertainment.png</ImagePath>
+    <ImagePath>Images/category_entertainment.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_5_0</ID>
+    <Name>Movies</Name>
+    <ImagePath>Images/category_movie.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_5_1</ID>
+    <Name>Games</Name>
+    <ImagePath>Images/category_game.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_6</ID>
+    <Name>Travel</Name>
+    <ImagePath>Images\category_travel.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_7</ID>
+    <Name>Health &amp; Fitness</Name>
+    <ImagePath>Images/category_health.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_7_0</ID>
+    <Name>Sport</Name>
+    <ImagePath>Images/category_sport.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_7_1</ID>
+    <Name>Healthcare</Name>
+    <ImagePath>Images/category_healthcare.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_7_2</ID>
+    <Name>Medicine</Name>
+    <ImagePath>Images/category_medicine.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_7_3</ID>
+    <Name>Personal Care</Name>
+    <ImagePath>Images/caregory_personal_care.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_8</ID>
+    <Name>Gifts &amp; Donations</Name>
+    <ImagePath>Images/category_gifts_donations.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_8_0</ID>
+    <Name>Wedding</Name>
+    <ImagePath>Images/category_wedding.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_8_1</ID>
+    <Name>Funeral</Name>
+    <ImagePath>Images/category_funeral.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_8_2</ID>
+    <Name>Charity</Name>
+    <ImagePath>Images/category_charity.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_9</ID>
+    <Name>Home</Name>
+    <ImagePath>Images/category_family.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_9_0</ID>
+    <Name>Children &amp; Babies</Name>
+    <ImagePath>Images/category_children.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_9_1</ID>
+    <Name>Home Improvement</Name>
+    <ImagePath>Images/category_house_repair.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_9_2</ID>
+    <Name>Home Services</Name>
+    <ImagePath>Images/category_home_service.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_9_3</ID>
+    <Name>Pets</Name>
+    <ImagePath>Images/category_pet.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_10</ID>
+    <Name>Education</Name>
+    <ImagePath>Images/category_education.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_10_0</ID>
+    <Name>Books</Name>
+    <ImagePath>Images/category_book.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_11</ID>
+    <Name>Investment</Name>
+    <ImagePath>Images/category_invest.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_12</ID>
+    <Name>Business</Name>
+    <ImagePath>Images/category_business.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_13</ID>
+    <Name>Insurance</Name>
+    <ImagePath>Images/category_insurrance.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_14</ID>
+    <Name>Fees &amp; Charges</Name>
+    <ImagePath>Images/category_cost.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_15</ID>
+    <Name>Withdrawal</Name>
+    <ImagePath>Images/category_withdrawal.png</ImagePath>
+  </Category>
+  <Category>
+    <ID>1_16</ID>
+    <Name>Others</Name>
+    <ImagePath>Images/category_other_costs.png</ImagePath>
   </Category>
   <Category>
     <ID>2_0</ID>
-    <Name>Debt</Name>
-    <ImagePath>Images\category_debt.png</ImagePath>
+    <Name>Debts</Name>
+    <ImagePath>Images/category_debt.png</ImagePath>
   </Category>
   <Category>
     <ID>2_1</ID>
     <Name>Debt Collection</Name>
-    <ImagePath>Images\category_debt_collection.png</ImagePath>
+    <ImagePath>Images/category_debt_collection.png</ImagePath>
   </Category>
   <Category>
     <ID>3_0</ID>
     <Name>Loan</Name>
-    <ImagePath>Images\category_loan.png</ImagePath>
+    <ImagePath>Images/category_loan.png</ImagePath>
   </Category>
   <Category>
     <ID>3_1</ID>
-    <Name>Pay</Name>
-    <ImagePath>Images\category_pay.png</ImagePath>
+    <Name>Repayment</Name>
+    <ImagePath>Images/category_pay.png</ImagePath>
   </Category>
 </ArrayOfCategory>

@@ -23,8 +23,10 @@
             <Grid>
 
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" >
-                        <Button x:Name="CloseListDetailBudget" Width="47" Click="CloseListDetailBudget_Click" 
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10,0,0,0">
+                        <Button x:Name="CloseListDetailBudget" Width="45"
+                                Height="45" Click="CloseListDetailBudget_Click" 
                     BorderThickness="0" DockPanel.Dock="Right">
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
@@ -45,10 +47,10 @@
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
-                            <Image Source="Images/black_close.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="12"></Image>
+                            <Image Source="Images/black_close.png" RenderOptions.BitmapScalingMode="HighQuality" Width="17"></Image>
                         </Button>
                         <TextBlock TextWrapping="Wrap" FontSize="20" 
-                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">Select category</TextBlock>
+                           FontFamily="Segoe UI Semibold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0">Select category</TextBlock>
                     </StackPanel>
                     
                     
