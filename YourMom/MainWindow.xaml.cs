@@ -90,9 +90,9 @@ namespace YourMom
         Stack<DetailInfomation> detailStack = new Stack<DetailInfomation>();
 
         // Danh sách ngân sách đang sử dụng
-        List<Budget> runningBudgetList = new List<Budget> { };
+        ObservableCollection<Budget> runningBudgetList = new ObservableCollection<Budget> { };
         // Danh sách ngân sách đã quá hạn
-        List<Budget> finishedBudgetList = new List<Budget> { };
+        ObservableCollection<Budget> finishedBudgetList = new ObservableCollection<Budget> { };
 
         public MainWindow()
         {
