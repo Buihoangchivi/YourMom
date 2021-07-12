@@ -753,6 +753,7 @@ namespace YourMom
 
             this.DataContext = this;
             ViewReportTextBlock.Foreground = TitleBar.Background;
+            ViewTransactionTextBlock.Foreground = TitleBar.Background;
 
             ListColor = new BindingList<ColorSetting>
             {
@@ -865,14 +866,75 @@ namespace YourMom
         //Cài đặt nút đóng cửa sổ
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            /*SaveListFood();
-			SaveListDish();
-			var config = ConfigurationManager.OpenExeConfiguration(
-				ConfigurationUserLevel.None);
-			config.AppSettings.Settings["ColorScheme"].Value = ColorScheme;
-			config.Save(ConfigurationSaveMode.Minimal);*/
+            SaveData();
+
+            var config = ConfigurationManager.OpenExeConfiguration(
+                ConfigurationUserLevel.None);
+            config.AppSettings.Settings["ColorScheme"].Value = ColorScheme;
+            config.Save(ConfigurationSaveMode.Minimal);
 
             Application.Current.Shutdown();
+
+        }
+
+        private void SaveData()
+        {
+
+            //Sao chép dữ liệu sang danh sách ngân sách sử dụng kiểu chuỗi ngày tháng
+            var tempBudgetList = new List<TempBudget>();
+
+            foreach (var budget in budgetList)
+            {
+
+                tempBudgetList.Add(new TempBudget
+                {
+
+                    Balance = budget.Balance,
+                    DaysLeft = budget.DaysLeft,
+                    EndDate = budget.EndDate.ToString(),
+                    ExpectedSpendingMoney = budget.ExpectedSpendingMoney,
+                    ID = budget.ID,
+                    ImagePath = budget.ImagePath,
+                    MoneyFund = budget.MoneyFund,
+                    Name = budget.Name,
+                    Note = budget.Note,
+                    Progress = budget.Progress,
+                    RealitySpending_DayMoney = budget.RealitySpending_DayMoney,
+                    ShouldSpending_DayMoney = budget.ShouldSpending_DayMoney,
+                    SpentMoney = budget.SpentMoney,
+                    StartingDate = budget.StartingDate.ToString()
+
+                });
+
+            }
+
+            XmlSerializer xs = new XmlSerializer(typeof(List<TempBudget>));
+            TextWriter writer = new StreamWriter(@"Data\Budget.xml");
+            xs.Serialize(writer, tempBudgetList);
+
+            //Sao chép dữ liệu sang danh sách giao dịch sử dụng kiểu Datetime
+            var tempTransactionList = new List<TempTransaction>();
+
+            foreach (var transaction in transactionList)
+            {
+
+                tempTransactionList.Add(new TempTransaction
+                {
+                    Amount = transaction.Amount,
+                    Date = transaction.Date.ToString(),
+                    ID = transaction.ID,
+                    Note = transaction.Note,
+                    Stakeholder = transaction.Stakeholder,
+                    TransactionType = transaction.TransactionType
+                });
+
+            }
+
+            xs = new XmlSerializer(typeof(List<TempTransaction>));
+            writer = new StreamWriter(@"Data\Transaction.xml");
+            xs.Serialize(writer, tempTransactionList);
+
+            writer.Close();
 
         }
 
@@ -881,17 +943,6 @@ namespace YourMom
         {
 
             this.WindowState = WindowState.Minimized;
-
-        }
-
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
-        {
 
         }
 
@@ -2140,6 +2191,7 @@ namespace YourMom
             ColorScheme = color;
             TitleBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             ViewReportTextBlock.Foreground = TitleBar.Background;
+            ViewTransactionTextBlock.Foreground = TitleBar.Background;
             RunningTextblock.Foreground = TitleBar.Background;
             RunningUnderlineTextBlock.Background = TitleBar.Background;
             FinishedUnderlineTextBlock.Background = TitleBar.Background;

@@ -115,7 +115,12 @@ namespace YourMom
             }
             set
             {
-                _colorScheme = value;
+                if (_colorScheme == "")
+                {
+
+                    _colorScheme = value;
+
+                }
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
@@ -204,7 +209,7 @@ namespace YourMom
             }
             else
             {
-                transaction.ID = "";
+                transaction.ID = Guid.NewGuid().ToString();
                 transaction.Amount = Math.Round(double.Parse(Money.Text), 2);
                 transaction.Stakeholder = Stakeholder.Text;
                 DateTime? datepicker = DatePicker.SelectedDate;

@@ -57,7 +57,12 @@ namespace YourMom
             }
             set
             {
-                _colorScheme = value;
+                if (_colorScheme == "")
+                {
+
+                    _colorScheme = value;
+
+                }
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
