@@ -2251,6 +2251,7 @@ namespace YourMom
 
             }
             AddDataIntoTransactionScreen();
+            AddDataIntoBudgetScreen();
 
         }
 
