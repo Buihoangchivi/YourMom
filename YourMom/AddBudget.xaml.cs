@@ -88,9 +88,7 @@ namespace YourMom
                     PropertyChanged(this, new PropertyChangedEventArgs("Category"));
                 }
             }
-        }
-
-        
+        }        
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -160,10 +158,19 @@ namespace YourMom
             }
             else
             {
-                budget.MoneyFund = Math.Round(double.Parse(Money.Text), 2);
-                budget.StartingDate = (DateTime)StartingDatePicker.SelectedDate;
-                budget.EndDate = (DateTime)EndDatePicker.SelectedDate;
-                budget.Note = Note.Text;
+
+                budget = new Budget()
+                {
+
+                    MoneyFund = Math.Round(double.Parse(Money.Text), 2),
+                    StartingDate = (DateTime)StartingDatePicker.SelectedDate,
+                    EndDate = (DateTime)EndDatePicker.SelectedDate,
+                    Note = Note.Text,
+                    ID = category.ID,
+                    ImagePath = category.ImagePath,
+                    Name = category.Name
+
+                };
 
                 BudgetCategorySelected.Global.lul = 0;
 

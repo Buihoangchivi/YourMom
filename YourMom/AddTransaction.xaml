@@ -194,8 +194,8 @@
 
                 <Grid.RowDefinitions>
 
-                    <RowDefinition Height="3*" />
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="5*"/>
                     <RowDefinition Height="35*" />
                     <RowDefinition Height="5*" />
                     <RowDefinition Height="15" />
@@ -470,11 +470,11 @@
                 </Grid>
 
                 <TextBlock Grid.Column="1" 
-                           TextWrapping="Wrap" FontSize="15" 
+                           TextWrapping="Wrap" FontSize="20" 
                            FontFamily="Segoe UI Semibold" 
                            VerticalAlignment="Center" 
                            HorizontalAlignment="Left" 
-                           Text="ADD TRANSACTION" Margin="0,20,0,7.333" Grid.RowSpan="2"/>
+                           Text="TRANSACTION" Grid.RowSpan="2"/>
 
                 <DockPanel Grid.Row="3" Grid.Column="5">
 

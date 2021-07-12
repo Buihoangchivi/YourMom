@@ -136,7 +136,6 @@ namespace YourMom
                 // Do nothing
 
             }
-            //TransactionInfoList.Add(transaction);
 
         }
 

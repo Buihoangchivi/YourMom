@@ -491,13 +491,161 @@
             <TextBlock></TextBlock>
         </DockPanel>
 
+        <!--Thanh công cụ-->
+        <DockPanel Name="TypeBar" Height="80" DockPanel.Dock="Top"
+                   LastChildFill="True" Visibility="Visible"
+                   Margin="25,0,0,0">
+
+            <!--Icon ví tiền-->
+            <Image Source="Images/wallet.png" Margin="0,10,12,20" 
+                   RenderOptions.BitmapScalingMode="HighQuality" 
+                   DockPanel.Dock="Left"></Image>
+
+            <!--Stack chứa số tiền hiện có trong ví-->
+            <StackPanel VerticalAlignment="Center"
+                        Margin="12,0,0,0">
+
+                <TextBlock Margin="0,-5,0,0" FontSize="14">Wallet</TextBlock>
+
+                <TextBlock FontWeight="Bold" FontSize="18">240,000</TextBlock>
+
+            </StackPanel>
+
+            <!--Nút thêm giao dịch mới-->
+            <Button BorderThickness="0" Height="33" Margin="0,0,20,0" Name="AddTransactionButton"
+                    DockPanel.Dock="Right" Foreground="White"
+                    Click="AddTransactionButton_Click" Visibility="Visible"
+                    Background="{DynamicResource ColorScheme}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="8" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <TextBlock VerticalAlignment="Center" FontSize="15" 
+                           FontWeight="Medium" Margin="12,0"
+                           Text="ADD TRANSACTION"/>
+
+            </Button>
+
+            <!--Nút thêm ngân sách mới-->
+            <Button BorderThickness="0" Height="33" Margin="0,0,20,0" Name="AddBudgetButton"
+                    DockPanel.Dock="Right" Foreground="White"
+                    Click="AddBudgetButton_Click" Visibility="Collapsed">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="8" BorderThickness="0" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <TextBlock VerticalAlignment="Center" FontSize="15" 
+                           FontWeight="Medium" Margin="12,0"
+                           Text="ADD BUDGET"/>
+
+            </Button>
+
+            <StackPanel Name="UtilityButtonsStackPanel" DockPanel.Dock="Right"
+                        Orientation="Horizontal"
+                        Margin="0,0,20,0">
+
+                <!--Nút hiển thị lịch-->
+                <Button Width="50" Height="50"
+                    Click="JumpToTodayButton_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFC8C4C4"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <StackPanel>
+                        <Image Source="Images/date.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    </StackPanel>
+
+                </Button>
+
+                <!--Nút hiển thị lịch-->
+                <Button Width="50" Height="50"
+                    Click="ChangeTransactionViewButton_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFC8C4C4"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <StackPanel>
+                        <Image Name="ChangeTransactionViewImage"
+                           Source="Images/view_by_transaction.png" 
+                           Width="35"
+                           RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    </StackPanel>
+
+                </Button>
+
+            </StackPanel>
+
+            <TextBlock></TextBlock>
+
+        </DockPanel>
+
         <!--Menu Control-->
         <StackPanel x:Name="ControlStackPanel" DockPanel.Dock="Left">
-
-            <!--Nút menu-->
-            <StackPanel Width="100" Height="80" Name="MenuButton" 
-                        Background="White"/>
-
 
             <!--Nút các giao dịch-->
             <Button Width="100" 
@@ -690,184 +838,6 @@
             </Button>
 
         </StackPanel>
-
-        <!--Thanh công cụ-->
-        <DockPanel Name="TypeBar" Height="80" DockPanel.Dock="Top" LastChildFill="True" Visibility="Visible">
-
-            <!--Icon ví tiền-->
-            <Image Source="Images/wallet.png" Margin="0,10,12,20" 
-                   RenderOptions.BitmapScalingMode="HighQuality" 
-                   DockPanel.Dock="Left"></Image>
-
-            <!--Stack chứa số tiền hiện có trong ví-->
-            <StackPanel VerticalAlignment="Center">
-
-                <TextBlock Margin="0,-5,0,0" FontSize="14">Wallet</TextBlock>
-
-                <TextBlock FontWeight="Bold" FontSize="18">240,000</TextBlock>
-
-            </StackPanel>
-
-            <!--Nút thêm giao dịch mới-->
-            <Button BorderThickness="0" Height="33" Margin="0,0,20,0" Name="AddTransactionButton"
-                    DockPanel.Dock="Right" Foreground="White"
-                    Click="AddTransactionButton_Click" Visibility="Visible"
-                    Background="{DynamicResource ColorScheme}">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border CornerRadius="8" BorderThickness="0" Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.7"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <TextBlock VerticalAlignment="Center" FontSize="15" 
-                           FontWeight="Medium" Margin="12,0"
-                           Text="ADD TRANSACTION"/>
-
-            </Button>
-
-            <!--Nút thêm ngân sách mới-->
-            <Button BorderThickness="0" Height="33" Margin="0,0,20,0" Name="AddBudgetButton"
-                    DockPanel.Dock="Right" Foreground="White"
-                    Click="AddBudgetButton_Click" Visibility="Collapsed">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border CornerRadius="8" BorderThickness="0" Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.7"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <TextBlock VerticalAlignment="Center" FontSize="15" 
-                           FontWeight="Medium" Margin="12,0"
-                           Text="ADD BUDGET"/>
-
-            </Button>
-
-            <StackPanel Name="UtilityButtonsStackPanel" DockPanel.Dock="Right"
-                        Orientation="Horizontal"
-                        Margin="0,0,20,0">             
-                
-                <!--Nút hiển thị lịch-->
-                <Button Width="50" Height="50"
-                    Click="JumpToTodayButton_Click">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="White"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FFC8C4C4"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
-                    <StackPanel>
-                        <Image Source="Images/date.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                    </StackPanel>
-
-                </Button>
-
-                <!--Nút hiển thị lịch-->
-                <Button Width="50" Height="50"
-                    Click="ChangeTransactionViewButton_Click">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="White"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FFC8C4C4"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
-                    <StackPanel>
-                        <Image Name="ChangeTransactionViewImage"
-                           Source="Images/view_by_transaction.png" 
-                           Width="35"
-                           RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                    </StackPanel>
-
-                </Button>
-
-                <!--Nút tìm kiếm giao dịch-->
-                <!--<Button Width="50" Height="50">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="White"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FFC8C4C4"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-
-                    <StackPanel>
-                        <Image Source="Images/search.png" Width="30" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                    </StackPanel>
-
-                </Button>-->
-
-            </StackPanel>
-
-            <TextBlock></TextBlock>
-
-        </DockPanel>
 
         <!--Khung hiển thị nội dung của ứng dụng-->
         <Grid>
@@ -2530,6 +2500,71 @@
                                                        VerticalAlignment="Center" 
                                                        HorizontalAlignment="Left" 
                                                        Margin="10,0,0,0">Detail</TextBlock>
+
+                                            <DockPanel Margin="275,0,0,0">
+
+                                                <!--Nút xóa ngân sách-->
+                                                <Button DockPanel.Dock="Right" Width="80"
+                                                        BorderThickness="0" Height="33" 
+                                                        Foreground="#2DB84C" 
+                                                        Name="EditBudgetButton" 
+                                                        Click="EditBudgetButton_Click">
+                                                    <Button.Style>
+                                                        <Style TargetType="{x:Type Button}">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                                        <Border CornerRadius="8" BorderThickness="0">
+                                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                        </Border>
+
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Opacity" Value="0.7"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                    <TextBlock VerticalAlignment="Center" FontSize="15" 
+                                                               FontWeight="Medium" Margin="12,0"
+                                                               Text="EDIT"/>
+                                                </Button>
+
+                                                <!--Nút chỉnh sửa ngân sách-->
+                                                <Button DockPanel.Dock="Right" Width="80"
+                                                        Height="33"
+                                                        Name="DeleteBudgetButton"
+                                                        Click="DeleteBudgetButton_Click"
+                                                        Margin="10,0,0,0"
+                                                        Foreground="#F25A5A">
+                                                    <Button.Style>
+                                                        <Style TargetType="{x:Type Button}">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                                        <Border CornerRadius="8" BorderThickness="1">
+                                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                        </Border>
+
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Opacity" Value="0.7"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                    <TextBlock VerticalAlignment="Center" FontSize="15" 
+                                                               FontWeight="Medium" Margin="12,0"
+                                                               Text="DELETE" />
+                                                </Button>
+
+                                            </DockPanel>
 
                                         </StackPanel>
 

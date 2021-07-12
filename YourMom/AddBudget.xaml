@@ -191,7 +191,7 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
-                    <RowDefinition Height="7*" />
+                    <RowDefinition Height="6*" />
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="15" />
                 </Grid.RowDefinitions>
@@ -448,13 +448,12 @@
 
                 </Grid>
 
-                <TextBlock Grid.Row="0" Grid.Column="1" 
-                   TextWrapping="Wrap" FontSize="15" 
+                <TextBlock Grid.Column="1" 
+                   TextWrapping="Wrap" FontSize="20" 
                    FontFamily="Segoe UI Semibold" 
-                   VerticalAlignment="Center"
+                   VerticalAlignment="Bottom"
                    HorizontalAlignment="Left"
-                   Text="ADD BUDGET"
-                   Margin="0,20,0,0"/>
+                   Text="BUDGET"/>
 
                 <DockPanel Grid.Row="2" Grid.Column="5">
 

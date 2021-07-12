@@ -40,7 +40,7 @@ namespace YourMom
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Button clickedButton;
-        
+
         private List<Transaction> transactionList;
         List<TempTransaction> tempTransactionList;
         private List<Budget> budgetList;
@@ -78,7 +78,7 @@ namespace YourMom
                     PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
                 }
             }
-        }       
+        }
 
         ObservableCollection<CategoryList> categoryCollection = new ObservableCollection<CategoryList>();
         ObservableCollection<CategoryList> categoryDebtCollection = new ObservableCollection<CategoryList>();
@@ -649,7 +649,7 @@ namespace YourMom
         //Đọc dữ liệu từ file xml
         private void ReadData()
         {
-            
+
             // Đọc dữ liệu các giao dịch từ data
             XmlSerializer xs = new XmlSerializer(typeof(List<TempTransaction>));
             try
@@ -770,7 +770,7 @@ namespace YourMom
             //Binding dữ liệu màu cho Setting Color Table
             SettingColorItemsControl.ItemsSource = ListColor;
             //
-            ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];            
+            ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
 
             //Default buttons
             AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
@@ -1699,12 +1699,12 @@ namespace YourMom
 
         private void AddBudgetButton_Click(object sender, RoutedEventArgs e)
         {
-           AddBudget addScreen = new AddBudget(ColorScheme);
+            AddBudget addScreen = new AddBudget(ColorScheme);
             addScreen.ColorScheme = ColorScheme;
             // Reset lại dữ liệu khi tạo một giao dịch mới            
             AddBudget.Global.tempStartingDate = default(DateTime);
             AddBudget.Global.tempEndDate = default(DateTime);
-            AddBudget.Global.tempMoneyFund = "";           
+            AddBudget.Global.tempMoneyFund = "";
             AddBudget.Global.tempNote = "";
             //AddBudget.Global.tempTransactionType = "";
 
@@ -2223,7 +2223,7 @@ namespace YourMom
             }
             else
             {
-                                
+
                 if (index != -1)
                 {
 
@@ -2235,6 +2235,84 @@ namespace YourMom
             AddDataIntoTransactionScreen();
 
         }
+
+        //Xóa ngân sách
+        private void DeleteBudgetButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            var noti = MessageBox.Show("Are you really want to delete this budget?",
+                    "Notification",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+            if (noti == MessageBoxResult.Yes)
+            {
+
+                var budget = BudgetInfo.DataContext as Budget;
+                budgetList.Remove(budget);
+                AddDataIntoBudgetScreen();
+                CloseDetailBudget_Click(null, new RoutedEventArgs());
+
+            }
+            else
+            {
+
+                // Do nothing
+
+            }
+
+        }
+
+        private void EditBudgetButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            var budget = BudgetInfo.DataContext as Budget;
+            AddBudget addScreen = new AddBudget(ColorScheme);
+            addScreen.Category = new Category()
+            {
+
+                ID = budget.ID,
+                ImagePath = budget.ImagePath,
+                Name = budget.Name
+
+            };
+            // Reset lại dữ liệu khi tạo một giao dịch mới            
+            AddBudget.Global.tempStartingDate = budget.StartingDate;
+            AddBudget.Global.tempEndDate = budget.EndDate;
+            AddBudget.Global.tempMoneyFund = budget.MoneyFund.ToString();
+            AddBudget.Global.tempNote = budget.Note;
+            //AddBudget.Global.tempTransactionType = "";
+
+            addScreen.Handler += EditBudgetScreen_Handler;
+
+            addScreen.Show();
+        }
+
+        private void EditBudgetScreen_Handler(Budget budget)
+        {
+
+            var editedBudget = BudgetInfo.DataContext as Budget;
+            var index = budgetList.FindIndex(element => element.ID == editedBudget.ID);
+
+            if (index != -1)
+            {
+
+                budgetList[index] = budget;
+
+            }
+
+            AddDataIntoBudgetScreen();
+            var button = new Button()
+            {
+
+                DataContext = budget
+
+            };
+            CreateBudgetLineChart(button);
+
+        }
+
+
 
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
