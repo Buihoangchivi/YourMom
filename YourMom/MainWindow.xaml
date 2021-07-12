@@ -406,13 +406,7 @@
     <DockPanel LastChildFill="True" MouseLeftButtonDown="DockPanel_MouseLeftButtonDown">
 
         <!--Thanh tiêu đề-->
-        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="Red">
-
-            <!--Nút quay lại-->
-            <Button Name="BackButton" Width="46" BorderThickness="0" Padding="7" Background="Black" 
-                    Click="BackButton_Click" Visibility="Collapsed" DockPanel.Dock="Left">
-                <Image Source="Images/backButton.png" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-            </Button>
+        <DockPanel x:Name="TitleBar" DockPanel.Dock="Top" Height="35" Background="{DynamicResource ColorScheme}">
 
             <!--Tên App-->
             <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Left" Margin="10,0,0,0" 
@@ -740,10 +734,10 @@
             <!--Nút thêm giao dịch mới-->
             <Button BorderThickness="0" Height="33" Margin="0,0,20,0" Name="AddTransactionButton"
                     DockPanel.Dock="Right" Foreground="White"
-                    Click="AddTransactionButton_Click" Visibility="Visible">
+                    Click="AddTransactionButton_Click" Visibility="Visible"
+                    Background="{DynamicResource ColorScheme}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
@@ -1186,14 +1180,11 @@
                                                                 VerticalAlignment="Center" 
                                                                 BorderThickness ="0"
                                                                 Cursor="Hand" 
+                                                            Background="Transparent"
                                                                 Click="ReportButton_Click"
-                                                                Content="VIEW REPORT FOR THIS PERIOD">
+                                                                >
                                                         <Button.Style>
                                                             <Style TargetType="{x:Type Button}">
-                                                                <Setter Property="Background" Value="Transparent"/>
-                                                                <Setter Property="Foreground" Value="{Binding ColorScheme}"/>
-                                                                <Setter Property="FontSize" Value="15"/>
-                                                                <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
                                                                 <Setter Property="Template">
                                                                     <Setter.Value>
                                                                         <ControlTemplate TargetType="{x:Type Button}">
@@ -1205,15 +1196,17 @@
                                                                         </ControlTemplate>
                                                                     </Setter.Value>
                                                                 </Setter>
-                                                                <Style.Triggers>
-                                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                                        <Setter Property="Background" Value="{Binding ColorScheme}"/>
-                                                                        <Setter Property="Foreground" Value="White"/>
-                                                                        <Setter Property="FontSize" Value="16"/>
-                                                                    </Trigger>
-                                                                </Style.Triggers>
                                                             </Style>
                                                         </Button.Style>
+
+                                                        <TextBlock Name="ViewReportTextBlock"
+                                                                   TextWrapping="Wrap" 
+                                                                   FontSize="15"
+                                                                   FontFamily="Segoe UI Semibold" 
+                                                                   VerticalAlignment="Center" 
+                                                                   HorizontalAlignment="Left" 
+                                                                   Text="VIEW REPORT FOR THIS PERIOD"/>
+                                                        
 
                                                     </Button>
 
@@ -1981,7 +1974,7 @@
                                         <StackPanel DockPanel.Dock="Right" Margin="0,0,20,0"
                                                 VerticalAlignment="Top">
 
-                                            <Button Width="60" Height="50" DockPanel.Dock="Right"
+                                            <Button Width="60" Height="46" DockPanel.Dock="Right"
                                                 Name="ColumnChartIconButton"
                                                 Click="ColumnChartIconButton_Click">
                                                 <Button.Style>
@@ -2013,8 +2006,8 @@
 
                                             </Button>
 
-                                            <TextBlock Name="ColumnChartIconTextBlock" Visibility="Collapsed"
-                                                   Height="5" Background="{DynamicResource ColorScheme}"></TextBlock>
+                                            <TextBlock Name="ColumnChartIconTextBlock"
+                                                   Height="5" Background="White"></TextBlock>
 
                                         </StackPanel>
 
@@ -2022,7 +2015,7 @@
                                         <StackPanel DockPanel.Dock="Right"
                                                 VerticalAlignment="Top">
 
-                                            <Button Name="PieChartIconButton" Width="60" Height="50"
+                                            <Button Name="PieChartIconButton" Width="60" Height="46"
                                                 Click="PieChartIconButton_Click">
 
                                                 <Button.Style>
@@ -2053,7 +2046,7 @@
 
                                             </Button>
 
-                                            <TextBlock Name="PieChartIconTextBlock" Visibility="Collapsed"
+                                            <TextBlock Name="PieChartIconTextBlock"
                                                    Height="4" Background="{DynamicResource ColorScheme}"></TextBlock>
 
                                         </StackPanel>
@@ -2243,7 +2236,7 @@
                                 <StackPanel>
 
                                     <!--Nút ngân sách hiện tại-->
-                                    <Button Name="RunningButton" Margin="5" Width="120" Height="60" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="RunningButton_Click">
+                                    <Button Name="RunningButton" Margin="5" Height="60" VerticalAlignment="Center"  BorderThickness ="0" Background="Transparent"  Cursor="Hand" Click="RunningButton_Click">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
 
@@ -2268,7 +2261,7 @@
                                         <TextBlock Name="RunningTextblock" 
                                                    TextWrapping="Wrap"
                                                    FontSize="20"
-                                                   Foreground="{Binding ColorScheme}" 
+                                                   Foreground="{DynamicResource ColorScheme}" 
                                                    FontFamily="Segoe UI Semibold" 
                                                    VerticalAlignment="Center" 
                                                    HorizontalAlignment="Left" 
@@ -2286,7 +2279,7 @@
 
                                     <!--Nút ngân sách đã kết thúc-->
                                     <Button Name="FinishedButton" 
-                                            Margin="5" Width="120" 
+                                            Margin="5"
                                             Height="60" 
                                             VerticalAlignment="Center" 
                                             BorderThickness ="0" 
@@ -2781,14 +2774,6 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <!--<CheckBox Name="ShowSplashScreenCheckBox"
-                              HorizontalAlignment="Left"
-                              Foreground="Black"
-                              FontSize="14"
-                              Checked="ShowSplashScreenCheckBox_Checked" Unchecked="ShowSplashScreenCheckBox_Unchecked"
-                              VerticalContentAlignment="Center">
-                    Show Splash Screen
-                </CheckBox>-->
             </StackPanel>
 
             <!--Nút thông tin nhóm lập trình-->

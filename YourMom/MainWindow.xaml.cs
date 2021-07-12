@@ -751,6 +751,9 @@ namespace YourMom
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+            this.DataContext = this;
+            ViewReportTextBlock.Foreground = TitleBar.Background;
+
             ListColor = new BindingList<ColorSetting>
             {
                 new ColorSetting { Color = "#4D0400"}, new ColorSetting { Color = "#7A0600"}, new ColorSetting { Color = "#A80900"}, new ColorSetting { Color = "#D60B00"}, new ColorSetting { Color = "#FF1205"}, new ColorSetting { Color = "#FF3D33"},new ColorSetting { Color = "#FF6961"},
@@ -765,10 +768,7 @@ namespace YourMom
             //Binding dữ liệu màu cho Setting Color Table
             SettingColorItemsControl.ItemsSource = ListColor;
             //
-            ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
-            
-
-            this.DataContext = this;
+            ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];            
 
             //Default buttons
             AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
@@ -1319,13 +1319,8 @@ namespace YourMom
         private void PieChartIconButton_Click(object sender, RoutedEventArgs e)
         {
 
-            //Hiển thị biểu đồ hình bánh
-            PieChartIconButton.Height = 46;
-            PieChartIconTextBlock.Visibility = Visibility.Visible;
-
-            //Ẩn biểu đồ hình cột
-            ColumnChartIconButton.Height = 50;
-            ColumnChartIconTextBlock.Visibility = Visibility.Collapsed;
+            PieChartIconTextBlock.Background = TitleBar.Background;
+            ColumnChartIconTextBlock.Background = Brushes.White;
 
             //Hiển thị biểu đồ hình tròn
             DynamicPieChart.Visibility = Visibility.Visible;
@@ -1340,13 +1335,8 @@ namespace YourMom
         private void ColumnChartIconButton_Click(object sender, RoutedEventArgs e)
         {
 
-            //Hiển thị biểu đồ hình cột
-            ColumnChartIconButton.Height = 46;
-            ColumnChartIconTextBlock.Visibility = Visibility.Visible;
-
-            //Ẩn biểu đồ hình cột
-            PieChartIconButton.Height = 50;
-            PieChartIconTextBlock.Visibility = Visibility.Collapsed;
+            ColumnChartIconTextBlock.Background = TitleBar.Background;
+            PieChartIconTextBlock.Background = Brushes.White;
 
             //Hiển thị biểu đồ hình cột
             DynamicColumnChart.Visibility = Visibility.Visible;
@@ -2149,7 +2139,15 @@ namespace YourMom
             var color = (datatContex as ColorSetting).Color;
             ColorScheme = color;
             TitleBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-
+            ViewReportTextBlock.Foreground = TitleBar.Background;
+            RunningTextblock.Foreground = TitleBar.Background;
+            RunningUnderlineTextBlock.Background = TitleBar.Background;
+            FinishedUnderlineTextBlock.Background = TitleBar.Background;
+            FinishedTextblock.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("#757575");
+            PieChartIconTextBlock.Background = TitleBar.Background;
+            ColumnChartIconTextBlock.Background = TitleBar.Background;
+            PieChartIconTextBlock.Background = TitleBar.Background;
+            ColumnChartIconTextBlock.Background = Brushes.White;
 
             // Chỉnh lại giao diện nút setting đang được chọn
             SettingButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
@@ -2160,14 +2158,13 @@ namespace YourMom
             image.Source = new BitmapImage(new Uri($"Images/white_setting.png",
                        UriKind.Relative));
 
-
             // Cập nhật màu cho các nút chung
-            AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            AddBudgetButton.Background = TitleBar.Background;
+            AddTransactionButton.Background = TitleBar.Background;
             //AddBudget add = new AddBudget(ColorScheme);
             //AddTransaction add1 = new AddTransaction();
             //add1.ColorScheme = ColorScheme;
-            
+
 
 
         }
