@@ -270,6 +270,7 @@ namespace YourMom
 
             if (Category != null)
             {
+                isTransaction = Category.ID[0] <= '1' ? true : false;
                 string source = Category.ImagePath;
                 CategoryImage.Source = new BitmapImage(new Uri($"{source}",
                        UriKind.Relative));

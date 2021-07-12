@@ -1710,6 +1710,7 @@ namespace YourMom
 
             transactionList.Add(transaction);
             AddDataIntoTransactionScreen();
+            AddDataIntoBudgetScreen();
 
         }
 
@@ -1801,6 +1802,7 @@ namespace YourMom
                 title = budgetInfo.Name
 
             };
+            win.ColorScheme = ColorScheme;
 
             win.Show();
         }

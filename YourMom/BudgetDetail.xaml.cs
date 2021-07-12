@@ -3,6 +3,7 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,29 @@ namespace YourMom
         public string transactionType = "";
 
         public bool isDebtTransaction;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private string _colorScheme = "";           //Màu nền hiện tại
+        public string ColorScheme
+        {
+            get
+            {
+                return _colorScheme;
+            }
+            set
+            {
+                if (_colorScheme == "")
+                {
+
+                    _colorScheme = value;
+
+                }
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
+                }
+            }
+        }
 
         public BudgetDetail()
         {
@@ -282,6 +306,8 @@ namespace YourMom
             var transaction = listView.SelectedItem as DetailTransaction;
 
             window.detailTransaction = transaction;
+            window.tempDetailTransaction.Add(transaction);
+            window.ColorScheme = ColorScheme;
             window.Show();
 
         }
