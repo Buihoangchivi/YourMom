@@ -27,7 +27,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Media.Animation;
 
 using Microsoft.Win32;
-
+using System.Globalization;
 
 namespace YourMom
 {
@@ -36,13 +36,15 @@ namespace YourMom
     /// </summary>
     /// 
 
-
-
     public partial class MainWindow : Window
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Button clickedButton;
+
         private List<Transaction> transactionList;
+        List<TempTransaction> tempTransactionList;
+        private List<Budget> budgetList;
+
         private Dictionary<string, Category> categoryList = new Dictionary<string, Category>();
         private Budget budgetInfo;
         private DateTime startingDate, endDate;
@@ -85,56 +87,10 @@ namespace YourMom
 
         Stack<DetailInfomation> detailStack = new Stack<DetailInfomation>();
 
-        List<Budget> budgetList = new List<Budget>
-        {
-            new Budget
-            {
-                ID = "1",
-                ImagePath = "Images/category_foodndrink.png",
-                Name = "Eating",
-                MoneyFund = 9000000,
-
-                StartingDate = new DateTime(2021,6,1).ToShortDateString(),
-                EndDate = new DateTime(2021,6,30).ToShortDateString()
-            },
-
-            new Budget
-            {
-                ID = "2",
-                ImagePath = "Images/category_foodndrink.png",
-                Name = "Mua sắm",
-                MoneyFund = 5000000,
-
-                StartingDate = new DateTime(2021,6,1).ToShortDateString(),
-                EndDate = new DateTime(2021,6,30).ToShortDateString()
-            },
-
-            new Budget
-            {
-                ID = "3",
-                ImagePath = "Images/category_foodndrink.png",
-                Name = "Đi chơi",
-                MoneyFund = 5000000,
-
-                StartingDate = new DateTime(2021,6,1).ToShortDateString(),
-                EndDate = new DateTime(2021,6,27).ToShortDateString()
-            },
-            new Budget
-            {
-                ID = "4",
-                ImagePath = "Images/category_foodndrink.png",
-                Name = "Eating",
-                MoneyFund = 5000000,
-                
-                StartingDate = new DateTime(2021,7,1).ToShortDateString(),
-                EndDate =new DateTime(2021,7,31).ToShortDateString()
-            }
-        };
-
         // Danh sách ngân sách đang sử dụng
-        List<Budget> runningBudgetList = new List<Budget> { };
+        ObservableCollection<Budget> runningBudgetList = new ObservableCollection<Budget> { };
         // Danh sách ngân sách đã quá hạn
-        List<Budget> finishedBudgetList = new List<Budget> { };
+        ObservableCollection<Budget> finishedBudgetList = new ObservableCollection<Budget> { };
 
         public MainWindow()
         {
@@ -147,98 +103,19 @@ namespace YourMom
             //Thời gian mặc định là tháng hiện tại
             startingDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             endDate = startingDate.AddMonths(1).AddDays(-1);
+
+            //Nạp dữ liệu vào màn hình danh sách giao dịch
             AddDataIntoTransactionScreen();
+
+            //Nạp dữ liệu vào màn hình ngân sách
+            AddDataIntoBudgetScreen();
 
             //Khởi tạo dữ liệu cho màn hình báo cáo
             InitializeReportData();
 
-            double temp;
-
-
-            // Hàm xử lý ngân sách
-            for (int i = 0; i < budgetList.Count; i++)
-            {
-
-                // Lấy số tiền đã chi tiêu cho ngân sách thông qua cách giao dịch(nên để vào lúc khởi tạo một ngân sách mới!!!)
-                var end = DateTime.Parse(budgetList[i].EndDate);
-                var start = DateTime.Parse(budgetList[i].StartingDate);
-                double moneyTotal = 0;
-                for (int j = 0; j < categoryCollection.Count; j++)
-                {
-                    if (budgetList[i].Name == categoryCollection[j].Name)
-                    {
-                        for (int k = 0; k < categoryCollection[j].Transactions.Count; k++)
-                        {
-                            if (categoryCollection[j].Transactions[k].Date < end && categoryCollection[j].Transactions[k].Date > start)
-                            {
-                                moneyTotal += categoryCollection[j].Transactions[k].Amount;
-                            }
-                        }
-                    }
-                    
-                }
-                budgetList[i].SpentMoney = moneyTotal;
-
-                // lấy số ngày còn lại trong ngân sách			
-
-                DateTime currentdate = DateTime.Now;
-
-                //Lấy thông tin ngày tháng kết thúc
-                var endDate = DateTime.Parse(budgetList[i].EndDate);
-                // Số ngày còn lại của ngân sách
-                TimeSpan time = endDate - currentdate;
-                int dayLeft = time.Days < 0 ? 0 : time.Days;
-
-                budgetList[i].DaysLeft = dayLeft > 0 ? $"{time.Days} days left" : "Finished";              
-
-
-                // số tiền dư còn lại cho ngân sách
-                budgetList[i].Balance = budgetList[i].MoneyFund - budgetList[i].SpentMoney;
-
-
-
-                // lấy tiến độ hiện tại, làm tròn 2 số sau dấu phẩy
-                temp = Math.Round((double)(budgetList[i].MoneyFund - budgetList[i].Balance) / budgetList[i].MoneyFund * 100, 2);
-                budgetList[i].Progress = temp;
-
-
-                // định dạng lại ngày
-                //convert = DateTime.Parse(budgetList[i].StartingDate);
-                //budgetList[i].StartingDate = convert.ToString("dd-MM-yyyy");
-                //convert = DateTime.Parse(budgetList[i].EndDate);
-                //budgetList[i].EndDate = convert.ToString("dd-MM-yyyy");
-
-                // số tiền nên chi hàng ngày
-                budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ? Math.Round(budgetList[i].Balance / dayLeft, 2) : 0;
-
-                // số tiền thực tế chi hàng ngày
-                //DateTime startingdate = Convert.ToDateTime(budgetList[i].StartingDate);
-
-                //Lấy thông tin ngày tháng kết thúc
-                var startingDate = DateTime.Parse(budgetList[i].StartingDate);
-
-                budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney / ((currentdate - startingDate).Days + 1), 2);
-
-                // số tiền dự kiến chi tiêu
-                budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney + budgetList[i].RealitySpending_DayMoney * dayLeft;
-
-                if (time.Days < 0)
-                {
-                    finishedBudgetList.Add(budgetList[i]);
-
-                }
-                else
-                {
-                    runningBudgetList.Add(budgetList[i]);
-
-                }
-
-
-            }
-            BudgetList.ItemsSource = runningBudgetList;
-
         }
 
+        //Khởi tạo dữ liệu báo cáo
         private void InitializeReportData()
         {
 
@@ -334,6 +211,89 @@ namespace YourMom
 
         }
 
+        //Nạp dữ liệu vào màn hình ngân sách
+        private void AddDataIntoBudgetScreen()
+        {
+
+            runningBudgetList.Clear();
+            finishedBudgetList.Clear();
+
+            // Hàm xử lý ngân sách
+            for (int i = 0; i < budgetList.Count; i++)
+            {
+
+                // Lấy số tiền đã chi tiêu cho ngân sách thông qua cách giao dịch
+                double moneyTotal = 0;
+
+                //Duyện qua danh sách tất cả các giao dịch
+                for (int j = 0; j < transactionList.Count; j++)
+                {
+
+                    var index = transactionList[j].TransactionType.IndexOf(budgetList[i].ID);
+
+                    //Kiểm tra có cùng loại giao dịch hay không
+                    if (//Thời gian giao dịch phải nằm trong khoảng thời gian của ngân sách
+                        transactionList[j].Date <= budgetList[i].EndDate &&
+                        transactionList[j].Date >= budgetList[i].StartingDate && index == 0)
+                    {
+
+                        moneyTotal += transactionList[j].Amount; //Tính tổng tiền
+
+                    }
+
+                }
+
+                //Gán tổng tiền vào ngân sách
+                budgetList[i].SpentMoney = moneyTotal;
+
+                // lấy số ngày còn lại trong ngân sách			
+                DateTime currentdate = DateTime.Now;
+
+                // Số ngày còn lại của ngân sách
+                TimeSpan time = budgetList[i].EndDate - currentdate;
+                int dayLeft = time.Days < 0 ? 0 : time.Days;
+
+                budgetList[i].DaysLeft = dayLeft > 0 ? $"{time.Days} days left" : "Finished";
+
+                // số tiền dư còn lại cho ngân sách
+                budgetList[i].Balance = budgetList[i].MoneyFund - budgetList[i].SpentMoney;
+
+                // lấy tiến độ hiện tại, làm tròn 2 số sau dấu phẩy
+                var temp = Math.Round(budgetList[i].SpentMoney / budgetList[i].MoneyFund * 100, 2);
+                budgetList[i].Progress = temp;
+
+                // số tiền nên chi hàng ngày
+                budgetList[i].ShouldSpending_DayMoney = time.Days >= 0 ?
+                    Math.Round(budgetList[i].Balance / dayLeft, 2) : 0;
+
+                //Số tiền chi tiêu thực tế trong ngày
+                budgetList[i].RealitySpending_DayMoney = Math.Round(budgetList[i].SpentMoney /
+                    ((currentdate - budgetList[i].StartingDate).Days + 1), 2);
+
+                // số tiền dự kiến chi tiêu
+                budgetList[i].ExpectedSpendingMoney = budgetList[i].SpentMoney +
+                    budgetList[i].RealitySpending_DayMoney * dayLeft;
+
+                //Ngân sách đã kết thúc
+                if (time.Days < 0)
+                {
+
+                    finishedBudgetList.Add(budgetList[i]);
+
+                }
+                else //Ngân sách đang thực hiện
+                {
+
+                    runningBudgetList.Add(budgetList[i]);
+
+                }
+
+            }
+
+            BudgetList.ItemsSource = runningBudgetList;
+
+        }
+
         //Hàm khởi tạo dữ liệu theo kiểu nhóm vào danh sách giao dịch hoặc danh sách vay nợ
         private void InitDataIntoObservableCollection(ObservableCollection<CategoryList> categories, DateTime startingDate, DateTime endDate)
         {
@@ -346,8 +306,7 @@ namespace YourMom
             {
 
                 //Kiểm tra xem thời gian của giao dịch có nằm trong khoảng thời thời đầu vào hay không
-                if (startingDate <= transaction.Date &&
-                    (transaction.Date <= endDate || endDate == DateTime.MaxValue))
+                if (startingDate <= transaction.Date && transaction.Date <= endDate)
                 {
 
                     //ID của loại giao dịch
@@ -475,8 +434,7 @@ namespace YourMom
             {
 
                 //Kiểm tra xem thời gian của giao dịch có nằm trong khoảng thời thời đầu vào hay không
-                if (startingDate <= transaction.Date &&
-                    (transaction.Date <= endDate || endDate == DateTime.MaxValue))
+                if (startingDate <= transaction.Date && transaction.Date <= endDate)
                 {
 
                     //ID của loại giao dịch
@@ -691,7 +649,7 @@ namespace YourMom
         //Đọc dữ liệu từ file xml
         private void ReadData()
         {
-            List<TempTransaction> tempTransactionList;
+
             // Đọc dữ liệu các giao dịch từ data
             XmlSerializer xs = new XmlSerializer(typeof(List<TempTransaction>));
             try
@@ -724,6 +682,49 @@ namespace YourMom
 
             }
 
+            List<TempBudget> tempBudgetList;
+            // Đọc dữ liệu các ngân sách từ data
+            xs = new XmlSerializer(typeof(List<TempBudget>));
+            try
+            {
+                using (var reader = new StreamReader(@"Data\Budget.xml"))
+                {
+                    tempBudgetList = (List<TempBudget>)xs.Deserialize(reader);
+                }
+            }
+            catch
+            {
+                tempBudgetList = new List<TempBudget>();
+            }
+
+            //Sao chép dữ liệu sang danh sách ngân sách sử dụng kiểu Datetime
+            budgetList = new List<Budget>();
+
+            foreach (var budget in tempBudgetList)
+            {
+
+                budgetList.Add(new Budget
+                {
+
+                    Balance = budget.Balance,
+                    DaysLeft = budget.DaysLeft,
+                    EndDate = DateTime.Parse(budget.EndDate),
+                    ExpectedSpendingMoney = budget.ExpectedSpendingMoney,
+                    ID = budget.ID,
+                    ImagePath = budget.ImagePath,
+                    MoneyFund = budget.MoneyFund,
+                    Name = budget.Name,
+                    Note = budget.Note,
+                    Progress = budget.Progress,
+                    RealitySpending_DayMoney = budget.RealitySpending_DayMoney,
+                    ShouldSpending_DayMoney = budget.ShouldSpending_DayMoney,
+                    SpentMoney = budget.SpentMoney,
+                    StartingDate = DateTime.Parse(budget.StartingDate),
+
+                });
+
+            }
+
             // Đọc dữ liệu các loại giao dịch từ data
             List<Category> categories;
             xs = new XmlSerializer(typeof(List<Category>));
@@ -751,6 +752,10 @@ namespace YourMom
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
+            this.DataContext = this;
+            ViewReportTextBlock.Foreground = TitleBar.Background;
+            ViewTransactionTextBlock.Foreground = TitleBar.Background;
+
             ListColor = new BindingList<ColorSetting>
             {
                 new ColorSetting { Color = "#4D0400"}, new ColorSetting { Color = "#7A0600"}, new ColorSetting { Color = "#A80900"}, new ColorSetting { Color = "#D60B00"}, new ColorSetting { Color = "#FF1205"}, new ColorSetting { Color = "#FF3D33"},new ColorSetting { Color = "#FF6961"},
@@ -768,7 +773,6 @@ namespace YourMom
             ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
 
             //Default buttons
-
             AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
             clickedButton = TransactionsButton;
@@ -863,14 +867,75 @@ namespace YourMom
         //Cài đặt nút đóng cửa sổ
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            /*SaveListFood();
-			SaveListDish();
-			var config = ConfigurationManager.OpenExeConfiguration(
-				ConfigurationUserLevel.None);
-			config.AppSettings.Settings["ColorScheme"].Value = ColorScheme;
-			config.Save(ConfigurationSaveMode.Minimal);*/
-           
+            SaveData();
+
+            var config = ConfigurationManager.OpenExeConfiguration(
+                ConfigurationUserLevel.None);
+            config.AppSettings.Settings["ColorScheme"].Value = ColorScheme;
+            config.Save(ConfigurationSaveMode.Minimal);
+
             Application.Current.Shutdown();
+
+        }
+
+        private void SaveData()
+        {
+
+            //Sao chép dữ liệu sang danh sách ngân sách sử dụng kiểu chuỗi ngày tháng
+            var tempBudgetList = new List<TempBudget>();
+
+            foreach (var budget in budgetList)
+            {
+
+                tempBudgetList.Add(new TempBudget
+                {
+
+                    Balance = budget.Balance,
+                    DaysLeft = budget.DaysLeft,
+                    EndDate = budget.EndDate.ToString(),
+                    ExpectedSpendingMoney = budget.ExpectedSpendingMoney,
+                    ID = budget.ID,
+                    ImagePath = budget.ImagePath,
+                    MoneyFund = budget.MoneyFund,
+                    Name = budget.Name,
+                    Note = budget.Note,
+                    Progress = budget.Progress,
+                    RealitySpending_DayMoney = budget.RealitySpending_DayMoney,
+                    ShouldSpending_DayMoney = budget.ShouldSpending_DayMoney,
+                    SpentMoney = budget.SpentMoney,
+                    StartingDate = budget.StartingDate.ToString()
+
+                });
+
+            }
+
+            XmlSerializer xs = new XmlSerializer(typeof(List<TempBudget>));
+            TextWriter writer = new StreamWriter(@"Data\Budget.xml");
+            xs.Serialize(writer, tempBudgetList);
+
+            //Sao chép dữ liệu sang danh sách giao dịch sử dụng kiểu Datetime
+            var tempTransactionList = new List<TempTransaction>();
+
+            foreach (var transaction in transactionList)
+            {
+
+                tempTransactionList.Add(new TempTransaction
+                {
+                    Amount = transaction.Amount,
+                    Date = transaction.Date.ToString(),
+                    ID = transaction.ID,
+                    Note = transaction.Note,
+                    Stakeholder = transaction.Stakeholder,
+                    TransactionType = transaction.TransactionType
+                });
+
+            }
+
+            xs = new XmlSerializer(typeof(List<TempTransaction>));
+            writer = new StreamWriter(@"Data\Transaction.xml");
+            xs.Serialize(writer, tempTransactionList);
+
+            writer.Close();
 
         }
 
@@ -879,17 +944,6 @@ namespace YourMom
         {
 
             this.WindowState = WindowState.Minimized;
-
-        }
-
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
-        {
 
         }
 
@@ -944,9 +998,13 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
 
             //Mở màn hình giao dịch
             TransactionScreenGrid.Visibility = Visibility.Visible;
+            AddTransactionButton.Visibility = Visibility.Visible;
+            UtilityButtonsStackPanel.Visibility = Visibility.Visible;
+            AddTextBlock.Text = "ADD TRANSACTION";
 
             //Đọc dữ liệu tất cả các giao dịch thông thường vào danh sách giao dịch
             categoryCollection = new ObservableCollection<CategoryList>();
@@ -969,8 +1027,13 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            UtilityButtonsStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
+            AddTransactionButton.Visibility = Visibility.Collapsed;
+
             //Đóng khung báo cáo chi tiết
             DetailReportGrid.Visibility = Visibility.Collapsed;
+
             //Phóng to chiều rộng của khung báo cáo chung
             GeneralReportGrid.Width = 600;
 
@@ -1015,9 +1078,19 @@ namespace YourMom
             ReportScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            AddTransactionButton.Visibility = Visibility.Collapsed;
+            UtilityButtonsStackPanel.Visibility = Visibility.Collapsed;
+
+            //Đóng khung báo cáo chi tiết
+            DetailBudgetGrid.Visibility = Visibility.Collapsed;
+
+            //Phóng to kích thước của khung ngân sách chung
+            Budget.Width = 600;
+            BudgetListBorder.Width = 600;
 
             //Mở màn hình ngân sách
             BudgetScreenGrid.Visibility = Visibility.Visible;
+            AddBudgetButton.Visibility = Visibility.Visible;
 
             ChangeButtonColor(BudgetButton);
 
@@ -1031,9 +1104,13 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
 
             //Mở màn hình giao dịch
             TransactionScreenGrid.Visibility = Visibility.Visible;
+            AddTransactionButton.Visibility = Visibility.Visible;
+            UtilityButtonsStackPanel.Visibility = Visibility.Visible;
+            AddTextBlock.Text = "ADD DEBTS";
 
             //Đọc dữ liệu tất cả các giao dịch vay nợ vào danh sách giao dịch
             categoryDebtCollection = new ObservableCollection<CategoryList>();
@@ -1055,6 +1132,9 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             TransactionScreenGrid.Visibility = Visibility.Collapsed;
             AboutScreenStackPanel.Visibility = Visibility.Collapsed;
+            UtilityButtonsStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
+            AddTransactionButton.Visibility = Visibility.Collapsed;
 
             //Mở màn hình cài đặt
             SettingScreenStackPanel.Visibility = Visibility.Visible;
@@ -1071,6 +1151,9 @@ namespace YourMom
             BudgetScreenGrid.Visibility = Visibility.Collapsed;
             TransactionScreenGrid.Visibility = Visibility.Collapsed;
             SettingScreenStackPanel.Visibility = Visibility.Collapsed;
+            UtilityButtonsStackPanel.Visibility = Visibility.Collapsed;
+            AddBudgetButton.Visibility = Visibility.Collapsed;
+            AddTransactionButton.Visibility = Visibility.Collapsed;
 
             //Mở màn hình cài đặt
             AboutScreenStackPanel.Visibility = Visibility.Visible;
@@ -1290,13 +1373,8 @@ namespace YourMom
         private void PieChartIconButton_Click(object sender, RoutedEventArgs e)
         {
 
-            //Hiển thị biểu đồ hình bánh
-            PieChartIconButton.Height = 46;
-            PieChartIconTextBlock.Visibility = Visibility.Visible;
-
-            //Ẩn biểu đồ hình cột
-            ColumnChartIconButton.Height = 50;
-            ColumnChartIconTextBlock.Visibility = Visibility.Collapsed;
+            PieChartIconTextBlock.Background = TitleBar.Background;
+            ColumnChartIconTextBlock.Background = Brushes.White;
 
             //Hiển thị biểu đồ hình tròn
             DynamicPieChart.Visibility = Visibility.Visible;
@@ -1311,13 +1389,8 @@ namespace YourMom
         private void ColumnChartIconButton_Click(object sender, RoutedEventArgs e)
         {
 
-            //Hiển thị biểu đồ hình cột
-            ColumnChartIconButton.Height = 46;
-            ColumnChartIconTextBlock.Visibility = Visibility.Visible;
-
-            //Ẩn biểu đồ hình cột
-            PieChartIconButton.Height = 50;
-            PieChartIconTextBlock.Visibility = Visibility.Collapsed;
+            ColumnChartIconTextBlock.Background = TitleBar.Background;
+            PieChartIconTextBlock.Background = Brushes.White;
 
             //Hiển thị biểu đồ hình cột
             DynamicColumnChart.Visibility = Visibility.Visible;
@@ -1418,11 +1491,45 @@ namespace YourMom
 
             var arr = GetTransactionType(detailCategory.ID);
 
-            //Trường hợp khung chi tiết loại nhóm cha
-            if (arr.Length < 3)
+            //Trường hợp hiển thị danh sách giao dịch của một loại trong một tháng cụ thể
+            if (arr.Length == 1)
+            {
+
+                var detail = detailStack.Peek();
+
+                foreach (var category in categoryList)
+                {
+
+                    if (category.Value.Name == detail.Title)
+                    {
+
+                        var id = category.Value.ID[0] - '0';
+                        var isDebt = id > 1;
+                        BudgetDetail win = new BudgetDetail()
+                        {
+
+                            isDebtTransaction = isDebt,
+                            categoryList = categoryList,
+                            transactionList = transactionList,
+                            startingDate = startingDate,
+                            endDate = endDate,
+                            transactionType = category.Value.ID,
+                            title = detailCategory.Name
+
+                        };
+
+                        win.Show();
+
+                    }
+
+                }
+
+            }
+            else if (arr.Length == 2) //Trường hợp khung chi tiết loại nhóm cha
             {
 
                 var valuePairs = new Dictionary<string, double>();
+                var check = false;
 
                 //Đọc qua tất cả các giao dịch để tìm các chi tiết loại nhóm con
                 foreach (Transaction transaction in transactionList)
@@ -1434,28 +1541,18 @@ namespace YourMom
                         var type = transaction.TransactionType;
                         var index = type.IndexOf(detailCategory.ID);
 
-                        if (index == 0) //Nhóm con thì thêm dữ liệu vào từ điển
+                        //Nhóm con thì thêm dữ liệu vào từ điển
+                        if ((detailStack.Count == 1 && index == 0) ||
+                            (detailStack.Count > 1 && index == 0 && type != detailCategory.ID))
                         {
 
                             AddDataIntoDictionary(valuePairs, type, transaction.Amount, false);
+                            if (detailCategory.ID != type)
+                            {
 
-                        }
+                                check = true;
 
-                    }
-
-                }
-
-                var check = true;
-                if (valuePairs.Count == 1)
-                {
-
-                    foreach (var pair in valuePairs)
-                    {
-
-                        if (pair.Key == detailCategory.ID)
-                        {
-
-                            check = false;
+                            }
 
                         }
 
@@ -1464,7 +1561,7 @@ namespace YourMom
                 }
 
                 //Nếu có từ 2 nhóm con trở lên thì hiển thị khung chi tiết loại nhóm con
-                if (arr.Length == 2 && (valuePairs.Count > 1 || (valuePairs.Count == 1 && check)))
+                if (check == true)
                 {
 
                     List<DetailCategory> detailList = new List<DetailCategory>();
@@ -1538,8 +1635,10 @@ namespace YourMom
                 if (startingDate.Date <= transaction.Date && transaction.Date <= endDate)
                 {
 
+                    var index = transaction.TransactionType.IndexOf(detailCategory.ID);
+
                     //Giao dịch phải thỏa điều kiện cùng ID với ID của tham số đầu vào
-                    if (transaction.TransactionType == detailCategory.ID)
+                    if (index == 0)
                     {
 
                         //Cộng dồn số tiền giao dịch trong tháng
@@ -1578,19 +1677,70 @@ namespace YourMom
 
         private void AddTransactionButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTransaction add = new AddTransaction(ColorScheme);
-            add.Show();
+            AddTransaction addScreen = new AddTransaction(ColorScheme);
+
+            if (clickedButton == TransactionsButton)
+            {
+
+                addScreen.isTransaction = true;
+
+            }
+            else
+            {
+
+                addScreen.isTransaction = false;
+
+            }
+
+            addScreen.ColorScheme = ColorScheme;
+            // Reset lại dữ liệu khi tạo một giao dịch mới
+            AddTransaction.Global.tempDate = default(DateTime);
+            AddTransaction.Global.tempAmount = "";
+            AddTransaction.Global.tempStakeholder = "";
+            AddTransaction.Global.tempNote = "";
+            AddTransaction.Global.tempTransactionType = "";
+
+            addScreen.Handler += Screen_Handler;
+
+            addScreen.Show();
+        }
+
+        private void Screen_Handler(Transaction transaction, Category category)
+        {
+
+            transactionList.Add(transaction);
+            AddDataIntoTransactionScreen();
+            AddDataIntoBudgetScreen();
+
         }
 
         private void AddBudgetButton_Click(object sender, RoutedEventArgs e)
         {
-           AddBudget add = new AddBudget(ColorScheme);
-           add.Show();
+            AddBudget addScreen = new AddBudget(ColorScheme);
+            addScreen.ColorScheme = ColorScheme;
+            // Reset lại dữ liệu khi tạo một giao dịch mới            
+            AddBudget.Global.tempStartingDate = default(DateTime);
+            AddBudget.Global.tempEndDate = default(DateTime);
+            AddBudget.Global.tempMoneyFund = "";
+            AddBudget.Global.tempNote = "";
+            //AddBudget.Global.tempTransactionType = "";
+
+            addScreen.Handler += BudgetScreen_Handler;
+
+            addScreen.Show();
+        }
+
+        private void BudgetScreen_Handler(Budget budget)
+        {
+
+            budgetList.Add(budget);
+            AddDataIntoBudgetScreen();
+
         }
 
         private void CloseDetailBudget_Click(object sender, RoutedEventArgs e)
         {
-            BudgetReportGrid.Visibility = Visibility.Collapsed;
+            DetailBudgetGrid.Visibility = Visibility.Collapsed;
             Budget.Width = 600;
             BudgetListBorder.Width = 600;
         }
@@ -1598,14 +1748,14 @@ namespace YourMom
         private void RunningButton_Click(object sender, RoutedEventArgs e)
         {
             // Chỉnh lại định dạng nút cho nổi bật
-            RunningTextblock.Foreground = Brushes.Green;
+            RunningTextblock.Foreground = ChangeHexToBrushColor(ColorScheme);
             RunningTextblock.FontSize = 20;
             RunningButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            RunningButton.BorderBrush = Brushes.Green;
+            RunningButton.BorderBrush = ChangeHexToBrushColor(ColorScheme);
             RunningUnderlineTextBlock.Visibility = Visibility.Visible;
 
             // Chỉnh lại định dạng nút còn lại thành bình thường
-            FinishedTextblock.Foreground = Brushes.Black;
+            FinishedTextblock.Foreground = ChangeHexToBrushColor("#757575");
             FinishedButton.BorderThickness = new Thickness(0, 0, 0, 0);
             FinishedTextblock.FontSize = 15;
             FinishedUnderlineTextBlock.Visibility = Visibility.Collapsed;
@@ -1618,14 +1768,14 @@ namespace YourMom
         private void FinishedButton_Click(object sender, RoutedEventArgs e)
         {
             // Chỉnh lại định dạng nút cho nổi bật
-            FinishedTextblock.Foreground = Brushes.Green;
+            FinishedTextblock.Foreground = ChangeHexToBrushColor(ColorScheme);
             FinishedTextblock.FontSize = 20;
             FinishedButton.BorderThickness = new Thickness(0, 0, 0, 1);
-            FinishedButton.BorderBrush = Brushes.Green;
+            FinishedButton.BorderBrush = ChangeHexToBrushColor(ColorScheme);
             FinishedUnderlineTextBlock.Visibility = Visibility.Visible;
 
             // Chỉnh lại định dạng nút còn lại thành bình thường
-            RunningTextblock.Foreground = Brushes.Black;
+            RunningTextblock.Foreground = ChangeHexToBrushColor("#757575");
             RunningButton.BorderThickness = new Thickness(0, 0, 0, 0);
             RunningTextblock.FontSize = 15;
             RunningUnderlineTextBlock.Visibility = Visibility.Collapsed;
@@ -1637,88 +1787,41 @@ namespace YourMom
 
         private void ViewTransactionListButton_Click(object sender, RoutedEventArgs e)
         {
-            BudgetDetail win = new BudgetDetail();
+            var id = budgetInfo.ID[0] - '0';
+            var isDebt = id > 1;
+
+            BudgetDetail win = new BudgetDetail()
+            {
+
+                isDebtTransaction = isDebt,
+                categoryList = categoryList,
+                transactionList = transactionList,
+                startingDate = budgetInfo.StartingDate,
+                endDate = budgetInfo.EndDate,
+                transactionType = budgetInfo.ID,
+                title = budgetInfo.Name
+
+            };
+            win.ColorScheme = ColorScheme;
+            win.Handler += UpdateUI;
+
             win.Show();
         }
 
-        private void BudgetLineChart_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void UpdateUI()
         {
-            BudgetLineChart.Series.Clear();
 
-            var end = DateTime.Parse(budgetInfo.EndDate);
-            var start = DateTime.Parse(budgetInfo.StartingDate);
-            var curr = new DateTime();
-            TimeSpan time = end - start;
-            int durationOfBudget = time.Days + 1;
-
-            List<double> budgetGoalLine = new List<double>();
-            List<double> budgetSpentLine = new List<double>();
-
-            Dictionary<DateTime, double> myDic = new Dictionary<DateTime, double>();
-            Dictionary<DateTime, double> myDic1 = new Dictionary<DateTime, double>();
-            Dictionary<DateTime, double> myDic2 = new Dictionary<DateTime, double>();
-            double money = 0;
-
-            for (int i = 0; i < categoryCollection.Count; i++)
+            AddDataIntoTransactionScreen();
+            AddDataIntoBudgetScreen();
+            ViewTransactionListButton_Click(null, new RoutedEventArgs());
+            var button = new Button()
             {
-                if (categoryCollection[i].Name == budgetInfo.Name)
-                {
 
-                    for (int j = 0; j < categoryCollection[i].Transactions.Count; j++)
-                    {
+                DataContext = budgetInfo
 
-                        if (categoryCollection[i].Transactions[j].Date < end && categoryCollection[i].Transactions[j].Date > start)
-                        {
+            };
+            CreateBudgetLineChart(button);
 
-                            if (!myDic2.ContainsKey(categoryCollection[i].Transactions[j].Date))
-                            {
-                                myDic2.Add(categoryCollection[i].Transactions[j].Date, categoryCollection[i].Transactions[j].Amount);
-                            }
-                            else
-                            {
-                                myDic2[categoryCollection[i].Transactions[j].Date] = myDic2[categoryCollection[i].Transactions[j].Date] + categoryCollection[i].Transactions[j].Amount;
-                            }
-
-
-                        }
-                    }
-                }
-
-
-
-            }
-
-            for (int i = 0; i < durationOfBudget; i++)
-            {
-                budgetGoalLine.Add(budgetInfo.MoneyFund);
-                curr = start.AddDays(i);
-                if (myDic2.ContainsKey(curr))
-                {
-                    money += myDic2[curr];
-                }
-                budgetSpentLine.Add(money);
-
-            }
-
-
-
-
-            BudgetLineChart.Series.Add(new LineSeries()
-            {
-                Values = new ChartValues<double>(budgetGoalLine),
-                LineSmoothness = 0,
-                PointGeometry = null,
-                PointGeometrySize = 0,
-                Title = "Max"
-            });
-            BudgetLineChart.Series.Add(new LineSeries()
-            {
-                Values = new ChartValues<double>(budgetSpentLine),
-                LineSmoothness = 0,
-                PointGeometry = null,
-                PointGeometrySize = 0,
-                Title = "Current"
-            });
         }
 
         // Nút chuyển sang tháng trước trong giao diện giao dịch
@@ -1726,7 +1829,7 @@ namespace YourMom
         {
 
             //Trường hợp đang ở trạng thái tháng tương lai
-            if (CurrentDash.Background != Brushes.Green)
+            if (CurrentDash.Background != ChangeHexToBrushColor(ColorScheme))
             {
 
                 //Chuyển nút hiện tại sang trạng thái được chọn
@@ -1753,7 +1856,7 @@ namespace YourMom
         {
 
             //Trường hợp đang ở trạng thái tháng tương lai
-            if (CurrentDash.Background != Brushes.Green)
+            if (CurrentDash.Background != ChangeHexToBrushColor(ColorScheme))
             {
 
                 //Chuyển nút hiện tại sang trạng thái được chọn
@@ -1777,7 +1880,7 @@ namespace YourMom
         {
 
             //Trường hợp không ở trạng thái tháng tương lai
-            if (NextDash.Background != Brushes.Green)
+            if (NextDash.Background != ChangeHexToBrushColor(ColorScheme))
             {
 
                 //Tăng thời gian bắt đầu lên 1 tháng
@@ -1867,6 +1970,7 @@ namespace YourMom
 
         }
 
+        //Thay đổi trạng thái của nút
         private void ChangeButtonStatus(TextBlock dash, TextBlock textBlock, bool isSelected)
         {
 
@@ -1874,16 +1978,15 @@ namespace YourMom
             if (isSelected)
             {
 
-                textBlock.Foreground = Brushes.Green;
+                textBlock.Foreground = ChangeHexToBrushColor(ColorScheme);
                 textBlock.FontSize = 19;
-                dash.Background = Brushes.Green;
+                dash.Background = ChangeHexToBrushColor(ColorScheme);
 
             }
             else //Trường hợp nút không được chọn
             {
 
-                var color = (SolidColorBrush)new BrushConverter().ConvertFromString("#757575");
-                textBlock.Foreground = color;
+                textBlock.Foreground = ChangeHexToBrushColor("#757575");
                 textBlock.FontSize = 15;
                 dash.Background = Brushes.White;
 
@@ -1891,111 +1994,148 @@ namespace YourMom
 
         }
 
+        private SolidColorBrush ChangeHexToBrushColor(string hex)
+        {
+
+            var color = (SolidColorBrush)new BrushConverter().ConvertFromString(hex);
+            return color;
+
+        }
+
         private void BudgetListButton_Click(object sender, RoutedEventArgs e)
         {
 
-            BudgetReportGrid.Visibility = Visibility.Visible;
+            //Hiển thị màn hình chi tiết ngân sách
+            DetailBudgetGrid.Visibility = Visibility.Visible;
             Budget.Width = 410;
             BudgetListBorder.Width = 410;
-            BudgetReportGrid.Width = 600;
+            DetailBudgetGrid.Width = 600;
+
+            CreateBudgetLineChart(sender);
+
+        }
+
+        private void CreateBudgetLineChart(object sender)
+        {
 
             var temp = sender as Button;
 
             budgetInfo = temp.DataContext as Budget;
-            int lol = 0;
+            int count = 0;
+
+            //Tìm ngân sách được nhấn trong danh sách ngân sách
             foreach (var budget in budgetList)
             {
+
                 if (budget.ID == budgetInfo.ID)
                 {
-                    //transactionType = budget.Name;
+
                     break;
+
                 }
-                lol++;
+                count++;
+
             }
 
-            BudgetInfo.DataContext = budgetList[lol];
-            budgetDocPanel.DataContext = budgetList[lol];
-
-
+            BudgetInfo.DataContext = budgetList[count];
+            budgetDocPanel.DataContext = budgetList[count];
 
             // Hiển thị dữ liệu cho biểu đồ(nên gôp với hàm tính số tiền đã chi tiêu cho ngân sách, nếu được thì chỉ cập nhật sau khi CRUD 1 giao dịch)
             BudgetLineChart.Series.Clear();
 
-            var end = DateTime.Parse(budgetInfo.EndDate);
-            var start = DateTime.Parse(budgetInfo.StartingDate);
-            var curr = new DateTime();
-            TimeSpan time = end - start;
+            TimeSpan time = budgetInfo.EndDate - budgetInfo.StartingDate;
             int durationOfBudget = time.Days + 1;
 
+            //Đường giới hạn ngân sách
             List<double> budgetGoalLine = new List<double>();
+            //Đường chi tiêu thực tế
             List<double> budgetSpentLine = new List<double>();
+
             // Lưu <ngày, số tiền chi tiêu> trong các giao dịch 
             Dictionary<DateTime, double> myDic = new Dictionary<DateTime, double>();
             double money = 0;
 
-            for (int i = 0; i < categoryCollection.Count; i++)
+            //Tính toán từ điển <ngày, số tiền chi tiêu>
+            for (int i = 0; i < transactionList.Count; i++)
             {
-                if (categoryCollection[i].Name == budgetInfo.Name)
+
+                var index = transactionList[i].TransactionType.IndexOf(budgetInfo.ID);
+
+                if (transactionList[i].Date <= budgetInfo.EndDate &&
+                    transactionList[i].Date >= budgetInfo.StartingDate && index == 0)
                 {
 
-                    for (int j = 0; j < categoryCollection[i].Transactions.Count; j++)
+                    var date = new DateTime
+                        (
+                            transactionList[i].Date.Year,
+                            transactionList[i].Date.Month,
+                            transactionList[i].Date.Day
+                        );
+
+                    if (myDic.ContainsKey(date))
                     {
 
-                        if (categoryCollection[i].Transactions[j].Date < end && categoryCollection[i].Transactions[j].Date > start)
-                        {
+                        myDic[date] = myDic[date] + transactionList[i].Amount;
 
-                            if (!myDic.ContainsKey(categoryCollection[i].Transactions[j].Date))
-                            {
-                                myDic.Add(categoryCollection[i].Transactions[j].Date, categoryCollection[i].Transactions[j].Amount);
-                            }
-                            else
-                            {
-                                myDic[categoryCollection[i].Transactions[j].Date] = myDic[categoryCollection[i].Transactions[j].Date] + categoryCollection[i].Transactions[j].Amount;
-                            }
-
-
-                        }
                     }
+                    else
+                    {
+
+                        myDic.Add(date, transactionList[i].Amount);
+
+                    }
+
                 }
-
-
-
             }
 
+            //Duyệt qua hết tất cả các ngày trong khoảng thời gian của ngân sách
             for (int i = 0; i < durationOfBudget; i++)
             {
-                budgetGoalLine.Add(budgetInfo.MoneyFund);
-                curr = start.AddDays(i);
+
+                var currentDate = budgetInfo.StartingDate.AddDays(i);
+                var startingCurrentDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day);
+
                 // nếu có ngày trong danh sách giao dịch thì thêm vào
-                if (myDic.ContainsKey(curr))
+                if (myDic.ContainsKey(startingCurrentDate))
                 {
-                    money += myDic[curr];
+
+                    money += myDic[startingCurrentDate];
+
                 }
-                budgetSpentLine.Add(money);
+
+                if (startingCurrentDate <= DateTime.Today)
+                {
+
+                    //Đường chi tiêu thực tế
+                    budgetSpentLine.Add(money);
+
+                }
+
+                //Đường ngân sách giới hạn
+                budgetGoalLine.Add(budgetInfo.MoneyFund);
 
             }
 
+            //Tạo đường chi tiêu thực tế
+            BudgetLineChart.Series.Add(new LineSeries()
+            {
 
+                Values = new ChartValues<double>(budgetSpentLine),
+                LineSmoothness = 0,
+                PointGeometry = null,
+                PointGeometrySize = 10,
+                Title = "Current"
 
+            });
 
-
-
+            //Tạo đường giới hạn ngân sách
             BudgetLineChart.Series.Add(new LineSeries()
             {
                 Values = new ChartValues<double>(budgetGoalLine),
                 LineSmoothness = 0,
                 PointGeometry = null,
                 PointGeometrySize = 0,
-                Title = "Max",
-
-            });
-            BudgetLineChart.Series.Add(new LineSeries()
-            {
-                Values = new ChartValues<double>(budgetSpentLine),
-                LineSmoothness = 0,
-                PointGeometry = null,
-                PointGeometrySize = 0,
-                Title = "Current",
+                Title = "Maximum"
 
             });
 
@@ -2004,13 +2144,6 @@ namespace YourMom
             {
                 Labels = new string[0]
             });
-
-
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
         }
 
@@ -2066,13 +2199,173 @@ namespace YourMom
             clickedButton = button;
         }
 
+        //Xử lý hiển thị chi tiết giao dịch từ màn hình giao dịch
+        private void CategoryListDetail_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+            var listView = sender as ListView;
+            var name = listView.Name;
+            var window = new TransactionDetails();
+            var transaction = new DetailTransaction();
+
+            if (name == "TransactionListDetail")
+            {
+
+                transaction = listView.SelectedItem as DetailTransaction;
+
+            }
+            else
+            {
+
+                var tempTransaction = listView.SelectedItem as Transaction;
+                var type = tempTransaction.TransactionType;
+
+                transaction = new DetailTransaction()
+                {
+
+                    Amount = tempTransaction.Amount,
+                    Date = tempTransaction.Date,
+                    ImagePath = categoryList[type].ImagePath,
+                    Name = categoryList[type].Name,
+                    Note = tempTransaction.Note,
+                    Stakeholder = tempTransaction.Stakeholder,
+                    TransactionType = tempTransaction.TransactionType
+
+                };
+
+            }
+
+            window.detailTransaction = transaction;
+            window.tempDetailTransaction.Add(transaction);
+
+            window.ColorScheme = ColorScheme;
+            window.Handler += DetailTransaction_Screen_Handler;
+
+            window.Show();
+
+        }
+
+        private void DetailTransaction_Screen_Handler(DetailTransaction transaction, bool isDeleted)
+        {
+
+            var index = transactionList.FindIndex(element => element.ID == transaction.ID);
+
+            if (isDeleted == true)
+            {
+
+                transactionList.RemoveAt(index);
+
+            }
+            else
+            {
+
+                if (index != -1)
+                {
+
+                    transactionList[index] = transaction;
+
+                }
+
+            }
+            AddDataIntoTransactionScreen();
+            AddDataIntoBudgetScreen();
+
+        }
+
+        //Xóa ngân sách
+        private void DeleteBudgetButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            var noti = MessageBox.Show("Are you really want to delete this budget?",
+                    "Notification",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+            if (noti == MessageBoxResult.Yes)
+            {
+
+                var budget = BudgetInfo.DataContext as Budget;
+                budgetList.Remove(budget);
+                AddDataIntoBudgetScreen();
+                CloseDetailBudget_Click(null, new RoutedEventArgs());
+
+            }
+            else
+            {
+
+                // Do nothing
+
+            }
+
+        }
+
+        private void EditBudgetButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            var budget = BudgetInfo.DataContext as Budget;
+            AddBudget addScreen = new AddBudget(ColorScheme);
+            addScreen.Category = new Category()
+            {
+
+                ID = budget.ID,
+                ImagePath = budget.ImagePath,
+                Name = budget.Name
+
+            };
+            // Reset lại dữ liệu khi tạo một giao dịch mới            
+            AddBudget.Global.tempStartingDate = budget.StartingDate;
+            AddBudget.Global.tempEndDate = budget.EndDate;
+            AddBudget.Global.tempMoneyFund = budget.MoneyFund.ToString();
+            AddBudget.Global.tempNote = budget.Note;
+            //AddBudget.Global.tempTransactionType = "";
+
+            addScreen.Handler += EditBudgetScreen_Handler;
+
+            addScreen.Show();
+        }
+
+        private void EditBudgetScreen_Handler(Budget budget)
+        {
+
+            var editedBudget = BudgetInfo.DataContext as Budget;
+            var index = budgetList.FindIndex(element => element.ID == editedBudget.ID);
+
+            if (index != -1)
+            {
+
+                budgetList[index] = budget;
+
+            }
+
+            AddDataIntoBudgetScreen();
+            var button = new Button()
+            {
+
+                DataContext = budget
+
+            };
+            CreateBudgetLineChart(button);
+
+        }
+
+
+
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
             var datatContex = (sender as Button).DataContext;
             var color = (datatContex as ColorSetting).Color;
             ColorScheme = color;
             TitleBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            
+            ViewReportTextBlock.Foreground = TitleBar.Background;
+            ViewTransactionTextBlock.Foreground = TitleBar.Background;
+            RunningTextblock.Foreground = TitleBar.Background;
+            RunningUnderlineTextBlock.Background = TitleBar.Background;
+            FinishedUnderlineTextBlock.Background = TitleBar.Background;
+            FinishedTextblock.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("#757575");
+            PieChartIconTextBlock.Background = TitleBar.Background;
+            ColumnChartIconTextBlock.Background = TitleBar.Background;
+            PieChartIconTextBlock.Background = TitleBar.Background;
+            ColumnChartIconTextBlock.Background = Brushes.White;
 
             // Chỉnh lại giao diện nút setting đang được chọn
             SettingButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
@@ -2083,15 +2376,17 @@ namespace YourMom
             image.Source = new BitmapImage(new Uri($"Images/white_setting.png",
                        UriKind.Relative));
 
-
             // Cập nhật màu cho các nút chung
-            AddBudgetButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            AddTransactionButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-            AddBudget add = new AddBudget(ColorScheme);
-            AddTransaction add1 = new AddTransaction(ColorScheme);
+            AddBudgetButton.Background = TitleBar.Background;
+            AddTransactionButton.Background = TitleBar.Background;
+            //AddBudget add = new AddBudget(ColorScheme);
+            //AddTransaction add1 = new AddTransaction();
+            //add1.ColorScheme = ColorScheme;
+
 
 
         }
+
     }
 
 }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,15 +24,31 @@ namespace YourMom
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public Budget budget = new Budget();
+
+        public delegate void AddBudgetDelegate(Budget budget);
+        public event AddBudgetDelegate Handler;
+
+        public class Global
+        {
+            public static string tempMoneyFund;
+            
+            public static DateTime tempStartingDate;
+            public static DateTime tempEndDate;
+            public static string tempNote;
+            public static string tempBudgetType;
+            public static string tempColorScheme;
+            //public static List<TempTransaction> tempTransaction;
+        }
 
 
         public AddBudget(string colorScheme)
         {
-            //ColorScheme = ConfigurationManager.AppSettings["ColorScheme"];
+            
             InitializeComponent();
             ColorScheme = colorScheme;
-            SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
-            CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(colorScheme);
+            this.DataContext = this;
+            
         }
 
         private string _colorScheme = "";           //Màu nền hiện tại
@@ -43,7 +60,12 @@ namespace YourMom
             }
             set
             {
-                _colorScheme = value;
+                if (_colorScheme == "")
+                {
+
+                    _colorScheme = value;
+
+                }
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("ColorScheme"));
@@ -51,12 +73,22 @@ namespace YourMom
             }
         }
 
-        //private void Window_Loaded(object sender, RoutedEventArgs e)
-        //{
-            
-        //    SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-        //    CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
-        //}
+        private Category category;
+        public Category Category
+        {
+            get
+            {
+                return category;
+            }
+            set
+            {
+                category = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Category"));
+                }
+            }
+        }        
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -66,6 +98,7 @@ namespace YourMom
                     MessageBoxImage.Question);
             if (noti == MessageBoxResult.Yes)
             {
+                BudgetCategorySelected.Global.lul = 0;
                 this.Close();
             }
             else
@@ -74,29 +107,181 @@ namespace YourMom
             }
         }
 
+        private static readonly Regex _regex = new Regex("[^0-9]+"); //regex that matches disallowed text
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+
         private void Money_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
+
+        
 
         private void Money_Pasting(object sender, DataObjectPastingEventArgs e)
         {
-
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
         }
 
-        private void TimeButton1_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TimeButton2_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Money.Text == "" || StartingDatePicker.SelectedDate == null || EndDatePicker.SelectedDate == null || Category == null)
+            {
+                var noti = MessageBox.Show("Please enter all required information.",
+                    "Notification",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+            }
+            else if (StartingDatePicker.SelectedDate > EndDatePicker.SelectedDate)
+            {
+                var noti = MessageBox.Show("Time range illegal.",
+                    "Notification",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            else
+            {
+
+                budget = new Budget()
+                {
+
+                    MoneyFund = Math.Round(double.Parse(Money.Text), 2),
+                    StartingDate = (DateTime)StartingDatePicker.SelectedDate,
+                    EndDate = (DateTime)EndDatePicker.SelectedDate,
+                    Note = Note.Text,
+                    ID = category.ID,
+                    ImagePath = category.ImagePath,
+                    Name = category.Name
+
+                };
+
+                BudgetCategorySelected.Global.lul = 0;
+
+                if (Handler != null)
+                {
+
+                    Handler(budget);
+
+                }
+
+                this.Close();
+            }
+        }
+
+        private void SelectCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            // LƯu lại các thông tin đã nhập
+            Global.tempMoneyFund = Money.Text;           
+            if (StartingDatePicker.SelectedDate != null )
+            {
+                Global.tempStartingDate = StartingDatePicker.SelectedDate.Value;
+            }
+            if (EndDatePicker.SelectedDate != null)
+            {
+                Global.tempEndDate = EndDatePicker.SelectedDate.Value;
+            }
+
+            Global.tempNote = Note.Text;
+            Global.tempColorScheme = _colorScheme;
+
+            BudgetCategorySelected categorySelect = new BudgetCategorySelected(ColorScheme);
+
+            categorySelect.Handler += Screen_Handler;
+
+            categorySelect.Show();
+        }
+
+        private void Screen_Handler(Category category)
+        {
+
+            Category = category;
+            budget.ImagePath = category.ImagePath;
+            budget.Name = category.Name;
+            budget.ID = category.ID;
+            if (category != null)
+            {
+                string source = category.ImagePath;
+                CategoryImage.Source = new BitmapImage(new Uri($"{source}",
+                       UriKind.Relative));
+                CategorySelectItem.Text = category.Name;
+            }
 
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            if (Category != null)
+            {
+                string source = Category.ImagePath;
+                CategoryImage.Source = new BitmapImage(new Uri($"{source}",
+                       UriKind.Relative));
+                CategorySelectItem.Text = Category.Name;
+            }
+
+
+            if (Global.tempMoneyFund != null && Global.tempMoneyFund != "")
+            {
+                Money.Text = Global.tempMoneyFund;
+            }
+
+            
+
+            if (Global.tempStartingDate == default(DateTime))
+            {
+                DateTime? myTime = null;
+
+                StartingDatePicker.SelectedDate = myTime;
+            }
+            else
+            {
+                StartingDatePicker.SelectedDate = Global.tempStartingDate;
+            }
+
+            if (Global.tempEndDate == default(DateTime))
+            {
+                DateTime? myTime = null;
+
+                EndDatePicker.SelectedDate = myTime;
+            }
+            else
+            {
+                EndDatePicker.SelectedDate = Global.tempEndDate;
+            }
+
+            if (Global.tempNote != null)
+            {
+                Note.Text = Global.tempNote;
+            }
+
+            if (Global.tempColorScheme != null)
+            {
+                ColorScheme = Global.tempColorScheme;
+            }
+
+            //ColorScheme = _colorScheme;
+            //SaveButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            //CancelButton.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorScheme);
+            //Category = _category;
+        }
+
+        
     }
 }
